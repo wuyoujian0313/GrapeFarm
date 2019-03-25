@@ -7,16 +7,36 @@
 //
 
 #import "AppDelegate.h"
+#import "BaseVC.h"
+#import "AINavigationController.h"
+#import "MainControllerManager.h"
+
 
 @interface AppDelegate ()
-
+@property (nonatomic, strong) AINavigationController     *mainNav;
+@property (nonatomic, strong) MainControllerManager      *mainVC;
 @end
 
 @implementation AppDelegate
 
++ (AppDelegate*)shareMyApplication {
+    return (AppDelegate*)[UIApplication sharedApplication].delegate;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    MainControllerManager *tempVC = [[MainControllerManager alloc] init];
+    self.mainVC = tempVC;
+    
+    AINavigationController *tempNav = [[AINavigationController alloc] initWithRootViewController:_mainVC];
+    self.mainNav = tempNav;
+    _mainNav.navigationBarHidden = YES;
+    
+    self.window.rootViewController = _mainNav;
+    [_window makeKeyAndVisible];
     return YES;
 }
 
