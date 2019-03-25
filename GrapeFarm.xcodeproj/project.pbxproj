@@ -1,0 +1,578 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AFBF90BD22486674007F2ED8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90BC22486674007F2ED8 /* AppDelegate.m */; };
+		AFBF90C022486674007F2ED8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90BF22486674007F2ED8 /* ViewController.m */; };
+		AFBF90C322486674007F2ED8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFBF90C122486674007F2ED8 /* Main.storyboard */; };
+		AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFBF90C422486676007F2ED8 /* Assets.xcassets */; };
+		AFBF90C822486676007F2ED8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFBF90C622486676007F2ED8 /* LaunchScreen.storyboard */; };
+		AFBF90CB22486676007F2ED8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90CA22486676007F2ED8 /* main.m */; };
+		AFBF90D522486676007F2ED8 /* GrapeFarmTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90D422486676007F2ED8 /* GrapeFarmTests.m */; };
+		AFBF90E022486676007F2ED8 /* GrapeFarmUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90DF22486676007F2ED8 /* GrapeFarmUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AFBF90D122486676007F2ED8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFBF90B022486674007F2ED8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AFBF90B722486674007F2ED8;
+			remoteInfo = GrapeFarm;
+		};
+		AFBF90DC22486676007F2ED8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFBF90B022486674007F2ED8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AFBF90B722486674007F2ED8;
+			remoteInfo = GrapeFarm;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AFBF90B822486674007F2ED8 /* GrapeFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrapeFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFBF90BB22486674007F2ED8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AFBF90BC22486674007F2ED8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AFBF90BE22486674007F2ED8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		AFBF90BF22486674007F2ED8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		AFBF90C222486674007F2ED8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AFBF90C422486676007F2ED8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AFBF90C722486676007F2ED8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AFBF90C922486676007F2ED8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFBF90CA22486676007F2ED8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AFBF90D022486676007F2ED8 /* GrapeFarmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrapeFarmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFBF90D422486676007F2ED8 /* GrapeFarmTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrapeFarmTests.m; sourceTree = "<group>"; };
+		AFBF90D622486676007F2ED8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFBF90DB22486676007F2ED8 /* GrapeFarmUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrapeFarmUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFBF90DF22486676007F2ED8 /* GrapeFarmUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrapeFarmUITests.m; sourceTree = "<group>"; };
+		AFBF90E122486676007F2ED8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AFBF90B522486674007F2ED8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AFBF90CD22486676007F2ED8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AFBF90D822486676007F2ED8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AFBF90AF22486674007F2ED8 = {
+			isa = PBXGroup;
+			children = (
+				AFBF90BA22486674007F2ED8 /* GrapeFarm */,
+				AFBF90D322486676007F2ED8 /* GrapeFarmTests */,
+				AFBF90DE22486676007F2ED8 /* GrapeFarmUITests */,
+				AFBF90B922486674007F2ED8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AFBF90B922486674007F2ED8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AFBF90B822486674007F2ED8 /* GrapeFarm.app */,
+				AFBF90D022486676007F2ED8 /* GrapeFarmTests.xctest */,
+				AFBF90DB22486676007F2ED8 /* GrapeFarmUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AFBF90BA22486674007F2ED8 /* GrapeFarm */ = {
+			isa = PBXGroup;
+			children = (
+				AFBF90BB22486674007F2ED8 /* AppDelegate.h */,
+				AFBF90BC22486674007F2ED8 /* AppDelegate.m */,
+				AFBF90BE22486674007F2ED8 /* ViewController.h */,
+				AFBF90BF22486674007F2ED8 /* ViewController.m */,
+				AFBF90C122486674007F2ED8 /* Main.storyboard */,
+				AFBF90C422486676007F2ED8 /* Assets.xcassets */,
+				AFBF90C622486676007F2ED8 /* LaunchScreen.storyboard */,
+				AFBF90C922486676007F2ED8 /* Info.plist */,
+				AFBF90CA22486676007F2ED8 /* main.m */,
+			);
+			path = GrapeFarm;
+			sourceTree = "<group>";
+		};
+		AFBF90D322486676007F2ED8 /* GrapeFarmTests */ = {
+			isa = PBXGroup;
+			children = (
+				AFBF90D422486676007F2ED8 /* GrapeFarmTests.m */,
+				AFBF90D622486676007F2ED8 /* Info.plist */,
+			);
+			path = GrapeFarmTests;
+			sourceTree = "<group>";
+		};
+		AFBF90DE22486676007F2ED8 /* GrapeFarmUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AFBF90DF22486676007F2ED8 /* GrapeFarmUITests.m */,
+				AFBF90E122486676007F2ED8 /* Info.plist */,
+			);
+			path = GrapeFarmUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AFBF90B722486674007F2ED8 /* GrapeFarm */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AFBF90E422486676007F2ED8 /* Build configuration list for PBXNativeTarget "GrapeFarm" */;
+			buildPhases = (
+				AFBF90B422486674007F2ED8 /* Sources */,
+				AFBF90B522486674007F2ED8 /* Frameworks */,
+				AFBF90B622486674007F2ED8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GrapeFarm;
+			productName = GrapeFarm;
+			productReference = AFBF90B822486674007F2ED8 /* GrapeFarm.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AFBF90CF22486676007F2ED8 /* GrapeFarmTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AFBF90E722486676007F2ED8 /* Build configuration list for PBXNativeTarget "GrapeFarmTests" */;
+			buildPhases = (
+				AFBF90CC22486676007F2ED8 /* Sources */,
+				AFBF90CD22486676007F2ED8 /* Frameworks */,
+				AFBF90CE22486676007F2ED8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AFBF90D222486676007F2ED8 /* PBXTargetDependency */,
+			);
+			name = GrapeFarmTests;
+			productName = GrapeFarmTests;
+			productReference = AFBF90D022486676007F2ED8 /* GrapeFarmTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AFBF90DA22486676007F2ED8 /* GrapeFarmUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AFBF90EA22486676007F2ED8 /* Build configuration list for PBXNativeTarget "GrapeFarmUITests" */;
+			buildPhases = (
+				AFBF90D722486676007F2ED8 /* Sources */,
+				AFBF90D822486676007F2ED8 /* Frameworks */,
+				AFBF90D922486676007F2ED8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AFBF90DD22486676007F2ED8 /* PBXTargetDependency */,
+			);
+			name = GrapeFarmUITests;
+			productName = GrapeFarmUITests;
+			productReference = AFBF90DB22486676007F2ED8 /* GrapeFarmUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AFBF90B022486674007F2ED8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Wu YouJian";
+				TargetAttributes = {
+					AFBF90B722486674007F2ED8 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					AFBF90CF22486676007F2ED8 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = AFBF90B722486674007F2ED8;
+					};
+					AFBF90DA22486676007F2ED8 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = AFBF90B722486674007F2ED8;
+					};
+				};
+			};
+			buildConfigurationList = AFBF90B322486674007F2ED8 /* Build configuration list for PBXProject "GrapeFarm" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AFBF90AF22486674007F2ED8;
+			productRefGroup = AFBF90B922486674007F2ED8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AFBF90B722486674007F2ED8 /* GrapeFarm */,
+				AFBF90CF22486676007F2ED8 /* GrapeFarmTests */,
+				AFBF90DA22486676007F2ED8 /* GrapeFarmUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AFBF90B622486674007F2ED8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFBF90C822486676007F2ED8 /* LaunchScreen.storyboard in Resources */,
+				AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */,
+				AFBF90C322486674007F2ED8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AFBF90CE22486676007F2ED8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AFBF90D922486676007F2ED8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AFBF90B422486674007F2ED8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFBF90C022486674007F2ED8 /* ViewController.m in Sources */,
+				AFBF90CB22486676007F2ED8 /* main.m in Sources */,
+				AFBF90BD22486674007F2ED8 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AFBF90CC22486676007F2ED8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFBF90D522486676007F2ED8 /* GrapeFarmTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AFBF90D722486676007F2ED8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFBF90E022486676007F2ED8 /* GrapeFarmUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AFBF90D222486676007F2ED8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AFBF90B722486674007F2ED8 /* GrapeFarm */;
+			targetProxy = AFBF90D122486676007F2ED8 /* PBXContainerItemProxy */;
+		};
+		AFBF90DD22486676007F2ED8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AFBF90B722486674007F2ED8 /* GrapeFarm */;
+			targetProxy = AFBF90DC22486676007F2ED8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AFBF90C122486674007F2ED8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AFBF90C222486674007F2ED8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AFBF90C622486676007F2ED8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AFBF90C722486676007F2ED8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AFBF90E222486676007F2ED8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AFBF90E322486676007F2ED8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AFBF90E522486676007F2ED8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GrapeFarm/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = AI.GrapeFarm;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AFBF90E622486676007F2ED8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GrapeFarm/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = AI.GrapeFarm;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AFBF90E822486676007F2ED8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GrapeFarmTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = AI.GrapeFarmTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GrapeFarm.app/GrapeFarm";
+			};
+			name = Debug;
+		};
+		AFBF90E922486676007F2ED8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GrapeFarmTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = AI.GrapeFarmTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GrapeFarm.app/GrapeFarm";
+			};
+			name = Release;
+		};
+		AFBF90EB22486676007F2ED8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GrapeFarmUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = AI.GrapeFarmUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GrapeFarm;
+			};
+			name = Debug;
+		};
+		AFBF90EC22486676007F2ED8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GrapeFarmUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = AI.GrapeFarmUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GrapeFarm;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AFBF90B322486674007F2ED8 /* Build configuration list for PBXProject "GrapeFarm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFBF90E222486676007F2ED8 /* Debug */,
+				AFBF90E322486676007F2ED8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AFBF90E422486676007F2ED8 /* Build configuration list for PBXNativeTarget "GrapeFarm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFBF90E522486676007F2ED8 /* Debug */,
+				AFBF90E622486676007F2ED8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AFBF90E722486676007F2ED8 /* Build configuration list for PBXNativeTarget "GrapeFarmTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFBF90E822486676007F2ED8 /* Debug */,
+				AFBF90E922486676007F2ED8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AFBF90EA22486676007F2ED8 /* Build configuration list for PBXNativeTarget "GrapeFarmUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFBF90EB22486676007F2ED8 /* Debug */,
+				AFBF90EC22486676007F2ED8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AFBF90B022486674007F2ED8 /* Project object */;
+}
