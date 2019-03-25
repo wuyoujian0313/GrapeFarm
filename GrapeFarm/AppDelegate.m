@@ -10,6 +10,7 @@
 #import "BaseVC.h"
 #import "AINavigationController.h"
 #import "MainControllerManager.h"
+#import "UIColor+Utility.h"
 
 
 @interface AppDelegate ()
@@ -26,13 +27,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     MainControllerManager *tempVC = [[MainControllerManager alloc] init];
     self.mainVC = tempVC;
     
     AINavigationController *tempNav = [[AINavigationController alloc] initWithRootViewController:_mainVC];
     self.mainNav = tempNav;
+    [_mainNav.navigationBar setBarTintColor:[UIColor colorWithHex:0xF7F7F7]];
     _mainNav.navigationBarHidden = YES;
     
     self.window.rootViewController = _mainNav;

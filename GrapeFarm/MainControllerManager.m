@@ -10,6 +10,7 @@
 #import "AINavigationController.h"
 #import "LoginVC.h"
 #import "HomeVC.h"
+#import "UIColor+Utility.h"
 
 @interface MainControllerManager ()
 @property (nonatomic, strong) UIViewController              *rootVC;
@@ -21,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor blackColor];
     
     [self setupRootVC];
     [self switchToLoginVCFrom:_rootVC];
@@ -45,7 +47,6 @@
 // 创建一个空白的rootVC用于页面切换
 - (void)setupRootVC {
     UIViewController *rootVC = [[UIViewController alloc] init];
-    rootVC.view.backgroundColor = [UIColor whiteColor];
     self.rootVC = rootVC;
     [self addChildViewController:_rootVC];
     [_rootVC didMoveToParentViewController:self];
@@ -89,18 +90,18 @@
 
 - (UIViewController *)setupLoginVC {
     LoginVC *controller = [[LoginVC alloc] init];
-    AINavigationController *loginNav = [[AINavigationController alloc] initWithRootViewController:controller];
-    [self addChildViewController:loginNav];
-    [self.view addSubview:loginNav.view];
-    return loginNav;
+    AINavigationController *nav = [[AINavigationController alloc] initWithRootViewController:controller];
+    [self addChildViewController:nav];
+    [self.view addSubview:nav.view];
+    return nav;
 }
 
 - (UIViewController *)setupHomeController {
     HomeVC *controller = [[HomeVC alloc] init];
-    [self addChildViewController:controller];
-    [self.view addSubview:controller.view];
-    
-    return controller;
+    AINavigationController *nav = [[AINavigationController alloc] initWithRootViewController:controller];
+    [self addChildViewController:nav];
+    [self.view addSubview:nav.view];
+    return nav;
 }
 
 

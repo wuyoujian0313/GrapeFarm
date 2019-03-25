@@ -36,11 +36,6 @@ static NSString *const kAIAlertViewBlockKey = @"kAIAlertViewBlockKey";
 @end
 
 @implementation BaseVC
-
-- (void)setContentViewBackgroundColor:(UIColor*)color {
-    [_contentView setBackgroundColor:color];
-}
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -66,20 +61,14 @@ static NSString *const kAIAlertViewBlockKey = @"kAIAlertViewBlockKey";
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.view setBackgroundColor:[UIColor clearColor]];
-    
     //self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    
-    self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], self.view.frame.size.width, self.view.frame.size.height - [DeviceInfo navigationBarHeight])];
-    [_contentView setBackgroundColor:[UIColor colorWithHex:0xebeef0]];
-    [self.view addSubview:_contentView];
-    
+    self.view.backgroundColor = [UIColor colorWithHex:0xF4F4F4];
     // 默认增加back 按钮
     if (self.navigationController && [[self.navigationController.viewControllers firstObject] isEqual:self]) {
         
