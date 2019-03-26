@@ -33,18 +33,6 @@
 		AFBF916C22486ECE007F2ED8 /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF911F22486ECE007F2ED8 /* BaseVC.m */; };
 		AFBF916D22486ECE007F2ED8 /* FadePromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF912122486ECE007F2ED8 /* FadePromptView.m */; };
 		AFBF916E22486ECE007F2ED8 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF912222486ECE007F2ED8 /* DeviceInfo.m */; };
-		AFBF916F22486ECE007F2ED8 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF912722486ECE007F2ED8 /* HPGrowingTextView.m */; };
-		AFBF917022486ECE007F2ED8 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF912822486ECE007F2ED8 /* HPTextViewInternal.m */; };
-		AFBF917322486ECE007F2ED8 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = AFBF912F22486ECE007F2ED8 /* LICENSE */; };
-		AFBF917422486ECE007F2ED8 /* NSTextCheckingResult+ExtendedURL.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF913622486ECE007F2ED8 /* NSTextCheckingResult+ExtendedURL.m */; };
-		AFBF917522486ECE007F2ED8 /* OHParagraphStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF913722486ECE007F2ED8 /* OHParagraphStyle.m */; };
-		AFBF917622486ECE007F2ED8 /* OHTouchesGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF913822486ECE007F2ED8 /* OHTouchesGestureRecognizer.m */; };
-		AFBF917722486ECE007F2ED8 /* OHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF913922486ECE007F2ED8 /* OHAttributedLabel.m */; };
-		AFBF917822486ECE007F2ED8 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF913A22486ECE007F2ED8 /* NSAttributedString+Attributes.m */; };
-		AFBF917922486ECE007F2ED8 /* OHASBasicMarkupParser.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF913C22486ECE007F2ED8 /* OHASBasicMarkupParser.m */; };
-		AFBF917A22486ECE007F2ED8 /* OHASMarkupParserBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF913F22486ECE007F2ED8 /* OHASMarkupParserBase.m */; };
-		AFBF917B22486ECE007F2ED8 /* OHASBasicHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF914122486ECE007F2ED8 /* OHASBasicHTMLParser.m */; };
-		AFBF917C22486ECE007F2ED8 /* CoreTextUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF914322486ECE007F2ED8 /* CoreTextUtils.m */; };
 		AFBF917D22486ECE007F2ED8 /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF914722486ECE007F2ED8 /* SZTextView.m */; };
 		AFBF917E22486ECE007F2ED8 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF914D22486ECE007F2ED8 /* AFURLResponseSerialization.m */; };
 		AFBF917F22486ECE007F2ED8 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF914E22486ECE007F2ED8 /* AFHTTPSessionManager.m */; };
@@ -131,29 +119,6 @@
 		AFBF912222486ECE007F2ED8 /* DeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceInfo.m; sourceTree = "<group>"; };
 		AFBF912322486ECE007F2ED8 /* AIListenNetWorkingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIListenNetWorkingStatus.h; sourceTree = "<group>"; };
 		AFBF912422486ECE007F2ED8 /* CaptchaControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaControl.h; sourceTree = "<group>"; };
-		AFBF912622486ECE007F2ED8 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
-		AFBF912722486ECE007F2ED8 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
-		AFBF912822486ECE007F2ED8 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
-		AFBF912922486ECE007F2ED8 /* HPGrowingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPGrowingTextView.h; sourceTree = "<group>"; };
-		AFBF912F22486ECE007F2ED8 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		AFBF913122486ECE007F2ED8 /* NSTextCheckingResult+ExtendedURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextCheckingResult+ExtendedURL.h"; sourceTree = "<group>"; };
-		AFBF913222486ECE007F2ED8 /* OHParagraphStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHParagraphStyle.h; sourceTree = "<group>"; };
-		AFBF913322486ECE007F2ED8 /* OHTouchesGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHTouchesGestureRecognizer.h; sourceTree = "<group>"; };
-		AFBF913422486ECE007F2ED8 /* OHAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHAttributedLabel.h; sourceTree = "<group>"; };
-		AFBF913522486ECE007F2ED8 /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
-		AFBF913622486ECE007F2ED8 /* NSTextCheckingResult+ExtendedURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextCheckingResult+ExtendedURL.m"; sourceTree = "<group>"; };
-		AFBF913722486ECE007F2ED8 /* OHParagraphStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHParagraphStyle.m; sourceTree = "<group>"; };
-		AFBF913822486ECE007F2ED8 /* OHTouchesGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHTouchesGestureRecognizer.m; sourceTree = "<group>"; };
-		AFBF913922486ECE007F2ED8 /* OHAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHAttributedLabel.m; sourceTree = "<group>"; };
-		AFBF913A22486ECE007F2ED8 /* NSAttributedString+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Attributes.m"; sourceTree = "<group>"; };
-		AFBF913C22486ECE007F2ED8 /* OHASBasicMarkupParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHASBasicMarkupParser.m; sourceTree = "<group>"; };
-		AFBF913D22486ECE007F2ED8 /* OHASMarkupParserBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHASMarkupParserBase.h; sourceTree = "<group>"; };
-		AFBF913E22486ECE007F2ED8 /* OHASBasicHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHASBasicHTMLParser.h; sourceTree = "<group>"; };
-		AFBF913F22486ECE007F2ED8 /* OHASMarkupParserBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHASMarkupParserBase.m; sourceTree = "<group>"; };
-		AFBF914022486ECE007F2ED8 /* OHASBasicMarkupParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHASBasicMarkupParser.h; sourceTree = "<group>"; };
-		AFBF914122486ECE007F2ED8 /* OHASBasicHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHASBasicHTMLParser.m; sourceTree = "<group>"; };
-		AFBF914322486ECE007F2ED8 /* CoreTextUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextUtils.m; sourceTree = "<group>"; };
-		AFBF914422486ECE007F2ED8 /* CoreTextUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextUtils.h; sourceTree = "<group>"; };
 		AFBF914622486ECE007F2ED8 /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		AFBF914722486ECE007F2ED8 /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		AFBF914922486ECE007F2ED8 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
@@ -275,8 +240,6 @@
 				AFBF90EE22486ECE007F2ED8 /* NetworkTask */,
 				AFBF90F322486ECE007F2ED8 /* Category */,
 				AFBF910F22486ECE007F2ED8 /* Owns */,
-				AFBF912522486ECE007F2ED8 /* HPGrowingTextView */,
-				AFBF912E22486ECE007F2ED8 /* OHAttributedLabel */,
 				AFBF914522486ECE007F2ED8 /* SZTextView */,
 				AFBF914822486ECE007F2ED8 /* AFNetworking */,
 			);
@@ -320,6 +283,7 @@
 		AFBF910F22486ECE007F2ED8 /* Owns */ = {
 			isa = PBXGroup;
 			children = (
+				AFBF911622486ECE007F2ED8 /* AICommonDef.h */,
 				AFBF911D22486ECE007F2ED8 /* Reachability.h */,
 				AFBF911022486ECE007F2ED8 /* Reachability.m */,
 				AFBF911122486ECE007F2ED8 /* AINavigationController.h */,
@@ -328,7 +292,6 @@
 				AFBF911322486ECE007F2ED8 /* LineView.m */,
 				AFBF911E22486ECE007F2ED8 /* AILoadingView.h */,
 				AFBF911422486ECE007F2ED8 /* AILoadingView.m */,
-				AFBF911622486ECE007F2ED8 /* AICommonDef.h */,
 				AFBF911A22486ECE007F2ED8 /* FadePromptView.h */,
 				AFBF912122486ECE007F2ED8 /* FadePromptView.m */,
 				AFBF911522486ECE007F2ED8 /* BaseVC.h */,
@@ -341,67 +304,6 @@
 				AFBF911722486ECE007F2ED8 /* CaptchaControl.m */,
 			);
 			path = Owns;
-			sourceTree = "<group>";
-		};
-		AFBF912522486ECE007F2ED8 /* HPGrowingTextView */ = {
-			isa = PBXGroup;
-			children = (
-				AFBF912622486ECE007F2ED8 /* HPTextViewInternal.h */,
-				AFBF912822486ECE007F2ED8 /* HPTextViewInternal.m */,
-				AFBF912922486ECE007F2ED8 /* HPGrowingTextView.h */,
-				AFBF912722486ECE007F2ED8 /* HPGrowingTextView.m */,
-			);
-			path = HPGrowingTextView;
-			sourceTree = "<group>";
-		};
-		AFBF912E22486ECE007F2ED8 /* OHAttributedLabel */ = {
-			isa = PBXGroup;
-			children = (
-				AFBF912F22486ECE007F2ED8 /* LICENSE */,
-				AFBF913022486ECE007F2ED8 /* Source */,
-				AFBF913B22486ECE007F2ED8 /* TagParsers */,
-				AFBF914222486ECE007F2ED8 /* PrivateUtils */,
-			);
-			path = OHAttributedLabel;
-			sourceTree = "<group>";
-		};
-		AFBF913022486ECE007F2ED8 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				AFBF913122486ECE007F2ED8 /* NSTextCheckingResult+ExtendedURL.h */,
-				AFBF913622486ECE007F2ED8 /* NSTextCheckingResult+ExtendedURL.m */,
-				AFBF913222486ECE007F2ED8 /* OHParagraphStyle.h */,
-				AFBF913722486ECE007F2ED8 /* OHParagraphStyle.m */,
-				AFBF913522486ECE007F2ED8 /* NSAttributedString+Attributes.h */,
-				AFBF913A22486ECE007F2ED8 /* NSAttributedString+Attributes.m */,
-				AFBF913322486ECE007F2ED8 /* OHTouchesGestureRecognizer.h */,
-				AFBF913822486ECE007F2ED8 /* OHTouchesGestureRecognizer.m */,
-				AFBF913422486ECE007F2ED8 /* OHAttributedLabel.h */,
-				AFBF913922486ECE007F2ED8 /* OHAttributedLabel.m */,
-			);
-			path = Source;
-			sourceTree = "<group>";
-		};
-		AFBF913B22486ECE007F2ED8 /* TagParsers */ = {
-			isa = PBXGroup;
-			children = (
-				AFBF914022486ECE007F2ED8 /* OHASBasicMarkupParser.h */,
-				AFBF913C22486ECE007F2ED8 /* OHASBasicMarkupParser.m */,
-				AFBF913D22486ECE007F2ED8 /* OHASMarkupParserBase.h */,
-				AFBF913F22486ECE007F2ED8 /* OHASMarkupParserBase.m */,
-				AFBF913E22486ECE007F2ED8 /* OHASBasicHTMLParser.h */,
-				AFBF914122486ECE007F2ED8 /* OHASBasicHTMLParser.m */,
-			);
-			path = TagParsers;
-			sourceTree = "<group>";
-		};
-		AFBF914222486ECE007F2ED8 /* PrivateUtils */ = {
-			isa = PBXGroup;
-			children = (
-				AFBF914422486ECE007F2ED8 /* CoreTextUtils.h */,
-				AFBF914322486ECE007F2ED8 /* CoreTextUtils.m */,
-			);
-			path = PrivateUtils;
 			sourceTree = "<group>";
 		};
 		AFBF914522486ECE007F2ED8 /* SZTextView */ = {
@@ -565,7 +467,6 @@
 				AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */,
 				AF0974812249FBC100989F11 /* InfoPlist.strings in Resources */,
 				AF09747B2249F54900989F11 /* Localizable.strings in Resources */,
-				AFBF917322486ECE007F2ED8 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,14 +491,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFBF917922486ECE007F2ED8 /* OHASBasicMarkupParser.m in Sources */,
-				AFBF917C22486ECE007F2ED8 /* CoreTextUtils.m in Sources */,
 				AFBF918322486ECE007F2ED8 /* AFSecurityPolicy.m in Sources */,
 				AFBF915722486ECE007F2ED8 /* NetResultBase.m in Sources */,
 				AFBF915E22486ECE007F2ED8 /* NSData+Crypto.m in Sources */,
-				AFBF917722486ECE007F2ED8 /* OHAttributedLabel.m in Sources */,
 				AFBF918622487018007F2ED8 /* MainControllerManager.m in Sources */,
-				AFBF917622486ECE007F2ED8 /* OHTouchesGestureRecognizer.m in Sources */,
 				AFBF918122486ECE007F2ED8 /* AFURLRequestSerialization.m in Sources */,
 				AFBF916822486ECE007F2ED8 /* CaptchaControl.m in Sources */,
 				AFBF916622486ECE007F2ED8 /* LineView.m in Sources */,
@@ -606,25 +503,18 @@
 				AFBF915D22486ECE007F2ED8 /* UIColor+Utility.m in Sources */,
 				AFBF915622486ECE007F2ED8 /* NetworkTask.m in Sources */,
 				AFBF916D22486ECE007F2ED8 /* FadePromptView.m in Sources */,
-				AFBF917522486ECE007F2ED8 /* OHParagraphStyle.m in Sources */,
 				AFBF915C22486ECE007F2ED8 /* UIView+SizeUtility.m in Sources */,
 				AFBF916722486ECE007F2ED8 /* AILoadingView.m in Sources */,
-				AFBF917422486ECE007F2ED8 /* NSTextCheckingResult+ExtendedURL.m in Sources */,
 				AFBF915A22486ECE007F2ED8 /* NSString+Utility.m in Sources */,
 				AFBF916C22486ECE007F2ED8 /* BaseVC.m in Sources */,
 				AFBF90CB22486676007F2ED8 /* main.m in Sources */,
 				AFBF918022486ECE007F2ED8 /* AFURLSessionManager.m in Sources */,
-				AFBF917022486ECE007F2ED8 /* HPTextViewInternal.m in Sources */,
 				AFBF918C22487674007F2ED8 /* LoginVC.m in Sources */,
 				AFBF916922486ECE007F2ED8 /* AIListenNetWorkingStatus.m in Sources */,
-				AFBF917822486ECE007F2ED8 /* NSAttributedString+Attributes.m in Sources */,
 				AFBF916B22486ECE007F2ED8 /* AINavigationController.m in Sources */,
-				AFBF917B22486ECE007F2ED8 /* OHASBasicHTMLParser.m in Sources */,
 				AFBF90BD22486674007F2ED8 /* AppDelegate.m in Sources */,
 				AFBF917F22486ECE007F2ED8 /* AFHTTPSessionManager.m in Sources */,
-				AFBF916F22486ECE007F2ED8 /* HPGrowingTextView.m in Sources */,
 				AFBF918222486ECE007F2ED8 /* AFNetworkReachabilityManager.m in Sources */,
-				AFBF917A22486ECE007F2ED8 /* OHASMarkupParserBase.m in Sources */,
 				AFBF915B22486ECE007F2ED8 /* UIImage+Utility.m in Sources */,
 				AFBF917D22486ECE007F2ED8 /* SZTextView.m in Sources */,
 				AFBF915F22486ECE007F2ED8 /* NSObject+Utility.m in Sources */,

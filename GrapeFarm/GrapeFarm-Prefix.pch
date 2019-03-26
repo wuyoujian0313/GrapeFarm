@@ -12,20 +12,12 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
-#ifndef __IPHONE_7_0
-#warning "This project uses features only available in iOS SDK 7.0 and later."
-#endif
-
-#ifdef __OBJC__
-#endif
-
 // 日志开关
 #if DEBUG
 #define NSLog(...) NSLog(__VA_ARGS__)
 #else
 #define NSLog(...) {}
 #endif
-
 
 // 服务器地址
 
