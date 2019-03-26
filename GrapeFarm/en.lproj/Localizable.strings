@@ -11,3 +11,5 @@
 "InputPassword"             ="Please input  your password";
 "Login"                     ="Login";
 "ForgetPassword"            ="Forgot password";
+"Register"                  ="Register";
+"ResetPassword"             ="Reset password";

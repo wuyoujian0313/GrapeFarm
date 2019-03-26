@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		AF09747B2249F54900989F11 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF09747D2249F54900989F11 /* Localizable.strings */; };
 		AF0974812249FBC100989F11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF09747F2249FBC100989F11 /* InfoPlist.strings */; };
+		AF097488224A191200989F11 /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097487224A191200989F11 /* RegisterVC.m */; };
+		AF09748A224A1A2100989F11 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF097489224A1A2100989F11 /* Images.xcassets */; };
+		AF09748E224A1CBE00989F11 /* ForgotPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF09748D224A1CBE00989F11 /* ForgotPasswordVC.m */; };
 		AFBF90BD22486674007F2ED8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90BC22486674007F2ED8 /* AppDelegate.m */; };
 		AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFBF90C422486676007F2ED8 /* Assets.xcassets */; };
 		AFBF90CB22486676007F2ED8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90CA22486676007F2ED8 /* main.m */; };
@@ -68,6 +71,11 @@
 		AF09747E2249F56000989F11 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		AF0974802249FBC100989F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AF0974822249FBD200989F11 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		AF097486224A191200989F11 /* RegisterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterVC.h; sourceTree = "<group>"; };
+		AF097487224A191200989F11 /* RegisterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterVC.m; sourceTree = "<group>"; };
+		AF097489224A1A2100989F11 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AF09748C224A1CBE00989F11 /* ForgotPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordVC.h; sourceTree = "<group>"; };
+		AF09748D224A1CBE00989F11 /* ForgotPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordVC.m; sourceTree = "<group>"; };
 		AFBF90B822486674007F2ED8 /* GrapeFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrapeFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBF90BB22486674007F2ED8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AFBF90BC22486674007F2ED8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -208,6 +216,7 @@
 				AFBF918422487018007F2ED8 /* MainControllerManager.m */,
 				AFBF90C422486676007F2ED8 /* Assets.xcassets */,
 				AFBF90C922486676007F2ED8 /* Info.plist */,
+				AF097489224A1A2100989F11 /* Images.xcassets */,
 				AFBF90CA22486676007F2ED8 /* main.m */,
 				AF0974782249D37800989F11 /* GrapeFarm-Prefix.pch */,
 				AF09747F2249FBC100989F11 /* InfoPlist.strings */,
@@ -347,6 +356,10 @@
 			children = (
 				AFBF918A22487674007F2ED8 /* LoginVC.h */,
 				AFBF918B22487674007F2ED8 /* LoginVC.m */,
+				AF097486224A191200989F11 /* RegisterVC.h */,
+				AF097487224A191200989F11 /* RegisterVC.m */,
+				AF09748C224A1CBE00989F11 /* ForgotPasswordVC.h */,
+				AF09748D224A1CBE00989F11 /* ForgotPasswordVC.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -465,6 +478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */,
+				AF09748A224A1A2100989F11 /* Images.xcassets in Resources */,
 				AF0974812249FBC100989F11 /* InfoPlist.strings in Resources */,
 				AF09747B2249F54900989F11 /* Localizable.strings in Resources */,
 			);
@@ -496,6 +510,7 @@
 				AFBF915E22486ECE007F2ED8 /* NSData+Crypto.m in Sources */,
 				AFBF918622487018007F2ED8 /* MainControllerManager.m in Sources */,
 				AFBF918122486ECE007F2ED8 /* AFURLRequestSerialization.m in Sources */,
+				AF097488224A191200989F11 /* RegisterVC.m in Sources */,
 				AFBF916822486ECE007F2ED8 /* CaptchaControl.m in Sources */,
 				AFBF916622486ECE007F2ED8 /* LineView.m in Sources */,
 				AFBF915922486ECE007F2ED8 /* UIAlertController+Orientations.m in Sources */,
@@ -512,6 +527,7 @@
 				AFBF918C22487674007F2ED8 /* LoginVC.m in Sources */,
 				AFBF916922486ECE007F2ED8 /* AIListenNetWorkingStatus.m in Sources */,
 				AFBF916B22486ECE007F2ED8 /* AINavigationController.m in Sources */,
+				AF09748E224A1CBE00989F11 /* ForgotPasswordVC.m in Sources */,
 				AFBF90BD22486674007F2ED8 /* AppDelegate.m in Sources */,
 				AFBF917F22486ECE007F2ED8 /* AFHTTPSessionManager.m in Sources */,
 				AFBF918222486ECE007F2ED8 /* AFNetworkReachabilityManager.m in Sources */,

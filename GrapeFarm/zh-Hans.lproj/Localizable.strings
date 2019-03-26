@@ -12,3 +12,5 @@
 "InputPassword"             ="请输入密码";
 "Login"                     ="登录";
 "ForgetPassword"            ="忘记密码";
+"Register"                  ="注册";
+"ResetPassword"             ="重置密码";

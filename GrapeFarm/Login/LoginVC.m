@@ -12,6 +12,10 @@
 #import "LineView.h"
 #import "UIImage+Utility.h"
 #import "DeviceInfo.h"
+#import "RegisterVC.h"
+#import "ForgotPasswordVC.h"
+#import "AILoadingView.h"
+#import "FadePromptView.h"
 
 
 @interface LoginVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,NetworkTaskDelegate>
@@ -147,7 +151,7 @@
     [forgetBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [forgetBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [forgetBtn setTitleColor:[UIColor colorWithHex:kButtonTapColor] forState:UIControlStateHighlighted];
-    [forgetBtn setFrame:CGRectMake(11, 15 + 45 + 10, _loginTableView.frame.size.width - 22, 14)];
+    [forgetBtn setFrame:CGRectMake(11, 15 + 45 + 10, _loginTableView.frame.size.width - 22, 24)];
     [forgetBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:forgetBtn];
     
@@ -160,13 +164,14 @@
     if (tag == 101) {
         // 登录
         if (_nameTextField.text == nil || [_nameTextField.text length] <= 0) {
-           //[SVProgressHUD showErrorWithStatus:@"请输入手机号或邮箱"];
+            [FadePromptView showPromptStatus:NSLocalizedString(@"InputAccount", nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
+            
             [_nameTextField becomeFirstResponder];
             return;
         }
         
         if (_pwdTextField.text == nil || [_pwdTextField.text length] <= 0) {
-            //[SVProgressHUD showErrorWithStatus:@"请输入密码"];
+            [FadePromptView showPromptStatus:NSLocalizedString(@"InputPassword", nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
             [_pwdTextField becomeFirstResponder];
             return;
         }
@@ -175,8 +180,12 @@
         [_pwdTextField resignFirstResponder];
     } else if (tag == 102) {
         // 忘记密码
+        ForgotPasswordVC *vc = [[ForgotPasswordVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     } else if (tag == 103) {
         // 注册
+        RegisterVC *vc = [[RegisterVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
