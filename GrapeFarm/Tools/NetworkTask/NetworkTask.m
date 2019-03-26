@@ -8,7 +8,7 @@
 
 #import "NetworkTask.h"
 #import "NetResultBase.h"
-#import "../AFNetworking/AFNetworking.h"
+#import "AFNetworking.h"
 
 #if DEBUG
 #define RESPONSE_LOG \
@@ -63,19 +63,19 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
     
     [resultObj autoParseJsonData:responseObject];
     
-    if(resultObj.code != nil && NetStatusCodeSuc([resultObj.code integerValue])) {
+    if(resultObj.statusCode != nil && NetStatusCodeSuc([resultObj.statusCode integerValue])) {
         
         if (delegate != nil && [delegate respondsToSelector:@selector(netResultSuccessBack:forInfo:)]) {
             [delegate netResultSuccessBack:resultObj forInfo:customInfo];
         }
-    } else if(resultObj.code != nil && NetStatusCodeFail([resultObj.code integerValue])) {
+    } else if(resultObj.statusCode != nil && NetStatusCodeFail([resultObj.statusCode integerValue])) {
         
         if (delegate != nil && [delegate respondsToSelector:@selector(netResultFailBack:errorCode:forInfo:)]) {
-            NSString *errorDesc = [[self class] errerDescription:[resultObj.code integerValue]];
+            NSString *errorDesc = [[self class] errerDescription:[resultObj.statusCode integerValue]];
             if (errorDesc != nil && [errorDesc length] > 0) {
-                [delegate netResultFailBack:errorDesc errorCode:[resultObj.code integerValue]  forInfo:customInfo];
+                [delegate netResultFailBack:errorDesc errorCode:[resultObj.statusCode integerValue]  forInfo:customInfo];
             } else {
-                [delegate netResultFailBack:resultObj.message errorCode:[resultObj.code integerValue]  forInfo:customInfo];
+                [delegate netResultFailBack:resultObj.statusDesc errorCode:[resultObj.statusCode integerValue]  forInfo:customInfo];
             }
         }
         

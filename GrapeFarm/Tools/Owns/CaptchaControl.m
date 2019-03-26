@@ -51,7 +51,7 @@ void CaptchaControlCFTimerCallback(CFRunLoopTimerRef timer, void *info);
         self.textDisabledColor = [UIColor grayColor];
         self.textNormalColor = [UIColor blackColor];
         
-        self.defaultText = @"发送验证码";
+        self.defaultText = NSLocalizedString(@"V-code", nil);
     }
     
     return self;
@@ -59,13 +59,14 @@ void CaptchaControlCFTimerCallback(CFRunLoopTimerRef timer, void *info);
 
 // 更新剩余时间
 - (void)updateLessTime {
+    NSString *sendString = NSLocalizedString(@"Resend", nil);
     if(_lessTime > 0) {
-        NSString *lessTimeTmp = [[NSString alloc] initWithFormat:@"重新发送(%lu)", (unsigned long)_lessTime];
+        NSString *lessTimeTmp = [[NSString alloc] initWithFormat:@"%@(%lu)",sendString,(unsigned long)_lessTime];
         [self setTextDisabledColor:_textDisabledColor];
         [_timeLabel setText:lessTimeTmp];
         [self setEnabled:NO];
     } else {
-        NSString *lessTimeTmp = [[NSString alloc] initWithFormat:@"重新发送"];
+        NSString *lessTimeTmp = [[NSString alloc] initWithFormat:@"%@",sendString];
         [self setTextNormalColor:_textNormalColor];
         [_timeLabel setText:lessTimeTmp];
         [self setEnabled:YES];

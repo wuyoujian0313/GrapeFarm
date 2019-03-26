@@ -12,6 +12,9 @@
 		AF097488224A191200989F11 /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097487224A191200989F11 /* RegisterVC.m */; };
 		AF09748A224A1A2100989F11 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF097489224A1A2100989F11 /* Images.xcassets */; };
 		AF09748E224A1CBE00989F11 /* ForgotPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF09748D224A1CBE00989F11 /* ForgotPasswordVC.m */; };
+		AF097491224A234900989F11 /* LoginBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097490224A234900989F11 /* LoginBean.m */; };
+		AF097494224A237B00989F11 /* RegisterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097493224A237B00989F11 /* RegisterBean.m */; };
+		AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097496224A23A600989F11 /* ForgotPasswordBean.m */; };
 		AFBF90BD22486674007F2ED8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90BC22486674007F2ED8 /* AppDelegate.m */; };
 		AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFBF90C422486676007F2ED8 /* Assets.xcassets */; };
 		AFBF90CB22486676007F2ED8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90CA22486676007F2ED8 /* main.m */; };
@@ -76,6 +79,12 @@
 		AF097489224A1A2100989F11 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AF09748C224A1CBE00989F11 /* ForgotPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordVC.h; sourceTree = "<group>"; };
 		AF09748D224A1CBE00989F11 /* ForgotPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordVC.m; sourceTree = "<group>"; };
+		AF09748F224A234900989F11 /* LoginBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginBean.h; sourceTree = "<group>"; };
+		AF097490224A234900989F11 /* LoginBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginBean.m; sourceTree = "<group>"; };
+		AF097492224A237B00989F11 /* RegisterBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterBean.h; sourceTree = "<group>"; };
+		AF097493224A237B00989F11 /* RegisterBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterBean.m; sourceTree = "<group>"; };
+		AF097495224A23A600989F11 /* ForgotPasswordBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordBean.h; sourceTree = "<group>"; };
+		AF097496224A23A600989F11 /* ForgotPasswordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordBean.m; sourceTree = "<group>"; };
 		AFBF90B822486674007F2ED8 /* GrapeFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrapeFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBF90BB22486674007F2ED8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AFBF90BC22486674007F2ED8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -178,6 +187,12 @@
 		AF0974772249B46A00989F11 /* Beans */ = {
 			isa = PBXGroup;
 			children = (
+				AF09748F224A234900989F11 /* LoginBean.h */,
+				AF097490224A234900989F11 /* LoginBean.m */,
+				AF097492224A237B00989F11 /* RegisterBean.h */,
+				AF097493224A237B00989F11 /* RegisterBean.m */,
+				AF097495224A23A600989F11 /* ForgotPasswordBean.h */,
+				AF097496224A23A600989F11 /* ForgotPasswordBean.m */,
 			);
 			path = Beans;
 			sourceTree = "<group>";
@@ -506,6 +521,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFBF918322486ECE007F2ED8 /* AFSecurityPolicy.m in Sources */,
+				AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */,
 				AFBF915722486ECE007F2ED8 /* NetResultBase.m in Sources */,
 				AFBF915E22486ECE007F2ED8 /* NSData+Crypto.m in Sources */,
 				AFBF918622487018007F2ED8 /* MainControllerManager.m in Sources */,
@@ -529,11 +545,13 @@
 				AFBF916B22486ECE007F2ED8 /* AINavigationController.m in Sources */,
 				AF09748E224A1CBE00989F11 /* ForgotPasswordVC.m in Sources */,
 				AFBF90BD22486674007F2ED8 /* AppDelegate.m in Sources */,
+				AF097494224A237B00989F11 /* RegisterBean.m in Sources */,
 				AFBF917F22486ECE007F2ED8 /* AFHTTPSessionManager.m in Sources */,
 				AFBF918222486ECE007F2ED8 /* AFNetworkReachabilityManager.m in Sources */,
 				AFBF915B22486ECE007F2ED8 /* UIImage+Utility.m in Sources */,
 				AFBF917D22486ECE007F2ED8 /* SZTextView.m in Sources */,
 				AFBF915F22486ECE007F2ED8 /* NSObject+Utility.m in Sources */,
+				AF097491224A234900989F11 /* LoginBean.m in Sources */,
 				AFBF917E22486ECE007F2ED8 /* AFURLResponseSerialization.m in Sources */,
 				AFBF916522486ECE007F2ED8 /* Reachability.m in Sources */,
 				AFBF915822486ECE007F2ED8 /* UIImage+ResizeMagick.m in Sources */,

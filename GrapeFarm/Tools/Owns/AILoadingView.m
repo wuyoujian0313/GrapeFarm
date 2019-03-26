@@ -8,8 +8,8 @@
 
 
 #import "AILoadingView.h"
-#import "../Category/NSString+Utility.h"
-#import "../Category/UIView+SizeUtility.h"
+#import "NSString+Utility.h"
+#import "UIView+SizeUtility.h"
 
 
 #define screenHeight [UIScreen mainScreen].bounds.size.height

@@ -16,7 +16,7 @@
 #import "ForgotPasswordVC.h"
 #import "AILoadingView.h"
 #import "FadePromptView.h"
-
+#import "LoginBean.h"
 
 @interface LoginVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,NetworkTaskDelegate>
 @property(nonatomic,strong)UITableView          *loginTableView;
@@ -40,7 +40,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithHex:kBackgroundColor];
     [self layoutLoginTableView];
     [self layoutToRegisterView];
 }
@@ -144,14 +143,14 @@
     
     UIButton *forgetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [forgetBtn setBackgroundColor:[UIColor clearColor]];
+    forgetBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     [forgetBtn setTag:102];
     
     [forgetBtn setTitle:NSLocalizedString(@"ForgetPassword",nil) forState:UIControlStateNormal];
     [forgetBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [forgetBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [forgetBtn setTitleColor:[UIColor colorWithHex:kButtonTapColor] forState:UIControlStateHighlighted];
-    [forgetBtn setFrame:CGRectMake(11, 15 + 45 + 10, _loginTableView.frame.size.width - 22, 24)];
+    [forgetBtn setFrame:CGRectMake(11, 15 + 45 + 10, _loginTableView.frame.size.width - 22, 40)];
     [forgetBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:forgetBtn];
     
@@ -272,6 +271,7 @@
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11, 0, tableView.frame.size.width - 22, 45)];
             self.nameTextField = textField;
             [textField setDelegate:self];
+            [textField setTextColor:[UIColor blackColor]];
             [textField setFont:[UIFont systemFontOfSize:14]];
             [textField setReturnKeyType:UIReturnKeyNext];
             [textField setClearButtonMode:UITextFieldViewModeAlways];
@@ -303,6 +303,7 @@
             self.pwdTextField = textField;
             [textField setDelegate:self];
             [textField setSecureTextEntry:YES];
+            [textField setTextColor:[UIColor blackColor]];
             [textField setFont:[UIFont systemFontOfSize:14]];
             [textField setTextAlignment:NSTextAlignmentCenter];
             [textField setClearButtonMode:UITextFieldViewModeAlways];

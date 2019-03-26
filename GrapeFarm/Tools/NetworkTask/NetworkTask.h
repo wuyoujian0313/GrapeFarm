@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "../Owns/AICommonDef.h"
+#import "AICommonDef.h"
 
 
 typedef NS_ENUM(NSInteger, NetStatusCode) {

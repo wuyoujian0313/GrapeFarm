@@ -6,7 +6,7 @@
 //
 
 #import "FadePromptView.h"
-#import "../Category/NSString+Utility.h"
+#import "NSString+Utility.h"
 
 
 #define screenHeight [UIScreen mainScreen].bounds.size.height

@@ -12,8 +12,8 @@
 
 @interface NetResultBase : NSObject<NSCopying>
 
-@property (nonatomic, copy)NSNumber     *code;                    // 返回代码
-@property (nonatomic, copy)NSString     *message;                 // 返回描述
+@property (nonatomic, copy)NSNumber     *statusCode;                    // 返回代码
+@property (nonatomic, copy)NSString     *statusDesc;                 // 返回描述
 
 
 // 自动解析Json
