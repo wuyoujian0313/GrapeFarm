@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  GrapeFarm
+
+  Created by Wu YouJian on 2019/3/26.
+  Copyright © 2019 Wu YouJian. All rights reserved.
+*/
+
+"PleaseRegister_1"          ="没有账号？";
+"PleaseRegister_2"          ="请注册";
+"InputAccount"              ="请输入用户名";
+"InputPassword"             ="请输入密码";
+"Login"                     ="登录";
+"ForgetPassword"            ="忘记密码";

@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  GrapeFarm
+
+  Created by Wu YouJian on 2019/3/26.
+  Copyright © 2019 Wu YouJian. All rights reserved.
+*/
+"PleaseRegister_1"          ="There is no account?";
+"PleaseRegister_2"          =" Please register";
+"InputAccount"              ="Please input your account";
+"InputPassword"             ="Please input  your password";
+"Login"                     ="Login";
+"ForgetPassword"            ="Forgot password";

@@ -7,9 +7,18 @@
 //
 
 #import "LoginVC.h"
+#import "UIColor+Utility.h"
+#import "NetworkTask.h"
+#import "LineView.h"
+#import "UIImage+Utility.h"
+#import "DeviceInfo.h"
 
-@interface LoginVC ()
 
+@interface LoginVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,NetworkTaskDelegate>
+@property(nonatomic,strong)UITableView          *loginTableView;
+@property(nonatomic,strong)UITextField          *nameTextField;
+@property(nonatomic,strong)UITextField          *pwdTextField;
+@property(nonatomic,strong)UIButton             *loginBtn;
 @end
 
 @implementation LoginVC
@@ -27,7 +36,285 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithHex:kBackgroundColor];
+    [self layoutLoginTableView];
+    [self layoutToRegisterView];
+}
+
+- (void)layoutToRegisterView {
+    
+    NSInteger xfooter = 36;
+    if ([DeviceInfo detectModel] == MODEL_IPHONE_X) {
+        xfooter += 34;
+    }
+    
+    UIView *rootview = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - xfooter, self.view.frame.size.width, xfooter)];
+    rootview.backgroundColor = [UIColor clearColor];
+    
+    NSString *noteString1= NSLocalizedString(@"PleaseRegister_1",nil);
+    NSString *noteString2= NSLocalizedString(@"PleaseRegister_2",nil);
+    NSString *tempString = [NSString stringWithFormat:@"%@%@",noteString1,noteString2];
+    NSRange range1 = [tempString rangeOfString:noteString1];
+    NSRange range2 = [tempString rangeOfString:noteString2];
+    NSDictionary *attributes1 = @{ NSFontAttributeName:[UIFont systemFontOfSize:14], NSForegroundColorAttributeName:[UIColor colorWithHex:kTextGrayColor]};
+    NSDictionary *attributes2 = @{ NSFontAttributeName:[UIFont systemFontOfSize:14], NSForegroundColorAttributeName:[UIColor blackColor]};
+
+    NSMutableAttributedString *attrStr1 = [[NSMutableAttributedString alloc] initWithString:tempString];
+    [attrStr1 addAttributes:attributes1 range:range1];
+    [attrStr1 addAttributes:attributes2 range:range2];
+    
+    NSMutableAttributedString *attrStr2 = [[NSMutableAttributedString alloc] initWithString:tempString];
+    [attrStr2 addAttributes:attributes1 range:range1];
+    [attrStr2 addAttributes:attributes1 range:range2];
+    
+    UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [registerBtn setFrame:CGRectMake(0,0, rootview.frame.size.width, xfooter)];
+    [registerBtn setAttributedTitle:attrStr1 forState:UIControlStateNormal];
+    [registerBtn setAttributedTitle:attrStr2 forState:UIControlStateHighlighted];
+    [registerBtn setTag:103];
+    [registerBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [rootview addSubview:registerBtn];
+    
+    [self.view addSubview:rootview];
+}
+
+- (void)layoutLoginTableView {
+    
+    NSInteger xfooter = 36;
+    if ([DeviceInfo detectModel] == MODEL_IPHONE_X) {
+        xfooter += 34;
+    }
+    UITableView * tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-xfooter) style:UITableViewStylePlain];
+    [self setLoginTableView:tableView];
+    [tableView setDelegate:self];
+    [tableView setDataSource:self];
+    [tableView setBackgroundColor:[UIColor clearColor]];
+    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [tableView setBounces:NO];
+    [self.view addSubview:tableView];
+    
+    [self setTableViewHeaderView:self.view.frame.size.height/3];
+    [self setTableViewFooterView:80];
+}
+
+-(void)setTableViewHeaderView:(NSInteger)height {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _loginTableView.frame.size.width, height)];
+    view.backgroundColor = [UIColor clearColor];
+    
+    CGFloat left = (_loginTableView.frame.size.width - 120)/2.0;
+    CGFloat top = (height-120)/2.0;
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(left, top, 120, 120)];
+    imageView.image = [UIImage imageNamed:@"AppIcon"];
+    [imageView.layer setCornerRadius:22.0];
+    [imageView.layer setMasksToBounds:YES];
+    
+    [view addSubview:imageView];
+    
+    LineView *line1 = [[LineView alloc] initWithFrame:CGRectMake(0, height - kLineHeight1px, view.frame.size.width, kLineHeight1px)];
+    [view addSubview:line1];
+    
+    [_loginTableView setTableHeaderView:view];
+}
+
+
+-(void)setTableViewFooterView:(NSInteger)height {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _loginTableView.frame.size.width, height)];
+    view.backgroundColor = [UIColor clearColor];
+    
+    UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [loginBtn setBackgroundImage:[UIImage imageFromColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [loginBtn setBackgroundImage:[UIImage imageFromColor:[UIColor colorWithHex:kButtonTapColor]] forState:UIControlStateHighlighted];
+    [loginBtn.layer setBorderColor:[UIColor colorWithHex:kBoundaryColor].CGColor];
+    [loginBtn.layer setBorderWidth:kLineHeight1px];
+    [loginBtn.layer setCornerRadius:kButtonCornerRadius];
+    [loginBtn setTag:101];
+    [loginBtn setClipsToBounds:YES];
+    [loginBtn setTitle:NSLocalizedString(@"Login",nil) forState:UIControlStateNormal];
+    [loginBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [loginBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [loginBtn setFrame:CGRectMake(11, 15, _loginTableView.frame.size.width - 22, 45)];
+    [loginBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:loginBtn];
+    
+    
+    UIButton *forgetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [forgetBtn setBackgroundColor:[UIColor clearColor]];
+    [forgetBtn setTag:102];
+    
+    [forgetBtn setTitle:NSLocalizedString(@"ForgetPassword",nil) forState:UIControlStateNormal];
+    [forgetBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [forgetBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [forgetBtn setTitleColor:[UIColor colorWithHex:kButtonTapColor] forState:UIControlStateHighlighted];
+    [forgetBtn setFrame:CGRectMake(11, 15 + 45 + 10, _loginTableView.frame.size.width - 22, 14)];
+    [forgetBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:forgetBtn];
+    
+    [_loginTableView setTableFooterView:view];
+}
+
+-(void)buttonAction:(UIButton *)sender {
+    
+    NSInteger tag = sender.tag;
+    if (tag == 101) {
+        // 登录
+        if (_nameTextField.text == nil || [_nameTextField.text length] <= 0) {
+           //[SVProgressHUD showErrorWithStatus:@"请输入手机号或邮箱"];
+            [_nameTextField becomeFirstResponder];
+            return;
+        }
+        
+        if (_pwdTextField.text == nil || [_pwdTextField.text length] <= 0) {
+            //[SVProgressHUD showErrorWithStatus:@"请输入密码"];
+            [_pwdTextField becomeFirstResponder];
+            return;
+        }
+        
+        [_nameTextField resignFirstResponder];
+        [_pwdTextField resignFirstResponder];
+    } else if (tag == 102) {
+        // 忘记密码
+    } else if (tag == 103) {
+        // 注册
+    }
+}
+
+
+-(void)keyboardWillShow:(NSNotification *)note{
+    [super keyboardWillShow:note];
+}
+
+-(void)keyboardWillHide:(NSNotification *)note{
+    [super keyboardWillHide:note];
+    
+    [_loginTableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+}
+
+-(void)keyboardDidShow:(NSNotification *)note{
+    
+    [super keyboardDidShow:note];
+    CGRect keyboardBounds;
+    [[note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+    
+    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+    
+    [_loginTableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - keyboardBounds.size.height)];
+    
+    [_loginTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+
+#pragma mark - NetworkTaskDelegate
+-(void)netResultSuccessBack:(NetResultBase *)result forInfo:(id)customInfo {
+}
+
+
+-(void)netResultFailBack:(NSString *)errorDesc errorCode:(NSInteger)errorCode forInfo:(id)customInfo {
+}
+
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldClear:(UITextField *)textField  {
+    return YES;
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if (textField == _nameTextField) {
+        [_pwdTextField becomeFirstResponder];
+    } else if (textField == _pwdTextField){
+        [textField resignFirstResponder];
+    }
+    
+    return YES;
+}
+
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    // 不使用重用机制
+    NSInteger row = [indexPath row];
+    NSInteger curRow = 0;
+    
+    if (row == curRow) {
+        static NSString *reusedCellID = @"loginCell1";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusedCellID];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reusedCellID];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.contentView.backgroundColor = [UIColor whiteColor];
+            
+            //
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11, 0, tableView.frame.size.width - 22, 45)];
+            self.nameTextField = textField;
+            [textField setDelegate:self];
+            [textField setFont:[UIFont systemFontOfSize:14]];
+            [textField setReturnKeyType:UIReturnKeyNext];
+            [textField setClearButtonMode:UITextFieldViewModeAlways];
+            [textField setTextAlignment:NSTextAlignmentCenter];
+            [textField setClearsOnBeginEditing:YES];
+            [textField setPlaceholder:NSLocalizedString(@"InputAccount",nil)];
+            
+            [cell.contentView addSubview:textField];
+            
+            LineView *line1 = [[LineView alloc] initWithFrame:CGRectMake(0, 45 - kLineHeight1px, tableView.frame.size.width, kLineHeight1px)];
+            [cell.contentView addSubview:line1];
+        }
+        
+        return cell;
+    }
+    
+    curRow ++;
+    if (row == curRow) {
+        static NSString *reusedCellID = @"loginCell2";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusedCellID];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reusedCellID];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.contentView.backgroundColor = [UIColor whiteColor];
+            
+            //
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11,0, tableView.frame.size.width - 22, 45)];
+            self.pwdTextField = textField;
+            [textField setDelegate:self];
+            [textField setSecureTextEntry:YES];
+            [textField setFont:[UIFont systemFontOfSize:14]];
+            [textField setTextAlignment:NSTextAlignmentCenter];
+            [textField setClearButtonMode:UITextFieldViewModeAlways];
+            [textField setClearsOnBeginEditing:YES];
+            [textField setReturnKeyType:UIReturnKeyDone];
+            [textField setPlaceholder:NSLocalizedString(@"InputPassword",nil)];
+            [cell.contentView addSubview:textField];
+            
+            LineView *line1 = [[LineView alloc] initWithFrame:CGRectMake(0, 45 - kLineHeight1px, tableView.frame.size.width, kLineHeight1px)];
+            [cell.contentView addSubview:line1];
+        }
+        
+        return cell;
+    }
+    
+    return nil;
+}
+
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 45;
 }
 
 @end

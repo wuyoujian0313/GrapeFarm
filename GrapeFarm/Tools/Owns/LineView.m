@@ -22,7 +22,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         //
-        _lineColor = [UIColor colorWithHex:0xdcdcdc];
+        _lineColor = [UIColor colorWithHex:kBoundaryColor];
         self.image = [UIImage imageFromColor:_lineColor];
     }
     return self;

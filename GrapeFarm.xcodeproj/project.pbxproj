@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF09747B2249F54900989F11 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF09747D2249F54900989F11 /* Localizable.strings */; };
+		AF0974812249FBC100989F11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF09747F2249FBC100989F11 /* InfoPlist.strings */; };
 		AFBF90BD22486674007F2ED8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90BC22486674007F2ED8 /* AppDelegate.m */; };
 		AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFBF90C422486676007F2ED8 /* Assets.xcassets */; };
 		AFBF90CB22486676007F2ED8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90CA22486676007F2ED8 /* main.m */; };
@@ -73,6 +75,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AF0974782249D37800989F11 /* GrapeFarm-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GrapeFarm-Prefix.pch"; sourceTree = "<group>"; };
+		AF09747C2249F54900989F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AF09747E2249F56000989F11 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		AF0974802249FBC100989F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AF0974822249FBD200989F11 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		AFBF90B822486674007F2ED8 /* GrapeFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrapeFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBF90BB22486674007F2ED8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AFBF90BC22486674007F2ED8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -195,6 +202,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF0974772249B46A00989F11 /* Beans */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Beans;
+			sourceTree = "<group>";
+		};
 		AFBF90AF22486674007F2ED8 = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +235,7 @@
 				AFBF90ED22486ECE007F2ED8 /* Tools */,
 				AFBF918822487649007F2ED8 /* Model */,
 				AFBF918D224876C1007F2ED8 /* Home */,
+				AF0974772249B46A00989F11 /* Beans */,
 				AFBF918922487649007F2ED8 /* Login */,
 				AFBF90BB22486674007F2ED8 /* AppDelegate.h */,
 				AFBF90BC22486674007F2ED8 /* AppDelegate.m */,
@@ -229,6 +244,9 @@
 				AFBF90C422486676007F2ED8 /* Assets.xcassets */,
 				AFBF90C922486676007F2ED8 /* Info.plist */,
 				AFBF90CA22486676007F2ED8 /* main.m */,
+				AF0974782249D37800989F11 /* GrapeFarm-Prefix.pch */,
+				AF09747F2249FBC100989F11 /* InfoPlist.strings */,
+				AF09747D2249F54900989F11 /* Localizable.strings */,
 			);
 			path = GrapeFarm;
 			sourceTree = "<group>";
@@ -525,6 +543,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = AFBF90AF22486674007F2ED8;
 			productRefGroup = AFBF90B922486674007F2ED8 /* Products */;
@@ -544,6 +563,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */,
+				AF0974812249FBC100989F11 /* InfoPlist.strings in Resources */,
+				AF09747B2249F54900989F11 /* Localizable.strings in Resources */,
 				AFBF917322486ECE007F2ED8 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -645,11 +666,33 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		AF09747D2249F54900989F11 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AF09747C2249F54900989F11 /* en */,
+				AF09747E2249F56000989F11 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		AF09747F2249FBC100989F11 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AF0974802249FBC100989F11 /* en */,
+				AF0974822249FBD200989F11 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		AFBF90E222486676007F2ED8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -709,6 +752,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -766,6 +810,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Wu YouJian (EK2QWBZ82K)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 7DUX67X748;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GrapeFarm/GrapeFarm-Prefix.pch";
 				INFOPLIST_FILE = GrapeFarm/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -787,6 +833,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing WeiMeiTianCheng Technology Co., Ltd.";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 7DUX67X748;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GrapeFarm/GrapeFarm-Prefix.pch";
 				INFOPLIST_FILE = GrapeFarm/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (

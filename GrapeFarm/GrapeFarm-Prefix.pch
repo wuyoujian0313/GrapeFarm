@@ -1,0 +1,42 @@
+//
+//  GrapeFarm-Prefix.pch
+//  GrapeFarm
+//
+//  Created by Wu YouJian on 2019/3/26.
+//  Copyright © 2019 Wu YouJian. All rights reserved.
+//
+
+#ifndef GrapeFarm_Prefix_pch
+#define GrapeFarm_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifndef __IPHONE_7_0
+#warning "This project uses features only available in iOS SDK 7.0 and later."
+#endif
+
+#ifdef __OBJC__
+#endif
+
+// 日志开关
+#if DEBUG
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...) {}
+#endif
+
+
+// 服务器地址
+
+// 颜色定义
+#define kBoundaryColor 0xE6DFDF
+#define kTextGrayColor 0x938F8F
+#define kButtonTapColor 0xE6DFDF
+#define kBackgroundColor 0xF4F4F4
+
+// 按钮角度
+#define kButtonCornerRadius 4.0
+
+
+#endif /* GrapeFarm_Prefix_pch */

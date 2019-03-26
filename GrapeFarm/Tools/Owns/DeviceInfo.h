@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger ,DeviceInfo_Model) {
 + (NSString *) platform;
 + (DeviceInfo_Model) detectModel;
 + (NSString *) returnDeviceName;
++ (uint)detectDevice;
 
 //是否越狱
 + (BOOL) isJailBreak;
