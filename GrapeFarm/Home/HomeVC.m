@@ -7,6 +7,7 @@
 //
 
 #import "HomeVC.h"
+#import "SettingsVC.h"
 
 @interface HomeVC ()
 
@@ -14,19 +15,23 @@
 
 @implementation HomeVC
 
+-(void)dealloc {
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self setNavTitle:NSLocalizedString(@"AppName",nil)];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(toSettingPage)];
+    self.navigationItem.rightBarButtonItem = item;
+
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)toSettingPage {
+    SettingsVC *vc = [[SettingsVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
-*/
 
 @end

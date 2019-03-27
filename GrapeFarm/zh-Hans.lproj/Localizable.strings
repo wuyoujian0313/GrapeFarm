@@ -5,11 +5,12 @@
   Created by Wu YouJian on 2019/3/26.
   Copyright © 2019 Wu YouJian. All rights reserved.
 */
-
+"AppName"                   ="葡萄农庄";
 "PleaseRegister_1"          ="没有账号？";
 "PleaseRegister_2"          ="请注册";
 "InputAccount"              ="请输入用户名";
 "InputPassword"             ="请输入密码";
+"ReInputPassword"           ="请再次输入密码";
 "Login"                     ="登录";
 "ForgetPassword"            ="忘记密码";
 "Register"                  ="注册";
@@ -19,6 +20,16 @@
 "Ok"                        ="确定";
 "Cancel"                    ="取消";
 "Next"                      ="下一步";
+"Reset"                     ="重置";
 "InputEmail"                ="请输入邮箱号";
-"InputV-code"               ="请输入验证码";
-
+"InputV-code"               ="请输入邮箱里的验证码";
+"Character"                 ="(6-8位)";
+"Settings"                  ="设置";
+"Records"                   ="历史记录";
+"MyFarm"                    ="我的农庄";
+"ModifyPassword"            ="修改密码";
+"Quit"                      ="退出";
+"Farm"                      ="农庄";
+"Logout"                    ="确定退出登录？";
+"Disconnected"              ="手机已断开网络，请检查";
+"Varieties"                  ="葡萄品种";

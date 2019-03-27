@@ -13,6 +13,7 @@
 #import "UIColor+Utility.h"
 
 
+
 @interface AppDelegate ()
 @property (nonatomic, strong) AINavigationController     *mainNav;
 @property (nonatomic, strong) MainControllerManager      *mainVC;
@@ -22,6 +23,13 @@
 
 + (AppDelegate*)shareMyApplication {
     return (AppDelegate*)[UIApplication sharedApplication].delegate;
+}
+
+- (void)switchToHomePage {
+    [_mainVC switchToHomeVC];
+}
+- (void)switchToLoginPage {
+    [_mainVC switchToLoginVC];
 }
 
 

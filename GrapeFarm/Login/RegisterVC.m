@@ -146,11 +146,11 @@
 }
 
 
--(void)keyboardWillShow:(NSNotification *)note{
+- (void)keyboardWillShow:(NSNotification *)note{
     [super keyboardWillShow:note];
 }
 
--(void)keyboardWillHide:(NSNotification *)note{
+- (void)keyboardWillHide:(NSNotification *)note{
     [super keyboardWillHide:note];
     
 //    [_registerTableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height )];
@@ -204,6 +204,8 @@
     } else if(textField == _codeTextField) {
         [_pwdTextField becomeFirstResponder];
     } else if (textField == _pwdTextField){
+        [_pwd2TextField becomeFirstResponder];
+    } else if (textField == _pwd2TextField){
         [textField resignFirstResponder];
     }
     return YES;
@@ -257,6 +259,15 @@
     return 1;
 }
 
+- (CGSize)sizeWithString:(NSString *)string font:(UIFont *)font constraintSize:(CGSize)constraintSize
+{
+    CGSize stringSize = CGSizeZero;
+    NSDictionary *attributes = @{NSFontAttributeName:font};
+    NSInteger options = NSStringDrawingUsesLineFragmentOrigin;
+    CGRect stringRect = [string boundingRectWithSize:constraintSize options:options attributes:attributes context:NULL];
+    stringSize = stringRect.size;
+    return stringSize;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -277,8 +288,7 @@
             [textField setDelegate:self];
             [textField setFont:[UIFont systemFontOfSize:14]];
             [textField setReturnKeyType:UIReturnKeyNext];
-            [textField setKeyboardType:UIKeyboardTypePhonePad];
-            //[textField setTextAlignment:NSTextAlignmentCenter];
+            [textField setKeyboardType:UIKeyboardTypeDefault];
             [textField setTextColor:[UIColor blackColor]];
             [textField setClearButtonMode:UITextFieldViewModeAlways];
             [textField setPlaceholder:NSLocalizedString(@"InputEmail",nil)];
@@ -301,24 +311,23 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             NSString *text = NSLocalizedString(@"InputV-code",nil);
-            CGSize size =  [text sizeWithFontCompatible:[UIFont systemFontOfSize:14]];
-    
-            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11, 0, size.width, 45)];
+                
+            NSInteger w = tableView.frame.size.width - 22;
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11, 0, 3.15*w/5.0, 45)];
             self.codeTextField = textField;
             [textField setDelegate:self];
             [textField setFont:[UIFont systemFontOfSize:14]];
             [textField setReturnKeyType:UIReturnKeyNext];
             [textField setKeyboardType:UIKeyboardTypeDefault];
-            //[textField setTextAlignment:NSTextAlignmentCenter];
             [textField setTextColor:[UIColor blackColor]];
             [textField setClearButtonMode:UITextFieldViewModeAlways];
-            [textField setPlaceholder:NSLocalizedString(@"InputV-code",nil)];
+            [textField setPlaceholder:text];
             [cell.contentView addSubview:textField];
             
-            LineView *line = [[LineView alloc] initWithFrame:CGRectMake(size.width + 22,0, kLineHeight1px, 45)];
+            LineView *line = [[LineView alloc] initWithFrame:CGRectMake(3.15*w/5.0 + 22,0, kLineHeight1px, 45)];
             [cell.contentView addSubview:line];
             
-            self.codeBtn = [[CaptchaControl alloc] initWithFrame:CGRectMake(size.width + 22 + 5, 0, tableView.frame.size.width -(size.width + 22 + 5) - 11 , 45)];
+            self.codeBtn = [[CaptchaControl alloc] initWithFrame:CGRectMake(3.15*w/5.0 + 22, 0,tableView.frame.size.width - (3.15*w/5.0 + 22) , 45)];
             [_codeBtn addTarget:self action:@selector(phoneCodeStart:) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:_codeBtn];
             
@@ -349,7 +358,8 @@
             [textField setTextColor:[UIColor blackColor]];
             [textField addTarget:self action:@selector(inputChange:) forControlEvents:UIControlEventEditingChanged];
             [textField setClearButtonMode:UITextFieldViewModeAlways];
-            [textField setPlaceholder:NSLocalizedString(@"InputPassword", nil)];
+            NSString *text = [NSString stringWithFormat:@"%@%@",NSLocalizedString(@"InputPassword", nil),NSLocalizedString(@"Character", nil)];
+            [textField setPlaceholder:text];
             [textField setClearsOnBeginEditing:YES];
             [cell.contentView addSubview:textField];
             
@@ -374,9 +384,8 @@
             [textField setDelegate:self];
             [textField setFont:[UIFont systemFontOfSize:14]];
             [textField setSecureTextEntry:YES];
-            [textField setReturnKeyType:UIReturnKeyNext];
+            [textField setReturnKeyType:UIReturnKeyDone];
             [textField setKeyboardType:UIKeyboardTypeDefault];
-            //[textField setTextAlignment:NSTextAlignmentCenter];
             [textField setTextColor:[UIColor blackColor]];
             [textField addTarget:self action:@selector(inputChange:) forControlEvents:UIControlEventEditingChanged];
             [textField setClearButtonMode:UITextFieldViewModeAlways];

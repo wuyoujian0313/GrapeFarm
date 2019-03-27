@@ -13,5 +13,8 @@
 @property (strong, nonatomic) UIWindow *window;
 
 + (AppDelegate*)shareMyApplication;
+
+- (void)switchToHomePage;
+- (void)switchToLoginPage;
 @end
 

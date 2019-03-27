@@ -5,8 +5,9 @@
   Created by Wu YouJian on 2019/3/26.
   Copyright © 2019 Wu YouJian. All rights reserved.
 */
+"AppName"                   ="GrapeFarm";
 "PleaseRegister_1"          ="There is no account?";
-"PleaseRegister_2"          =" Please register";
+"PleaseRegister_2"          ="Please register";
 "InputAccount"              ="Please input your account";
 "InputPassword"             ="Please input your password";
 "ReInputPassword"           ="Please input the password again";
@@ -19,6 +20,17 @@
 "Ok"                        ="Ok";
 "Cancel"                    ="Cancel";
 "Next"                      ="Next";
+"Reset"                     ="Reset";
 "InputEmail"                ="Please input your email";
 "InputV-code"               ="Please input verification code";
+"Character"                 ="(6-8 Characters)";
+"Settings"                  ="Settings";
+"Records"                   ="History records";
+"MyFarm"                    ="My farm";
+"ModifyPassword"            ="Modify password";
+"Quit"                      ="Logout";
+"Farm"                      ="Farm";
+"Logout"                    ="Confirm logout?";
+"Disconnected"              ="The mobile phone has been disconnected from the network";
+"Varieties"                  ="Grape varieties";
 

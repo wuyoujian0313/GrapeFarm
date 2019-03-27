@@ -17,6 +17,7 @@
 #import "AILoadingView.h"
 #import "FadePromptView.h"
 #import "LoginBean.h"
+#import "AppDelegate.h"
 
 @interface LoginVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,NetworkTaskDelegate>
 @property(nonatomic,strong)UITableView          *loginTableView;
@@ -97,7 +98,7 @@
     [self.view addSubview:tableView];
     
     [self setTableViewHeaderView:self.view.frame.size.height/3];
-    [self setTableViewFooterView:80];
+    [self setTableViewFooterView:120];
 }
 
 -(void)setTableViewHeaderView:(NSInteger)height {
@@ -164,7 +165,6 @@
         // 登录
         if (_nameTextField.text == nil || [_nameTextField.text length] <= 0) {
             [FadePromptView showPromptStatus:NSLocalizedString(@"InputAccount", nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
-            
             [_nameTextField becomeFirstResponder];
             return;
         }
@@ -177,6 +177,10 @@
         
         [_nameTextField resignFirstResponder];
         [_pwdTextField resignFirstResponder];
+        
+        //
+        AppDelegate *app = [AppDelegate shareMyApplication];
+        [app switchToHomePage];
     } else if (tag == 102) {
         // 忘记密码
         ForgotPasswordVC *vc = [[ForgotPasswordVC alloc] init];

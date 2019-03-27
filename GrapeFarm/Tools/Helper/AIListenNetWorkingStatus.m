@@ -57,7 +57,7 @@ AISINGLETON_CLASS_IMP(AIListenNetWorkingStatus, sharedNetListener)
     switch (netStatus) {
         case 0:
             NSLog(@"Not Reachable");
-            [FadePromptView showPromptStatus:@"手机已断开网络，请检查" duration:1.5 finishBlock:nil];
+            [FadePromptView showPromptStatus:NSLocalizedString(@"Disconnected", nil) duration:2.5 finishBlock:nil];
             break;
         case 1:
             NSLog(@"ReachableViaWiFi----WIFI");
