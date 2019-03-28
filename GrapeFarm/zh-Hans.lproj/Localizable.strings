@@ -32,4 +32,7 @@
 "Farm"                      ="农庄";
 "Logout"                    ="确定退出登录？";
 "Disconnected"              ="手机已断开网络，请检查";
-"Varieties"                  ="葡萄品种";
+"Varieties"                 ="葡萄品种";
+"ModelData"                 ="模型数据";
+"RequestLocation"           ="葡萄农庄需要使用您的位置";
+"noGPS"                     ="您的手机没有GPS";

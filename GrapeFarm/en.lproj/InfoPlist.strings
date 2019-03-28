@@ -6,4 +6,13 @@
   Copyright © 2016年 wuyoujian. All rights reserved.
 */
 
-"CFBundleDisplayName" = "GrapeFarm";
+"CFBundleDisplayName"                           ="GrapeFarm";
+"NSCameraUsageDescription"                      ="The grape farm needs to use your camera";
+"NSPhotoLibraryAddUsageDescription"             ="The grape farm needs to use your photo album";
+"NSPhotoLibraryUsageDescription"                ="The grape farm needs to use your photo album";
+"NSLocationAlwaysAndWhenInUseUsageDescription"  ="The grape farm needs to use your location";
+"NSLocationAlwaysUsageDescription"              ="The grape farm needs to use your location";
+"NSLocationWhenInUseUsageDescription"           ="The grape farm needs to use your location";
+"NSLocationUsageDescription"                    ="The grape farm needs to use your location";
+
+

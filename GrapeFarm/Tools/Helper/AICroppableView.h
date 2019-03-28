@@ -15,7 +15,7 @@
 
 // frame是UIImageView的frame,必须要图片的比例一致；
 - (instancetype)initWithFrame:(CGRect)frame;
-// 清楚所有的画笔
+// 清除所有的画笔
 - (void)cleaningBrush;
 // UIImageView的UIImage
 - (UIImage *)croppingOfImage:(UIImage*)image;

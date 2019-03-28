@@ -32,5 +32,8 @@
 "Farm"                      ="Farm";
 "Logout"                    ="Confirm logout?";
 "Disconnected"              ="The mobile phone has been disconnected from the network";
-"Varieties"                  ="Grape varieties";
+"Varieties"                 ="Grape varieties";
+"ModelData"                 ="Model data";
+"RequestLocation"           ="The grape farm needs to use your location";
+"noGPS"                     ="Your mobile phone has no GPS";
 

@@ -9,6 +9,10 @@
 #import "HomeVC.h"
 #import "SettingsVC.h"
 
+
+#warning 测试代码
+#import "Commit3DDataVC.h"
+
 @interface HomeVC ()
 
 @end
@@ -30,7 +34,12 @@
 }
 
 - (void)toSettingPage {
-    SettingsVC *vc = [[SettingsVC alloc] init];
+    
+#warning 测试代码
+//    SettingsVC *vc = [[SettingsVC alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+
+    Commit3DDataVC *vc = [[Commit3DDataVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

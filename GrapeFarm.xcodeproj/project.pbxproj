@@ -55,6 +55,7 @@
 		AFD97AC1224B6E630048367E /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD97AB1224B6E630048367E /* DeviceInfo.m */; };
 		AFD97AC6224B6EFC0048367E /* UIBezierPath+Points.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD97AC5224B6EFC0048367E /* UIBezierPath+Points.m */; };
 		AFD97AC9224B70390048367E /* AICroppableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD97AC8224B70390048367E /* AICroppableView.m */; };
+		AFEDA3CE224CAC86004D063A /* Commit3DDataVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFEDA3CD224CAC86004D063A /* Commit3DDataVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +176,8 @@
 		AFD97AC5224B6EFC0048367E /* UIBezierPath+Points.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Points.m"; sourceTree = "<group>"; };
 		AFD97AC7224B70390048367E /* AICroppableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AICroppableView.h; sourceTree = "<group>"; };
 		AFD97AC8224B70390048367E /* AICroppableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AICroppableView.m; sourceTree = "<group>"; };
+		AFEDA3CC224CAC86004D063A /* Commit3DDataVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Commit3DDataVC.h; sourceTree = "<group>"; };
+		AFEDA3CD224CAC86004D063A /* Commit3DDataVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Commit3DDataVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,6 +374,8 @@
 				AFBF918F224876DA007F2ED8 /* HomeVC.m */,
 				AFD97A9A224B68000048367E /* GrapeVarietiesVC.h */,
 				AFD97A9B224B68000048367E /* GrapeVarietiesVC.m */,
+				AFEDA3CC224CAC86004D063A /* Commit3DDataVC.h */,
+				AFEDA3CD224CAC86004D063A /* Commit3DDataVC.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -485,6 +490,11 @@
 				TargetAttributes = {
 					AFBF90B722486674007F2ED8 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					AFBF90CF22486676007F2ED8 = {
 						CreatedOnToolsVersion = 10.1;
@@ -554,6 +564,7 @@
 				AFD97ABF224B6E630048367E /* BaseVC.m in Sources */,
 				AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */,
 				AFBF915722486ECE007F2ED8 /* NetResultBase.m in Sources */,
+				AFEDA3CE224CAC86004D063A /* Commit3DDataVC.m in Sources */,
 				AFBF915E22486ECE007F2ED8 /* NSData+Crypto.m in Sources */,
 				AFBF918622487018007F2ED8 /* MainControllerManager.m in Sources */,
 				AFD97ABB224B6E630048367E /* AILoadingView.m in Sources */,
