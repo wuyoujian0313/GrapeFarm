@@ -140,12 +140,12 @@
         return;
     }
     
-//    BOOL isMail = [_mailTextField.text isValidateEmail];
-//    if (!isMail) {
-//        [FadePromptView showPromptStatus:NSLocalizedString(@"InvalidEMail",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
-//        [_mailTextField becomeFirstResponder];
-//        return;
-//    }
+    BOOL isMail = [_mailTextField.text isValidateEmail];
+    if (!isMail) {
+        [FadePromptView showPromptStatus:NSLocalizedString(@"InvalidEMail",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
+        [_mailTextField becomeFirstResponder];
+        return;
+    }
     
     [AILoadingView show:NSLocalizedString(@"Loading", nil)];
     [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPIGetRegiterCode

@@ -7,7 +7,7 @@
 */
 "AppName"                   ="GrapeFarm";
 "PleaseRegister_1"          ="There is no account?";
-"PleaseRegister_2"          ="Please register";
+"PleaseRegister_2"          =" Please register";
 "InputAccount"              ="Please input your account";
 "InputPassword"             ="Please input your password";
 "ReInputPassword"           ="Please input the password again";
