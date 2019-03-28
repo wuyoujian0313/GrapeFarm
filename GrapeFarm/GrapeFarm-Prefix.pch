@@ -29,6 +29,10 @@
 #endif
 
 // 服务器地址
+#define kNetworkAPIServer       @"http://47.101.51.112:8000"
+
+// API定义
+#define kAPIGetRegiterCode         @"emailcode"
 
 // 颜色定义
 #define kBoundaryColor          0xE6DFDF

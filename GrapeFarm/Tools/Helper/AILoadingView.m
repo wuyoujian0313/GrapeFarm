@@ -102,6 +102,8 @@ static CGFloat kLoadingViewMaxTimeout = 90.0f;
         Sself.indicatorView.frame = CGRectMake(margin, (h-kActivityIndicatorViewWidth)/2.0, kActivityIndicatorViewWidth, kActivityIndicatorViewWidth);
         Sself.textLabel.frame = CGRectMake(self.indicatorView.right + margin,(h - size.height)/2.0, size.width, size.height);
         
+        [Sself.indicatorView startAnimating];
+        
         Sself.backgroundView.alpha = 0.0;
         [UIView animateWithDuration:0.2 animations:^{
             Sself.backgroundView.alpha = 1.0;

@@ -36,4 +36,7 @@
 "ModelData"                 ="Model data";
 "RequestLocation"           ="The grape farm needs to use your location";
 "noGPS"                     ="Your mobile phone has no GPS";
+"PasswordsUnmatch"          ="The two passwords do not match";
+"InvalidEMail"              ="Please enter a valid email address";
+"Loading"                   ="Loading...";
 

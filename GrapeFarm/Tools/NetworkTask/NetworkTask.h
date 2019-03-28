@@ -11,21 +11,13 @@
 
 
 typedef NS_ENUM(NSInteger, NetStatusCode) {
-    NetStatusCodeSuccess = 1000,
-    NetStatusCodeMAPSuccess = 0,
+    NetStatusCodeSuccess = 0,
     NetStatusCodeUnknown,
 };
 
 
-#define NetStatusCodeSuc(status)    (status == NetStatusCodeSuccess || status == NetStatusCodeMAPSuccess)
-#define NetStatusCodeFail(status)    (status != NetStatusCodeSuccess && status != NetStatusCodeMAPSuccess)
-
-@interface UploadFileInfo : NSObject
-@property(nonatomic,copy) NSString      * _Nonnull fileName;
-@property(nonatomic,copy) NSString      * _Nonnull mimeType;
-@property(nonatomic,strong) NSData      * _Nonnull fileData;
-@property(nonatomic,copy) NSString      * _Nonnull fileKey;
-@end
+#define NetStatusCodeSuc(status)    (status == NetStatusCodeSuccess)
+#define NetStatusCodeFail(status)   (status != NetStatusCodeSuccess)
 
 
 @class NetResultBase;
@@ -43,68 +35,10 @@ typedef NS_ENUM(NSInteger, NetStatusCode) {
 @property(nonatomic, copy) NSString         * _Nonnull serverAddress;
 
 AISINGLETON_DEF(NetworkTask, sharedNetworkTask)
-
-+(NSString *_Nonnull)errerDescription:(NSInteger)statusCode;
-
-// upload File 带上传文件的
-- (void)startUploadTaskApi:(NSString*_Nonnull)api
-                  forParam:(NSDictionary *_Nonnull)param
-                  fileData:(NSData*_Nonnull)fileData
-                   fileKey:(NSString*_Nonnull)fileKey
-                  fileName:(NSString*_Nonnull)fileName
-                  mimeType:(NSString*_Nonnull)mimeType
-                  delegate:(id <NetworkTaskDelegate>_Nonnull)delegate
-                 resultObj:(NetResultBase*_Nonnull)resultObj
-                customInfo:(id _Nonnull)customInfo;
-
-- (void)startUploadTaskApi:(NSString*_Nonnull)api
-                  forParam:(NSDictionary *_Nonnull)param
-                  filePath:(NSString*_Nonnull)filePath
-                   fileKey:(NSString*_Nonnull)fileKey
-                  fileName:(NSString*_Nonnull)fileName
-                  mimeType:(NSString*_Nonnull)mimeType
-                  delegate:(id <NetworkTaskDelegate>_Nonnull)delegate
-                 resultObj:(NetResultBase*_Nonnull)resultObj
-                customInfo:(id _Nonnull)customInfo;
-
-- (void)startUploadTaskApi:(NSString*_Nonnull)api
-                  forParam:(NSDictionary *_Nonnull)param
-                     files:(NSArray<UploadFileInfo*>*_Nonnull)files
-                  delegate:(id <NetworkTaskDelegate>_Nonnull)delegate
-                 resultObj:(NetResultBase*_Nonnull)resultObj
-                customInfo:(id _Nonnull)customInfo;
-
-// GET
-- (void)startGETTaskURL:(NSString*_Nonnull)urlString
-               delegate:(id <NetworkTaskDelegate>_Nonnull)delegate
-              resultObj:(NetResultBase*_Nonnull)resultObj
-             customInfo:(id _Nonnull)customInfo;
-
-- (void)startGETTaskApi:(NSString*_Nonnull)api
-               forParam:(NSDictionary *_Nonnull)param
-               delegate:(id <NetworkTaskDelegate>_Nonnull)delegate
-              resultObj:(NetResultBase*_Nonnull)resultObj
-             customInfo:(id _Nonnull)customInfo;
-
 // POST
 - (void)startPOSTTaskApi:(NSString*_Nonnull)api
                 forParam:(NSDictionary *_Nonnull)param
                 delegate:(id <NetworkTaskDelegate>_Nonnull)delegate
                resultObj:(NetResultBase*_Nonnull)resultObj
               customInfo:(id _Nonnull)customInfo;
-
-// PUT
-- (void)startPUTTaskApi:(NSString*_Nonnull)api
-               forParam:(NSDictionary *_Nonnull)param
-               delegate:(id <NetworkTaskDelegate>_Nonnull)delegate
-              resultObj:(NetResultBase*_Nonnull)resultObj
-             customInfo:(id _Nonnull)customInfo;
-
-// DELETE
-- (void)startDELETETaskApi:(NSString*_Nonnull)api
-                  forParam:(NSDictionary *_Nonnull)param
-                  delegate:(id <NetworkTaskDelegate>_Nonnull)delegate
-                 resultObj:(NetResultBase*_Nonnull)resultObj
-                customInfo:(id _Nonnull )customInfo;
-
 @end

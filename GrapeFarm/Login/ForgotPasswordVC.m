@@ -14,6 +14,9 @@
 #import "LineView.h"
 #import "NSString+Utility.h"
 #import "CaptchaControl.h"
+#import "FadePromptView.h"
+#import "GetVerificationCodeBean.h"
+#import "AILoadingView.h"
 
 @interface ForgotPasswordVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,NetworkTaskDelegate>
 
@@ -41,7 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setNavTitle:NSLocalizedString(@"ForgetPassword",nil)];
+    [self setNavTitle:NSLocalizedString(@"ForgotPasword",nil)];
     [self layoutRegisterTableView];
 }
 
@@ -84,8 +87,7 @@
     [_nextBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [_nextBtn setTag:101];
     [_nextBtn setClipsToBounds:YES];
-    
-    [_nextBtn setTitle:NSLocalizedString(@"Reset", nil) forState:UIControlStateNormal];
+    [_nextBtn setTitle:NSLocalizedString(@"Register", nil) forState:UIControlStateNormal];
     [_nextBtn setFrame:CGRectMake(11, 20, _registerTableView.frame.size.width-22, 45)];
     [_nextBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_nextBtn];
@@ -98,51 +100,59 @@
     NSInteger tag = sender.tag;
     if (tag == 101) {
         //
+        if (_mailTextField.text == nil || [_mailTextField.text length] <= 0) {
+            [FadePromptView showPromptStatus:NSLocalizedString(@"InputEmail",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
+            [_mailTextField becomeFirstResponder];
+            return;
+        }
         
         if (_codeTextField.text == nil || [_codeTextField.text length] <= 0) {
+            [FadePromptView showPromptStatus:NSLocalizedString(@"V-code",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
             [_codeTextField becomeFirstResponder];
             return;
         }
         
-        if (_mailTextField.text == nil || [_mailTextField.text length] <= 0) {
-            [_mailTextField becomeFirstResponder];
-            return;
-        }
-        
-        
         if (_pwdTextField.text == nil || [_pwdTextField.text length] <= 0) {
+            [FadePromptView showPromptStatus:NSLocalizedString(@"InputPassword",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
             [_pwdTextField becomeFirstResponder];
             return;
         }
         
-        
-        BOOL isPhone = [_mailTextField.text isValidateEmail];
-        if (!isPhone) {
-            
-            //            [FadePromptView showPromptStatus:@"输入的不是手机号码" duration:0.6 positionY:screenHeight- 300 finishBlock:^{
-            //                //
-            //            }];
-            [_mailTextField becomeFirstResponder];
+        if (_pwd2TextField.text == nil || [_pwd2TextField.text length] <= 0) {
+            [FadePromptView showPromptStatus:NSLocalizedString(@"ReInputPassword",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
+            [_pwd2TextField becomeFirstResponder];
             return;
         }
         
-        if ([_pwdTextField.text length] < 6 || [_pwdTextField.text length] > 18) {
-            //            [FadePromptView showPromptStatus:@"密码长度限制在6-18位" duration:0.6 positionY:screenHeight- 300 finishBlock:^{
-            //                //
-            //            }];
-            
-            [_pwdTextField becomeFirstResponder];
+        if (![_pwd2TextField.text isEqualToString:_pwdTextField.text]) {
+            [FadePromptView showPromptStatus:NSLocalizedString(@"PasswordsUnmatch",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
+            [_pwd2TextField becomeFirstResponder];
             return;
         }
-        
-        //
-        
     }
 }
 
 // 获取手机验证码
 - (void)phoneCodeStart:(CaptchaControl *)sender {
-    [sender start];
+    if (_mailTextField.text == nil || [_mailTextField.text length] <= 0) {
+        [FadePromptView showPromptStatus:NSLocalizedString(@"InputEmail",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
+        [_mailTextField becomeFirstResponder];
+        return;
+    }
+    
+    BOOL isMail = [_mailTextField.text isValidateEmail];
+    if (!isMail) {
+        [FadePromptView showPromptStatus:NSLocalizedString(@"InvalidEMail",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
+        [_mailTextField becomeFirstResponder];
+        return;
+    }
+    
+    [AILoadingView show:NSLocalizedString(@"Loading", nil)];
+    [[NetworkTask sharedNetworkTask] startPOSTTaskApi:@"getCode"
+                                             forParam:[NSDictionary dictionaryWithObject:_mailTextField.text forKey:@"email"]
+                                             delegate:self
+                                            resultObj:[[GetVerificationCodeBean alloc] init]
+                                           customInfo:@"registerCode"];
 }
 
 
@@ -172,14 +182,11 @@
 
 #pragma mark - NetworkTaskDelegate
 -(void)netResultSuccessBack:(NetResultBase *)result forInfo:(id)customInfo {
+    [AILoadingView dismiss];
     if ([customInfo isEqualToString:@"registerCode"]) {
         //
         
     } else if ([customInfo isEqualToString:@"register"]) {
-        //        [FadePromptView showPromptStatus:@"谢谢您，注册成功！" duration:1.0 positionY:screenHeight- 300 finishBlock:^{
-        //            //
-        //
-        //        }];
     }
 }
 
@@ -312,10 +319,8 @@
             
             NSString *text = NSLocalizedString(@"InputV-code",nil);
             
-            CGFloat precent = 3.15;
-            NSInteger textFieldWidth = precent*(tableView.frame.size.width - 22)/5;
-            
-            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11, 0, textFieldWidth, 45)];
+            NSInteger w = tableView.frame.size.width - 22;
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11, 0, 3.15*w/5.0, 45)];
             self.codeTextField = textField;
             [textField setDelegate:self];
             [textField setFont:[UIFont systemFontOfSize:14]];
@@ -326,10 +331,10 @@
             [textField setPlaceholder:text];
             [cell.contentView addSubview:textField];
             
-            LineView *line = [[LineView alloc] initWithFrame:CGRectMake(textFieldWidth + 22,0, kLineHeight1px, 45)];
+            LineView *line = [[LineView alloc] initWithFrame:CGRectMake(3.15*w/5.0 + 22,0, kLineHeight1px, 45)];
             [cell.contentView addSubview:line];
             
-            self.codeBtn = [[CaptchaControl alloc] initWithFrame:CGRectMake(textFieldWidth + 22, 0,tableView.frame.size.width - (textFieldWidth + 22) , 45)];
+            self.codeBtn = [[CaptchaControl alloc] initWithFrame:CGRectMake(3.15*w/5.0 + 22, 0,tableView.frame.size.width - (3.15*w/5.0 + 22) , 45)];
             [_codeBtn addTarget:self action:@selector(phoneCodeStart:) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:_codeBtn];
             

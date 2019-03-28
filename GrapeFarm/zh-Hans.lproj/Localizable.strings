@@ -36,3 +36,6 @@
 "ModelData"                 ="模型数据";
 "RequestLocation"           ="葡萄农庄需要使用您的位置";
 "noGPS"                     ="您的手机没有GPS";
+"PasswordsUnmatch"          ="输入密码不一致";
+"InvalidEMail"              ="请输入有效的邮箱号";
+"Loading"                   ="加载中...";

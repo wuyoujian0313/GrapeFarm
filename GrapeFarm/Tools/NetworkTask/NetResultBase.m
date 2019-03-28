@@ -30,12 +30,22 @@
 
     if (jsonDictionary != nil && error == nil) {
         NSLog(@"Successfully JSON parse...");
+        
+        if ([jsonDictionary objectForKey:@"statusCode"]) {
+            self.statusCode = [jsonDictionary objectForKey:@"statusCode"];
+        }
+        
+        if ([jsonDictionary objectForKey:@"statusDesc"]) {
+            self.statusDesc = [jsonDictionary objectForKey:@"statusDesc"];
+        }
+        
         // 解析
         id data = [jsonDictionary objectForKey:@"data"];
         if ([data isKindOfClass:[NSDictionary class]]) {
+            // 统一规范，data里面拿出来也是一个json
             [self parseNetResult:data];
         } else {
-            // 统一规范，data里面拿出来也是一个json
+            
         }
     }
 }

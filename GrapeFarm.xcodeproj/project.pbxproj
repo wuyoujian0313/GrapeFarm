@@ -56,6 +56,7 @@
 		AFD97AC6224B6EFC0048367E /* UIBezierPath+Points.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD97AC5224B6EFC0048367E /* UIBezierPath+Points.m */; };
 		AFD97AC9224B70390048367E /* AICroppableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD97AC8224B70390048367E /* AICroppableView.m */; };
 		AFEDA3CE224CAC86004D063A /* Commit3DDataVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFEDA3CD224CAC86004D063A /* Commit3DDataVC.m */; };
+		AFEDA3D4224CBDEB004D063A /* GetVerificationCodeBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AFEDA3D3224CBDEB004D063A /* GetVerificationCodeBean.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +179,8 @@
 		AFD97AC8224B70390048367E /* AICroppableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AICroppableView.m; sourceTree = "<group>"; };
 		AFEDA3CC224CAC86004D063A /* Commit3DDataVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Commit3DDataVC.h; sourceTree = "<group>"; };
 		AFEDA3CD224CAC86004D063A /* Commit3DDataVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Commit3DDataVC.m; sourceTree = "<group>"; };
+		AFEDA3D2224CBDEB004D063A /* GetVerificationCodeBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetVerificationCodeBean.h; sourceTree = "<group>"; };
+		AFEDA3D3224CBDEB004D063A /* GetVerificationCodeBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetVerificationCodeBean.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +211,8 @@
 		AF0974772249B46A00989F11 /* Beans */ = {
 			isa = PBXGroup;
 			children = (
+				AFEDA3D2224CBDEB004D063A /* GetVerificationCodeBean.h */,
+				AFEDA3D3224CBDEB004D063A /* GetVerificationCodeBean.m */,
 				AF09748F224A234900989F11 /* LoginBean.h */,
 				AF097490224A234900989F11 /* LoginBean.m */,
 				AF097492224A237B00989F11 /* RegisterBean.h */,
@@ -564,6 +569,7 @@
 				AFD97ABF224B6E630048367E /* BaseVC.m in Sources */,
 				AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */,
 				AFBF915722486ECE007F2ED8 /* NetResultBase.m in Sources */,
+				AFEDA3D4224CBDEB004D063A /* GetVerificationCodeBean.m in Sources */,
 				AFEDA3CE224CAC86004D063A /* Commit3DDataVC.m in Sources */,
 				AFBF915E22486ECE007F2ED8 /* NSData+Crypto.m in Sources */,
 				AFBF918622487018007F2ED8 /* MainControllerManager.m in Sources */,
