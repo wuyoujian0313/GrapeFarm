@@ -99,7 +99,7 @@
     
     NSInteger tag = sender.tag;
     if (tag == 101) {
-        //
+        //  注册
         if (_mailTextField.text == nil || [_mailTextField.text length] <= 0) {
             [FadePromptView showPromptStatus:NSLocalizedString(@"InputEmail",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
             [_mailTextField becomeFirstResponder];
@@ -129,6 +129,18 @@
             [_pwd2TextField becomeFirstResponder];
             return;
         }
+        
+        NSDictionary *parms = @{@"email":_mailTextField.text,
+                                @"password":[_pwdTextField.text md5EncodeUpper:NO],
+                                @"code":_codeTextField.text,
+                               };
+        
+        [AILoadingView show:NSLocalizedString(@"Loading", nil)];
+        [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPIRegiterUserCode
+                                                 forParam:parms
+                                                 delegate:self
+                                                resultObj:[[GetVerificationCodeBean alloc] init]
+                                               customInfo:@"registerCode"];
     }
 }
 
@@ -147,9 +159,12 @@
         return;
     }
     
+    NSDictionary *parms = @{@"email":_mailTextField.text,
+                            @"sendType":@"register",
+                            };
     [AILoadingView show:NSLocalizedString(@"Loading", nil)];
     [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPIGetRegiterCode
-                                             forParam:[NSDictionary dictionaryWithObject:_mailTextField.text forKey:@"email"]
+                                             forParam:parms
                                              delegate:self
                                             resultObj:[[GetVerificationCodeBean alloc] init]
                                            customInfo:@"registerCode"];
@@ -185,17 +200,23 @@
     [AILoadingView dismiss];
     if ([customInfo isEqualToString:@"registerCode"]) {
         //
-        
+        [FadePromptView showPromptStatus:NSLocalizedString(@"CheckEmailCode", nil) duration:2.0 finishBlock:^{
+            //
+        }];
+
     } else if ([customInfo isEqualToString:@"register"]) {
+        [FadePromptView showPromptStatus:NSLocalizedString(@"registerSuccess", nil) duration:2.0 finishBlock:^{
+            //
+        }];
     }
 }
 
 
 -(void)netResultFailBack:(NSString *)errorDesc errorCode:(NSInteger)errorCode forInfo:(id)customInfo {
     [AILoadingView dismiss];
-//    [FadePromptView showPromptStatus:errorDesc duration:1.0 finishBlock:^{
-//        //
-//    }];
+    [FadePromptView showPromptStatus:errorDesc duration:1.0 finishBlock:^{
+        //
+    }];
     
 }
 

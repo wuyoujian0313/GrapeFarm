@@ -85,7 +85,7 @@
     NSLog(@"当前的经纬度 %f,%f",coordinate.latitude,coordinate.longitude);
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *param = [NSString stringWithFormat:@"{\"longitude\":%f,\"latitude\":%f}",coordinate.longitude,coordinate.latitude];
+//        NSString *param = [NSString stringWithFormat:@"{\"longitude\":%f,\"latitude\":%f}",coordinate.longitude,coordinate.latitude];
     });
     
     

@@ -8,6 +8,7 @@
 
 #import "HomeVC.h"
 #import "SettingsVC.h"
+#import "ColorSegmentVC.h"
 
 @interface HomeVC ()
 
@@ -31,6 +32,7 @@
 
 - (void)toSettingPage {
     SettingsVC *vc = [[SettingsVC alloc] init];
+    //ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

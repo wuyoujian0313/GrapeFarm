@@ -34,7 +34,7 @@
 }
 
 - (void)configAbilitys {
-    self.abilitys = @[@{@"name":NSLocalizedString(@"Records",nil),@"icon":@"button"},
+    self.abilitys = @[@{@"name":NSLocalizedString(@"Records",nil),@"icon":@"address"},
                       @{@"name":NSLocalizedString(@"MyFarm",nil),@"icon":@"button"},
                       @{@"name":NSLocalizedString(@"ModifyPassword",nil),@"icon":@"button"},
                       @{@"name":NSLocalizedString(@"Quit",nil),@"icon":@"button"}];

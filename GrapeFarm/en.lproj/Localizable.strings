@@ -39,4 +39,7 @@
 "PasswordsUnmatch"          ="The two passwords do not match";
 "InvalidEMail"              ="Please enter a valid email address";
 "Loading"                   ="Loading...";
+"ColorSegment"              ="Color segmentation";
+"CheckEmailCode"            ="Email verification code has been sent to your mailbox, please check";
+"registerSuccess"           ="Congratulations on your successful registration";
 

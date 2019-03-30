@@ -39,3 +39,6 @@
 "PasswordsUnmatch"          ="输入密码不一致";
 "InvalidEMail"              ="请输入有效的邮箱号";
 "Loading"                   ="加载中...";
+"ColorSegment"              ="色彩分离";
+"CheckEmailCode"            ="邮箱验证码已发送到您的邮箱,请查收";
+"registerSuccess"           ="恭喜您，注册成功!";

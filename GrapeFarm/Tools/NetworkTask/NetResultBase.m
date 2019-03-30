@@ -45,14 +45,13 @@
             // 统一规范，data里面拿出来也是一个json
             [self parseNetResult:data];
         } else {
-            
+            // 非json对象
         }
     }
 }
 
 // 解析业务数据
-- (void)parseNetResult:(NSDictionary *)jsonDictionary
-{
+- (void)parseNetResult:(NSDictionary *)jsonDictionary {
     // 开始自动化解析
     [self parseJsonAutomatic:jsonDictionary];
 }

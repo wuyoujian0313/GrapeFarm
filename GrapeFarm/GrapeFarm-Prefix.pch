@@ -16,6 +16,10 @@
 #endif
 
 #ifdef __OBJC__
+#import "UIColor+Utility.h"
+#import "UIImage+Utility.h"
+#import "NSString+Utility.h"
+#import "NSData+Crypto.h"
 #endif
 
 // Include any system framework and library headers here that should be included in all compilation units.
@@ -32,7 +36,9 @@
 #define kNetworkAPIServer       @"http://47.101.51.112:8000"
 
 // API定义
-#define kAPIGetRegiterCode         @"emailcode"
+#define kAPIGetRegiterCode      @"emailcode"
+#define kAPIRegiterUserCode     @"user"
+
 
 // 颜色定义
 #define kBoundaryColor          0xE6DFDF

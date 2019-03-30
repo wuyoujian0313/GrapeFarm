@@ -23,7 +23,11 @@
     }
     else
     {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         return [self sizeWithFont:font];
+#pragma clang diagnostic pop
+        
     }
 }
 
@@ -41,8 +45,10 @@
     }
     else
     {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         return [self sizeWithFont:font constrainedToSize:size lineBreakMode:lineBreakMode];
-  
+#pragma clang diagnostic pop
     }
 }
 

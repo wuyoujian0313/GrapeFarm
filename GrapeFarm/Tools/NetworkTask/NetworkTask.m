@@ -40,7 +40,6 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
         [_afManager.requestSerializer setTimeoutInterval:_taskTimeout];
     
         [_afManager setResponseSerializer:[AFHTTPResponseSerializer serializer]];
-        
         NSMutableSet *acceptContentTypes = [NSMutableSet setWithSet:_afManager.responseSerializer.acceptableContentTypes];
         [acceptContentTypes addObject:@"text/plain"];
         [acceptContentTypes addObject:@"text/html"];
