@@ -25,7 +25,7 @@
     // Do any additional setup after loading the view.
     [self setNavTitle:NSLocalizedString(@"AppName",nil)];
     
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(toSettingPage)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"settings"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(toSettingPage)];
     self.navigationItem.rightBarButtonItem = item;
 
 }

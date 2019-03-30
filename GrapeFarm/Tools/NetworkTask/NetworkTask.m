@@ -123,4 +123,33 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
                   resultObj:resultObj
                  customInfo:customInfo];
 }
+
+/*
+ NetStatusCodeSuccess = 1,
+ NetStatusCodeEmailExist = 3,
+ NetStatusCodeEmailCodeUnExist = 4,
+ NetStatusCodeEmailCodeError = 5,
+ NetStatusCodeUnknown=INT_MAX,
+ */
+
+- (NSString *)errerDescription:(NSInteger)statusCode {
+    NSMutableString *desc = [[NSMutableString alloc] initWithCapacity:0];
+    
+    switch (statusCode) {
+        case NetStatusCodeSuccess: {
+            [desc appendString:NSLocalizedString(@"Successful", nil)];
+            break;
+        }
+
+        case NetStatusCodeEmailExist: {
+            [desc appendString:NSLocalizedString(@"Successful", nil)];
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    return desc;
+}
 @end

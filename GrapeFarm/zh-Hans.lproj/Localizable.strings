@@ -12,7 +12,7 @@
 "InputPassword"             ="请输入密码";
 "ReInputPassword"           ="请再次输入密码";
 "Login"                     ="登录";
-"ForgetPassword"            ="忘记密码";
+"ForgotPassword"            ="忘记密码";
 "Register"                  ="注册";
 "ResetPassword"             ="重置密码";
 "V-code"                    ="发送验证码";
@@ -42,3 +42,4 @@
 "ColorSegment"              ="色彩分离";
 "CheckEmailCode"            ="邮箱验证码已发送到您的邮箱,请查收";
 "registerSuccess"           ="恭喜您，注册成功!";
+"Successful"                ="成功";

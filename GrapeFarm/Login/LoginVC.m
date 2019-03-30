@@ -108,7 +108,7 @@
     CGFloat left = (_loginTableView.frame.size.width - 120)/2.0;
     CGFloat top = (height-120)/2.0;
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(left, top, 120, 120)];
-    imageView.image = [UIImage imageNamed:@"AppIcon"];
+    imageView.image = [UIImage imageNamed:@"logo"];
     [imageView.layer setCornerRadius:22.0];
     [imageView.layer setMasksToBounds:YES];
     
@@ -147,7 +147,7 @@
     forgetBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     [forgetBtn setTag:102];
     
-    [forgetBtn setTitle:NSLocalizedString(@"ForgetPassword",nil) forState:UIControlStateNormal];
+    [forgetBtn setTitle:NSLocalizedString(@"ForgotPassword",nil) forState:UIControlStateNormal];
     [forgetBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [forgetBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [forgetBtn setTitleColor:[UIColor colorWithHex:kButtonTapColor] forState:UIControlStateHighlighted];

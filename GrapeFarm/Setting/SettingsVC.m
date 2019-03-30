@@ -12,6 +12,7 @@
 #import "ForgotPasswordVC.h"
 #import "RecordVC.h"
 #import "FarmListVC.h"
+#import "UIView+SizeUtility.h"
 
 
 @interface SettingsVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
@@ -34,10 +35,10 @@
 }
 
 - (void)configAbilitys {
-    self.abilitys = @[@{@"name":NSLocalizedString(@"Records",nil),@"icon":@"address"},
-                      @{@"name":NSLocalizedString(@"MyFarm",nil),@"icon":@"button"},
-                      @{@"name":NSLocalizedString(@"ModifyPassword",nil),@"icon":@"button"},
-                      @{@"name":NSLocalizedString(@"Quit",nil),@"icon":@"button"}];
+    self.abilitys = @[@{@"name":NSLocalizedString(@"Records",nil),@"icon":@"history"},
+                      @{@"name":NSLocalizedString(@"MyFarm",nil),@"icon":@"home"},
+                      @{@"name":NSLocalizedString(@"ModifyPassword",nil),@"icon":@"edit"},
+                      @{@"name":NSLocalizedString(@"Quit",nil),@"icon":@"exit"}];
 }
 
 - (void)layoutSettingsTableView {

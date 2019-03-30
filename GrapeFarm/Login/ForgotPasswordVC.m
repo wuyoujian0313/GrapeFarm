@@ -44,7 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setNavTitle:NSLocalizedString(@"ForgotPasword",nil)];
+    [self setNavTitle:NSLocalizedString(@"ForgotPassword",nil)];
     [self layoutRegisterTableView];
 }
 

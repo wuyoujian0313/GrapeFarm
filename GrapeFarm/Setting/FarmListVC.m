@@ -29,10 +29,10 @@
 }
 
 - (void)configFarms {
-    self.farms = @[@{@"name":@"Farm1",@"icon":@"selected"},
-                      @{@"name":@"Farm2",@"icon":@"unSelected"},
-                      @{@"name":@"Farm3",@"icon":@"unSelected"},
-                      @{@"name":@"Farm4",@"icon":@"unSelected"}];
+    self.farms = @[@{@"name":@"Farm1",@"icon":@"radio-on"},
+                      @{@"name":@"Farm2",@"icon":@"address"},
+                      @{@"name":@"Farm3",@"icon":@"radio-off"},
+                      @{@"name":@"Farm4",@"icon":@"radio-off"}];
 }
 
 - (void)layoutFarmTableView {

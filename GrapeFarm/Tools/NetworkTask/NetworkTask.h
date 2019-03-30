@@ -11,8 +11,11 @@
 
 
 typedef NS_ENUM(NSInteger, NetStatusCode) {
-    NetStatusCodeSuccess = 0,
-    NetStatusCodeUnknown,
+    NetStatusCodeSuccess = 1,
+    NetStatusCodeEmailExist = 3,
+    NetStatusCodeEmailCodeUnExist = 4,
+    NetStatusCodeEmailCodeError = 5,
+    NetStatusCodeUnknown=INT_MAX,
 };
 
 

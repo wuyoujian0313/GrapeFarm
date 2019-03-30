@@ -12,7 +12,7 @@
 "InputPassword"             ="Please input your password";
 "ReInputPassword"           ="Please input the password again";
 "Login"                     ="Login";
-"ForgetPassword"            ="Forgot password";
+"ForgotPassword"            ="Forgot password";
 "Register"                  ="Register";
 "ResetPassword"             ="Reset password";
 "V-code"                    ="Verification code";
@@ -42,4 +42,5 @@
 "ColorSegment"              ="Color segmentation";
 "CheckEmailCode"            ="Email verification code has been sent to your mailbox, please check";
 "registerSuccess"           ="Congratulations on your successful registration";
+"Successful"                ="Successful";
 
