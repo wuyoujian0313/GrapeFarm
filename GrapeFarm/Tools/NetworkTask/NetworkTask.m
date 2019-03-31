@@ -147,6 +147,11 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
             break;
         }
             
+        case NetStatusCodeEmailCodeUnExist:{
+            [desc appendString:NSLocalizedString(@"NetStatusCodeEmailCodeUnExist", nil)];
+            break;
+        }
+            
         case NetStatusCodeEmailCodeExpired: {
             [desc appendString:NSLocalizedString(@"NetStatusCodeEmailCodeExpired", nil)];
             break;

@@ -58,6 +58,7 @@ static CGFloat kLoadingViewMaxTimeout = 90.0f;
         [textLabel setTextColor:[UIColor whiteColor]];
         [textLabel setFont:[UIFont systemFontOfSize:16]];
         [textLabel setNumberOfLines:0];
+        [textLabel setTextAlignment:NSTextAlignmentCenter];
         [textLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [backgroundView addSubview:textLabel];
         

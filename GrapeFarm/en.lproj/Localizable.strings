@@ -59,6 +59,7 @@ NetStatusCodeUnknown=INT_MAX,
  */
 
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";
+"NetStatusCodeEmailCodeUnExist"     = "Sorry, this email verification code does not exist";
 "NetStatusCodeEmailCodeExpired"     = "Sorry, this email verification code has expired";
 "NetStatusCodeEmailCodeError"       = "Sorry, this email verification code is not correct";
 "NetStatusCodeUnknown"              = "Sorry, unknown error";

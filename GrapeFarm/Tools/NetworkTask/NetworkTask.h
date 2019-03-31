@@ -13,8 +13,9 @@
 typedef NS_ENUM(NSInteger, NetStatusCode) {
     NetStatusCodeSuccess = 1,
     NetStatusCodeEmailExist = 3,
-    NetStatusCodeEmailCodeExpired = 4,
+    NetStatusCodeEmailCodeUnExist = 4,
     NetStatusCodeEmailCodeError = 5,
+    NetStatusCodeEmailCodeExpired = 6,
     NetStatusCodeUnknown=INT_MAX,
 };
 
