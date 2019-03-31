@@ -11,6 +11,7 @@
 "InputAccount"              ="请输入用户名";
 "InputPassword"             ="请输入密码";
 "ReInputPassword"           ="请再次输入密码";
+"PasswordLengthError"       ="密码长度需要大于6位";
 "Login"                     ="登录";
 "ForgotPassword"            ="忘记密码";
 "Register"                  ="注册";
@@ -42,4 +43,21 @@
 "ColorSegment"              ="色彩分离";
 "CheckEmailCode"            ="邮箱验证码已发送到您的邮箱,请查收";
 "registerSuccess"           ="恭喜您，注册成功!";
+"resetPassworkSuccess"      ="恭喜您，密码重置成功！";
 "Successful"                ="成功";
+
+
+//状态码的翻译
+/*
+ NetStatusCodeSuccess = 1,
+ NetStatusCodeEmailExist = 3,
+ NetStatusCodeEmailCodeExpired = 4,
+ NetStatusCodeEmailCodeError = 5,
+ NetStatusCodeUnknown=INT_MAX,
+ 
+ */
+
+"NetStatusCodeEmailExist"           = "此邮箱已注册";
+"NetStatusCodeEmailCodeExpired"     = "验证码已过期";
+"NetStatusCodeEmailCodeError"       = "验证码不正确";
+"NetStatusCodeUnknown"              = "未知错误";

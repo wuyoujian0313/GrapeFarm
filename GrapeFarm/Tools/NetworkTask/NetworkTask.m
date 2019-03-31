@@ -68,8 +68,9 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
         }
     } else if(resultObj.statusCode != nil && NetStatusCodeFail([resultObj.statusCode integerValue])) {
         
+        NSString *errorDesc = [self errerDescription:[resultObj.statusCode integerValue]];
         if (delegate != nil && [delegate respondsToSelector:@selector(netResultFailBack:errorCode:forInfo:)]) {
-            [delegate netResultFailBack:resultObj.statusDesc errorCode:[resultObj.statusCode integerValue]  forInfo:customInfo];
+            [delegate netResultFailBack:errorDesc errorCode:[resultObj.statusCode integerValue]  forInfo:customInfo];
         }
     }
 }
@@ -127,7 +128,7 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
 /*
  NetStatusCodeSuccess = 1,
  NetStatusCodeEmailExist = 3,
- NetStatusCodeEmailCodeUnExist = 4,
+ NetStatusCodeEmailCodeExpired = 4,
  NetStatusCodeEmailCodeError = 5,
  NetStatusCodeUnknown=INT_MAX,
  */
@@ -142,11 +143,22 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
         }
 
         case NetStatusCodeEmailExist: {
-            [desc appendString:NSLocalizedString(@"Successful", nil)];
+            [desc appendString:NSLocalizedString(@"NetStatusCodeEmailExist", nil)];
+            break;
+        }
+            
+        case NetStatusCodeEmailCodeExpired: {
+            [desc appendString:NSLocalizedString(@"NetStatusCodeEmailCodeExpired", nil)];
+            break;
+        }
+            
+        case NetStatusCodeEmailCodeError: {
+            [desc appendString:NSLocalizedString(@"NetStatusCodeEmailCodeError", nil)];
             break;
         }
             
         default:
+            [desc appendString:NSLocalizedString(@"NetStatusCodeUnknown", nil)];
             break;
     }
     

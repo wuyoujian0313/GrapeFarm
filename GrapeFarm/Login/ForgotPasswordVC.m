@@ -16,6 +16,7 @@
 #import "CaptchaControl.h"
 #import "FadePromptView.h"
 #import "GetVerificationCodeBean.h"
+#import "ForgotPasswordBean.h"
 #import "AILoadingView.h"
 
 @interface ForgotPasswordVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,NetworkTaskDelegate>
@@ -87,7 +88,7 @@
     [_nextBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [_nextBtn setTag:101];
     [_nextBtn setClipsToBounds:YES];
-    [_nextBtn setTitle:NSLocalizedString(@"Register", nil) forState:UIControlStateNormal];
+    [_nextBtn setTitle:NSLocalizedString(@"Reset", nil) forState:UIControlStateNormal];
     [_nextBtn setFrame:CGRectMake(11, 20, _registerTableView.frame.size.width-22, 45)];
     [_nextBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_nextBtn];
@@ -118,6 +119,12 @@
             return;
         }
         
+        if (_pwdTextField.text == nil || [_pwdTextField.text length] < 6) {
+            [FadePromptView showPromptStatus:NSLocalizedString(@"PasswordLengthError",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
+            [_pwdTextField becomeFirstResponder];
+            return;
+        }
+        
         if (_pwd2TextField.text == nil || [_pwd2TextField.text length] <= 0) {
             [FadePromptView showPromptStatus:NSLocalizedString(@"ReInputPassword",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
             [_pwd2TextField becomeFirstResponder];
@@ -129,6 +136,18 @@
             [_pwd2TextField becomeFirstResponder];
             return;
         }
+        
+        NSDictionary *parms = @{@"email":_mailTextField.text,
+                                @"password":[_pwdTextField.text md5EncodeUpper:NO],
+                                @"code":_codeTextField.text,
+                                };
+        
+        [AILoadingView show:NSLocalizedString(@"Loading", nil)];
+        [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPIResetPassword
+                                                 forParam:parms
+                                                 delegate:self
+                                                resultObj:[[ForgotPasswordBean alloc] init]
+                                               customInfo:@"register"];
     }
 }
 
@@ -147,9 +166,12 @@
         return;
     }
     
+    NSDictionary *parms = @{@"email":_mailTextField.text,
+                            @"sendType":@"forget",
+                            };
     [AILoadingView show:NSLocalizedString(@"Loading", nil)];
-    [[NetworkTask sharedNetworkTask] startPOSTTaskApi:@"getCode"
-                                             forParam:[NSDictionary dictionaryWithObject:_mailTextField.text forKey:@"email"]
+    [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPIGetRegiterCode
+                                             forParam:parms
                                              delegate:self
                                             resultObj:[[GetVerificationCodeBean alloc] init]
                                            customInfo:@"registerCode"];
@@ -185,17 +207,24 @@
     [AILoadingView dismiss];
     if ([customInfo isEqualToString:@"registerCode"]) {
         //
+        [FadePromptView showPromptStatus:NSLocalizedString(@"CheckEmailCode", nil) duration:2.0 finishBlock:^{
+            //
+        }];
         
     } else if ([customInfo isEqualToString:@"register"]) {
+        [FadePromptView showPromptStatus:NSLocalizedString(@"resetPassworkSuccess", nil) duration:2.0 finishBlock:^{
+            //
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
     }
 }
 
 
 -(void)netResultFailBack:(NSString *)errorDesc errorCode:(NSInteger)errorCode forInfo:(id)customInfo {
-    
-    //    [FadePromptView showPromptStatus:errorDesc duration:1.0 finishBlock:^{
-    //        //
-    //    }];
+    [AILoadingView dismiss];
+    [FadePromptView showPromptStatus:errorDesc duration:2.0 finishBlock:^{
+        //
+    }];
     
 }
 
@@ -234,7 +263,14 @@
         NSMutableString *textString = [NSMutableString stringWithString:textField.text];
         [textString replaceCharactersInRange:range withString:string];
         
-        if ([textString length] > 18) {
+        if ([textString length] > 8) {
+            return NO;
+        }
+    } else if (textField == _codeTextField ) {
+        NSMutableString *textString = [NSMutableString stringWithString:textField.text];
+        [textString replaceCharactersInRange:range withString:string];
+        
+        if ([textString length] > 6) {
             return NO;
         }
     }
@@ -248,7 +284,7 @@
     
     UITextField *textField = (UITextField *)sender;
     NSString *temp = [NSString stringWithFormat:@"%@",textField.text];
-    if ([temp length] > 18) {
+    if ([temp length] > 8) {
         textField.text = _pwdNewString;
         return;
     }

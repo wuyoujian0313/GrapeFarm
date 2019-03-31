@@ -10,6 +10,7 @@
 "PleaseRegister_2"          =" Please register";
 "InputAccount"              ="Please input your account";
 "InputPassword"             ="Please input your password";
+"PasswordLengthError"       ="Enter a password of less than 6 digits";
 "ReInputPassword"           ="Please input the password again";
 "Login"                     ="Login";
 "ForgotPassword"            ="Forgot password";
@@ -42,5 +43,22 @@
 "ColorSegment"              ="Color segmentation";
 "CheckEmailCode"            ="Email verification code has been sent to your mailbox, please check";
 "registerSuccess"           ="Congratulations on your successful registration";
+"resetPassworkSuccess"      ="Congratulations on your successful password reset";
 "Successful"                ="Successful";
 
+
+
+//状态码的翻译
+/*
+NetStatusCodeSuccess = 1,
+NetStatusCodeEmailExist = 3,
+NetStatusCodeEmailCodeUnExist = 4,
+NetStatusCodeEmailCodeError = 5,
+NetStatusCodeUnknown=INT_MAX,
+
+ */
+
+"NetStatusCodeEmailExist"           = "Sorry, this email has been registered";
+"NetStatusCodeEmailCodeExpired"     = "Sorry, this email verification code has expired";
+"NetStatusCodeEmailCodeError"       = "Sorry, this email verification code is not correct";
+"NetStatusCodeUnknown"              = "Sorry, unknown error";

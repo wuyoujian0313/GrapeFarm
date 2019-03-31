@@ -36,8 +36,10 @@
 #define kNetworkAPIServer       @"http://47.101.51.112:8000"
 
 // API定义
+// http://47.101.51.112:8000/swagger-ui.html
 #define kAPIGetRegiterCode      @"emailcode"
-#define kAPIRegiterUserCode     @"user"
+#define kAPIRegiterUser         @"user"
+#define kAPIResetPassword       @"user/passwd"
 
 
 // 颜色定义

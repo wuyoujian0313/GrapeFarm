@@ -118,6 +118,12 @@
             return;
         }
         
+        if (_pwdTextField.text == nil || [_pwdTextField.text length] < 6) {
+            [FadePromptView showPromptStatus:NSLocalizedString(@"PasswordLengthError",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
+            [_pwdTextField becomeFirstResponder];
+            return;
+        }
+        
         if (_pwd2TextField.text == nil || [_pwd2TextField.text length] <= 0) {
             [FadePromptView showPromptStatus:NSLocalizedString(@"ReInputPassword",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
             [_pwd2TextField becomeFirstResponder];
@@ -136,11 +142,11 @@
                                };
         
         [AILoadingView show:NSLocalizedString(@"Loading", nil)];
-        [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPIRegiterUserCode
+        [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPIRegiterUser
                                                  forParam:parms
                                                  delegate:self
                                                 resultObj:[[GetVerificationCodeBean alloc] init]
-                                               customInfo:@"registerCode"];
+                                               customInfo:@"register"];
     }
 }
 
@@ -207,6 +213,7 @@
     } else if ([customInfo isEqualToString:@"register"]) {
         [FadePromptView showPromptStatus:NSLocalizedString(@"registerSuccess", nil) duration:2.0 finishBlock:^{
             //
+            [self.navigationController popViewControllerAnimated:YES];
         }];
     }
 }
@@ -214,7 +221,7 @@
 
 -(void)netResultFailBack:(NSString *)errorDesc errorCode:(NSInteger)errorCode forInfo:(id)customInfo {
     [AILoadingView dismiss];
-    [FadePromptView showPromptStatus:errorDesc duration:1.0 finishBlock:^{
+    [FadePromptView showPromptStatus:errorDesc duration:2.0 finishBlock:^{
         //
     }];
     
@@ -255,7 +262,14 @@
         NSMutableString *textString = [NSMutableString stringWithString:textField.text];
         [textString replaceCharactersInRange:range withString:string];
         
-        if ([textString length] > 18) {
+        if ([textString length] > 8) {
+            return NO;
+        }
+    } else if (textField == _codeTextField ) {
+        NSMutableString *textString = [NSMutableString stringWithString:textField.text];
+        [textString replaceCharactersInRange:range withString:string];
+        
+        if ([textString length] > 6) {
             return NO;
         }
     }
@@ -269,7 +283,7 @@
     
     UITextField *textField = (UITextField *)sender;
     NSString *temp = [NSString stringWithFormat:@"%@",textField.text];
-    if ([temp length] > 18) {
+    if ([temp length] > 8) {
         textField.text = _pwdNewString;
         return;
     }
