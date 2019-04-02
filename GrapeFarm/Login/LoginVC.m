@@ -178,19 +178,17 @@
         [_nameTextField resignFirstResponder];
         [_pwdTextField resignFirstResponder];
         
-        AppDelegate *app = [AppDelegate shareMyApplication];
-        [app switchToHomePage];
-        
-//        NSDictionary *parms = @{@"email":_nameTextField.text,
-//                                @"password":[_pwdTextField.text md5EncodeUpper:NO],
-//                                };
-//
-//        [AILoadingView show:NSLocalizedString(@"Loading", nil)];
-//        [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPILogin
-//                                                 forParam:parms
-//                                                 delegate:self
-//                                                resultObj:[[LoginBean alloc] init]
-//                                               customInfo:@"login"];
+        NSDictionary *parms = @{@"username":_nameTextField.text,
+                                @"rememberMe":[NSNumber numberWithInteger:1],
+                                @"password":[_pwdTextField.text md5EncodeUpper:NO],
+                                };
+
+        [AILoadingView show:NSLocalizedString(@"Loading", nil)];
+        [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPILogin
+                                                 forParam:parms
+                                                 delegate:self
+                                                resultObj:[[LoginBean alloc] init]
+                                               customInfo:@"login"];
     } else if (tag == 102) {
         // 忘记密码
         ForgotPasswordVC *vc = [[ForgotPasswordVC alloc] init];
@@ -231,6 +229,10 @@
 -(void)netResultSuccessBack:(NetResultBase *)result forInfo:(id)customInfo {
     [AILoadingView dismiss];
     if ([customInfo isEqualToString:@"login"]) {
+        LoginBean *bean = (LoginBean *)result;
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:bean.token forKey:kLoginTokenUserdefaultKey];
+        [userDefaults synchronize];
         //
         AppDelegate *app = [AppDelegate shareMyApplication];
         [app switchToHomePage];

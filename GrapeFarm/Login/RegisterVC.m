@@ -152,6 +152,7 @@
 
 // 获取手机验证码
 - (void)phoneCodeStart:(CaptchaControl *)sender {
+    [sender start];
     if (_mailTextField.text == nil || [_mailTextField.text length] <= 0) {
         [FadePromptView showPromptStatus:NSLocalizedString(@"InputEmail",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
         [_mailTextField becomeFirstResponder];

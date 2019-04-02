@@ -53,4 +53,5 @@
 "NetStatusCodeEmailCodeUnExist"     = "Sorry, this email verification code does not exist";
 "NetStatusCodeEmailCodeExpired"     = "Sorry, this email verification code has expired";
 "NetStatusCodeEmailCodeError"       = "Sorry, this email verification code is not correct";
+"NetStatusCodePasswordError"        = "Sorry, the password or user name is not correct";
 "NetStatusCodeUnknown"              = "Sorry, unknown error";

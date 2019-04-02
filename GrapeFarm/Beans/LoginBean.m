@@ -10,11 +10,4 @@
 
 @implementation LoginBean
 
--(void)setToken:(NSString *)token {
-    _token = token;
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:_token forKey:kLoginTokenUserdefaultKey];
-    [userDefaults synchronize];
-}
-
 @end

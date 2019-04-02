@@ -12,6 +12,7 @@
 
 typedef NS_ENUM(NSInteger, NetStatusCode) {
     NetStatusCodeSuccess = 1,
+    NetStatusCodePasswordError = 2,
     NetStatusCodeEmailExist = 3,
     NetStatusCodeEmailCodeUnExist = 4,
     NetStatusCodeEmailCodeError = 5,
@@ -45,4 +46,12 @@ AISINGLETON_DEF(NetworkTask, sharedNetworkTask)
                 delegate:(id <NetworkTaskDelegate>_Nonnull)delegate
                resultObj:(NetResultBase*_Nonnull)resultObj
               customInfo:(id _Nonnull)customInfo;
+
+- (void)startGETTaskApi:(NSString*)api
+               forParam:(NSDictionary *)param
+               delegate:(id <NetworkTaskDelegate>)delegate
+              resultObj:(NetResultBase*)resultObj
+             customInfo:(id)customInfo;
+
+
 @end

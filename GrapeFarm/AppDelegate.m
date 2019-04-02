@@ -30,6 +30,7 @@
 }
 
 - (void)switchToLoginPage {
+    [self initApplicationParam];
     [_mainVC switchToLoginVC];
 }
 

@@ -147,12 +147,13 @@
                                                  forParam:parms
                                                  delegate:self
                                                 resultObj:[[ForgotPasswordBean alloc] init]
-                                               customInfo:@"register"];
+                                               customInfo:@"resetPassword"];
     }
 }
 
 // 获取手机验证码
 - (void)phoneCodeStart:(CaptchaControl *)sender {
+    [sender start];
     if (_mailTextField.text == nil || [_mailTextField.text length] <= 0) {
         [FadePromptView showPromptStatus:NSLocalizedString(@"InputEmail",nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
         [_mailTextField becomeFirstResponder];
@@ -211,7 +212,7 @@
             //
         }];
         
-    } else if ([customInfo isEqualToString:@"register"]) {
+    } else if ([customInfo isEqualToString:@"resetPassword"]) {
         [FadePromptView showPromptStatus:NSLocalizedString(@"resetPassworkSuccess", nil) duration:2.0 finishBlock:^{
             //
             [self.navigationController popViewControllerAnimated:YES];
