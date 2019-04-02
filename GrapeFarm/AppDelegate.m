@@ -28,18 +28,27 @@
 - (void)switchToHomePage {
     [_mainVC switchToHomeVC];
 }
+
 - (void)switchToLoginPage {
     [_mainVC switchToLoginVC];
 }
 
+- (void)initApplicationParam {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:nil forKey:kLoginTokenUserdefaultKey];
+    [userDefaults synchronize];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+   
+    [self initApplicationParam];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     MainControllerManager *tempVC = [[MainControllerManager alloc] init];
     self.mainVC = tempVC;
-    
+
     AINavigationController *tempNav = [[AINavigationController alloc] initWithRootViewController:_mainVC];
     self.mainNav = tempNav;
     [_mainNav.navigationBar setBarTintColor:[UIColor colorWithHex:0xF7F7F7]];

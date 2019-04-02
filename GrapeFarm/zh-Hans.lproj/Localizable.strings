@@ -46,6 +46,7 @@
 "resetPassworkSuccess"      ="恭喜您，密码重置成功！";
 "Successful"                ="成功";
 "SelectImageArea"           ="请用手指选择葡萄区域";
+"ModelIdentification"       ="模型识别";
 
 
 //状态码的翻译

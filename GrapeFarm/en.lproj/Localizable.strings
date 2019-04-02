@@ -46,6 +46,7 @@
 "resetPassworkSuccess"      ="Congratulations on your successful password reset";
 "Successful"                ="Successful";
 "SelectImageArea"           ="Select the grape area with your fingers";
+"ModelIdentification"       ="Model identification";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";

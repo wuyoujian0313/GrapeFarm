@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define kLineHeight1px (1/[[UIScreen mainScreen] scale])
-
 @interface LineView : UIImageView
 
 

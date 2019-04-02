@@ -32,6 +32,10 @@
 #define NSLog(...) {}
 #endif
 
+
+#define kLoginTokenUserdefaultKey   @"loginTokenUserdefaultKey"
+#define kLineHeight1px (1/[[UIScreen mainScreen] scale])
+
 // 服务器地址
 #define kNetworkAPIServer       @"http://47.101.51.112:8000"
 
@@ -40,6 +44,7 @@
 #define kAPIGetRegiterCode      @"emailcode"
 #define kAPIRegiterUser         @"user"
 #define kAPIResetPassword       @"user/passwd"
+#define kAPILogin               @"auth/login"
 
 
 // 颜色定义

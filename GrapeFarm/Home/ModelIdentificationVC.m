@@ -1,36 +1,26 @@
 //
-//  ColorSegment?VC.m
+//  ModelIdentificationVC.m
 //  GrapeFarm
 //
-//  Created by Wu YouJian on 2019/3/29.
+//  Created by Wu YouJian on 2019/4/2.
 //  Copyright © 2019 Wu YouJian. All rights reserved.
 //
 
-#import "ColorSegmentVC.h"
-#import "DeviceInfo.h"
 #import "ModelIdentificationVC.h"
+#import "DeviceInfo.h"
+#import "Commit3DDataVC.h"
 
-@interface ColorSegmentVC ()
-@property(nonatomic,strong)UISegmentedControl *segmentCtl;
+@interface ModelIdentificationVC ()
+
 @end
 
-@implementation ColorSegmentVC
+@implementation ModelIdentificationVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setNavTitle:NSLocalizedString(@"ColorSegment",nil)];
-    [self layoutSegmentControl];
+    [self setNavTitle:NSLocalizedString(@"ModelIdentification", nil)];
     [self layoutNextView];
-}
-
-- (void)layoutSegmentControl {
-    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"分割一",@"分割二",@"分割三",nil];
-    _segmentCtl = [[UISegmentedControl alloc]initWithItems:segmentedArray];
-    _segmentCtl.frame = CGRectMake(11,15 + [DeviceInfo navigationBarHeight],self.view.frame.size.width - 22,30);
-    _segmentCtl.selectedSegmentIndex = 0;
-    _segmentCtl.tintColor = [UIColor blackColor];
-    [self.view addSubview:_segmentCtl];
 }
 
 - (void)layoutNextView {
@@ -57,10 +47,9 @@
 }
 
 - (void)nextAction:(UIButton *)sender {
-    ModelIdentificationVC *vc = [[ModelIdentificationVC alloc] init];
+    Commit3DDataVC *vc = [[Commit3DDataVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
 
 
 @end

@@ -178,9 +178,19 @@
         [_nameTextField resignFirstResponder];
         [_pwdTextField resignFirstResponder];
         
-        //
         AppDelegate *app = [AppDelegate shareMyApplication];
         [app switchToHomePage];
+        
+//        NSDictionary *parms = @{@"email":_nameTextField.text,
+//                                @"password":[_pwdTextField.text md5EncodeUpper:NO],
+//                                };
+//
+//        [AILoadingView show:NSLocalizedString(@"Loading", nil)];
+//        [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPILogin
+//                                                 forParam:parms
+//                                                 delegate:self
+//                                                resultObj:[[LoginBean alloc] init]
+//                                               customInfo:@"login"];
     } else if (tag == 102) {
         // 忘记密码
         ForgotPasswordVC *vc = [[ForgotPasswordVC alloc] init];
@@ -219,10 +229,20 @@
 
 #pragma mark - NetworkTaskDelegate
 -(void)netResultSuccessBack:(NetResultBase *)result forInfo:(id)customInfo {
+    [AILoadingView dismiss];
+    if ([customInfo isEqualToString:@"login"]) {
+        //
+        AppDelegate *app = [AppDelegate shareMyApplication];
+        [app switchToHomePage];
+    }
 }
 
 
 -(void)netResultFailBack:(NSString *)errorDesc errorCode:(NSInteger)errorCode forInfo:(id)customInfo {
+    [AILoadingView dismiss];
+    [FadePromptView showPromptStatus:errorDesc duration:2.0 finishBlock:^{
+        //
+    }];
 }
 
 

@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#define BaiduParserArray(key,type)    key##__Array__##type
+#define kBaiduParserArray(key,type)    key##__Array__##type
 /* 定义数组字段的范例：
- @property (nonatomic, strong, getter=getList) NSArray *BaiduParserArray(key,className);
+ @property (nonatomic, strong, getter=getList) NSArray *kBaiduParserArray(key,className);
  key：字段名称
  className：数组item类型
  getList：重定义get函数，一般定义，不然get名就是：key##__Array__##type

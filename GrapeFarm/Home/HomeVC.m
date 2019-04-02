@@ -52,7 +52,7 @@
 
 - (void)layoutToolsView {
     NSInteger buttonWidth = 60;
-    NSInteger xfooter = 40 + buttonWidth;
+    NSInteger xfooter = 30 + buttonWidth;
     if ([DeviceInfo detectModel] == MODEL_IPHONE_X) {
         xfooter += 34;
     }

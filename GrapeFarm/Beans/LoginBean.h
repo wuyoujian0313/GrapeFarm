@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LoginBean : NetResultBase
-
+@property (nonatomic,copy) NSString *token;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -31,7 +31,7 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
 - (instancetype)init {
     
     if (self = [super init]) {
-        self.taskTimeout = 20;
+        self.taskTimeout = 30;
         self.serverAddress = kNetworkAPIServer;
         self.afManager = [AFHTTPSessionManager manager];
     
@@ -53,8 +53,21 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
     return self;
 }
 
-#pragma mark - 私有API
+- (void)startPOSTTaskApi:(NSString*)api
+                forParam:(NSDictionary *)param
+                delegate:(id <NetworkTaskDelegate>)delegate
+               resultObj:(NetResultBase*)resultObj
+              customInfo:(id)customInfo {
+    
+    [self requestWithMethod:@"POST"
+                        api:api
+                      param:param
+                   delegate:delegate
+                  resultObj:resultObj
+                 customInfo:customInfo];
+}
 
+#pragma mark - 私有API
 -(void)analyzeData:(NSData *)responseObject
           delegate:(id <NetworkTaskDelegate>)delegate
          resultObj:(NetResultBase*)resultObj
@@ -92,13 +105,20 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
                  delegate:(id <NetworkTaskDelegate>)delegate
                 resultObj:(NetResultBase*)resultObj
                customInfo:(id)customInfo {
+    // 统计增加token字段
+    NSMutableDictionary *np = [NSMutableDictionary dictionaryWithDictionary:param];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDefaults stringForKey:kLoginTokenUserdefaultKey];
+    if (token != nil && [token length] > 0) {
+        [np setObject:token forKey:@"token"];
+    }
 
     __weak NetworkTask *weakSelf = self;
     [_afManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     NSString * urlString = [NSString stringWithFormat:@"%@/%@",_serverAddress,api];
     if([method isEqualToString:@"POST"]) {
         
-        [_afManager POST:urlString parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
+        [_afManager POST:urlString parameters:np progress:^(NSProgress * _Nonnull uploadProgress) {
             //
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             //
@@ -109,20 +129,6 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
             [weakSelf handleHTTPError:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
         }];
     }
-}
-
-- (void)startPOSTTaskApi:(NSString*)api
-                forParam:(NSDictionary *)param
-                delegate:(id <NetworkTaskDelegate>)delegate
-               resultObj:(NetResultBase*)resultObj
-              customInfo:(id)customInfo {
-    
-    [self requestWithMethod:@"POST"
-                        api:api
-                      param:param
-                   delegate:delegate
-                  resultObj:resultObj
-                 customInfo:customInfo];
 }
 
 /*
