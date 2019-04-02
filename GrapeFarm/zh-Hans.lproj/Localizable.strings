@@ -45,19 +45,10 @@
 "registerSuccess"           ="恭喜您，注册成功!";
 "resetPassworkSuccess"      ="恭喜您，密码重置成功！";
 "Successful"                ="成功";
+"SelectImageArea"           ="请用手指选择葡萄区域";
 
 
 //状态码的翻译
-/*
- NetStatusCodeSuccess = 1,
- NetStatusCodeEmailExist = 3,
- NetStatusCodeEmailCodeUnExist=4,
- NetStatusCodeEmailCodeError = 5,
-  NetStatusCodeEmailCodeExpired = 6,
- NetStatusCodeUnknown=INT_MAX,
- 
- */
-
 "NetStatusCodeEmailExist"           = "此邮箱已注册";
 "NetStatusCodeEmailCodeUnExist"     = "此验证码不存在";
 "NetStatusCodeEmailCodeExpired"     = "验证码已过期";

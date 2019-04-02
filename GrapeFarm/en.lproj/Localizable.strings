@@ -5,7 +5,7 @@
   Created by Wu YouJian on 2019/3/26.
   Copyright © 2019 Wu YouJian. All rights reserved.
 */
-"AppName"                   ="GrapeFarm";
+"AppName"                   ="Grape farm";
 "PleaseRegister_1"          ="There is no account?";
 "PleaseRegister_2"          =" Please register";
 "InputAccount"              ="Please input your account";
@@ -45,19 +45,9 @@
 "registerSuccess"           ="Congratulations on your successful registration";
 "resetPassworkSuccess"      ="Congratulations on your successful password reset";
 "Successful"                ="Successful";
-
-
+"SelectImageArea"           ="Select the grape area with your fingers";
 
 //状态码的翻译
-/*
-NetStatusCodeSuccess = 1,
-NetStatusCodeEmailExist = 3,
-NetStatusCodeEmailCodeUnExist = 4,
-NetStatusCodeEmailCodeError = 5,
-NetStatusCodeUnknown=INT_MAX,
-
- */
-
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";
 "NetStatusCodeEmailCodeUnExist"     = "Sorry, this email verification code does not exist";
 "NetStatusCodeEmailCodeExpired"     = "Sorry, this email verification code has expired";
