@@ -20,8 +20,8 @@
 @property (nonatomic, strong) UITableView           *abilityTableView;
 @property (nonatomic, strong) NSArray               *abilitys;
 @property (nonatomic, copy) NSString                *myFarmName;
-@property (nonatomic, assign)NSInteger              brushColor;
-@property (nonatomic, copy)NSString               *brushColorName;
+@property (nonatomic, assign) NSInteger             brushColor;
+@property (nonatomic, copy) NSString                *brushColorName;
 @end
 
 @implementation SettingsVC
@@ -161,12 +161,12 @@
     NSDictionary *config = [_abilitys objectAtIndex:indexPath.row];
     cell.textLabel.text = config[@"name"];
     [cell.imageView setImage:[UIImage imageNamed:config[@"icon"]]];
+    
+    cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:[cell.detailTextLabel.font pointSize]];
     if (indexPath.row == 1 && [_myFarmName length] > 0) {
         cell.detailTextLabel.text = _myFarmName;
     } else if (indexPath.row == 3) {
-        cell.detailTextLabel.size = CGSizeMake(20, 20);
         cell.detailTextLabel.text =_brushColorName;
-        cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:12];
         cell.detailTextLabel.textColor = [UIColor colorWithHex:_brushColor];
     }
     
