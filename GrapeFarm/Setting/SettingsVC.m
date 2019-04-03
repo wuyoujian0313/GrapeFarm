@@ -13,11 +13,13 @@
 #import "RecordVC.h"
 #import "FarmListVC.h"
 #import "UIView+SizeUtility.h"
+#import "SetBrushColorVC.h"
+#import "SaveSimpleDataManager.h"
 
-
-@interface SettingsVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
+@interface SettingsVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,FarmSelectIndexDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
 @property (nonatomic, strong) NSArray               *abilitys;
+@property (nonatomic, copy) NSString                *myFarmName;
 @end
 
 @implementation SettingsVC
@@ -38,7 +40,14 @@
     self.abilitys = @[@{@"name":NSLocalizedString(@"Records",nil),@"icon":@"history"},
                       @{@"name":NSLocalizedString(@"MyFarm",nil),@"icon":@"home"},
                       @{@"name":NSLocalizedString(@"ModifyPassword",nil),@"icon":@"edit"},
+                      @{@"name":NSLocalizedString(@"BrushColor",nil),@"icon":@"palette"},
                       @{@"name":NSLocalizedString(@"Quit",nil),@"icon":@"exit"}];
+    
+    SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+    NSString *farmName = [manager objectForKey:kMyfarmUserdefaultKey];
+    if (farmName != nil && [farmName length] > 0) {
+        _myFarmName = farmName;
+    }
 }
 
 - (void)layoutSettingsTableView {
@@ -56,6 +65,14 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _abilityTableView.frame.size.width, height)];
     view.backgroundColor = [UIColor clearColor];
     [_abilityTableView setTableHeaderView:view];
+}
+
+#pragma mark - FarmSelectIndexDelegate
+-(void)didSelectedFarmName:(NSString *)farmName {
+    _myFarmName = farmName;
+    
+    [_abilityTableView reloadRowsAtIndexPaths:
+     @[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 
@@ -79,13 +96,26 @@
     } else if (row == 1) {
         // 我的农庄
         FarmListVC *vc = [[FarmListVC alloc] init];
+        vc.delegate = self;
+        SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+        NSNumber *farmIndex = [manager objectForKey:kMyfarmUserdefaultKey];
+        if (farmIndex != nil) {
+            [vc setFarmName:_myFarmName saveToConfig:YES];
+        } else {
+            [manager setObject:[NSNumber numberWithInteger:0] forKey:kMyfarmUserdefaultKey];
+            [vc setFarmName:@"" saveToConfig:YES];
+        }
+        
         [self.navigationController pushViewController:vc animated:YES];
     } else if (row == 2) {
         // 修改密码
         ForgotPasswordVC *vc = [[ForgotPasswordVC alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     } else if (row == 3) {
-        
+        // 画笔颜色
+        SetBrushColorVC *vc = [[SetBrushColorVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (row == 4) {
         UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Logout", nil)
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
@@ -108,6 +138,9 @@
     NSDictionary *config = [_abilitys objectAtIndex:indexPath.row];
     cell.textLabel.text = config[@"name"];
     [cell.imageView setImage:[UIImage imageNamed:config[@"icon"]]];
+    if (indexPath.row == 1 && [_myFarmName length] > 0) {
+        cell.detailTextLabel.text = _myFarmName;
+    }
     
     return cell;
 }

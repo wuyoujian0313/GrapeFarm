@@ -9,5 +9,4 @@
 #import "LoginBean.h"
 
 @implementation LoginBean
-
 @end

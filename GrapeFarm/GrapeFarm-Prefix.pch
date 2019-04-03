@@ -34,6 +34,9 @@
 
 
 #define kLoginTokenUserdefaultKey   @"loginTokenUserdefaultKey"
+#define kBruchColorUserdefaultKey   @"bruchColorUserdefaultKey"
+#define kMyfarmUserdefaultKey       @"myfarmUserdefaultKey"
+
 #define kLineHeight1px (1/[[UIScreen mainScreen] scale])
 
 // 服务器地址

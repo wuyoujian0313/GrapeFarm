@@ -16,6 +16,8 @@
 		AF097494224A237B00989F11 /* RegisterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097493224A237B00989F11 /* RegisterBean.m */; };
 		AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097496224A23A600989F11 /* ForgotPasswordBean.m */; };
 		AF894594224DE8140023D514 /* ColorSegmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF894593224DE8140023D514 /* ColorSegmentVC.m */; };
+		AFAF4673225440BA008EF9CD /* SetBrushColorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */; };
+		AFAF467722545EC2008EF9CD /* SaveSimpleDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF467622545EC2008EF9CD /* SaveSimpleDataManager.m */; };
 		AFBF90BD22486674007F2ED8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90BC22486674007F2ED8 /* AppDelegate.m */; };
 		AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFBF90C422486676007F2ED8 /* Assets.xcassets */; };
 		AFBF90CB22486676007F2ED8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90CA22486676007F2ED8 /* main.m */; };
@@ -98,6 +100,10 @@
 		AF097496224A23A600989F11 /* ForgotPasswordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordBean.m; sourceTree = "<group>"; };
 		AF894592224DE8140023D514 /* ColorSegmentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorSegmentVC.h; sourceTree = "<group>"; };
 		AF894593224DE8140023D514 /* ColorSegmentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorSegmentVC.m; sourceTree = "<group>"; };
+		AFAF4671225440BA008EF9CD /* SetBrushColorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetBrushColorVC.h; sourceTree = "<group>"; };
+		AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetBrushColorVC.m; sourceTree = "<group>"; };
+		AFAF467522545EC2008EF9CD /* SaveSimpleDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveSimpleDataManager.h; sourceTree = "<group>"; };
+		AFAF467622545EC2008EF9CD /* SaveSimpleDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaveSimpleDataManager.m; sourceTree = "<group>"; };
 		AFBF90B822486674007F2ED8 /* GrapeFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrapeFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBF90BB22486674007F2ED8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AFBF90BC22486674007F2ED8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -409,6 +415,8 @@
 				AFD97A9E224B6A190048367E /* RecordDetailVC.m */,
 				AFD97A96224B512A0048367E /* FarmListVC.h */,
 				AFD97A97224B512A0048367E /* FarmListVC.m */,
+				AFAF4671225440BA008EF9CD /* SetBrushColorVC.h */,
+				AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -439,6 +447,8 @@
 				AFD97AC8224B70390048367E /* AICroppableView.m */,
 				AFCD4C4822534E9700A5040B /* FileCache.h */,
 				AFCD4C4922534E9700A5040B /* FileCache.m */,
+				AFAF467522545EC2008EF9CD /* SaveSimpleDataManager.h */,
+				AFAF467622545EC2008EF9CD /* SaveSimpleDataManager.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -600,6 +610,8 @@
 				AFBF915622486ECE007F2ED8 /* NetworkTask.m in Sources */,
 				AFBF915C22486ECE007F2ED8 /* UIView+SizeUtility.m in Sources */,
 				AFBF915A22486ECE007F2ED8 /* NSString+Utility.m in Sources */,
+				AFAF4673225440BA008EF9CD /* SetBrushColorVC.m in Sources */,
+				AFAF467722545EC2008EF9CD /* SaveSimpleDataManager.m in Sources */,
 				AFBF90CB22486676007F2ED8 /* main.m in Sources */,
 				AFD97A95224B50970048367E /* RecordVC.m in Sources */,
 				AFCD4C4722534B6700A5040B /* ModelIdentificationVC.m in Sources */,

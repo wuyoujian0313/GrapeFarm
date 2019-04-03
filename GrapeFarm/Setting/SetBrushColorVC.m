@@ -1,61 +1,60 @@
 //
-//  FarmListVC.m
+//  SetBrushColorVC.m
 //  GrapeFarm
 //
-//  Created by Wu YouJian on 2019/3/27.
+//  Created by Wu YouJian on 2019/4/3.
 //  Copyright © 2019 Wu YouJian. All rights reserved.
 //
 
-#import "FarmListVC.h"
+#import "SetBrushColorVC.h"
 #import "LineView.h"
 #import "SaveSimpleDataManager.h"
 
-@interface FarmListVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
-@property (nonatomic, strong) UITableView           *farmTableView;
-@property (nonatomic, strong) NSArray               *farms;
-@property (nonatomic, copy) NSString                *farmName;
-@property (nonatomic, assign) BOOL                  isSave;
-@property (nonatomic, assign) NSInteger             selIndex;
+@interface SetBrushColorVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
+@property (nonatomic, strong) UITableView           *colorTableView;
+@property (nonatomic, strong) NSArray               *colors;
+@property (nonatomic, assign) NSInteger            selRow;
 @end
 
-@implementation FarmListVC
+@implementation SetBrushColorVC
 
 - (void)dealloc {
     
 }
 
-- (void)setFarmName:(NSString *)farmName saveToConfig:(BOOL)isSave {
-    _farmName = farmName;
-    _isSave = isSave;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setNavTitle:NSLocalizedString(@"Farm",nil)];
-    [self configFarms];
-    [self layoutFarmTableView];
+    [self setNavTitle:NSLocalizedString(@"BrushColor",nil)];
+    [self configColors];
+    [self layoutColorTableView];
 }
 
-- (void)configFarms {
-    _farms = @[@"Farm1",@"Farm2",@"Farm3",@"Farm4"];
-    if (_farmName != nil && [_farmName length] > 0) {
-        for (NSInteger i = 0; i < [_farms count]; i++) {
-            NSString *name = _farms[i];
-            if ([name isEqualToString:_farmName]) {
-                _selIndex = i;
+- (void)configColors {
+    _colors = @[@{@"name":@"red",@"color":@0xF3704B},
+                   @{@"name":@"blue",@"color":@0x009AD6},
+                   @{@"name":@"green",@"color":@0x339900},
+                   @{@"name":@"yellow",@"color":@0xFFD400},
+                   @{@"name":@"gray",@"color":@0x8A8C8E},
+                   @{@"name":@"black",@"color":@0x000000}];
+    
+    _selRow = 0;
+    SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+    NSNumber *color = [manager objectForKey:kBruchColorUserdefaultKey];
+    if (color != nil) {
+        for (NSInteger i = 0; i < [_colors count]; i ++){
+            NSDictionary *item = _colors[i];
+            if ([item[@"color"] integerValue] == [color integerValue]) {
+                _selRow = i;
                 break;
             }
         }
-    } else {
-        _selIndex = 0;
-        [self saveToConfig];
     }
 }
 
-- (void)layoutFarmTableView {
+- (void)layoutColorTableView {
     UITableView * tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
-    [self setFarmTableView:tableView];
+    [self setColorTableView:tableView];
     [tableView setBackgroundColor:[UIColor clearColor]];
     [tableView setDelegate:self];
     [tableView setDataSource:self];
@@ -67,35 +66,24 @@
 }
 
 - (void)setTableViewHeaderView:(NSInteger)height {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _farmTableView.frame.size.width, height)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _colorTableView.frame.size.width, height)];
     view.backgroundColor = [UIColor clearColor];
-    [_farmTableView setTableHeaderView:view];
+    [_colorTableView setTableHeaderView:view];
     
     LineView *line = [[LineView alloc] initWithFrame:CGRectMake(0, height - kLineHeight1px, view.frame.size.width, kLineHeight1px)];
     [view addSubview:line];
-    [_farmTableView setTableHeaderView:view];
+    [_colorTableView setTableHeaderView:view];
 }
 
 -(void)setTableViewFooterView:(NSInteger)height {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _farmTableView.frame.size.width, height)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _colorTableView.frame.size.width, height)];
     view.backgroundColor = [UIColor clearColor];
-    [_farmTableView setTableFooterView:view];
-}
-
--(void)saveToConfig {
-    if (_isSave) {
-        SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
-        [manager setObject:_farms[_selIndex] forKey:kMyfarmUserdefaultKey];
-    }
-    
-    if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectedFarmName:)]) {
-        [_delegate didSelectedFarmName:_farms[_selIndex]];
-    }
+    [_colorTableView setTableFooterView:view];
 }
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_farms count];
+    return [_colors count];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -105,17 +93,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSInteger oldRow = _selIndex;
-    _selIndex  = indexPath.row;
+    NSInteger oldRow = _selRow;
+    _selRow  = indexPath.row;
     [tableView reloadRowsAtIndexPaths:
      @[indexPath,[NSIndexPath indexPathForRow:oldRow inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     //保存配置
-    [self saveToConfig];
+    SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+    [manager setObject:[_colors[_selRow] objectForKey:@"color"] forKey:kBruchColorUserdefaultKey];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *cellIdentifier = @"farmsTableCell";
+    static NSString *cellIdentifier = @"colorsTableCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
@@ -128,10 +117,13 @@
         LineView *line = [[LineView alloc] initWithFrame:CGRectMake(0, 45 - kLineHeight1px, tableView.frame.size.width, kLineHeight1px)];
         [cell.contentView addSubview:line];
     }
-
-    cell.textLabel.text = [_farms objectAtIndex:indexPath.row];
+    
+    NSDictionary *config = [_colors objectAtIndex:indexPath.row];
+    cell.textLabel.text = config[@"name"];
+    cell.imageView.image = [UIImage imageFromColor:[UIColor colorWithHex:[config[@"color"] integerValue]] size:CGSizeMake(20, 20)];
+    
     NSString *icon = @"radio-off";
-    if (_selIndex == indexPath.row) {
+    if (_selRow == indexPath.row) {
         icon = @"radio-on";
     }
     

@@ -18,6 +18,7 @@
 #import "FadePromptView.h"
 #import "LoginBean.h"
 #import "AppDelegate.h"
+#import "SaveSimpleDataManager.h"
 
 @interface LoginVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,NetworkTaskDelegate>
 @property(nonatomic,strong)UITableView          *loginTableView;
@@ -177,7 +178,7 @@
         
         [_nameTextField resignFirstResponder];
         [_pwdTextField resignFirstResponder];
-        
+
         NSDictionary *parms = @{@"username":_nameTextField.text,
                                 @"rememberMe":[NSNumber numberWithInteger:1],
                                 @"password":[_pwdTextField.text md5EncodeUpper:NO],
@@ -230,9 +231,9 @@
     [AILoadingView dismiss];
     if ([customInfo isEqualToString:@"login"]) {
         LoginBean *bean = (LoginBean *)result;
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:bean.token forKey:kLoginTokenUserdefaultKey];
-        [userDefaults synchronize];
+        
+        SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+        [manager setObject:bean.token forKey:kLoginTokenUserdefaultKey];
         //
         AppDelegate *app = [AppDelegate shareMyApplication];
         [app switchToHomePage];
@@ -296,6 +297,7 @@
             //
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11, 0, tableView.frame.size.width - 22, 45)];
             self.nameTextField = textField;
+            textField.text = @"wuyoujian0313@qq.com";
             [textField setDelegate:self];
             [textField setTextColor:[UIColor blackColor]];
             [textField setFont:[UIFont systemFontOfSize:14]];
@@ -327,6 +329,7 @@
             //
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11,0, tableView.frame.size.width - 22, 45)];
             self.pwdTextField = textField;
+            textField.text = @"123456";
             [textField setDelegate:self];
             [textField setSecureTextEntry:YES];
             [textField setTextColor:[UIColor blackColor]];

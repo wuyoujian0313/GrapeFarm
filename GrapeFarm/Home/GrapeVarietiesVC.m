@@ -12,12 +12,18 @@
 @interface GrapeVarietiesVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView           *varietiesTableView;
 @property (nonatomic, strong) NSArray               *varieties;
+@property (nonatomic, copy) NSString                *variety;
+@property (nonatomic, assign) NSInteger             selIndex;
 @end
 
 @implementation GrapeVarietiesVC
 
 -(void)dealloc {
     
+}
+
+- (void)setGrapeVariety:(NSString *)variety {
+    _variety = variety;
 }
 
 - (void)viewDidLoad {
@@ -29,10 +35,21 @@
 }
 
 - (void)configVarieties {
-    self.varieties = @[@{@"name":@"varieties1",@"icon":@"selected"},
-                   @{@"name":@"varieties2",@"icon":@"unSelected"},
-                   @{@"name":@"varieties3",@"icon":@"unSelected"},
-                   @{@"name":@"varieties4",@"icon":@"unSelected"}];
+    _varieties = @[@"varietiy1",@"variety2",@"variety3",@"variety4",];
+    if (_variety != nil && [_variety length] > 0) {
+        for (NSInteger i = 0; i < [_varieties count]; i++) {
+            NSString *name = _varieties[i];
+            if ([name isEqualToString:_variety]) {
+                _selIndex = i;
+                break;
+            }
+        }
+    } else {
+        _selIndex = 0;
+        if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectedGrapeVariety:)]) {
+            [_delegate didSelectedGrapeVariety:_varieties[_selIndex]];
+        }
+    }
 }
 
 - (void)layoutVarietiesTableView {
@@ -75,6 +92,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSInteger oldRow = _selIndex;
+    _selIndex  = indexPath.row;
+    [tableView reloadRowsAtIndexPaths:
+     @[indexPath,[NSIndexPath indexPathForRow:oldRow inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectedGrapeVariety:)]) {
+        [_delegate didSelectedGrapeVariety:_varieties[_selIndex]];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -93,9 +118,13 @@
         [cell.contentView addSubview:line];
     }
     
-    NSDictionary *config = [_varieties objectAtIndex:indexPath.row];
-    cell.textLabel.text = config[@"name"];
-    [(UIImageView*)cell.accessoryView setImage:[UIImage imageNamed:config[@"icon"]]];
+    cell.textLabel.text = [_varieties objectAtIndex:indexPath.row];
+    NSString *icon = @"radio-off";
+    if (_selIndex == indexPath.row) {
+        icon = @"radio-on";
+    }
+    
+    [(UIImageView*)cell.accessoryView setImage:[UIImage imageNamed:icon]];
     
     return cell;
 }

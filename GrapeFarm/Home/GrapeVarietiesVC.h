@@ -9,9 +9,13 @@
 #import "BaseVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol GrapeVarietiesSelectIndexDelegate <NSObject>
+- (void)didSelectedGrapeVariety:(NSString *)variety;
+@end
 
 @interface GrapeVarietiesVC : BaseVC
-
+@property (nonatomic,weak) id<GrapeVarietiesSelectIndexDelegate> delegate;
+- (void)setGrapeVariety:(NSString *)variety;
 @end
 
 NS_ASSUME_NONNULL_END
