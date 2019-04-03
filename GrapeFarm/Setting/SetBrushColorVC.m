@@ -31,12 +31,12 @@
 }
 
 - (void)configColors {
-    _colors = @[@{@"name":@"red",@"color":@0xF3704B},
-                   @{@"name":@"blue",@"color":@0x009AD6},
-                   @{@"name":@"green",@"color":@0x339900},
-                   @{@"name":@"yellow",@"color":@0xFFD400},
-                   @{@"name":@"gray",@"color":@0x8A8C8E},
-                   @{@"name":@"black",@"color":@0x000000}];
+    _colors = @[@{@"name":@"Red",@"color":@0xF3704B},
+                   @{@"name":@"Blue",@"color":@0x009AD6},
+                   @{@"name":@"Green",@"color":@0x339900},
+                   @{@"name":@"Yellow",@"color":@0xFFD400},
+                   @{@"name":@"Gray",@"color":@0x8A8C8E},
+                   @{@"name":@"Black",@"color":@0x000000}];
     
     _selRow = 0;
     SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
@@ -49,6 +49,8 @@
                 break;
             }
         }
+    } else {
+        [self saveToConfig];
     }
 }
 
@@ -81,6 +83,16 @@
     [_colorTableView setTableFooterView:view];
 }
 
+- (void)saveToConfig {
+    SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+    [manager setObject:[_colors[_selRow] objectForKey:@"color"] forKey:kBruchColorUserdefaultKey];
+    [manager setObject:[_colors[_selRow] objectForKey:@"name"] forKey:kBruchColorNameUserdefaultKey];
+    
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectedColorValue:colorName:)] ) {
+        [_delegate didSelectedColorValue:[[_colors[_selRow] objectForKey:@"color"] integerValue] colorName:[_colors[_selRow] objectForKey:@"name"]];
+    }
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [_colors count];
@@ -98,8 +110,7 @@
     [tableView reloadRowsAtIndexPaths:
      @[indexPath,[NSIndexPath indexPathForRow:oldRow inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     //保存配置
-    SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
-    [manager setObject:[_colors[_selRow] objectForKey:@"color"] forKey:kBruchColorUserdefaultKey];
+    [self saveToConfig];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

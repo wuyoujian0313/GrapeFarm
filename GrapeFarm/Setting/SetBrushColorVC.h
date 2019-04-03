@@ -10,8 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SetBrushColorVC : BaseVC
+@protocol ColorSelectIndexDelegate <NSObject>
+- (void)didSelectedColorValue:(NSInteger)color colorName:(NSString *)colorName;
+@end
 
+@interface SetBrushColorVC : BaseVC
+@property (nonatomic, weak)id<ColorSelectIndexDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END

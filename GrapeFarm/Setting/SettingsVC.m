@@ -16,10 +16,12 @@
 #import "SetBrushColorVC.h"
 #import "SaveSimpleDataManager.h"
 
-@interface SettingsVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,FarmSelectIndexDelegate>
+@interface SettingsVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,FarmSelectIndexDelegate,ColorSelectIndexDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
 @property (nonatomic, strong) NSArray               *abilitys;
 @property (nonatomic, copy) NSString                *myFarmName;
+@property (nonatomic, assign)NSInteger              brushColor;
+@property (nonatomic, copy)NSString               *brushColorName;
 @end
 
 @implementation SettingsVC
@@ -48,6 +50,18 @@
     if (farmName != nil && [farmName length] > 0) {
         _myFarmName = farmName;
     }
+    
+    NSNumber *color = [manager objectForKey:kBruchColorUserdefaultKey];
+    NSString *colorName = [manager objectForKey:kBruchColorNameUserdefaultKey];
+    if (color != nil) {
+        _brushColor = [color integerValue];
+        _brushColorName = colorName;
+    } else {
+        _brushColor = 0xF3704B;
+        _brushColorName = @"Red";
+        [manager setObject:[NSNumber numberWithInteger:_brushColor] forKey:kBruchColorUserdefaultKey];
+        [manager setObject:_brushColorName forKey:kBruchColorNameUserdefaultKey];
+    }
 }
 
 - (void)layoutSettingsTableView {
@@ -73,6 +87,14 @@
     
     [_abilityTableView reloadRowsAtIndexPaths:
      @[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark - ColorSelectIndexDelegate
+- (void)didSelectedColorValue:(NSInteger)color colorName:(NSString *)colorName {
+    _brushColor = color;
+    _brushColorName = colorName;
+    [_abilityTableView reloadRowsAtIndexPaths:
+     @[[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 
@@ -114,6 +136,7 @@
     } else if (row == 3) {
         // 画笔颜色
         SetBrushColorVC *vc = [[SetBrushColorVC alloc] init];
+        vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
     } else if (row == 4) {
         UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Logout", nil)
@@ -140,6 +163,11 @@
     [cell.imageView setImage:[UIImage imageNamed:config[@"icon"]]];
     if (indexPath.row == 1 && [_myFarmName length] > 0) {
         cell.detailTextLabel.text = _myFarmName;
+    } else if (indexPath.row == 3) {
+        cell.detailTextLabel.size = CGSizeMake(20, 20);
+        cell.detailTextLabel.text =_brushColorName;
+        cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:12];
+        cell.detailTextLabel.textColor = [UIColor colorWithHex:_brushColor];
     }
     
     return cell;

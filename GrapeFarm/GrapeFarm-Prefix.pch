@@ -35,6 +35,7 @@
 
 #define kLoginTokenUserdefaultKey   @"loginTokenUserdefaultKey"
 #define kBruchColorUserdefaultKey   @"bruchColorUserdefaultKey"
+#define kBruchColorNameUserdefaultKey   @"bruchColorNameUserdefaultKey"
 #define kMyfarmUserdefaultKey       @"myfarmUserdefaultKey"
 
 #define kLineHeight1px (1/[[UIScreen mainScreen] scale])

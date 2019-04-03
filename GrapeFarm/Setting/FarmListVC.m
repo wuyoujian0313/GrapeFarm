@@ -39,6 +39,8 @@
 
 - (void)configFarms {
     _farms = @[@"Farm1",@"Farm2",@"Farm3",@"Farm4"];
+    
+    _selIndex = 0;
     if (_farmName != nil && [_farmName length] > 0) {
         for (NSInteger i = 0; i < [_farms count]; i++) {
             NSString *name = _farms[i];
@@ -48,7 +50,6 @@
             }
         }
     } else {
-        _selIndex = 0;
         [self saveToConfig];
     }
 }

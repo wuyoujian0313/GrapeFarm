@@ -6,7 +6,7 @@
   Copyright © 2016年 wuyoujian. All rights reserved.
 */
 
-"CFBundleDisplayName"                           ="GrapeFarm";
+"CFBundleDisplayName"                           ="Grape farm";
 "NSCameraUsageDescription"                      ="The grape farm needs to use your camera";
 "NSPhotoLibraryAddUsageDescription"             ="The grape farm needs to use your photo album";
 "NSPhotoLibraryUsageDescription"                ="The grape farm needs to use your photo album";

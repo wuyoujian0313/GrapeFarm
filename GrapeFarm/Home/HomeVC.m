@@ -20,8 +20,7 @@
 
 @implementation HomeVC
 
--(void)dealloc {
-    
+- (void)dealloc {
 }
 
 - (void)viewDidLoad {
@@ -34,15 +33,29 @@
 }
 
 - (void)layoutImageAreaView {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 10 + [DeviceInfo navigationBarHeight], self.view.frame.size.width, 30)];
+    NSInteger buttonWidth = 60;
+    NSInteger xfooter = 30 + buttonWidth;
+    if ([DeviceInfo detectModel] == MODEL_IPHONE_X) {
+        xfooter += 34;
+    }
+    
+    NSInteger areaHeight = 30 + 10 + self.view.width - 20 ;
+    NSInteger top = ((self.view.height - [DeviceInfo navigationBarHeight]) - areaHeight - xfooter)/2.0;
+    
+    UIView *areaView = [[UIView alloc] initWithFrame:CGRectMake(0,top + [DeviceInfo navigationBarHeight], self.view.width, areaHeight)];
+    [self.view addSubview:areaView];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, areaView.width, 30)];
     [label setTextAlignment:NSTextAlignmentCenter];
-    [label setTextColor:[UIColor colorWithHex:kTextGrayColor]];
+    [label setTextColor:[UIColor blackColor]];
     [label setFont:[UIFont boldSystemFontOfSize:15]];
     [label setText:NSLocalizedString(@"SelectImageArea", nil)];
-    [self.view addSubview:label];
+    [areaView addSubview:label];
     
-    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, label.bottom + 10, 0, 0)];
-    [self.view addSubview:_imageView];
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, label.bottom + 10, areaView.width - 20, self.view.frame.size.width - 20)];
+    [_imageView.layer setCornerRadius:10];
+    [_imageView setImage:[UIImage imageNamed:@"instance"]];
+    [areaView addSubview:_imageView];
 }
 
 - (void)layoutNavView {
@@ -64,6 +77,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setFrame:CGRectMake(space*(i+1) + i*buttonWidth, 0, buttonWidth, buttonWidth)];
         [button setTag:i + 10];
+        [button setBackgroundColor:[UIColor whiteColor]];
         [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)i]] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%ld-on",(long)i]] forState:UIControlStateHighlighted];
         [button.layer setBorderColor:[UIColor colorWithHex:kTextGrayColor].CGColor];
