@@ -31,6 +31,10 @@
     return self;
 }
 
+- (void)appendPath:(UIBezierPath *)path {
+    [_croppingPath appendPath:path];
+}
+
 - (void)cleaningBrush {
     [_croppingPath removeAllPoints];
     [self setNeedsDisplay];
@@ -48,7 +52,6 @@
         return image;
     }
     NSArray *points = [_croppingPath points];
-    
     CGRect rect = CGRectZero;
     rect.size = image.size;
     
@@ -87,15 +90,15 @@
     UIGraphicsEndImageContext();
     
     // 放大图片
-    CGRect croppedRect = aPath.bounds;
-    // 注意图片坐标是笛卡尔坐标系,y轴是向上的
-    croppedRect.origin.y = rect.size.height - CGRectGetMaxY(aPath.bounds);
-    croppedRect.origin.x = croppedRect.origin.x*2;
-    croppedRect.origin.y = croppedRect.origin.y*2;
-    croppedRect.size.width = croppedRect.size.width*2;
-    croppedRect.size.height = croppedRect.size.height*2;
-    CGImageRef imageRef = CGImageCreateWithImageInRect(maskedImage.CGImage, croppedRect);
-    maskedImage = [UIImage imageWithCGImage:imageRef];
+//    CGRect croppedRect = aPath.bounds;
+//    // 注意图片坐标是笛卡尔坐标系,y轴是向上的
+//    croppedRect.origin.y = rect.size.height - CGRectGetMaxY(aPath.bounds);
+//    croppedRect.origin.x = croppedRect.origin.x*2;
+//    croppedRect.origin.y = croppedRect.origin.y*2;
+//    croppedRect.size.width = croppedRect.size.width*2;
+//    croppedRect.size.height = croppedRect.size.height*2;
+//    CGImageRef imageRef = CGImageCreateWithImageInRect(maskedImage.CGImage, croppedRect);
+//    maskedImage = [UIImage imageWithCGImage:imageRef];
     
     return maskedImage;
 }

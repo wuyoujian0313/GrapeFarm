@@ -33,12 +33,14 @@
 #endif
 
 
-#define kLoginTokenUserdefaultKey   @"loginTokenUserdefaultKey"
-#define kBruchColorUserdefaultKey   @"bruchColorUserdefaultKey"
-#define kBruchColorNameUserdefaultKey   @"bruchColorNameUserdefaultKey"
-#define kMyfarmUserdefaultKey       @"myfarmUserdefaultKey"
+#define kLoginTokenUserdefaultKey               @"loginTokenUserdefaultKey"
+#define kBrushColorUserdefaultKey               @"brushColorUserdefaultKey"
+#define kBrushColorNameUserdefaultKey           @"brushColorNameUserdefaultKey"
+#define kMyfarmUserdefaultKey                   @"myfarmUserdefaultKey"
 
 #define kLineHeight1px (1/[[UIScreen mainScreen] scale])
+
+#define kBrushColorChangeNotification           @"brushColorChangeNotification"
 
 // 服务器地址
 #define kNetworkAPIServer       @"http://47.101.51.112:8000"

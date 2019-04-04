@@ -5,7 +5,7 @@
   Created by Wu YouJian on 2019/3/26.
   Copyright © 2019 Wu YouJian. All rights reserved.
 */
-"AppName"                   ="Grape farm";
+"AppName"                   ="Grape Farm";
 "PleaseRegister_1"          ="There is no account?";
 "PleaseRegister_2"          =" Please register";
 "InputAccount"              ="Please enter your account";
@@ -48,6 +48,8 @@
 "SelectImageArea"           ="Select the grape area with your fingers";
 "ModelIdentification"       ="Model identification";
 "BrushColor"                ="Brush color";
+"UnCamera"                  ="Sorry,unable to use camera";
+"AllowCamera"               ="Please allow access to the camera in Settings - privacy - camera on the iPhone";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";

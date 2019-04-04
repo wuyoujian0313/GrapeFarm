@@ -40,7 +40,7 @@
     
     _selRow = 0;
     SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
-    NSNumber *color = [manager objectForKey:kBruchColorUserdefaultKey];
+    NSNumber *color = [manager objectForKey:kBrushColorUserdefaultKey];
     if (color != nil) {
         for (NSInteger i = 0; i < [_colors count]; i ++){
             NSDictionary *item = _colors[i];
@@ -85,8 +85,10 @@
 
 - (void)saveToConfig {
     SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
-    [manager setObject:[_colors[_selRow] objectForKey:@"color"] forKey:kBruchColorUserdefaultKey];
-    [manager setObject:[_colors[_selRow] objectForKey:@"name"] forKey:kBruchColorNameUserdefaultKey];
+    [manager setObject:[_colors[_selRow] objectForKey:@"color"] forKey:kBrushColorUserdefaultKey];
+    [manager setObject:[_colors[_selRow] objectForKey:@"name"] forKey:kBrushColorNameUserdefaultKey];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kBrushColorChangeNotification object:nil userInfo:nil];
     
     if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectedColorValue:colorName:)] ) {
         [_delegate didSelectedColorValue:[[_colors[_selRow] objectForKey:@"color"] integerValue] colorName:[_colors[_selRow] objectForKey:@"name"]];

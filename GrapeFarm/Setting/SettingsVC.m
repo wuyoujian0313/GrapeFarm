@@ -51,16 +51,18 @@
         _myFarmName = farmName;
     }
     
-    NSNumber *color = [manager objectForKey:kBruchColorUserdefaultKey];
-    NSString *colorName = [manager objectForKey:kBruchColorNameUserdefaultKey];
+    NSNumber *color = [manager objectForKey:kBrushColorUserdefaultKey];
+    NSString *colorName = [manager objectForKey:kBrushColorNameUserdefaultKey];
     if (color != nil) {
         _brushColor = [color integerValue];
         _brushColorName = colorName;
     } else {
         _brushColor = 0xF3704B;
         _brushColorName = @"Red";
-        [manager setObject:[NSNumber numberWithInteger:_brushColor] forKey:kBruchColorUserdefaultKey];
-        [manager setObject:_brushColorName forKey:kBruchColorNameUserdefaultKey];
+        [manager setObject:[NSNumber numberWithInteger:_brushColor] forKey:kBrushColorUserdefaultKey];
+        [manager setObject:_brushColorName forKey:kBrushColorNameUserdefaultKey];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kBrushColorChangeNotification object:nil userInfo:nil];
     }
 }
 

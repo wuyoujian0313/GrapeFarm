@@ -19,4 +19,6 @@
 - (void)cleaningBrush;
 // UIImageView的UIImage
 - (UIImage *)croppingOfImage:(UIImage*)image;
+//
+- (void)appendPath:(UIBezierPath *)path;
 @end
