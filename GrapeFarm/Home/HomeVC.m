@@ -17,6 +17,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "SaveSimpleDataManager.h"
+#import "FileCache.h"
 
 @interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic,strong)UIImageView *imageView;
@@ -137,10 +138,9 @@
         [_croppingView cleaningBrush];
     } else if (type == 3) {
         //确定
+        FileCache *fileCache = [FileCache sharedFileCache];
         UIImage *croppedImage = [_croppingView croppingOfImage:_imageView.image];
-        NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
-        [UIImagePNGRepresentation(croppedImage) writeToFile:path atomically:YES];
-        NSLog(@"cropped image path: %@",path);
+        [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
         
         ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
@@ -251,6 +251,8 @@
                     [_imageView setTop:(imageViewSize-image.size.height)/2.0];
                     [_croppingView setLeft:(imageViewSize-image.size.width)/2.0];
                     [_croppingView setTop:(imageViewSize-image.size.height)/2.0];
+                    [_imageView setWidth:image.size.width];
+                    [_imageView setHeight:image.size.height];
                 }
             }
         } else {

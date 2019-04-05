@@ -1,26 +1,25 @@
 //
-//  ModelIdentificationVC.m
+//  D3ModelImageVC.m
 //  GrapeFarm
 //
-//  Created by Wu YouJian on 2019/4/2.
+//  Created by Wu YouJian on 2019/4/5.
 //  Copyright © 2019 Wu YouJian. All rights reserved.
 //
 
-#import "ModelIdentificationVC.h"
-#import "DeviceInfo.h"
 #import "D3ModelImageVC.h"
+#import "Commit3DDataVC.h"
+#import "DeviceInfo.h"
 
-
-@interface ModelIdentificationVC ()
+@interface D3ModelImageVC ()
 
 @end
 
-@implementation ModelIdentificationVC
+@implementation D3ModelImageVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setNavTitle:NSLocalizedString(@"ModelIdentification", nil)];
+    [self setNavTitle:NSLocalizedString(@"3DModel", nil)];
     [self layoutNextView];
 }
 
@@ -48,9 +47,8 @@
 }
 
 - (void)nextAction:(UIButton *)sender {
-    D3ModelImageVC *vc = [[D3ModelImageVC alloc] init];
+    Commit3DDataVC *vc = [[Commit3DDataVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
 
 @end

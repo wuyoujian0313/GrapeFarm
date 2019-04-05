@@ -9,9 +9,13 @@
 #import "ColorSegmentVC.h"
 #import "DeviceInfo.h"
 #import "ModelIdentificationVC.h"
+#import "FileCache.h"
+#import "UIView+SizeUtility.h"
 
 @interface ColorSegmentVC ()
 @property(nonatomic,strong)UISegmentedControl *segmentCtl;
+@property(nonatomic,strong)UIImageView *imageView;
+@property(nonatomic,strong)UIButton *nextBtn;
 @end
 
 @implementation ColorSegmentVC
@@ -22,6 +26,7 @@
     [self setNavTitle:NSLocalizedString(@"ColorSegment",nil)];
     [self layoutSegmentControl];
     [self layoutNextView];
+    [self layoutColorSegmentImageView];
 }
 
 - (void)layoutSegmentControl {
@@ -33,6 +38,48 @@
     [self.view addSubview:_segmentCtl];
 }
 
+- (void)reLayoutImageView:(UIImage *)image {
+    NSInteger imageViewSize = self.view.width - 20;
+    NSInteger areaHeight = _nextBtn.top - _segmentCtl.bottom;
+    // 需要调用中南大学的核心库计算分离之后的image
+    [_imageView setImage:image];
+    
+    if (image.size.width >= imageViewSize) {
+        // 以宽度为准
+        CGFloat h = image.size.height/image.size.width * imageViewSize;
+        [_imageView setHeight:h];
+        [_imageView setTop:(areaHeight-h)/2.0 + [DeviceInfo navigationBarHeight] + _segmentCtl.height + 10];
+        
+    } else {
+        // 以高度为准
+        if (image.size.height >= imageViewSize) {
+            CGFloat w = image.size.width/image.size.height * imageViewSize;
+            [_imageView setLeft:(imageViewSize-w)/2.0];
+            [_imageView setWidth:w];
+            [_imageView setTop:(areaHeight-imageViewSize)/2.0 + [DeviceInfo navigationBarHeight] + _segmentCtl.height + 10];
+        } else {
+            // 以实际为准,
+            [_imageView setLeft:(imageViewSize-image.size.width)/2.0 + 10];
+            [_imageView setTop:(areaHeight-image.size.height)/2.0 + [DeviceInfo navigationBarHeight] + _segmentCtl.height + 10];
+            
+            [_imageView setWidth:image.size.width];
+            [_imageView setHeight:image.size.height];
+        }
+    }
+}
+
+- (void)layoutColorSegmentImageView {
+    NSInteger imageViewSize = self.view.width - 20;
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, _segmentCtl.bottom + 10, imageViewSize, imageViewSize)];
+    [_imageView.layer setCornerRadius:10];
+    [_imageView setClipsToBounds:YES];
+    [self.view addSubview:_imageView];
+    
+    FileCache *fileCache = [FileCache sharedFileCache];
+    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
+    [self reLayoutImageView:[UIImage imageWithData:imageData]];
+}
+
 - (void)layoutNextView {
     NSInteger buttonHeight = 45;
     NSInteger xfooter = 30 + buttonHeight;
@@ -41,6 +88,7 @@
     }
     
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _nextBtn = nextBtn;
     [nextBtn setBackgroundImage:[UIImage imageFromColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [nextBtn setBackgroundImage:[UIImage imageFromColor:[UIColor colorWithHex:kButtonTapColor]] forState:UIControlStateHighlighted];
     [nextBtn.layer setBorderColor:[UIColor colorWithHex:kBoundaryColor].CGColor];

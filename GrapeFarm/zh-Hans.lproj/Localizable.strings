@@ -50,6 +50,7 @@
 "BrushColor"                ="画笔颜色";
 "UnCamera"                  ="无法使用相机";
 "AllowCamera"               ="请在iPhone的“设置-隐私-相机”中允许访问相机";
+"3DModel"                   ="3D 模型";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "此邮箱已注册";
