@@ -14,6 +14,9 @@
 
 @interface ModelIdentificationVC ()
 @property(nonatomic,strong)UIButton *nextBtn;
+@property(nonatomic,strong)UISlider *slider1;
+@property(nonatomic,strong)UISlider *slider2;
+@property(nonatomic,strong)UISlider *slider3;
 @end
 
 @implementation ModelIdentificationVC
@@ -26,8 +29,47 @@
     [self layoutParamView];
 }
 
+
 - (void)layoutParamView {
-    UIView *paramView = [[UIView alloc] initWithFrame:CGRectMake(11,, _nextBtn.top - , <#CGFloat height#>)];
+    NSInteger footer = 40;
+    NSInteger space = 10;
+    UIView *paramView = [[UIView alloc] initWithFrame:CGRectMake(11, _nextBtn.top - 120- 2*space- footer, self.view.width - 22,120)];
+    [self.view addSubview:paramView];
+    
+    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, paramView.width, 40)];
+    _slider1 = slider;
+    [slider setMaximumValue:100];
+    [slider setMinimumValue:-100];
+    [slider setValue:0];
+    [slider setMinimumTrackTintColor:[UIColor blackColor]];
+    [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
+    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [paramView addSubview:slider];
+    
+    slider = [[UISlider alloc] initWithFrame:CGRectMake(0, slider.bottom + space, paramView.width, 40)];
+    _slider2 = slider;
+    [slider setMaximumValue:100];
+    [slider setMinimumValue:-100];
+    [slider setValue:0];
+    [slider setMinimumTrackTintColor:[UIColor blackColor]];
+    [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
+    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [paramView addSubview:slider];
+    
+    slider = [[UISlider alloc] initWithFrame:CGRectMake(0, slider.bottom + space, paramView.width, 40)];
+    _slider3 = slider;
+    [slider setMaximumValue:100];
+    [slider setMinimumValue:-100];
+    [slider setValue:0];
+    [slider setMinimumTrackTintColor:[UIColor blackColor]];
+    [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
+    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [paramView addSubview:slider];
+}
+
+- (void)sliderValueChanged:(UISlider *)sender {
+    CGFloat value = [sender value];
+    NSLog(@"slider:%f",value);
 }
 
 - (void)layoutNextView {
