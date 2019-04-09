@@ -8,11 +8,12 @@
 
 #import "ModelIdentificationVC.h"
 #import "DeviceInfo.h"
+#import "UIView+SizeUtility.h"
 #import "D3ModelImageVC.h"
 
 
 @interface ModelIdentificationVC ()
-
+@property(nonatomic,strong)UIButton *nextBtn;
 @end
 
 @implementation ModelIdentificationVC
@@ -22,6 +23,11 @@
     // Do any additional setup after loading the view.
     [self setNavTitle:NSLocalizedString(@"ModelIdentification", nil)];
     [self layoutNextView];
+    [self layoutParamView];
+}
+
+- (void)layoutParamView {
+    UIView *paramView = [[UIView alloc] initWithFrame:CGRectMake(11,, _nextBtn.top - , <#CGFloat height#>)];
 }
 
 - (void)layoutNextView {
@@ -32,6 +38,7 @@
     }
     
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _nextBtn = nextBtn;
     [nextBtn setBackgroundImage:[UIImage imageFromColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [nextBtn setBackgroundImage:[UIImage imageFromColor:[UIColor colorWithHex:kButtonTapColor]] forState:UIControlStateHighlighted];
     [nextBtn.layer setBorderColor:[UIColor colorWithHex:kBoundaryColor].CGColor];

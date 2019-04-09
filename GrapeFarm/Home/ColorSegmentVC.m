@@ -35,7 +35,15 @@
     _segmentCtl.frame = CGRectMake(11,15 + [DeviceInfo navigationBarHeight],self.view.frame.size.width - 22,30);
     _segmentCtl.selectedSegmentIndex = 0;
     _segmentCtl.tintColor = [UIColor blackColor];
+    [_segmentCtl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:_segmentCtl];
+}
+
+- (void)segmentAction:(UISegmentedControl *)sender {
+    // 需要调用中南大学的核心库计算分离之后的image
+    FileCache *fileCache = [FileCache sharedFileCache];
+    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
+    [self reLayoutImageView:[UIImage imageWithData:imageData]];
 }
 
 - (void)reLayoutImageView:(UIImage *)image {
