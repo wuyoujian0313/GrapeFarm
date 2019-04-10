@@ -90,7 +90,7 @@
 
 - (void)layoutNextView {
     NSInteger buttonHeight = 45;
-    NSInteger xfooter = 30 + buttonHeight;
+    NSInteger xfooter = 15 + buttonHeight;
     if ([DeviceInfo detectModel] == MODEL_IPHONE_X) {
         xfooter += 34;
     }

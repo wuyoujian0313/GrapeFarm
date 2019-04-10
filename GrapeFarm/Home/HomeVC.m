@@ -22,6 +22,7 @@
 @interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic,strong)UIImageView *imageView;
 @property (nonatomic,strong)AICroppableView *croppingView;
+@property (nonatomic,strong)UIView *toolView;
 @end
 
 @implementation HomeVC
@@ -39,15 +40,9 @@
 }
 
 - (void)layoutImageAreaView {
-    NSInteger buttonWidth = 60;
-    NSInteger xfooter = 30 + buttonWidth;
-    if ([DeviceInfo detectModel] == MODEL_IPHONE_X) {
-        xfooter += 34;
-    }
-    
     NSInteger imageViewSize = self.view.width - 20;
     NSInteger areaHeight = 30 + 10 + imageViewSize;
-    NSInteger top = ((self.view.height - [DeviceInfo navigationBarHeight]) - areaHeight - xfooter)/2.0;
+    NSInteger top = ((_toolView.top - [DeviceInfo navigationBarHeight]) - areaHeight)/2.0;
     
     UIView *areaView = [[UIView alloc] initWithFrame:CGRectMake(0,top + [DeviceInfo navigationBarHeight], self.view.width, areaHeight)];
     [self.view addSubview:areaView];
@@ -95,11 +90,12 @@
 
 - (void)layoutToolsView {
     NSInteger buttonWidth = 60;
-    NSInteger xfooter = 30 + buttonWidth;
+    NSInteger xfooter = 15 + buttonWidth;
     if ([DeviceInfo detectModel] == MODEL_IPHONE_X) {
         xfooter += 34;
     }
     UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - xfooter, self.view.frame.size.width, buttonWidth)];
+    _toolView = toolView;
     [self.view addSubview:toolView];
     
     NSInteger space = (self.view.frame.size.width - 4*buttonWidth)/5.0;
@@ -253,7 +249,7 @@
         //
         NSInteger imageViewSize = self.view.width - 20;
         if (image.size.width != image.size.height) {
-            // 说明不是正方形的图片
+            // 不是正方形的图片
             if (image.size.width >= imageViewSize) {
                 // 以宽度为准
                 CGFloat h = image.size.height/image.size.width * imageViewSize;
@@ -279,6 +275,7 @@
                 }
             }
         } else {
+            // 是正方形的图片
             [_imageView setWidth:imageViewSize];
             [_imageView setHeight:imageViewSize];
             [_croppingView setWidth:imageViewSize];
