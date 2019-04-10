@@ -10,13 +10,16 @@
 #import "DeviceInfo.h"
 #import "UIView+SizeUtility.h"
 #import "D3ModelImageVC.h"
-
+#import "FileCache.h"
 
 @interface ModelIdentificationVC ()
 @property(nonatomic,strong)UIButton *nextBtn;
+@property(nonatomic,strong)UIView *paramView;
 @property(nonatomic,strong)UISlider *slider1;
 @property(nonatomic,strong)UISlider *slider2;
 @property(nonatomic,strong)UISlider *slider3;
+@property(nonatomic,strong)UIImageView *imageView;
+
 @end
 
 @implementation ModelIdentificationVC
@@ -26,21 +29,73 @@
     // Do any additional setup after loading the view.
     [self setNavTitle:NSLocalizedString(@"ModelIdentification", nil)];
     [self layoutNextView];
+    [self layoutColorImageView];
     [self layoutParamView];
+    
+    FileCache *fileCache = [FileCache sharedFileCache];
+    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
+    [self reLayoutImageView:[UIImage imageWithData:imageData]];
 }
 
+- (void)layoutColorImageView {
+    NSInteger top = 10 + [DeviceInfo navigationBarHeight];
+    NSInteger imageViewSize = self.view.width - 20;
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, top, imageViewSize, imageViewSize)];
+    [_imageView.layer setCornerRadius:10];
+    [_imageView setClipsToBounds:YES];
+    [self.view addSubview:_imageView];
+}
+
+- (void)reLayoutImageView:(UIImage *)image {
+    NSInteger imageViewSize = self.view.width - 20;
+    NSInteger areaHeight = _paramView.top - [DeviceInfo navigationBarHeight] - 10;
+    // 需要调用中南大学的核心库计算分离之后的image
+    [_imageView setImage:image];
+    
+    if (image.size.width >= imageViewSize) {
+        // 以宽度为准
+        CGFloat h = image.size.height/image.size.width * imageViewSize;
+        if (h >= areaHeight) {
+            // 以高度为准缩放宽度
+            [_imageView setHeight:areaHeight];
+            CGFloat w = image.size.width/image.size.height * areaHeight;
+            [_imageView setLeft:(self.view.width - w)/2.0];
+            [_imageView setWidth:w];
+        } else {
+            [_imageView setHeight:h];
+            [_imageView setTop:(areaHeight-h)/2.0 + 10 + [DeviceInfo navigationBarHeight]];
+        }
+    } else {
+        // 以高度为准
+        if (image.size.height >= imageViewSize) {
+            CGFloat w = image.size.width/image.size.height * imageViewSize;
+            [_imageView setLeft:(imageViewSize-w)/2.0];
+            [_imageView setWidth:w];
+        } else {
+            // 以实际为准,
+            [_imageView setTop:(areaHeight-image.size.height)/2.0 + 10 + [DeviceInfo navigationBarHeight]];
+            [_imageView setLeft:(imageViewSize-image.size.width)/2.0 + 10];
+            [_imageView setWidth:image.size.width];
+            [_imageView setHeight:image.size.height];
+        }
+    }
+}
 
 - (void)layoutParamView {
-    NSInteger footer = 40;
+    NSInteger maximumValue = 100;
+    NSInteger minimumValue = -100;
+    NSInteger footer = 20;
     NSInteger space = 10;
-    UIView *paramView = [[UIView alloc] initWithFrame:CGRectMake(11, _nextBtn.top - 120- 2*space- footer, self.view.width - 22,120)];
+    NSInteger paramHeight = 120 + 3*space;
+    UIView *paramView = [[UIView alloc] initWithFrame:CGRectMake(11, _nextBtn.top - paramHeight- footer, self.view.width - 22,paramHeight)];
+    _paramView = paramView;
     [self.view addSubview:paramView];
     
-    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, paramView.width, 40)];
+    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, space, paramView.width, 40)];
     _slider1 = slider;
-    [slider setMaximumValue:100];
-    [slider setMinimumValue:-100];
-    [slider setValue:0];
+    [slider setMaximumValue:maximumValue];
+    [slider setMinimumValue:minimumValue];
+    [slider setValue:(maximumValue+minimumValue)/2.0];
     [slider setMinimumTrackTintColor:[UIColor blackColor]];
     [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -48,9 +103,9 @@
     
     slider = [[UISlider alloc] initWithFrame:CGRectMake(0, slider.bottom + space, paramView.width, 40)];
     _slider2 = slider;
-    [slider setMaximumValue:100];
-    [slider setMinimumValue:-100];
-    [slider setValue:0];
+    [slider setMaximumValue:maximumValue];
+    [slider setMinimumValue:minimumValue];
+    [slider setValue:(maximumValue+minimumValue)/2.0];
     [slider setMinimumTrackTintColor:[UIColor blackColor]];
     [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -58,9 +113,9 @@
     
     slider = [[UISlider alloc] initWithFrame:CGRectMake(0, slider.bottom + space, paramView.width, 40)];
     _slider3 = slider;
-    [slider setMaximumValue:100];
-    [slider setMinimumValue:-100];
-    [slider setValue:0];
+    [slider setMaximumValue:maximumValue];
+    [slider setMinimumValue:minimumValue];
+    [slider setValue:(maximumValue+minimumValue)/2.0];
     [slider setMinimumTrackTintColor:[UIColor blackColor]];
     [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];

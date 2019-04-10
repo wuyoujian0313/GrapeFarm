@@ -51,6 +51,10 @@
 "UnCamera"                  ="Sorry,unable to use camera";
 "AllowCamera"               ="Please allow access to the camera in Settings - privacy - camera on the iPhone";
 "3DModel"                   ="3D model";
+"SelectFarm"                ="Please select or enter a farm name";
+"SelectVariey"              ="Please select or enter grape varieties";
+"GetLocation"               ="Locate your location";
+"Commit"                    ="Commit";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";

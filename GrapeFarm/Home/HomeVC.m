@@ -140,11 +140,34 @@
         //确定
         FileCache *fileCache = [FileCache sharedFileCache];
         UIImage *croppedImage = [_croppingView croppingOfImage:_imageView.image];
-        [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
+        [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];        
+//        NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
+//        [self saveImage:croppedImage toFile:path];
+//        NSLog(@"cropped image path: %@",path);
         
         ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (BOOL)saveImage:(UIImage *)image toFile:(NSString *)filePath {
+    if (!image.CGImage) {
+        return NO;
+    }
+    
+    @autoreleasepool {
+        CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:filePath];
+        CGImageDestinationRef destination = CGImageDestinationCreateWithURL(url, kUTTypePNG, 1, nil);
+        if (!destination) {
+            return NO;
+        }
+        
+        CGImageDestinationAddImage(destination, image.CGImage, nil);
+        CGImageDestinationFinalize(destination);
+        CFRelease(destination);
+    }
+    
+    return YES;
 }
 
 - (void)toSettingPage {

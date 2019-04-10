@@ -51,6 +51,10 @@
 "UnCamera"                  ="无法使用相机";
 "AllowCamera"               ="请在iPhone的“设置-隐私-相机”中允许访问相机";
 "3DModel"                   ="3D 模型";
+"SelectFarm"                ="请选择或输入农庄名称";
+"SelectVariey"              ="请选择或输入葡萄品种";
+"GetLocation"               ="获取位置";
+"Commit"                    ="提交";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "此邮箱已注册";

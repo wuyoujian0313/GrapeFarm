@@ -39,6 +39,7 @@
 #define kMyfarmUserdefaultKey                   @"myfarmUserdefaultKey"
 
 #define kLineHeight1px (1/[[UIScreen mainScreen] scale])
+#define IS_IOS7 ([[[[UIDevice currentDevice] systemVersion] substringToIndex:1] intValue]>=7)
 
 #define kBrushColorChangeNotification           @"brushColorChangeNotification"
 

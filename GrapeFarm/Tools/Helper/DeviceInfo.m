@@ -619,7 +619,7 @@
     NSInteger height =  UIInterfaceOrientationIsPortrait(orientation) ? 44:32;
     NSInteger hhh = (NSInteger)([[UIScreen mainScreen] bounds].size.height);
     if (hhh >= 812) {
-        height += 20;
+        height += 24;
     }
     
     return ([[self class] isOS7] ? height + 20 : height);
