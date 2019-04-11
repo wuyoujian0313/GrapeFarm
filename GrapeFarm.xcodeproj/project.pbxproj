@@ -45,6 +45,8 @@
 		AFBF9190224876DA007F2ED8 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF918F224876DA007F2ED8 /* HomeVC.m */; };
 		AFCD4C4722534B6700A5040B /* ModelIdentificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCD4C4622534B6700A5040B /* ModelIdentificationVC.m */; };
 		AFCD4C4A22534E9700A5040B /* FileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCD4C4922534E9700A5040B /* FileCache.m */; };
+		AFCF2E89225F26E500D149B0 /* RecordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCF2E88225F26E500D149B0 /* RecordBean.m */; };
+		AFCF2E8C225F292100D149B0 /* RecordListBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCF2E8B225F292100D149B0 /* RecordListBean.m */; };
 		AFD97A91224B3D780048367E /* SettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD97A90224B3D780048367E /* SettingsVC.m */; };
 		AFD97A95224B50970048367E /* RecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD97A94224B50970048367E /* RecordVC.m */; };
 		AFD97A98224B512A0048367E /* FarmListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD97A97224B512A0048367E /* FarmListVC.m */; };
@@ -162,6 +164,10 @@
 		AFCD4C4622534B6700A5040B /* ModelIdentificationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModelIdentificationVC.m; sourceTree = "<group>"; };
 		AFCD4C4822534E9700A5040B /* FileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCache.h; sourceTree = "<group>"; };
 		AFCD4C4922534E9700A5040B /* FileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileCache.m; sourceTree = "<group>"; };
+		AFCF2E87225F26E500D149B0 /* RecordBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordBean.h; sourceTree = "<group>"; };
+		AFCF2E88225F26E500D149B0 /* RecordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordBean.m; sourceTree = "<group>"; };
+		AFCF2E8A225F292100D149B0 /* RecordListBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordListBean.h; sourceTree = "<group>"; };
+		AFCF2E8B225F292100D149B0 /* RecordListBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordListBean.m; sourceTree = "<group>"; };
 		AFD97A8F224B3D780048367E /* SettingsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsVC.h; sourceTree = "<group>"; };
 		AFD97A90224B3D780048367E /* SettingsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsVC.m; sourceTree = "<group>"; };
 		AFD97A93224B50970048367E /* RecordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordVC.h; sourceTree = "<group>"; };
@@ -237,6 +243,10 @@
 				AF097493224A237B00989F11 /* RegisterBean.m */,
 				AF097495224A23A600989F11 /* ForgotPasswordBean.h */,
 				AF097496224A23A600989F11 /* ForgotPasswordBean.m */,
+				AFCF2E87225F26E500D149B0 /* RecordBean.h */,
+				AFCF2E88225F26E500D149B0 /* RecordBean.m */,
+				AFCF2E8A225F292100D149B0 /* RecordListBean.h */,
+				AFCF2E8B225F292100D149B0 /* RecordListBean.m */,
 			);
 			path = Beans;
 			sourceTree = "<group>";
@@ -599,6 +609,7 @@
 				AFD97ABF224B6E630048367E /* BaseVC.m in Sources */,
 				AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */,
 				AFBF915722486ECE007F2ED8 /* NetResultBase.m in Sources */,
+				AFCF2E8C225F292100D149B0 /* RecordListBean.m in Sources */,
 				AFEDA3D4224CBDEB004D063A /* GetVerificationCodeBean.m in Sources */,
 				AFEDA3CE224CAC86004D063A /* Commit3DDataVC.m in Sources */,
 				AFBF915E22486ECE007F2ED8 /* NSData+Crypto.m in Sources */,
@@ -644,6 +655,7 @@
 				AFD97ABC224B6E630048367E /* CaptchaControl.m in Sources */,
 				AFBF915822486ECE007F2ED8 /* UIImage+ResizeMagick.m in Sources */,
 				AFBF9190224876DA007F2ED8 /* HomeVC.m in Sources */,
+				AFCF2E89225F26E500D149B0 /* RecordBean.m in Sources */,
 				AFD97ABA224B6E630048367E /* LineView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,6 +15,7 @@
 #import "UIView+SizeUtility.h"
 #import "SetBrushColorVC.h"
 #import "SaveSimpleDataManager.h"
+#import "RecordDetailVC.h"
 
 @interface SettingsVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,FarmSelectIndexDelegate,ColorSelectIndexDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
@@ -71,6 +72,7 @@
     [self setAbilityTableView:tableView];
     [tableView setDelegate:self];
     [tableView setDataSource:self];
+    [tableView setBounces:NO];
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [self.view addSubview:tableView];
     
@@ -116,6 +118,7 @@
     if (row == 0) {
         // 历史记录
         RecordVC *vc = [[RecordVC alloc] init];
+//        RecordDetailVC *vc = [[RecordDetailVC alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     } else if (row == 1) {
         // 我的农庄

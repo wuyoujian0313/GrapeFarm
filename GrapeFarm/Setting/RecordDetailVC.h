@@ -7,11 +7,12 @@
 //
 
 #import "BaseVC.h"
+#import "RecordBean.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RecordDetailVC : BaseVC
-
+- (void)setRecordBean:(RecordBean *)record;
 @end
 
 NS_ASSUME_NONNULL_END
