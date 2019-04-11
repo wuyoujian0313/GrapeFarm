@@ -16,7 +16,7 @@
 #import "DeviceInfo.h"
 #import "UIView+SizeUtility.h"
 
-@interface Commit3DDataVC ()<CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface Commit3DDataVC ()<CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,FarmSelectIndexDelegate,GrapeVarietiesSelectIndexDelegate>
 @property (nonatomic,strong)CLLocationManager  *locationManager;//定位服务
 @property (nonatomic,strong)CLLocation         *currentLocation;
 @property (nonatomic,strong)UITableView        *contentTableView;
@@ -166,12 +166,25 @@
     CLLocationCoordinate2D coordinate = _currentLocation.coordinate;
     NSLog(@"当前的经纬度 %f,%f",coordinate.latitude,coordinate.longitude);
     
+    __weak typeof(self ) wSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-//        NSString *param = [NSString stringWithFormat:@"{\"longitude\":%f,\"latitude\":%f}",coordinate.longitude,coordinate.latitude];
+        NSString *param = [NSString stringWithFormat:@"Lng:%f, Lat:%f",coordinate.longitude,coordinate.latitude];
+        typeof(self) sSelf = wSelf;
+        sSelf.locationTextField.text = param;
     });
     
-    
     [manager stopUpdatingLocation];
+}
+
+#pragma mark - FarmSelectIndexDelegate
+- (void)didSelectedFarmName:(NSString *)farmName {
+    _farmTextField.text = farmName;
+}
+
+
+#pragma mark - GrapeVarietiesSelectIndexDelegate
+- (void)didSelectedGrapeVariety:(NSString *)variety {
+    _varietyTextField.text = variety;
 }
 
 
@@ -200,14 +213,13 @@
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
             
             //
-            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11, 0, tableView.frame.size.width - 40, 45)];
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11, 0, tableView.frame.size.width - 60, 45)];
             self.farmTextField = textField;
             [textField setDelegate:self];
             [textField setTextColor:[UIColor blackColor]];
             [textField setFont:[UIFont systemFontOfSize:14]];
             [textField setReturnKeyType:UIReturnKeyNext];
             [textField setClearButtonMode:UITextFieldViewModeAlways];
-            [textField setClearsOnBeginEditing:YES];
             [textField setPlaceholder:NSLocalizedString(@"SelectFarm",nil)];
             [cell.contentView addSubview:textField];
             
@@ -228,13 +240,12 @@
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
             
             //
-            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11,0, tableView.frame.size.width - 40, 45)];
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11,0, tableView.frame.size.width - 60, 45)];
             self.varietyTextField = textField;
             [textField setDelegate:self];
             [textField setTextColor:[UIColor blackColor]];
             [textField setFont:[UIFont systemFontOfSize:14]];
             [textField setClearButtonMode:UITextFieldViewModeAlways];
-            [textField setClearsOnBeginEditing:YES];
             [textField setReturnKeyType:UIReturnKeyDone];
             [textField setPlaceholder:NSLocalizedString(@"SelectVariey",nil)];
             [cell.contentView addSubview:textField];
@@ -256,7 +267,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
             
             //
-            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11,0, tableView.frame.size.width - 40, 45)];
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11,0, tableView.frame.size.width - 60, 45)];
             self.locationTextField = textField;
             [textField setDelegate:self];
             [textField setEnabled:NO];
@@ -285,10 +296,14 @@
     if (indexPath.row == 0) {
         //
         FarmListVC *vc = [[FarmListVC alloc] init];
+        vc.delegate = self;
+        [vc setFarmName:_farmTextField.text saveToConfig:NO];
         [self.navigationController pushViewController:vc animated:YES];
     } else if (indexPath.row == 1) {
         //
         GrapeVarietiesVC *vc = [[GrapeVarietiesVC alloc] init];
+        vc.delegate = self;
+        [vc setGrapeVariety:_varietyTextField.text];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -297,13 +312,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 45;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return 1.0;
-//}
-//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-//    return 1.0;
-//}
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldClear:(UITextField *)textField  {

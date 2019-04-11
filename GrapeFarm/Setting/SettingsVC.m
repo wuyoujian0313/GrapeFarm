@@ -127,7 +127,7 @@
             [vc setFarmName:_myFarmName saveToConfig:YES];
         } else {
             [manager setObject:[NSNumber numberWithInteger:0] forKey:kMyfarmUserdefaultKey];
-            [vc setFarmName:@"" saveToConfig:YES];
+            [vc setFarmName:nil saveToConfig:YES];
         }
         
         [self.navigationController pushViewController:vc animated:YES];

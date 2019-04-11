@@ -85,7 +85,7 @@
 - (void)layoutParamView {
     NSInteger maximumValue = 100;
     NSInteger minimumValue = -100;
-    NSInteger footer = 20;
+    NSInteger footer = 10;
     NSInteger space = 10;
     NSInteger paramHeight = 120 + 3*space;
     UIView *paramView = [[UIView alloc] initWithFrame:CGRectMake(11, _nextBtn.top - paramHeight- footer, self.view.width - 22,paramHeight)];

@@ -12,7 +12,7 @@
 
 @interface FarmListVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView           *farmTableView;
-@property (nonatomic, strong) NSArray               *farms;
+@property (nonatomic, strong) NSMutableArray        *farms;
 @property (nonatomic, copy) NSString                *farmName;
 @property (nonatomic, assign) BOOL                  isSave;
 @property (nonatomic, assign) NSInteger             selIndex;
@@ -38,9 +38,9 @@
 }
 
 - (void)configFarms {
-    _farms = @[@"Farm1",@"Farm2",@"Farm3",@"Farm4"];
+    _farms = [[NSMutableArray alloc] initWithArray:@[@"Farm1",@"Farm2",@"Farm3",@"Farm4"]];
     
-    _selIndex = 0;
+    _selIndex = -1;
     if (_farmName != nil && [_farmName length] > 0) {
         for (NSInteger i = 0; i < [_farms count]; i++) {
             NSString *name = _farms[i];
@@ -49,7 +49,13 @@
                 break;
             }
         }
+        
+        if (_selIndex == -1) {
+            [_farms addObject:_farmName];
+            _selIndex = [_farms count] - 1;
+        }
     } else {
+        _selIndex = 0;
         [self saveToConfig];
     }
 }

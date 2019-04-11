@@ -11,7 +11,7 @@
 
 @interface GrapeVarietiesVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView           *varietiesTableView;
-@property (nonatomic, strong) NSArray               *varieties;
+@property (nonatomic, strong) NSMutableArray               *varieties;
 @property (nonatomic, copy) NSString                *variety;
 @property (nonatomic, assign) NSInteger             selIndex;
 @end
@@ -35,7 +35,8 @@
 }
 
 - (void)configVarieties {
-    _varieties = @[@"varietiy1",@"variety2",@"variety3",@"variety4",];
+    _varieties = [[NSMutableArray alloc] initWithArray:@[@"varietiy1",@"variety2",@"variety3",@"variety4",]] ;
+    _selIndex = -1;
     if (_variety != nil && [_variety length] > 0) {
         for (NSInteger i = 0; i < [_varieties count]; i++) {
             NSString *name = _varieties[i];
@@ -44,6 +45,11 @@
                 break;
             }
         }
+        if (_selIndex == -1) {
+            [_varieties addObject:_variety];
+            _selIndex = [_varieties count] - 1;
+        }
+        
     } else {
         _selIndex = 0;
         if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectedGrapeVariety:)]) {
