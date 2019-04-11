@@ -67,10 +67,11 @@
         }
     } else {
         // 以高度为准
-        if (image.size.height >= imageViewSize) {
+        if (image.size.height >= areaHeight) {
             CGFloat w = image.size.width/image.size.height * imageViewSize;
             [_imageView setLeft:(imageViewSize-w)/2.0];
             [_imageView setWidth:w];
+            [_imageView setHeight:areaHeight];
         } else {
             // 以实际为准,
             [_imageView setTop:(areaHeight-image.size.height)/2.0 + 10 + [DeviceInfo navigationBarHeight]];

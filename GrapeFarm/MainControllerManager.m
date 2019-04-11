@@ -13,8 +13,8 @@
 #import "UIColor+Utility.h"
 
 @interface MainControllerManager ()
-@property (nonatomic, strong) UIViewController              *rootVC;
 @property (nonatomic, strong) UIViewController              *currentController;
+@property (nonatomic, assign) UIViewAnimationOptions        animationOptions;
 @end
 
 @implementation MainControllerManager
@@ -23,9 +23,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor blackColor];
+    _animationOptions = UIViewAnimationOptionCurveEaseIn;
     
-    [self setupRootVC];
-    [self switchToLoginVCFrom:_rootVC];
+    UIViewController *loginVC =  [self setupLoginVC];
+    _currentController = loginVC;
+    [self.view addSubview:_currentController.view];
+    [self addChildViewController:_currentController];
+   
 }
 
 - (nullable UIViewController *)childViewControllerForStatusBarHidden {
@@ -37,70 +41,51 @@
 }
 
 - (void)switchToHomeVC {
+    _animationOptions = UIViewAnimationOptionTransitionFlipFromLeft;
     [self switchToHomeVCFrom:_currentController];
 }
 
 - (void)switchToLoginVC {
+    _animationOptions = UIViewAnimationOptionTransitionFlipFromRight;
     [self switchToLoginVCFrom:_currentController];
 }
 
-// 创建一个空白的rootVC用于页面切换
-- (void)setupRootVC {
-    UIViewController *rootVC = [[UIViewController alloc] init];
-    self.rootVC = rootVC;
-    [self addChildViewController:_rootVC];
-    [_rootVC didMoveToParentViewController:self];
-}
-
-
-- (void)switchToHomeVCFrom:(UIViewController*)fromVC {
-    
+- (void)switchViewController:(UIViewController*)fromVC {
     __weak typeof(self) wSelf = self;
-    UIViewController *homeVC = [self setupHomeController];
-    [self transitionFromViewController:fromVC toViewController:homeVC duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+    [self.view addSubview:fromVC.view];
+    [self addChildViewController:_currentController];
+    [self transitionFromViewController:fromVC toViewController:_currentController duration:1.0 options:_animationOptions animations:^{
+    } completion:^(BOOL finished) {
         //
         typeof(self) sSelf = wSelf;
         [fromVC removeFromParentViewController];
-        sSelf.currentController = homeVC;
-        
         [sSelf.currentController didMoveToParentViewController:sSelf];
         [sSelf.currentController setNeedsStatusBarAppearanceUpdate];
-    } completion:^(BOOL finished) {
-        //
-        
     }];
+}
+
+- (void)switchToHomeVCFrom:(UIViewController*)fromVC {
+    UIViewController *homeVC = [self setupHomeController];
+    _currentController = homeVC;
+    [self performSelector:@selector(switchViewController:) withObject:fromVC afterDelay:0.1];
 }
 
 - (void)switchToLoginVCFrom:(UIViewController*)fromVC {
     UIViewController *loginVC =  [self setupLoginVC];
-    
-    __weak typeof(self) wSelf = self;
-    [self transitionFromViewController:fromVC toViewController:loginVC duration:1.0 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
-        //
-        typeof(self) sSelf = wSelf;
-        [fromVC removeFromParentViewController];
-        sSelf.currentController = loginVC;
-        [sSelf.currentController didMoveToParentViewController:sSelf];
-        [sSelf.currentController setNeedsStatusBarAppearanceUpdate];
-    } completion:^(BOOL finished) {
-        //
-        
-    }];
+    _currentController = loginVC;
+    [self performSelector:@selector(switchViewController:) withObject:fromVC afterDelay:0.5];
 }
 
 - (UIViewController *)setupLoginVC {
     LoginVC *controller = [[LoginVC alloc] init];
     AINavigationController *nav = [[AINavigationController alloc] initWithRootViewController:controller];
-    [self addChildViewController:nav];
-    [self.view addSubview:nav.view];
     return nav;
 }
 
 - (UIViewController *)setupHomeController {
     HomeVC *controller = [[HomeVC alloc] init];
     AINavigationController *nav = [[AINavigationController alloc] initWithRootViewController:controller];
-    [self addChildViewController:nav];
-    [self.view addSubview:nav.view];
+   // [self addChildViewController:nav];
     return nav;
 }
 

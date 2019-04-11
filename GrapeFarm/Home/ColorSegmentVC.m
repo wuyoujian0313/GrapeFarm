@@ -48,27 +48,38 @@
 
 - (void)reLayoutImageView:(UIImage *)image {
     NSInteger imageViewSize = self.view.width - 20;
-    NSInteger areaHeight = _nextBtn.top - _segmentCtl.bottom;
+    NSInteger top = 20;
+    NSInteger areaHeight = _nextBtn.top - _segmentCtl.bottom - 2*top;
     // 需要调用中南大学的核心库计算分离之后的image
     [_imageView setImage:image];
     
     if (image.size.width >= imageViewSize) {
         // 以宽度为准
         CGFloat h = image.size.height/image.size.width * imageViewSize;
-        [_imageView setHeight:h];
-        [_imageView setTop:(areaHeight-h)/2.0 + [DeviceInfo navigationBarHeight] + _segmentCtl.height + 10];
         
+        if (h >= areaHeight) {
+            // 以高度为准缩放宽度
+            [_imageView setHeight:areaHeight];
+            CGFloat w = image.size.width/image.size.height * areaHeight;
+            [_imageView setLeft:(self.view.width - w)/2.0];
+            [_imageView setWidth:w];
+            [_imageView setTop:top + _segmentCtl.bottom];
+        } else {
+            [_imageView setHeight:h];
+            [_imageView setTop:(areaHeight-h)/2.0 +_segmentCtl.bottom + top];
+        }
     } else {
         // 以高度为准
-        if (image.size.height >= imageViewSize) {
-            CGFloat w = image.size.width/image.size.height * imageViewSize;
+        if (image.size.height >= areaHeight) {
+            CGFloat w = image.size.width/image.size.height * areaHeight;
             [_imageView setLeft:(imageViewSize-w)/2.0];
             [_imageView setWidth:w];
-            [_imageView setTop:(areaHeight-imageViewSize)/2.0 + [DeviceInfo navigationBarHeight] + _segmentCtl.height + 10];
+            [_imageView setTop:_segmentCtl.bottom + top];
+            [_imageView setHeight:areaHeight];
         } else {
             // 以实际为准,
             [_imageView setLeft:(imageViewSize-image.size.width)/2.0 + 10];
-            [_imageView setTop:(areaHeight-image.size.height)/2.0 + [DeviceInfo navigationBarHeight] + _segmentCtl.height + 10];
+            [_imageView setTop:(areaHeight-image.size.height)/2.0 +  _segmentCtl.bottom + top];
             
             [_imageView setWidth:image.size.width];
             [_imageView setHeight:image.size.height];

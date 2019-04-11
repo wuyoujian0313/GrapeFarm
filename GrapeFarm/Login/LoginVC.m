@@ -29,6 +29,10 @@
 
 @implementation LoginVC
 
+-(void)dealloc {
+    
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;

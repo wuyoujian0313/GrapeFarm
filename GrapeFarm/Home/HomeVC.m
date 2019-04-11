@@ -27,7 +27,12 @@
 
 @implementation HomeVC
 
+
 - (void)dealloc {
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidLoad {
@@ -35,8 +40,8 @@
     // Do any additional setup after loading the view.
     [self setNavTitle:NSLocalizedString(@"AppName",nil)];
     [self layoutNavView];
-    [self layoutImageAreaView];
     [self layoutToolsView];
+    [self layoutImageAreaView];
 }
 
 - (void)layoutImageAreaView {
