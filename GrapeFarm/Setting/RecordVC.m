@@ -74,6 +74,14 @@
                                           customInfo:@"records"];
 }
 
+- (void)endRefresh {
+    if ([_listTableView.mj_header isRefreshing]) {
+        [_listTableView.mj_header endRefreshing];
+    }
+    if ([_listTableView.mj_footer isRefreshing]) {
+        [_listTableView.mj_footer endRefreshing];
+    }
+}
 
 - (void)layoutListTableView {
     UITableView * tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.height) style:UITableViewStylePlain];
@@ -149,16 +157,6 @@
     }
     
     [self endRefresh];
-}
-
-
-- (void)endRefresh {
-    if ([_listTableView.mj_header isRefreshing]) {
-        [_listTableView.mj_header endRefreshing];
-    }
-    if ([_listTableView.mj_footer isRefreshing]) {
-        [_listTableView.mj_footer endRefreshing];
-    }
 }
 
 - (void)netResultFailBack:(NSString *)errorDesc errorCode:(NSInteger)errorCode forInfo:(id)customInfo {

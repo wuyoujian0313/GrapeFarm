@@ -38,6 +38,7 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
         [_afManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
         [_afManager.requestSerializer setHTTPMethodsEncodingParametersInURI:[NSSet setWithObjects:@"GET",@"DELETE",nil]];
         [_afManager.requestSerializer setTimeoutInterval:_taskTimeout];
+        [_afManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
         [_afManager setResponseSerializer:[AFHTTPResponseSerializer serializer]];
         NSMutableSet *acceptContentTypes = [NSMutableSet setWithSet:_afManager.responseSerializer.acceptableContentTypes];
@@ -131,7 +132,6 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
         [_afManager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     }
     __weak NetworkTask *weakSelf = self;
-    [_afManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     NSString * urlString = [NSString stringWithFormat:@"%@/%@",_serverAddress,api];
     if([method isEqualToString:@"POST"]) {
         
