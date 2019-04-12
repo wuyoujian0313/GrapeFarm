@@ -1,16 +1,17 @@
 //
-//  RecordVC.h
+//  CommitBean.h
 //  GrapeFarm
 //
-//  Created by Wu YouJian on 2019/3/27.
+//  Created by Wu YouJian on 2019/4/11.
 //  Copyright © 2019 Wu YouJian. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "NetResultBase.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RecordVC : BaseVC
+@interface CommitBean : NetResultBase
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -55,6 +55,8 @@
 "SelectVariey"              ="请选择或输入葡萄品种";
 "GetLocation"               ="获取位置";
 "Commit"                    ="提交";
+"CommitSuccess"             ="提交成功！";
+"CommitFailed"              ="提交失败，请重试";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "此邮箱已注册";

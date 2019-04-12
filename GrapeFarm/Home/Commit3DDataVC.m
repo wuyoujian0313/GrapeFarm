@@ -15,8 +15,11 @@
 #import "GrapeVarietiesVC.h"
 #import "DeviceInfo.h"
 #import "UIView+SizeUtility.h"
+#import "CommitBean.h"
+#import "NetworkTask.h"
+#import "AILoadingView.h"
 
-@interface Commit3DDataVC ()<CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,FarmSelectIndexDelegate,GrapeVarietiesSelectIndexDelegate>
+@interface Commit3DDataVC ()<CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,FarmSelectIndexDelegate,GrapeVarietiesSelectIndexDelegate,NetworkTaskDelegate>
 @property (nonatomic,strong)CLLocationManager  *locationManager;//定位服务
 @property (nonatomic,strong)CLLocation         *currentLocation;
 @property (nonatomic,strong)UITableView        *contentTableView;
@@ -34,7 +37,14 @@
     // Do any additional setup after loading the view.
     [self setNavTitle:NSLocalizedString(@"ModelData", nil)];
     [self initLocation];
-    [self getLocation];
+    //
+    __weak typeof(self) wSelf = self;
+    dispatch_queue_t queue =  dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
+        typeof(self) sSelf = wSelf;
+        [sSelf getLocation];
+    });
+    
     [self layoutNextView];
     [self layoutContentTableView];
 }
@@ -65,6 +75,32 @@
 
 - (void)nextAction:(UIButton *)sender {
     //
+    if (_farmTextField.text == nil || [_farmTextField.text length] <= 0) {
+        [FadePromptView showPromptStatus:NSLocalizedString(@"SelectFarm", nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
+        [_farmTextField becomeFirstResponder];
+        return;
+    }
+    
+    if (_varietyTextField.text == nil || [_varietyTextField.text length] <= 0) {
+        [FadePromptView showPromptStatus:NSLocalizedString(@"SelectVariey", nil) duration:1.0 positionY:self.view.frame.size.height/2.0 finishBlock:nil];
+        [_farmTextField becomeFirstResponder];
+        return;
+    }
+    
+    CLLocationCoordinate2D coordinate = _currentLocation.coordinate;
+    NSDictionary *params = @{@"farmName":_farmTextField.text,
+                            @"grapeName":_varietyTextField.text,
+                            @"latitude": [NSNumber numberWithFloat:coordinate.latitude],
+                            @"longitude":[NSNumber numberWithFloat:coordinate.longitude],
+                            @"modelData":_textView.text,
+                            };
+    
+    [AILoadingView show:NSLocalizedString(@"Loading", nil)];
+    [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPICommit
+                                             forParam:params
+                                             delegate:self
+                                            resultObj:[[CommitBean alloc] init]
+                                           customInfo:@"commit"];
 }
 
 - (void)layoutContentTableView {
@@ -147,7 +183,6 @@
             [FadePromptView showPromptStatus:NSLocalizedString(@"RequestLocation", nil) duration:1.5 finishBlock:nil];
             break;
         }
-            
             
         default:
             break;
@@ -331,6 +366,25 @@
     }
     
     return YES;
+}
+
+#pragma mark - NetworkTaskDelegate
+-(void)netResultSuccessBack:(NetResultBase *)result forInfo:(id)customInfo {
+    [AILoadingView dismiss];
+    if ([customInfo isEqualToString:@"commit"]) {
+        [FadePromptView showPromptStatus:NSLocalizedString(@"CommitSuccess", nil) duration:2.0 finishBlock:^{
+            //
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }];
+    }
+}
+
+
+-(void)netResultFailBack:(NSString *)errorDesc errorCode:(NSInteger)errorCode forInfo:(id)customInfo {
+    [AILoadingView dismiss];
+    [FadePromptView showPromptStatus:NSLocalizedString(@"CommitFailed", nil) duration:2.0 finishBlock:^{
+        //
+    }];
 }
 
 

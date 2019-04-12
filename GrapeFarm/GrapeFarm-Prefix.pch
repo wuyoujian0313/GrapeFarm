@@ -32,17 +32,19 @@
 #define NSLog(...) {}
 #endif
 
+#define kLineHeight1px (1/[[UIScreen mainScreen] scale])
+#define IS_IOS7 ([[[[UIDevice currentDevice] systemVersion] substringToIndex:1] intValue]>=7)
 
+// userdefaultKey
 #define kLoginTokenUserdefaultKey               @"loginTokenUserdefaultKey"
 #define kBrushColorUserdefaultKey               @"brushColorUserdefaultKey"
 #define kBrushColorNameUserdefaultKey           @"brushColorNameUserdefaultKey"
 #define kMyfarmUserdefaultKey                   @"myfarmUserdefaultKey"
 
-#define kLineHeight1px (1/[[UIScreen mainScreen] scale])
-#define IS_IOS7 ([[[[UIDevice currentDevice] systemVersion] substringToIndex:1] intValue]>=7)
-
+// notification
 #define kBrushColorChangeNotification           @"brushColorChangeNotification"
 
+// imageFileKey
 #define kCroppedImageFileKey                    @"6e2b07425138b97baa977f7a02b97aa9e366981b"
 
 // 服务器地址
@@ -54,6 +56,8 @@
 #define kAPIRegiterUser         @"user"
 #define kAPIResetPassword       @"user/passwd"
 #define kAPILogin               @"auth/login"
+#define kAPICommit              @"record"
+#define kAPIRecord              @"record"
 
 
 // 颜色定义

@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setNavTitle:_record.timestamp];
+    [self setNavTitle:_record.createTime];
     [self layoutContentTableView];
 }
 
@@ -94,7 +94,7 @@
         cell.textLabel.text = _record.farmName;
     } else if (indexPath.row == 1) {
         // 葡萄种类
-        [cell.imageView setImage:[UIImage imageNamed:@"home"]];
+        [cell.imageView setImage:[UIImage imageNamed:@"grape"]];
         cell.textLabel.text = _record.grapeName;
     } else if(indexPath.row == 2) {
         [cell.imageView setImage:[UIImage imageNamed:@"address"]];

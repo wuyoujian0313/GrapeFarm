@@ -130,8 +130,6 @@ AISINGLETON_IMP(NetworkTask, sharedNetworkTask)
         ![api isEqualToString:kAPILogin]) {
         [_afManager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     }
-    [_afManager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
-
     __weak NetworkTask *weakSelf = self;
     [_afManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     NSString * urlString = [NSString stringWithFormat:@"%@/%@",_serverAddress,api];

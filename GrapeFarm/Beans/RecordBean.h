@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString       *farmName;
 @property(nonatomic,copy)NSString       *grapeName;
 @property(nonatomic,copy)NSString       *modelData;
-@property(nonatomic,copy)NSString       *timestamp;
+@property(nonatomic,copy)NSString       *createTime;
 @property(nonatomic,strong)NSNumber     *latitude;
 @property(nonatomic,strong)NSNumber     *longitude;
 @end

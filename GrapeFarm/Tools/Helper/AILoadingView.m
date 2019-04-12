@@ -121,6 +121,7 @@ static CGFloat kLoadingViewMaxTimeout = 90.0f;
 }
 
 + (void)show:(NSString*)status {
+    [self dismiss];
     AILoadingView *loadView = [[AILoadingView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
     [[[UIApplication sharedApplication] keyWindow] addSubview:loadView];
     [loadView setTag:kLoadingViewTag];

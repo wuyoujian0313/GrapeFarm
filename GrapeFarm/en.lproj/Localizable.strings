@@ -55,6 +55,8 @@
 "SelectVariey"              ="Please select or enter grape varieties";
 "GetLocation"               ="Locate your location";
 "Commit"                    ="Commit";
+"CommitSuccess"             ="Congratulations, your submission is successful!";
+"CommitFailed"              ="Sorry, the submission failed, please try again";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";
