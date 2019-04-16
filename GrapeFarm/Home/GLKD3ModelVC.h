@@ -1,5 +1,5 @@
 //
-//  GLKDemoVC.h
+//  GLKD3ModelVC.h
 //  GrapeFarm
 //
 //  Created by Wu YouJian on 2019/4/15.
@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GLKDemoVC : GLKViewController
+@interface GLKD3ModelVC : GLKViewController
 
 @end
 

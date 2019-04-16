@@ -16,8 +16,7 @@
 		AF097491224A234900989F11 /* LoginBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097490224A234900989F11 /* LoginBean.m */; };
 		AF097494224A237B00989F11 /* RegisterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097493224A237B00989F11 /* RegisterBean.m */; };
 		AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097496224A23A600989F11 /* ForgotPasswordBean.m */; };
-		AF42FEA322647EF000792A3B /* GLKDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42FEA222647EF000792A3B /* GLKDemoVC.m */; };
-		AF49F03F2257083C00CF9C4D /* D3ModelImageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF49F03E2257083C00CF9C4D /* D3ModelImageVC.m */; };
+		AF42FEA322647EF000792A3B /* GLKD3ModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */; };
 		AF894594224DE8140023D514 /* ColorSegmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF894593224DE8140023D514 /* ColorSegmentVC.m */; };
 		AFAF4673225440BA008EF9CD /* SetBrushColorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */; };
 		AFAF467722545EC2008EF9CD /* SaveSimpleDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF467622545EC2008EF9CD /* SaveSimpleDataManager.m */; };
@@ -125,10 +124,8 @@
 		AF097493224A237B00989F11 /* RegisterBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterBean.m; sourceTree = "<group>"; };
 		AF097495224A23A600989F11 /* ForgotPasswordBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordBean.h; sourceTree = "<group>"; };
 		AF097496224A23A600989F11 /* ForgotPasswordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordBean.m; sourceTree = "<group>"; };
-		AF42FEA122647EF000792A3B /* GLKDemoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKDemoVC.h; sourceTree = "<group>"; };
-		AF42FEA222647EF000792A3B /* GLKDemoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLKDemoVC.m; sourceTree = "<group>"; };
-		AF49F03D2257083C00CF9C4D /* D3ModelImageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = D3ModelImageVC.h; sourceTree = "<group>"; };
-		AF49F03E2257083C00CF9C4D /* D3ModelImageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = D3ModelImageVC.m; sourceTree = "<group>"; };
+		AF42FEA122647EF000792A3B /* GLKD3ModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKD3ModelVC.h; sourceTree = "<group>"; };
+		AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLKD3ModelVC.m; sourceTree = "<group>"; };
 		AF894592224DE8140023D514 /* ColorSegmentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorSegmentVC.h; sourceTree = "<group>"; };
 		AF894593224DE8140023D514 /* ColorSegmentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorSegmentVC.m; sourceTree = "<group>"; };
 		AFAF4671225440BA008EF9CD /* SetBrushColorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetBrushColorVC.h; sourceTree = "<group>"; };
@@ -478,14 +475,12 @@
 				AF894593224DE8140023D514 /* ColorSegmentVC.m */,
 				AFCD4C4522534B6700A5040B /* ModelIdentificationVC.h */,
 				AFCD4C4622534B6700A5040B /* ModelIdentificationVC.m */,
-				AF49F03D2257083C00CF9C4D /* D3ModelImageVC.h */,
-				AF49F03E2257083C00CF9C4D /* D3ModelImageVC.m */,
 				AFEDA3CC224CAC86004D063A /* Commit3DDataVC.h */,
 				AFEDA3CD224CAC86004D063A /* Commit3DDataVC.m */,
 				AFD97A9A224B68000048367E /* GrapeVarietiesVC.h */,
 				AFD97A9B224B68000048367E /* GrapeVarietiesVC.m */,
-				AF42FEA122647EF000792A3B /* GLKDemoVC.h */,
-				AF42FEA222647EF000792A3B /* GLKDemoVC.m */,
+				AF42FEA122647EF000792A3B /* GLKD3ModelVC.h */,
+				AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -798,7 +793,7 @@
 				AFF9A572226058A300CB3537 /* MJRefreshBackNormalFooter.m in Sources */,
 				AFBF915D22486ECE007F2ED8 /* UIColor+Utility.m in Sources */,
 				AF095575225F717500744977 /* CommitBean.m in Sources */,
-				AF42FEA322647EF000792A3B /* GLKDemoVC.m in Sources */,
+				AF42FEA322647EF000792A3B /* GLKD3ModelVC.m in Sources */,
 				AFF9A570226058A300CB3537 /* MJRefreshBackGifFooter.m in Sources */,
 				AFD97AC6224B6EFC0048367E /* UIBezierPath+Points.m in Sources */,
 				AFF9A56B226058A300CB3537 /* MJRefreshConst.m in Sources */,
@@ -836,7 +831,6 @@
 				AFBF915F22486ECE007F2ED8 /* NSObject+Utility.m in Sources */,
 				AFF9A577226058A300CB3537 /* MJRefreshStateHeader.m in Sources */,
 				AF097491224A234900989F11 /* LoginBean.m in Sources */,
-				AF49F03F2257083C00CF9C4D /* D3ModelImageVC.m in Sources */,
 				AFBF917E22486ECE007F2ED8 /* AFURLResponseSerialization.m in Sources */,
 				AFCD4C4A22534E9700A5040B /* FileCache.m in Sources */,
 				AFD97ABC224B6E630048367E /* CaptchaControl.m in Sources */,

@@ -11,6 +11,7 @@
 #import "UIView+SizeUtility.h"
 #import "D3ModelImageVC.h"
 #import "FileCache.h"
+#import "GLKD3ModelVC.h"
 
 @interface ModelIdentificationVC ()
 @property(nonatomic,strong)UIButton *nextBtn;
@@ -153,7 +154,7 @@
 }
 
 - (void)nextAction:(UIButton *)sender {
-    D3ModelImageVC *vc = [[D3ModelImageVC alloc] init];
+    GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
