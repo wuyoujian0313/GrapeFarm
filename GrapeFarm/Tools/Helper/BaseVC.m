@@ -165,7 +165,7 @@ static NSString *const kAIAlertViewBlockKey = @"kAIAlertViewBlockKey";
 
 #pragma mark - Config Top Bar Button
 - (UIBarButtonItem*)configBackButton {
-    UIBarButtonItem *itemBtn = [[UIBarButtonItem alloc] initWithImage:[[self roadVectorImageWithName:@"back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]style:UIBarButtonItemStylePlain target:self action:@selector(popBack)];
+    UIBarButtonItem *itemBtn = [[UIBarButtonItem alloc] initWithImage:[[self roadVectorImageWithName:@"back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(popBack)];
     
     self.navigationItem.leftBarButtonItem = itemBtn;
     return itemBtn;
