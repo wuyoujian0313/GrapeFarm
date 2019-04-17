@@ -10,8 +10,8 @@
 #import "DeviceInfo.h"
 #import "Commit3DDataVC.h"
 
-#define kCubeScale            0.4
-#define DegreesToRadians(x) ((x) * M_PI / 180.0)
+#define kCubeScale            0.5
+//#define DegreesToRadians(x) ((x) * M_PI / 180.0)
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 //顶点数据，前三个是顶点坐标（x、y、z轴），后面两个是纹理坐标（x，y）
@@ -34,6 +34,9 @@
     GLKVertexAttribTexCoord1
  } NS_ENUM_AVAILABLE(10_8, 5_0);
  
+ 
+ 投影(prohection):投影分为正射投影和透视投影，我们可以通过它来设置投影矩阵来设置视域，在OpenGL中，
+ 默认的投影矩阵是一个立方体，即x y z 分别是-1.0~1.0的距离，如果超出该区域，将不会被显示。
  */
 typedef struct {
     GLshort Positon[3];//位置
@@ -151,7 +154,7 @@ const GLushort cubeColors[6][4] = {
     /*
      OpenGL上下文还可以（可选地）有另一个缓冲区，称为深度缓冲区。
      这帮助我们确保更接近观察者的对象显示在远一些的对象的前面（意思就是离观察者近一些的对象会挡住在它后面的对象）。
-     其缺省的工作方式是：OpenGL把接近观察者的对象的所有像素存储到深度缓冲区，当开始绘制一个像素时，\
+     其缺省的工作方式是：OpenGL把接近观察者的对象的所有像素存储到深度缓冲区，当开始绘制一个像素时，
      它（OpenGL）首先检查深度缓冲区，看是否已经绘制了更接近观察者的什么东西，
      如果是则忽略它（要绘制的像素，就是说，在绘制一个像素之前，看看前面有没有挡着它的东西，如果有那就不用绘制了）。
      否则，把它增加到深度缓冲区和颜色缓冲区。
@@ -168,7 +171,10 @@ const GLushort cubeColors[6][4] = {
 
 // 设置正方体上的图片效果
 - (void)setUpCubeEffect{
-    //纹理坐标系是相反的
+    //纹理坐标系,(0,0)在图片的左上角
+    /*
+     当我们以纹理的形式加载一个图片到OpenGL中时，如何让它显示在世界坐标系中呢？这时就用到了纹理贴图的方式（即根据在世界坐标系中绘制顶点的先后顺序，把UV坐标系中的坐标与其一一对应）
+     */
     UIImage *image = [UIImage imageNamed:@"speaker"];
     GLKTextureLoader *textureloader = [[GLKTextureLoader alloc] initWithSharegroup:_context.sharegroup];
     __weak typeof(self) wSelf = self;
@@ -186,7 +192,8 @@ const GLushort cubeColors[6][4] = {
 
 #pragma mark - 重绘
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    glClearColor(0.0, 0, 0, 1.0);
+    // 设置背景颜色0xF4F4F4
+    glClearColor(0xF4/255.0, 0xF4/255.0, 0xF4/255.0, 1.0);
     glClearDepthf(1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
@@ -196,11 +203,25 @@ const GLushort cubeColors[6][4] = {
      GLKMatrix4Translate是平移变换
      */
     GLfloat aspectRatio = (GLfloat)(view.drawableWidth) / (GLfloat)(view.drawableHeight);
-    // 正交变换
+    /*
+     正射投影(orthographic projection)：GLKMatrix4MakeOrtho(float left,  float right,  float bottom, float top, float nearZ, float farZ)，该函数返回一个正射投影的矩阵，它定义了一个由 left、right、bottom、top、near、far 所界定的一个矩形视域。此时，视点与每个位置之间的距离对于投影将毫无影响。
+     */
     GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-1.0f, 1.0f, -1.0f/aspectRatio, 1.0f/aspectRatio, -10.0f, 10.0f);
-    projectionMatrix = GLKMatrix4Rotate(projectionMatrix, DegreesToRadians(-30.0f), 0.0f, 1.0f, 0.0f);
+    /*
+     GLKMatrix4MakeRotation(float radians, float x, float y, float z)
+     radians是旋转角度，它接受一个弧度值，可以用GLKMathDegreesToRadians(30)，将角度转换为弧度
+     后面的x y z组成一个向量，顶点将围绕这个向量做旋转(如{1.0，0.0，0.0}，将会绕x轴做旋转)
+     */
+//    projectionMatrix = GLKMatrix4Rotate(projectionMatrix, GLKMathDegreesToRadians(30.0f), 1.0f, 0.0f, 0.0f);
+//    _cubeRot += 2;
+//    projectionMatrix = GLKMatrix4RotateY(projectionMatrix, GLKMathDegreesToRadians(_cubeRot));
+//    projectionMatrix = GLKMatrix4Scale(projectionMatrix, kCubeScale, kCubeScale, kCubeScale);
     for (int f=0; f<6; f++) {
+        // 投影矩阵
         _cubeEffects[f].effect.transform.projectionMatrix = projectionMatrix;
+//        glBindVertexArrayOES(_cubeEffects[f].vertexArray);
+//        [_cubeEffects[f].effect prepareToDraw];
+//        glDrawArrays(GL_TRIANGLE_STRIP, 0, 6);
     }
     [self drawCube];
 }
@@ -211,13 +232,17 @@ const GLushort cubeColors[6][4] = {
     
     // 初始位置在（0,0,0)屏幕正中央
     GLKMatrix4 modelView = GLKMatrix4MakeTranslation(0, 0, 0);
-    // 缩放
+    /* 缩放
+     返回一个缩放矩阵：sx sy sz 分别是x y z轴方向上的缩放倍数
+     GLKMatrix4MakeScale(float sx, float sy, float sz)
+     */
+    
     modelView = GLKMatrix4Scale(modelView, kCubeScale, kCubeScale, kCubeScale);
     
     // 旋转
-    modelView = GLKMatrix4Rotate(modelView, DegreesToRadians(_cubeRot), 1, 0, 0);
-    modelView = GLKMatrix4Rotate(modelView, DegreesToRadians(_cubeRot), 0, 1, 1);
-    modelView = GLKMatrix4RotateY(modelView, DegreesToRadians(_cubeRot));
+    modelView = GLKMatrix4Rotate(modelView, GLKMathDegreesToRadians(_cubeRot), 1, 0, 0);
+    modelView = GLKMatrix4Rotate(modelView, GLKMathDegreesToRadians(_cubeRot), 0, 1, 1);
+    modelView = GLKMatrix4RotateY(modelView, GLKMathDegreesToRadians(_cubeRot));
     
     for (int f=0; f<6; f++) {
         _cubeEffects[f].effect.transform.modelviewMatrix = modelView;

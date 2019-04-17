@@ -9,7 +9,6 @@
 #import "ModelIdentificationVC.h"
 #import "DeviceInfo.h"
 #import "UIView+SizeUtility.h"
-#import "D3ModelImageVC.h"
 #import "FileCache.h"
 #import "GLKD3ModelVC.h"
 

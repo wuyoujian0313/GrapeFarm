@@ -18,6 +18,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "SaveSimpleDataManager.h"
 #import "FileCache.h"
+#import "GLKD3ModelVC.h"
+
 
 @interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic,strong)UIImageView *imageView;
@@ -172,7 +174,8 @@
 }
 
 - (void)toSettingPage {
-    SettingsVC *vc = [[SettingsVC alloc] init];
+//    SettingsVC *vc = [[SettingsVC alloc] init];
+    GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
