@@ -9,6 +9,7 @@
 #ifndef GrapeFarm_Prefix_pch
 #define GrapeFarm_Prefix_pch
 
+// 必须要在其他头文件之上引用
 #ifdef __cplusplus
 #import <opencv2/opencv.hpp>
 #import <opencv2/imgproc/types_c.h>
