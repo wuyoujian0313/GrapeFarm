@@ -174,8 +174,8 @@
 }
 
 - (void)toSettingPage {
-//    SettingsVC *vc = [[SettingsVC alloc] init];
-    GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
+    SettingsVC *vc = [[SettingsVC alloc] init];
+//    GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

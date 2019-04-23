@@ -17,7 +17,7 @@
 //顶点数据，前三个是顶点坐标（x、y、z轴），后面两个是纹理坐标（x，y）
 /*
  顶点数组里包括顶点坐标，OpenGLES的世界坐标系是[-1, 1]，故而点(0, 0)是在屏幕的正中间。
- 纹理坐标系的取值范围是[0, 1]，原点是在左下角。故而点(0, 0)在左下角，点(1, 1)在右上角。
+ 纹理坐标系的取值范围是[0, 1]，原点是在左上角。故而点(0, 0)在左下角，点(1, 1)在右下角。
  索引数组是顶点数组的索引，把顶点数组看成4个顶点，每个顶点会有5个GLfloat数据，索引从0开始。
  
  顶点位置用于确定在什么地方显示，法线用于光照模型计算，纹理则用在贴图中。
@@ -77,24 +77,37 @@ const GLushort cubeColors[6][4] = {
         effect.constantColor =  GLKVector4Make(cubeColors[f][0], cubeColors[f][1], cubeColors[f][2], cubeColors[f][3]);
         
         GLuint vertexArray, vertexBuffer;
-        
         glGenVertexArraysOES(1, &vertexArray);
         glBindVertexArrayOES(vertexArray);
         
         /*
-         glGenBuffers申请一个标识符
+         VBO是一种Buffer Object，即它也是一个OpenGL对象。VBO是顶点数组数据真正所在的地方。
+         我们要知道，任何VBO都需要先绑定到 GL_ARRAY_BUFFER 才可以对它进行操作
+         
+         glGenBuffers申请一个标识符，第一个参数是要生成的缓存标识的数量。
          glBindBuffer把标识符绑定到GL_ARRAY_BUFFER上
          glBufferData把顶点数据从cpu内存复制到gpu内存
          glEnableVertexAttribArray 是开启对应的顶点属性
          glVertexAttribPointer设置合适的格式从buffer里面读取数据
         
          参数“GL_STATIC_DRAW”，它表示此缓冲区内容只能被修改一次，但可以无限次读取。
+         
+         我们也可以一次为多个纹理分配空间。比如，如果我们需要为我们的应用程序准备10个纹理。我们可以如下做：
+         GLuint textures[10];
+         glGenTextures(10, &textures[0]);
+
          */
         glGenBuffers(1, &vertexBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
         glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices[f]), cubeVertices[f], GL_STATIC_DRAW);
         
         // 位置属性
+        /*
+         VAO（Vertex Array Object)
+         每个属性可以被enable或者disable,一个新建的VAO的所有属性访问都是disable的。而开启一个属性是通过下面的函数：
+         void glEnableVertexAttribArray(GLuint index);
+         与其对应的是 glDisableVertexAttribArray 函数。
+         */
         glEnableVertexAttribArray(GLKVertexAttribPosition);
         glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_SHORT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(0));
         
@@ -171,7 +184,7 @@ const GLushort cubeColors[6][4] = {
 
 // 设置正方体上的图片效果
 - (void)setUpCubeEffect{
-    //纹理坐标系,(0,0)在图片的左上角
+    //纹理坐标系,(0,0)在图片的左下角，但图片的坐标是左上角为原点
     /*
      当我们以纹理的形式加载一个图片到OpenGL中时，如何让它显示在世界坐标系中呢？这时就用到了纹理贴图的方式（即根据在世界坐标系中绘制顶点的先后顺序，把UV坐标系中的坐标与其一一对应）
      */
@@ -206,6 +219,7 @@ const GLushort cubeColors[6][4] = {
     /*
      正射投影(orthographic projection)：GLKMatrix4MakeOrtho(float left,  float right,  float bottom, float top, float nearZ, float farZ)，该函数返回一个正射投影的矩阵，它定义了一个由 left、right、bottom、top、near、far 所界定的一个矩形视域。此时，视点与每个位置之间的距离对于投影将毫无影响。
      */
+    // 投影矩阵正好是一个正方体
     GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-1.0f, 1.0f, -1.0f/aspectRatio, 1.0f/aspectRatio, -10.0f, 10.0f);
     /*
      GLKMatrix4MakeRotation(float radians, float x, float y, float z)
@@ -258,7 +272,7 @@ const GLushort cubeColors[6][4] = {
          这里使用GLKBaseEffect来做着色器
          */
         [_cubeEffects[f].effect prepareToDraw];
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 6);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     }
 }
 

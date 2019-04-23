@@ -11,6 +11,7 @@
 #import "AINavigationController.h"
 #import "MainControllerManager.h"
 #import "UIColor+Utility.h"
+#import "OpenCVWrapper.h"
 
 
 

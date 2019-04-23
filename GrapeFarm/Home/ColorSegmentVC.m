@@ -11,6 +11,15 @@
 #import "ModelIdentificationVC.h"
 #import "FileCache.h"
 #import "UIView+SizeUtility.h"
+#import "OpenCVWrapper.h"
+
+
+typedef NS_ENUM(NSInteger ,ColorType) {
+    ColorType_toRed = 0,
+    ColorType_toBlue = 1,
+    ColorType_toGreen = 2,
+};
+
 
 @interface ColorSegmentVC ()
 @property(nonatomic,strong)UISegmentedControl *segmentCtl;
@@ -29,8 +38,30 @@
     [self layoutColorSegmentImageView];
 }
 
+- (void)setColorSegImage:(ColorType)type {
+    FileCache *fileCache = [FileCache sharedFileCache];
+    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
+    UIImage *image = [UIImage imageWithData:imageData];
+    switch (type) {
+        case ColorType_toRed:
+            image = [OpenCVWrapper toRed:image];
+            break;
+        case ColorType_toBlue:
+            image = [OpenCVWrapper toBlue:image];
+            break;
+        case ColorType_toGreen:
+            image = [OpenCVWrapper toGreen:image];
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self reLayoutImageView:image];
+}
+
 - (void)layoutSegmentControl {
-    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"分割一",@"分割二",@"分割三",nil];
+    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"ToRed",@"ToBlue",@"ToGreen",nil];
     _segmentCtl = [[UISegmentedControl alloc]initWithItems:segmentedArray];
     _segmentCtl.frame = CGRectMake(11,15 + [DeviceInfo navigationBarHeight],self.view.frame.size.width - 22,30);
     _segmentCtl.selectedSegmentIndex = 0;
@@ -40,17 +71,14 @@
 }
 
 - (void)segmentAction:(UISegmentedControl *)sender {
-    // 需要调用中南大学的核心库计算分离之后的image
-    FileCache *fileCache = [FileCache sharedFileCache];
-    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
-    [self reLayoutImageView:[UIImage imageWithData:imageData]];
+    [self setColorSegImage:(ColorType)sender.selectedSegmentIndex];
 }
 
 - (void)reLayoutImageView:(UIImage *)image {
     NSInteger imageViewSize = self.view.width - 20;
     NSInteger top = 20;
     NSInteger areaHeight = _nextBtn.top - _segmentCtl.bottom - 2*top;
-    // 需要调用中南大学的核心库计算分离之后的image
+    [_imageView setImage:nil];
     [_imageView setImage:image];
     
     if (image.size.width >= imageViewSize) {
@@ -90,13 +118,14 @@
 - (void)layoutColorSegmentImageView {
     NSInteger imageViewSize = self.view.width - 20;
     _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, _segmentCtl.bottom + 10, imageViewSize, imageViewSize)];
+    [_imageView setBackgroundColor:[UIColor clearColor]];
     [_imageView.layer setCornerRadius:10];
     [_imageView setClipsToBounds:YES];
     [self.view addSubview:_imageView];
     
-    FileCache *fileCache = [FileCache sharedFileCache];
-    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
-    [self reLayoutImageView:[UIImage imageWithData:imageData]];
+    ColorType type = 0;
+    [_segmentCtl setSelectedSegmentIndex:type];
+    [self setColorSegImage:type];
 }
 
 - (void)layoutNextView {
