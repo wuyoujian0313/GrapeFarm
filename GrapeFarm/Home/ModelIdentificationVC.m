@@ -131,7 +131,7 @@
         
     } else if(sender == _slider2) {
         
-    }  else if(sender == _slider3) {
+    } else if(sender == _slider3) {
         
     }
 }
