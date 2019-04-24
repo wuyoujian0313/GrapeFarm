@@ -153,6 +153,9 @@ typedef NS_ENUM(NSInteger ,ColorType) {
 }
 
 - (void)nextAction:(UIButton *)sender {
+//    kColorSegImageFileKey
+    FileCache *fileCache = [FileCache sharedFileCache];
+    [fileCache writeData:UIImagePNGRepresentation(_imageView.image) forKey:kColorSegImageFileKey];
     ModelIdentificationVC *vc = [[ModelIdentificationVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }

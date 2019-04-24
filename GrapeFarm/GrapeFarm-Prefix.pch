@@ -57,6 +57,7 @@
 
 // imageFileKey
 #define kCroppedImageFileKey                    @"6e2b07425138b97baa977f7a02b97aa9e366981b"
+#define kColorSegImageFileKey                   @"301b97ddc2477f5ce868a8c7821d8fa979e64b16"
 
 // 服务器地址
 #define kNetworkAPIServer       @"http://47.101.51.112:8000"

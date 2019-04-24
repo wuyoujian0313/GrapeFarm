@@ -33,7 +33,7 @@
     [self layoutParamView];
     
     FileCache *fileCache = [FileCache sharedFileCache];
-    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
+    NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
     [self reLayoutImageView:[UIImage imageWithData:imageData]];
 }
 

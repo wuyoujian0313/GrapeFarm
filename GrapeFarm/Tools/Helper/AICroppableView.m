@@ -60,7 +60,8 @@
     // 画一个蒙版
     UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0);
     {
-        [[UIColor blackColor] setFill];
+        // 背景颜色
+        [[UIColor whiteColor] setFill];
         UIRectFill(rect);
         [[UIColor whiteColor] setFill];
         
