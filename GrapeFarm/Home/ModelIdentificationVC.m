@@ -11,6 +11,7 @@
 #import "UIView+SizeUtility.h"
 #import "FileCache.h"
 #import "GLKD3ModelVC.h"
+#import "OpenCVWrapper.h"
 
 @interface ModelIdentificationVC ()
 @property(nonatomic,strong)UIButton *nextBtn;
@@ -83,8 +84,6 @@
 }
 
 - (void)layoutParamView {
-    NSInteger maximumValue = 100;
-    NSInteger minimumValue = -100;
     NSInteger footer = 10;
     NSInteger space = 10;
     NSInteger paramHeight = 120 + 3*space;
@@ -94,9 +93,9 @@
     
     UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, space, paramView.width, 40)];
     _slider1 = slider;
-    [slider setMaximumValue:maximumValue];
-    [slider setMinimumValue:minimumValue];
-    [slider setValue:(maximumValue+minimumValue)/2.0];
+    [slider setMaximumValue:100];
+    [slider setMinimumValue:0];
+    [slider setValue:(100+0)/2];
     [slider setMinimumTrackTintColor:[UIColor blackColor]];
     [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -104,9 +103,9 @@
     
     slider = [[UISlider alloc] initWithFrame:CGRectMake(0, slider.bottom + space, paramView.width, 40)];
     _slider2 = slider;
-    [slider setMaximumValue:maximumValue];
-    [slider setMinimumValue:minimumValue];
-    [slider setValue:(maximumValue+minimumValue)/2.0];
+    [slider setMaximumValue:1000];
+    [slider setMinimumValue:10];
+    [slider setValue:(1000+100)/2];
     [slider setMinimumTrackTintColor:[UIColor blackColor]];
     [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -114,9 +113,9 @@
     
     slider = [[UISlider alloc] initWithFrame:CGRectMake(0, slider.bottom + space, paramView.width, 40)];
     _slider3 = slider;
-    [slider setMaximumValue:maximumValue];
-    [slider setMinimumValue:minimumValue];
-    [slider setValue:(maximumValue+minimumValue)/2.0];
+    [slider setMaximumValue:1000];
+    [slider setMinimumValue:10];
+    [slider setValue:(1000+100)/2];
     [slider setMinimumTrackTintColor:[UIColor blackColor]];
     [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -124,16 +123,14 @@
 }
 
 - (void)sliderValueChanged:(UISlider *)sender {
-    CGFloat value = [sender value];
-    NSLog(@"slider:%f",value);
-    if (sender == _slider1) {
-        //根据参数调整重新画图片：_imageView.image =
-        
-    } else if(sender == _slider2) {
-        
-    }  else if(sender == _slider3) {
-        
-    }
+    CGFloat value1 = ceil(_slider1.value);
+    CGFloat value2 = ceil(_slider1.value);
+    CGFloat value3 = ceil(_slider1.value);
+    
+    FileCache *fileCache = [FileCache sharedFileCache];
+    NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
+    UIImage *image = [OpenCVWrapper Rededge: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
+    _imageView.image = image;
 }
 
 - (void)layoutNextView {
