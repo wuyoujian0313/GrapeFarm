@@ -126,6 +126,14 @@
 - (void)sliderValueChanged:(UISlider *)sender {
     CGFloat value = [sender value];
     NSLog(@"slider:%f",value);
+    if (sender == _slider1) {
+        //根据参数调整重新画图片：_imageView.image =
+        
+    } else if(sender == _slider2) {
+        
+    }  else if(sender == _slider3) {
+        
+    }
 }
 
 - (void)layoutNextView {
