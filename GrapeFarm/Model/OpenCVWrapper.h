@@ -17,4 +17,6 @@
 + (UIImage *)Blueedge:(UIImage *)source;
 + (UIImage *)Greenedge:(UIImage *)source;
 
++ (UIImage *)Rededge:(UIImage *)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3;
+
 @end
