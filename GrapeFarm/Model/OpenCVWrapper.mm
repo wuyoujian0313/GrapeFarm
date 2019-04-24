@@ -63,18 +63,10 @@ using namespace cv;
     return [OpenCVWrapper _imageFrom:[OpenCVWrapper _rededgeFrom:[OpenCVWrapper _matFrom:source]]];
 }
 
-+ (UIImage *)Blueedge:(UIImage *)source{
-    cout << "OpenCV: ";
-    return [OpenCVWrapper _imageFrom:[OpenCVWrapper _blueedgeFrom:[OpenCVWrapper _matFrom:source]]];
-}
-
-+ (UIImage *)Greenedge:(UIImage *)source{
-    cout << "OpenCV: ";
-    return [OpenCVWrapper _imageFrom:[OpenCVWrapper _greenedgeFrom:[OpenCVWrapper _matFrom:source]]];
-}
 
 #pragma mark Private
 
+//　Hough圆检测
 + (Mat)_rededgeFrom:(Mat)source {
     cout << "-> rededgeFrom ->";
     
@@ -82,10 +74,8 @@ using namespace cv;
     Mat imageRedChannel;
     
     //把一个三通道图像转化为三个单通道图像
-    split(source, channels);
-    imageRedChannel = channels.at(2);
     Mat gaussianBlur;
-    GaussianBlur(imageRedChannel, gaussianBlur, cv::Size(5,5), 2,2);
+    GaussianBlur(source, gaussianBlur, cv::Size(5,5), 2,2);
     Mat edges;
     Canny(gaussianBlur, edges, 0, 50);
     vector<Vec3f> circles;
@@ -103,61 +93,7 @@ using namespace cv;
     
 }
 
-+ (Mat)_blueedgeFrom:(Mat)source {
-    cout << "-> blueedgeFrom ->";
-    
-    std::vector<Mat> channels;
-    Mat imageBlueChannel;
-    
-    //把一个三通道图像转化为三个单通道图像
-    split(source, channels);
-    imageBlueChannel = channels.at(0);
-    Mat gaussianBlur;GaussianBlur(imageBlueChannel, gaussianBlur, cv::Size(5,5), 2,2);
-    Mat edges;Canny(gaussianBlur, edges, 0, 50);
-    //显示分离的单通道图像∫
-    vector<Vec3f> circles;
-    HoughCircles(edges, circles, HOUGH_GRADIENT, 1, 10,
-                 1, 79, 150, 250 );
-    
-    for( size_t i = 0; i < circles.size(); i++ )
-    {
-        Vec3i c = circles[i];
-        circle( source, Point2i(c[0], c[1]), c[2], Scalar(0,255,0), 10);
-        circle( source, Point2i(c[0], c[1]), 2, Scalar(0,255,0), 10);
-        
-    }
-    return source;
-
-    
-}
-
-+ (Mat)_greenedgeFrom:(Mat)source {
-    cout << "-> greenedgeFrom ->";
-    
-    std::vector<Mat> channels;
-    Mat imageGreenChannel;
-    
-    //把一个三通道图像转化为三个单通道图像
-    split(source, channels);
-    imageGreenChannel = channels.at(1);
-    Mat gaussianBlur;GaussianBlur(imageGreenChannel, gaussianBlur, cv::Size(5,5), 2,2);
-    Mat edges;Canny(gaussianBlur, edges, 0, 50);
-    //显示分离的单通道图像∫
-    vector<Vec3f> circles;
-    HoughCircles(edges, circles, HOUGH_GRADIENT, 1, 10,
-                 1, 79, 150, 250 );
-    for( size_t i = 0; i < circles.size(); i++ )
-    {
-        Vec3i c = circles[i];
-        circle( source, Point2i(c[0], c[1]), c[2], Scalar(0,255,0), 10);
-        circle( source, Point2i(c[0], c[1]), 2, Scalar(0,255,0), 10);
-        
-    }
-    return source;
-
-    
-}
-
+//RGB色彩分离
 + (Mat)_blueFrom:(Mat)source {
     cout << "-> blueFrom ->";
     
