@@ -16,6 +16,4 @@
 + (UIImage *)Rededge:(UIImage *)source;
 + (UIImage *)Rededge:(UIImage *)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3;
 
-+ (UIImage *)Rededge:(UIImage *)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3;
-
 @end
