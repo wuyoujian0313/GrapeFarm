@@ -98,24 +98,68 @@
     [label setTextColor:[UIColor blackColor]];
     [paramView addSubview:label];
     
+    //第一个 25到30，第二个50到60，第三个100到110
     UIStepper *stepper = [[UIStepper alloc] initWithFrame:CGRectMake(paramView.width - 80 - 11 , space, 80, 0)];
     _stepper1 = stepper;
+    [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
     [stepper setTintColor:[UIColor blackColor]];
+    [stepper setMinimumValue:25];
+    [stepper setMaximumValue:30];
+    [stepper setStepValue:1];
+    [paramView addSubview:stepper];
+    [stepper setTop:stepper.top + (40-stepper.height)/2.0];
+    
+    
+    label = [[UILabel alloc] initWithFrame:CGRectMake(0, space + label.bottom, 200, 40)];
+    [label setText:NSLocalizedString(@"MinRadius", nil)];
+    [label setFont:[UIFont boldSystemFontOfSize:18.0]];
+    [label setTextColor:[UIColor blackColor]];
+    [paramView addSubview:label];
+    
+    stepper = [[UIStepper alloc] initWithFrame:CGRectMake(paramView.width - 80 - 11 , label.top, 80, 0)];
+    _stepper2 = stepper;
+    [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [stepper setTintColor:[UIColor blackColor]];
+    [stepper setMinimumValue:50];
+    [stepper setMaximumValue:60];
+    [stepper setStepValue:1];
+    [paramView addSubview:stepper];
+    [stepper setTop:stepper.top + (40-stepper.height)/2.0];
+    
+    
+    label = [[UILabel alloc] initWithFrame:CGRectMake(0, space + label.bottom, 200, 40)];
+    [label setText:NSLocalizedString(@"MinRadius", nil)];
+    [label setFont:[UIFont boldSystemFontOfSize:18.0]];
+    [label setTextColor:[UIColor blackColor]];
+    [paramView addSubview:label];
+    
+    stepper = [[UIStepper alloc] initWithFrame:CGRectMake(paramView.width - 80 - 11 , label.top, 80, 0)];
+    _stepper3 = stepper;
+    [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [stepper setTintColor:[UIColor blackColor]];
+    [stepper setMinimumValue:100];
+    [stepper setMaximumValue:110];
+    [stepper setStepValue:1];
     [paramView addSubview:stepper];
     [stepper setTop:stepper.top + (40-stepper.height)/2.0];
 }
 
-- (void)sliderValueChanged:(UISlider *)sender {
-//    CGFloat value1 = ceil(_slider1.value);
-//    CGFloat value2 = ceil(_slider2.value);
-//    CGFloat value3 = ceil(_slider3.value);
-//
-//    FileCache *fileCache = [FileCache sharedFileCache];
-//    NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
+- (void)stepperValueChanged:(UIStepper *)sender {
+    NSInteger value1 = ceil(_stepper1.value);
+    NSInteger value2 = ceil(_stepper2.value);
+    NSInteger value3 = ceil(_stepper3.value);
+
+    FileCache *fileCache = [FileCache sharedFileCache];
+    NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
+    
+#if 0
 //    NSArray *arr = [OpenCVWrapper edgeCircles: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
-////    UIImage *image = [OpenCVWrapper Rededge: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
-////    _imageView.image = image;
 //    [_imageView setCircles:arr];
+#else
+    UIImage *image = [OpenCVWrapper Rededge: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
+    _imageView.image = nil;
+    _imageView.image = image;
+#endif
 }
 
 - (void)layoutNextView {
