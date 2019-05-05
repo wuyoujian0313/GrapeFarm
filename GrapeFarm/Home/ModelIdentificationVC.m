@@ -152,9 +152,9 @@
     FileCache *fileCache = [FileCache sharedFileCache];
     NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
     
-#if 0
-//    NSArray *arr = [OpenCVWrapper edgeCircles: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
-//    [_imageView setCircles:arr];
+#if 1
+    NSArray *arr = [OpenCVWrapper edgeCircles: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
+    [_imageView setCircles:arr];
 #else
     UIImage *image = [OpenCVWrapper Rededge: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
     _imageView.image = nil;

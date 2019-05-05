@@ -71,6 +71,15 @@
 
 
 - (void)setCircles:(NSArray *)circles {
+    CGFloat w = self.image.size.width;
+    CGFloat w1 = self.frame.size.width;
+    CGFloat scale = w1/w;
+    for (int i = 0; i < [circles count]; i ++) {
+        Circle *c = circles[i];
+        c.x = [NSNumber numberWithFloat:[c.x floatValue] * scale];
+        c.y = [NSNumber numberWithFloat:[c.y floatValue] * scale];
+        c.r = [NSNumber numberWithFloat:[c.r floatValue] * scale];
+    }
     [_edgeView setCircles:circles];
 }
 
