@@ -21,6 +21,7 @@
 #import "GLKD3ModelVC.h"
 
 
+
 @interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic,strong)UIImageView *imageView;
 @property (nonatomic,strong)AICroppableView *croppingView;
@@ -44,6 +45,7 @@
     [self layoutNavView];
     [self layoutToolsView];
     [self layoutImageAreaView];
+    [self relayoutImageView:[UIImage imageNamed:@"obj.jpg"]];
 }
 
 - (void)layoutImageAreaView {
@@ -64,9 +66,8 @@
     _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, label.bottom + 10, imageViewSize, imageViewSize)];
     [_imageView.layer setCornerRadius:10];
     [_imageView setClipsToBounds:YES];
-    [_imageView setImage:[UIImage imageNamed:@"instance"]];
     [areaView addSubview:_imageView];
-    
+
     SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
     NSNumber *color = [manager objectForKey:kBrushColorUserdefaultKey];
     _croppingView = [[AICroppableView alloc] initWithFrame:_imageView.frame];
@@ -144,9 +145,9 @@
         FileCache *fileCache = [FileCache sharedFileCache];
         UIImage *croppedImage = [_croppingView croppingOfImage:_imageView.image];
         [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];        
-//        NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
-//        [self saveImage:croppedImage toFile:path];
-//        NSLog(@"cropped image path: %@",path);
+        NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
+        [self saveImage:croppedImage toFile:path];
+        NSLog(@"cropped image path: %@",path);
         
         ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
@@ -253,31 +254,56 @@
         }
     }
     
+    [self relayoutImageView:image];
+    __weak typeof(self) wSelf = self;
+    [picker dismissViewControllerAnimated:YES completion:^{
+        typeof(self) sSelf = wSelf;
+        [sSelf.croppingView cleaningBrush];
+    }];
+}
+
+- (void)relayoutImageView:(UIImage *)image {
     if (image != nil) {
         //
         NSInteger imageViewSize = self.view.width - 20;
         if (image.size.width != image.size.height) {
             // 不是正方形的图片
             if (image.size.width >= imageViewSize) {
-                // 以宽度为准
+                
                 CGFloat h = image.size.height/image.size.width * imageViewSize;
-                [_imageView setHeight:h];
-                [_croppingView setHeight:h];
+                if (h >= imageViewSize) {
+                    // 以高度为准
+                    CGFloat w = image.size.width/image.size.height * imageViewSize;
+                    [_imageView setHeight:imageViewSize];
+//                    [_croppingView setHeight:imageViewSize];
+                    [_imageView setWidth:w];
+//                    [_croppingView setWidth:w];
+                    [_imageView setLeft:(imageViewSize - w)/2.0];
+//                    [_croppingView setFrame:_imageView.frame];
+//                    [_croppingView setLeft:(imageViewSize - w)/2.0];
+                } else {
+                    // 以宽度为准
+                    [_imageView setWidth:imageViewSize];
+//                    [_croppingView setWidth:imageViewSize];
+                    [_imageView setLeft:0];
+//                    [_croppingView setLeft:0];
+                    [_imageView setHeight:h];
+//                    [_croppingView setHeight:h];
+                }
+                
             } else {
                 // 以高度为准
                 if (image.size.height >= imageViewSize) {
                     CGFloat w = image.size.width/image.size.height * imageViewSize;
                     [_imageView setLeft:(imageViewSize-w)/2.0];
                     [_imageView setWidth:w];
-                    [_croppingView setLeft:(imageViewSize-w)/2.0];
-                    [_croppingView setWidth:w];
-    
+//                    [_croppingView setLeft:(imageViewSize-w)/2.0];
+//                    [_croppingView setWidth:w];
+                    
                 } else {
                     // 以实际为准,
                     [_imageView setLeft:(imageViewSize-image.size.width)/2.0];
-                    [_imageView setTop:(imageViewSize-image.size.height)/2.0];
-                    [_croppingView setLeft:(imageViewSize-image.size.width)/2.0];
-                    [_croppingView setTop:(imageViewSize-image.size.height)/2.0];
+//                    [_croppingView setLeft:(imageViewSize-image.size.width)/2.0];
                     [_imageView setWidth:image.size.width];
                     [_imageView setHeight:image.size.height];
                 }
@@ -286,17 +312,15 @@
             // 是正方形的图片
             [_imageView setWidth:imageViewSize];
             [_imageView setHeight:imageViewSize];
-            [_croppingView setWidth:imageViewSize];
-            [_croppingView setHeight:imageViewSize];
+//            [_croppingView setWidth:imageViewSize];
+//            [_croppingView setHeight:imageViewSize];
+            [_imageView setLeft:0];
+//            [_croppingView setLeft:0];
         }
+        
+        [_croppingView setFrame:_imageView.frame];
         _imageView.image = image;
     }
-
-    __weak typeof(self) wSelf = self;
-    [picker dismissViewControllerAnimated:YES completion:^{
-        typeof(self) sSelf = wSelf;
-        [sSelf.croppingView cleaningBrush];
-    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{

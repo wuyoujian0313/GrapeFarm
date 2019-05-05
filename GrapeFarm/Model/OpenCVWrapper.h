@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@interface Circle : NSObject
+@property(nonatomic,strong)NSNumber *x;
+@property(nonatomic,strong)NSNumber *y;
+@property(nonatomic,strong)NSNumber *r;
+@end
+
+
 @interface OpenCVWrapper : NSObject
 
 + (UIImage *)toBlue:(UIImage *)source;
@@ -15,5 +22,5 @@
 + (UIImage *)toRed:(UIImage *)source;
 + (UIImage *)Rededge:(UIImage *)source;
 + (UIImage *)Rededge:(UIImage *)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3;
-
++ (NSArray *)edgeCircles:(UIImage *)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3;
 @end

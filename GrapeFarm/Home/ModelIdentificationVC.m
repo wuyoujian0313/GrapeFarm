@@ -12,14 +12,15 @@
 #import "FileCache.h"
 #import "GLKD3ModelVC.h"
 #import "OpenCVWrapper.h"
+#import "EdgeImageView.h"
 
 @interface ModelIdentificationVC ()
 @property(nonatomic,strong)UIButton *nextBtn;
 @property(nonatomic,strong)UIView *paramView;
-@property(nonatomic,strong)UISlider *slider1;
-@property(nonatomic,strong)UISlider *slider2;
-@property(nonatomic,strong)UISlider *slider3;
-@property(nonatomic,strong)UIImageView *imageView;
+@property(nonatomic,strong)UIStepper *stepper1;
+@property(nonatomic,strong)UIStepper *stepper2;
+@property(nonatomic,strong)UIStepper *stepper3;
+@property(nonatomic,strong)EdgeImageView *imageView;
 
 @end
 
@@ -41,7 +42,7 @@
 - (void)layoutColorImageView {
     NSInteger top = 10 + [DeviceInfo navigationBarHeight];
     NSInteger imageViewSize = self.view.width - 20;
-    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, top, imageViewSize, imageViewSize)];
+    _imageView = [[EdgeImageView alloc] initWithFrame:CGRectMake(10, top, imageViewSize, imageViewSize)];
     [_imageView.layer setCornerRadius:10];
     [_imageView setClipsToBounds:YES];
     [self.view addSubview:_imageView];
@@ -91,46 +92,30 @@
     _paramView = paramView;
     [self.view addSubview:paramView];
     
-    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, space, paramView.width, 40)];
-    _slider1 = slider;
-    [slider setMaximumValue:100];
-    [slider setMinimumValue:0];
-    [slider setValue:(100+0)/2];
-    [slider setMinimumTrackTintColor:[UIColor blackColor]];
-    [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
-    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [paramView addSubview:slider];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, space, 200, 40)];
+    [label setText:NSLocalizedString(@"Threshold", nil)];
+    [label setFont:[UIFont boldSystemFontOfSize:18.0]];
+    [label setTextColor:[UIColor blackColor]];
+    [paramView addSubview:label];
     
-    slider = [[UISlider alloc] initWithFrame:CGRectMake(0, slider.bottom + space, paramView.width, 40)];
-    _slider2 = slider;
-    [slider setMaximumValue:1000];
-    [slider setMinimumValue:10];
-    [slider setValue:(1000+100)/2];
-    [slider setMinimumTrackTintColor:[UIColor blackColor]];
-    [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
-    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [paramView addSubview:slider];
-    
-    slider = [[UISlider alloc] initWithFrame:CGRectMake(0, slider.bottom + space, paramView.width, 40)];
-    _slider3 = slider;
-    [slider setMaximumValue:1000];
-    [slider setMinimumValue:10];
-    [slider setValue:(1000+100)/2];
-    [slider setMinimumTrackTintColor:[UIColor blackColor]];
-    [slider setMaximumTrackTintColor:[UIColor colorWithHex:kTextGrayColor]];
-    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [paramView addSubview:slider];
+    UIStepper *stepper = [[UIStepper alloc] initWithFrame:CGRectMake(paramView.width - 80 - 11 , space, 80, 0)];
+    _stepper1 = stepper;
+    [stepper setTintColor:[UIColor blackColor]];
+    [paramView addSubview:stepper];
+    [stepper setTop:stepper.top + (40-stepper.height)/2.0];
 }
 
 - (void)sliderValueChanged:(UISlider *)sender {
-    CGFloat value1 = ceil(_slider1.value);
-    CGFloat value2 = ceil(_slider1.value);
-    CGFloat value3 = ceil(_slider1.value);
-    
-    FileCache *fileCache = [FileCache sharedFileCache];
-    NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
-    UIImage *image = [OpenCVWrapper Rededge: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
-    _imageView.image = image;
+//    CGFloat value1 = ceil(_slider1.value);
+//    CGFloat value2 = ceil(_slider2.value);
+//    CGFloat value3 = ceil(_slider3.value);
+//
+//    FileCache *fileCache = [FileCache sharedFileCache];
+//    NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
+//    NSArray *arr = [OpenCVWrapper edgeCircles: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
+////    UIImage *image = [OpenCVWrapper Rededge: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
+////    _imageView.image = image;
+//    [_imageView setCircles:arr];
 }
 
 - (void)layoutNextView {

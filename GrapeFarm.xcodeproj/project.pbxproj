@@ -16,7 +16,7 @@
 		AF097491224A234900989F11 /* LoginBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097490224A234900989F11 /* LoginBean.m */; };
 		AF097494224A237B00989F11 /* RegisterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097493224A237B00989F11 /* RegisterBean.m */; };
 		AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097496224A23A600989F11 /* ForgotPasswordBean.m */; };
-		AF384712226D569E00978553 /* 3DBunch.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = AF384711226D569E00978553 /* 3DBunch.scnassets */; };
+		AF09A30C2277F3AB003CF411 /* obj.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AF09A30B2277F3AB003CF411 /* obj.jpg */; };
 		AF42FEA322647EF000792A3B /* GLKD3ModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */; };
 		AF894594224DE8140023D514 /* ColorSegmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF894593224DE8140023D514 /* ColorSegmentVC.m */; };
 		AF97524B226EAE9000EF0302 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */; };
@@ -89,6 +89,7 @@
 		AFF9A57B226058A300CB3537 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF9A564226058A300CB3537 /* MJRefreshBackFooter.m */; };
 		AFF9A57C226058A300CB3537 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF9A565226058A300CB3537 /* MJRefreshAutoFooter.m */; };
 		AFF9A57D226058A300CB3537 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF9A567226058A300CB3537 /* MJRefreshComponent.m */; };
+		AFFB9A2F2276EA790006EA60 /* EdgeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFFB9A2E2276EA790006EA60 /* EdgeImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,7 +128,7 @@
 		AF097493224A237B00989F11 /* RegisterBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterBean.m; sourceTree = "<group>"; };
 		AF097495224A23A600989F11 /* ForgotPasswordBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordBean.h; sourceTree = "<group>"; };
 		AF097496224A23A600989F11 /* ForgotPasswordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordBean.m; sourceTree = "<group>"; };
-		AF384711226D569E00978553 /* 3DBunch.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = 3DBunch.scnassets; sourceTree = "<group>"; };
+		AF09A30B2277F3AB003CF411 /* obj.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = obj.jpg; path = ../../../obj.jpg; sourceTree = "<group>"; };
 		AF42FEA122647EF000792A3B /* GLKD3ModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKD3ModelVC.h; sourceTree = "<group>"; };
 		AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLKD3ModelVC.m; sourceTree = "<group>"; };
 		AF894592224DE8140023D514 /* ColorSegmentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorSegmentVC.h; sourceTree = "<group>"; };
@@ -275,6 +276,8 @@
 		AFF9A567226058A300CB3537 /* MJRefreshComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshComponent.m; sourceTree = "<group>"; };
 		AFF9A568226058A300CB3537 /* MJRefreshFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshFooter.h; sourceTree = "<group>"; };
 		AFF9A569226058A300CB3537 /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
+		AFFB9A2D2276EA790006EA60 /* EdgeImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EdgeImageView.h; sourceTree = "<group>"; };
+		AFFB9A2E2276EA790006EA60 /* EdgeImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EdgeImageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -363,7 +366,6 @@
 				AFBF90C922486676007F2ED8 /* Info.plist */,
 				AFBF90CA22486676007F2ED8 /* main.m */,
 				AF0974782249D37800989F11 /* GrapeFarm-Prefix.pch */,
-				AF384711226D569E00978553 /* 3DBunch.scnassets */,
 				AF09747F2249FBC100989F11 /* InfoPlist.strings */,
 				AF09747D2249F54900989F11 /* Localizable.strings */,
 			);
@@ -468,6 +470,7 @@
 		AFBF918922487649007F2ED8 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				AF09A30B2277F3AB003CF411 /* obj.jpg */,
 				AFBF918A22487674007F2ED8 /* LoginVC.h */,
 				AFBF918B22487674007F2ED8 /* LoginVC.m */,
 				AF097486224A191200989F11 /* RegisterVC.h */,
@@ -493,6 +496,8 @@
 				AFD97A9B224B68000048367E /* GrapeVarietiesVC.m */,
 				AF42FEA122647EF000792A3B /* GLKD3ModelVC.h */,
 				AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */,
+				AFFB9A2D2276EA790006EA60 /* EdgeImageView.h */,
+				AFFB9A2E2276EA790006EA60 /* EdgeImageView.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -763,7 +768,7 @@
 				AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */,
 				AF09748A224A1A2100989F11 /* Images.xcassets in Resources */,
 				AF0974812249FBC100989F11 /* InfoPlist.strings in Resources */,
-				AF384712226D569E00978553 /* 3DBunch.scnassets in Resources */,
+				AF09A30C2277F3AB003CF411 /* obj.jpg in Resources */,
 				AFF9A56C226058A300CB3537 /* MJRefresh.bundle in Resources */,
 				AF09747B2249F54900989F11 /* Localizable.strings in Resources */,
 			);
@@ -809,6 +814,7 @@
 				AF894594224DE8140023D514 /* ColorSegmentVC.m in Sources */,
 				AFF9A57C226058A300CB3537 /* MJRefreshAutoFooter.m in Sources */,
 				AFF9A576226058A300CB3537 /* MJRefreshNormalHeader.m in Sources */,
+				AFFB9A2F2276EA790006EA60 /* EdgeImageView.m in Sources */,
 				AFBF918122486ECE007F2ED8 /* AFURLRequestSerialization.m in Sources */,
 				AFF9A56F226058A300CB3537 /* UIView+MJExtension.m in Sources */,
 				AFF9A573226058A300CB3537 /* MJRefreshAutoStateFooter.m in Sources */,

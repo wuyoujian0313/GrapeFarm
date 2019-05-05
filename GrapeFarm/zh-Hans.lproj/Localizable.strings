@@ -57,6 +57,9 @@
 "Commit"                    ="提交";
 "CommitSuccess"             ="提交成功！";
 "CommitFailed"              ="提交失败，请重试";
+"Threshold"                 ="累加器阈值";
+"MinRadius"                 ="最小半径";
+"MaxRadius"                 ="最大半径";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "此邮箱已注册";

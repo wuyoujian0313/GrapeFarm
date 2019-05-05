@@ -61,7 +61,7 @@
     UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0);
     {
         // 背景颜色
-        [[UIColor whiteColor] setFill];
+        [[UIColor blackColor] setFill];
         UIRectFill(rect);
         [[UIColor whiteColor] setFill];
         
