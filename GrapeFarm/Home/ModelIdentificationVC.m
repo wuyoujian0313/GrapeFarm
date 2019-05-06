@@ -13,6 +13,7 @@
 #import "GLKD3ModelVC.h"
 #import "OpenCVWrapper.h"
 #import "EdgeImageView.h"
+#import "AILoadingView.h"
 
 @interface ModelIdentificationVC ()
 @property(nonatomic,strong)UIButton *nextBtn;
@@ -36,7 +37,10 @@
     
     FileCache *fileCache = [FileCache sharedFileCache];
     NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
-    [self reLayoutImageView:[UIImage imageWithData:imageData]];
+    UIImage *image = [UIImage imageWithData:imageData];
+    //image = [OpenCVWrapper Rededge: [UIImage imageWithData:imageData] value1:28 value2:50 value3:100];
+    
+    [self reLayoutImageView:image];
 }
 
 - (void)layoutColorImageView {
@@ -148,18 +152,17 @@
     NSInteger value1 = ceil(_stepper1.value);
     NSInteger value2 = ceil(_stepper2.value);
     NSInteger value3 = ceil(_stepper3.value);
-
-    FileCache *fileCache = [FileCache sharedFileCache];
-    NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
     
+    [AILoadingView show:@"识别中..."];
 #if 1
-    NSArray *arr = [OpenCVWrapper edgeCircles: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
+    NSArray *arr = [OpenCVWrapper edgeCircles: _imageView.image value1:value1 value2:value2 value3:value3];
     [_imageView setCircles:arr];
 #else
-    UIImage *image = [OpenCVWrapper Rededge: [UIImage imageWithData:imageData] value1:value1 value2:value2 value3:value3];
+    UIImage *image = [OpenCVWrapper Rededge: _imageView.image value1:value1 value2:value2 value3:value3];
     _imageView.image = nil;
     _imageView.image = image;
 #endif
+    [AILoadingView dismiss];
 }
 
 - (void)layoutNextView {

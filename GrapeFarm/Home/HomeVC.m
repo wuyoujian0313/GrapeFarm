@@ -176,7 +176,6 @@
 
 - (void)toSettingPage {
     SettingsVC *vc = [[SettingsVC alloc] init];
-//    GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -272,23 +271,17 @@
                 
                 CGFloat h = image.size.height/image.size.width * imageViewSize;
                 if (h >= imageViewSize) {
-                    // 以高度为准
+                    // 以高度为准 = imageViewSize;
                     CGFloat w = image.size.width/image.size.height * imageViewSize;
                     [_imageView setHeight:imageViewSize];
-//                    [_croppingView setHeight:imageViewSize];
                     [_imageView setWidth:w];
-//                    [_croppingView setWidth:w];
                     [_imageView setLeft:(imageViewSize - w)/2.0];
-//                    [_croppingView setFrame:_imageView.frame];
-//                    [_croppingView setLeft:(imageViewSize - w)/2.0];
+                    
                 } else {
                     // 以宽度为准
                     [_imageView setWidth:imageViewSize];
-//                    [_croppingView setWidth:imageViewSize];
                     [_imageView setLeft:0];
-//                    [_croppingView setLeft:0];
                     [_imageView setHeight:h];
-//                    [_croppingView setHeight:h];
                 }
                 
             } else {
@@ -297,13 +290,9 @@
                     CGFloat w = image.size.width/image.size.height * imageViewSize;
                     [_imageView setLeft:(imageViewSize-w)/2.0];
                     [_imageView setWidth:w];
-//                    [_croppingView setLeft:(imageViewSize-w)/2.0];
-//                    [_croppingView setWidth:w];
-                    
                 } else {
                     // 以实际为准,
                     [_imageView setLeft:(imageViewSize-image.size.width)/2.0];
-//                    [_croppingView setLeft:(imageViewSize-image.size.width)/2.0];
                     [_imageView setWidth:image.size.width];
                     [_imageView setHeight:image.size.height];
                 }
@@ -312,10 +301,7 @@
             // 是正方形的图片
             [_imageView setWidth:imageViewSize];
             [_imageView setHeight:imageViewSize];
-//            [_croppingView setWidth:imageViewSize];
-//            [_croppingView setHeight:imageViewSize];
             [_imageView setLeft:0];
-//            [_croppingView setLeft:0];
         }
         
         [_croppingView setFrame:_imageView.frame];

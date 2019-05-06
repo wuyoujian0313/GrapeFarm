@@ -80,6 +80,7 @@
         c.y = [NSNumber numberWithFloat:[c.y floatValue] * scale];
         c.r = [NSNumber numberWithFloat:[c.r floatValue] * scale];
     }
+    [_edgeView setFrame:self.bounds];
     [_edgeView setCircles:circles];
 }
 
