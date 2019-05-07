@@ -15,9 +15,9 @@
 
 
 typedef NS_ENUM(NSInteger ,ColorType) {
-    ColorType_toRed = 0,
-    ColorType_toBlue = 1,
-    ColorType_toGreen = 2,
+    ColorType_toBlue = 0,
+    ColorType_toGreen = 1,
+    ColorType_toRed = 2,
 };
 
 
@@ -25,6 +25,7 @@ typedef NS_ENUM(NSInteger ,ColorType) {
 @property(nonatomic,strong)UISegmentedControl *segmentCtl;
 @property(nonatomic,strong)UIImageView *imageView;
 @property(nonatomic,strong)UIButton *nextBtn;
+@property(nonatomic,assign)ColorType colorType;
 @end
 
 @implementation ColorSegmentVC
@@ -57,11 +58,12 @@ typedef NS_ENUM(NSInteger ,ColorType) {
             break;
     }
     
+    _colorType = type;
     [self reLayoutImageView:image];
 }
 
 - (void)layoutSegmentControl {
-    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"ToRed",@"ToBlue",@"ToGreen",nil];
+    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"ToBlue",@"ToGreen",@"ToRed",nil];
     _segmentCtl = [[UISegmentedControl alloc]initWithItems:segmentedArray];
     _segmentCtl.frame = CGRectMake(11,15 + [DeviceInfo navigationBarHeight],self.view.frame.size.width - 22,30);
     _segmentCtl.selectedSegmentIndex = 0;
@@ -157,6 +159,7 @@ typedef NS_ENUM(NSInteger ,ColorType) {
     FileCache *fileCache = [FileCache sharedFileCache];
     [fileCache writeData:UIImagePNGRepresentation(_imageView.image) forKey:kColorSegImageFileKey];
     ModelIdentificationVC *vc = [[ModelIdentificationVC alloc] init];
+    vc.type = _colorType;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

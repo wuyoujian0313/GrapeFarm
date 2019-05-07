@@ -38,7 +38,7 @@
     FileCache *fileCache = [FileCache sharedFileCache];
     NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
     UIImage *image = [UIImage imageWithData:imageData];
-    //image = [OpenCVWrapper Rededge: [UIImage imageWithData:imageData] value1:28 value2:50 value3:100];
+//    UIImage *image = [OpenCVWrapper Rededge: [UIImage imageWithData:imageData] value1:28 value2:50 value3:100];
     
     [self reLayoutImageView:image];
 }
@@ -96,7 +96,7 @@
     _paramView = paramView;
     [self.view addSubview:paramView];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, space, 200, 40)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, space, 220, 40)];
     [label setText:NSLocalizedString(@"Threshold", nil)];
     [label setFont:[UIFont boldSystemFontOfSize:18.0]];
     [label setTextColor:[UIColor blackColor]];
@@ -108,13 +108,14 @@
     [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
     [stepper setTintColor:[UIColor blackColor]];
     [stepper setMinimumValue:25];
+    [stepper setValue:0];
     [stepper setMaximumValue:30];
     [stepper setStepValue:1];
     [paramView addSubview:stepper];
     [stepper setTop:stepper.top + (40-stepper.height)/2.0];
     
     
-    label = [[UILabel alloc] initWithFrame:CGRectMake(0, space + label.bottom, 200, 40)];
+    label = [[UILabel alloc] initWithFrame:CGRectMake(0, space + label.bottom, 220, 40)];
     [label setText:NSLocalizedString(@"MinRadius", nil)];
     [label setFont:[UIFont boldSystemFontOfSize:18.0]];
     [label setTextColor:[UIColor blackColor]];
@@ -125,14 +126,15 @@
     [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
     [stepper setTintColor:[UIColor blackColor]];
     [stepper setMinimumValue:50];
+    [stepper setValue:0];
     [stepper setMaximumValue:60];
     [stepper setStepValue:1];
     [paramView addSubview:stepper];
     [stepper setTop:stepper.top + (40-stepper.height)/2.0];
     
     
-    label = [[UILabel alloc] initWithFrame:CGRectMake(0, space + label.bottom, 200, 40)];
-    [label setText:NSLocalizedString(@"MinRadius", nil)];
+    label = [[UILabel alloc] initWithFrame:CGRectMake(0, space + label.bottom, 220, 40)];
+    [label setText:NSLocalizedString(@"MaxRadius", nil)];
     [label setFont:[UIFont boldSystemFontOfSize:18.0]];
     [label setTextColor:[UIColor blackColor]];
     [paramView addSubview:label];
@@ -142,6 +144,7 @@
     [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
     [stepper setTintColor:[UIColor blackColor]];
     [stepper setMinimumValue:100];
+    [stepper setValue:0];
     [stepper setMaximumValue:110];
     [stepper setStepValue:1];
     [paramView addSubview:stepper];
@@ -155,7 +158,7 @@
     
     [AILoadingView show:@"识别中..."];
 #if 1
-    NSArray *arr = [OpenCVWrapper edgeCircles: _imageView.image value1:value1 value2:value2 value3:value3];
+    NSArray *arr = [OpenCVWrapper edgeCircles: _imageView.image value1:value1 value2:value2 value3:value3 value4:_type];
     [_imageView setCircles:arr];
 #else
     UIImage *image = [OpenCVWrapper Rededge: _imageView.image value1:value1 value2:value2 value3:value3];

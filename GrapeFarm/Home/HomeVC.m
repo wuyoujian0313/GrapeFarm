@@ -45,7 +45,7 @@
     [self layoutNavView];
     [self layoutToolsView];
     [self layoutImageAreaView];
-    [self relayoutImageView:[UIImage imageNamed:@"obj.jpg"]];
+    [self relayoutImageView:[UIImage imageNamed:@"instance"]];
 }
 
 - (void)layoutImageAreaView {

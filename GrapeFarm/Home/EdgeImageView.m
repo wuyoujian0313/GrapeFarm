@@ -88,7 +88,7 @@
     [_edgeView setPenColor:color];
 }
 
--(void)layoutSubviews {
+- (void)layoutSubviews {
     [_edgeView setFrame:self.bounds];
 }
 

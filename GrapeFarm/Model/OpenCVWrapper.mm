@@ -72,18 +72,18 @@ using namespace cv;
 }
 
 
-+ (NSArray *)edgeCircles:(UIImage *)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3 {
-    return [OpenCVWrapper _edgeCircles:[OpenCVWrapper _matFrom:source] value1:value1 value2:value2 value3:value3];
++ (NSArray *)edgeCircles:(UIImage *)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3 value4:(NSInteger)value4 {
+    return [OpenCVWrapper _edgeCircles:[OpenCVWrapper _matFrom:source] value1:value1 value2:value2 value3:value3 value4:value4];
 }
 
 #pragma mark Private
 
 //　Hough圆检测
-+ (NSArray *)_edgeCircles:(Mat)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3 {
++ (NSArray *)_edgeCircles:(Mat)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3 value4:(NSInteger)value4  {
     cout << "-> rededgeFrom ->";
     
-    std::vector<Mat> channels;
-    Mat imageRedChannel;
+//    std::vector<Mat> channels;
+//    Mat imageRedChannel;
     
     //把一个三通道图像转化为三个单通道图像
     Mat gaussianBlur;
