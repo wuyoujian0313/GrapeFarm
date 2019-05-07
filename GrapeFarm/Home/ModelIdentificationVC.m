@@ -39,10 +39,10 @@
     NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
     UIImage *image = [UIImage imageWithData:imageData];
     
-    image = [OpenCVWrapper Rededge:image value1:27 value2:55 value3:105];
+//    image = [OpenCVWrapper Rededge:image value1:27 value2:55 value3:105];
 
     [self reLayoutImageView:image];
-//    [self circleEdge];
+    [self circleEdge];
 }
 
 - (void)layoutColorImageView {
