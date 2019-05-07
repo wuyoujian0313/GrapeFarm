@@ -158,7 +158,9 @@
     
     [AILoadingView show:@"识别中..."];
 #if 1
-    NSArray *arr = [OpenCVWrapper edgeCircles: _imageView.image value1:value1 value2:value2 value3:value3 value4:_type];
+    FileCache *fileCache = [FileCache sharedFileCache];
+    NSData *secondimageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
+    NSArray *arr = [OpenCVWrapper edgeCircles: [UIImage imageWithData:secondimageData] value1:value1 value2:value2 value3:value3 value4:_type];
     [_imageView setCircles:arr];
 #else
     UIImage *image = [OpenCVWrapper Rededge: _imageView.image value1:value1 value2:value2 value3:value3];

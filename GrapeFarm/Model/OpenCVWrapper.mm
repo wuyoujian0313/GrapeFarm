@@ -81,13 +81,12 @@ using namespace cv;
 //　Hough圆检测
 + (NSArray *)_edgeCircles:(Mat)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3 value4:(NSInteger)value4  {
     cout << "-> rededgeFrom ->";
-    
-//    std::vector<Mat> channels;
-//    Mat imageRedChannel;
-    
-    //把一个三通道图像转化为三个单通道图像
+    std::vector<Mat> channels;
+    Mat imageChannel;
+    split(source, channels);
+    imageChannel = channels.at(value4);
     Mat gaussianBlur;
-    GaussianBlur(source, gaussianBlur, cv::Size(5,5), 2,2);
+    GaussianBlur(imageChannel, gaussianBlur, cv::Size(5,5), 2,2);
     Mat edges;
     Canny(gaussianBlur, edges, 0, 50);
     vector<Vec3f> circles;
