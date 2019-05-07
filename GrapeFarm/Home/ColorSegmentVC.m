@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger ,ColorType) {
         case ColorType_toGreen:
             image = [OpenCVWrapper toGreen:image];
             break;
-            
+
         default:
             break;
     }

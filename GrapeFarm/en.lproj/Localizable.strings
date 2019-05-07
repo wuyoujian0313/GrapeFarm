@@ -60,6 +60,7 @@
 "Threshold"                 ="The value of threshold";
 "MinRadius"                 ="The value of minRadius";
 "MaxRadius"                 ="The value of maxRadius";
+"Identifying"               ="identifying...";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";

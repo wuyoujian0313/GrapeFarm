@@ -45,7 +45,8 @@
     [self layoutNavView];
     [self layoutToolsView];
     [self layoutImageAreaView];
-    [self relayoutImageView:[UIImage imageNamed:@"instance"]];
+//    [self relayoutImageView:[UIImage imageNamed:@"instance"]];
+    [self relayoutImageView:[UIImage imageNamed:@"obj.jpg"]];
 }
 
 - (void)layoutImageAreaView {
@@ -280,7 +281,7 @@
                 } else {
                     // 以宽度为准
                     [_imageView setWidth:imageViewSize];
-                    [_imageView setLeft:0];
+                    [_imageView setLeft:10];
                     [_imageView setHeight:h];
                 }
                 
@@ -301,7 +302,7 @@
             // 是正方形的图片
             [_imageView setWidth:imageViewSize];
             [_imageView setHeight:imageViewSize];
-            [_imageView setLeft:0];
+            [_imageView setLeft:10];
         }
         
         [_croppingView setFrame:_imageView.frame];

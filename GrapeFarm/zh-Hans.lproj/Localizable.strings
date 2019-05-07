@@ -60,6 +60,7 @@
 "Threshold"                 ="累加器阈值";
 "MinRadius"                 ="最小半径";
 "MaxRadius"                 ="最大半径";
+"Identifying"               ="识别中...";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "此邮箱已注册";

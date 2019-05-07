@@ -38,9 +38,11 @@
     FileCache *fileCache = [FileCache sharedFileCache];
     NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
     UIImage *image = [UIImage imageWithData:imageData];
-//    UIImage *image = [OpenCVWrapper Rededge: [UIImage imageWithData:imageData] value1:28 value2:50 value3:100];
     
+    image = [OpenCVWrapper Rededge:image value1:27 value2:55 value3:105];
+
     [self reLayoutImageView:image];
+//    [self circleEdge];
 }
 
 - (void)layoutColorImageView {
@@ -151,23 +153,24 @@
     [stepper setTop:stepper.top + (40-stepper.height)/2.0];
 }
 
-- (void)stepperValueChanged:(UIStepper *)sender {
+- (void)circleEdge {
+    //identifying
+    [AILoadingView show:NSLocalizedString(@"Identifying", nil)];
     NSInteger value1 = ceil(_stepper1.value);
     NSInteger value2 = ceil(_stepper2.value);
     NSInteger value3 = ceil(_stepper3.value);
     
-    [AILoadingView show:@"识别中..."];
-#if 1
     FileCache *fileCache = [FileCache sharedFileCache];
-    NSData *secondimageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
-    NSArray *arr = [OpenCVWrapper edgeCircles: [UIImage imageWithData:secondimageData] value1:value1 value2:value2 value3:value3 value4:_type];
+    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
+    UIImage *image = [UIImage imageWithData:imageData];
+    NSArray *arr = [OpenCVWrapper edgeCircles: image value1:value1 value2:value2 value3:value3 value4:_type];
     [_imageView setCircles:arr];
-#else
-    UIImage *image = [OpenCVWrapper Rededge: _imageView.image value1:value1 value2:value2 value3:value3];
-    _imageView.image = nil;
-    _imageView.image = image;
-#endif
+    
     [AILoadingView dismiss];
+}
+
+- (void)stepperValueChanged:(UIStepper *)sender {
+    [self circleEdge];
 }
 
 - (void)layoutNextView {
