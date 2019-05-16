@@ -54,12 +54,6 @@
     FileCache *fileCache = [FileCache sharedFileCache];
     NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
     UIImage *image = [UIImage imageWithData:imageData];
-    [_rangeSlider setMinValue:0];
-    [_rangeSlider setMaxValue:ceil(image.size.width)];
-    _leftValue = ceil(image.size.width/2);
-    _rightValue = ceil(image.size.width/2);
-    [_rangeSlider setLeftValue:_leftValue];
-    [_rangeSlider setRightValue:_rightValue];
     
     NSInteger imageViewSize = self.view.width - 20;
     NSInteger areaHeight = _paramView.top - 60 - [DeviceInfo navigationBarHeight] - 10;
@@ -93,6 +87,13 @@
             [_imageView setHeight:image.size.height];
         }
     }
+    
+    [_rangeSlider setMinValue:0];
+    [_rangeSlider setMaxValue:_imageView.width];
+    _leftValue = (_rangeSlider.minValue + _rangeSlider.maxValue)/2;
+    _rightValue =_leftValue;
+    [_rangeSlider setLeftValue:_leftValue];
+    [_rangeSlider setRightValue:_rightValue];
 }
 
 - (void)layoutParamView {
@@ -118,8 +119,8 @@
     _stepper = stepper;
     [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
     [stepper setTintColor:[UIColor blackColor]];
-    [stepper setMinimumValue:10];
-    [stepper setValue:0];
+    [stepper setMinimumValue:25];
+    [stepper setValue:25];
     [stepper setMaximumValue:30];
     [stepper setStepValue:1];
     [paramView addSubview:stepper];
@@ -130,6 +131,8 @@
     //identifying
     [AILoadingView show:NSLocalizedString(@"Identifying", nil)];
     NSInteger distance = _rightValue - _leftValue;
+    NSInteger scale = _imageView.image.size.width/_imageView.width;
+    distance *=scale;
     NSInteger threshold = ceil(_stepper.value);
 
     FileCache *fileCache = [FileCache sharedFileCache];
@@ -178,6 +181,9 @@
 - (void)sliderValueDidChangedOfLeft:(NSInteger)left right:(NSInteger)right {
     _leftValue = left;
     _rightValue = right;
+    
+    
+    NSLog(@"left:%d,right:%d",_leftValue,_rightValue);
     [self circleEdge];
 }
 
