@@ -118,10 +118,6 @@
     
     frameOfLeftVernierLine.origin.x = isLeft? button.frame.origin.x + _itemSize - vernierLine.frame.size.width: button.frame.origin.x;
     vernierLine.frame = frameOfLeftVernierLine;
-    
-    if(_delegate != nil && [_delegate respondsToSelector:@selector(sliderValueDidChangedOfLeft:right:)]){
-        [_delegate sliderValueDidChangedOfLeft:_leftValue right:_rightValue];
-    }
 }
 
 - (void)setLeftValue:(NSInteger)leftValue {

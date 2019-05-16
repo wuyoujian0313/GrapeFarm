@@ -22,5 +22,7 @@
 + (UIImage *)toRed:(UIImage *)source;
 + (UIImage *)Rededge:(UIImage *)source;
 + (UIImage *)Rededge:(UIImage *)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3;
-+ (NSArray *)edgeCircles:(UIImage *)source value1:(NSInteger)value1 value2:(NSInteger)value2  value4:(NSInteger)value4;
+
+//threshold，distance，type
++ (NSArray *)edgeCircles:(UIImage *)source threshold:(NSInteger)threshold distance:(NSInteger)distance type:(NSInteger)type;
 @end

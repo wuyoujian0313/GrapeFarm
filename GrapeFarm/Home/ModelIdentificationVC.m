@@ -21,9 +21,11 @@
 @property(nonatomic,strong)UIButton *nextBtn;
 @property(nonatomic,strong)UIView *paramView;
 @property(nonatomic,strong)AIRangeSliderView *rangeSlider;
-@property(nonatomic,strong)UIStepper *stepper1;
+@property(nonatomic,strong)UIStepper *stepper;
 @property(nonatomic,strong)EdgeImageView *imageView;
 
+@property(nonatomic,assign)NSInteger leftValue;
+@property(nonatomic,assign)NSInteger rightValue;
 @end
 
 @implementation ModelIdentificationVC
@@ -35,17 +37,7 @@
     [self layoutNextView];
     [self layoutColorImageView];
     [self layoutParamView];
-    
-    FileCache *fileCache = [FileCache sharedFileCache];
-    NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
-    UIImage *image = [UIImage imageWithData:imageData];
-    [_rangeSlider setMinValue:0];
-    [_rangeSlider setMaxValue:ceil(image.size.width)];
-    [_rangeSlider setLeftValue:ceil(image.size.width/2)];
-    [_rangeSlider setRightValue:ceil(image.size.width/2)];
-    
-    [self reLayoutImageView:image];
-    //[self circleEdge];
+    [self reLayoutImageView];
 }
 
 - (void)layoutColorImageView {
@@ -57,7 +49,18 @@
     [self.view addSubview:_imageView];
 }
 
-- (void)reLayoutImageView:(UIImage *)image {
+- (void)reLayoutImageView {
+    
+    FileCache *fileCache = [FileCache sharedFileCache];
+    NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
+    UIImage *image = [UIImage imageWithData:imageData];
+    [_rangeSlider setMinValue:0];
+    [_rangeSlider setMaxValue:ceil(image.size.width)];
+    _leftValue = ceil(image.size.width/2);
+    _rightValue = ceil(image.size.width/2);
+    [_rangeSlider setLeftValue:_leftValue];
+    [_rangeSlider setRightValue:_rightValue];
+    
     NSInteger imageViewSize = self.view.width - 20;
     NSInteger areaHeight = _paramView.top - 60 - [DeviceInfo navigationBarHeight] - 10;
     // 需要调用中南大学的核心库计算分离之后的image
@@ -111,9 +114,8 @@
     [label setTextColor:[UIColor blackColor]];
     [paramView addSubview:label];
     
-    //第一个 25到30，第二个50到60，第三个100到110
     UIStepper *stepper = [[UIStepper alloc] initWithFrame:CGRectMake(paramView.width - 80 - 11 , space, 80, 0)];
-    _stepper1 = stepper;
+    _stepper = stepper;
     [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
     [stepper setTintColor:[UIColor blackColor]];
     [stepper setMinimumValue:10];
@@ -127,16 +129,14 @@
 - (void)circleEdge {
     //identifying
     [AILoadingView show:NSLocalizedString(@"Identifying", nil)];
-//    NSInteger value1 = ceil(_stepper1.value);
-////    NSInteger value2 = ceil(_stepper2.value);
-////    NSInteger value3 = ceil(_stepper3.value);
-//
-//    FileCache *fileCache = [FileCache sharedFileCache];
-//    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
-//    UIImage *image = [UIImage imageWithData:imageData];
-//    NSArray *arr = [OpenCVWrapper edgeCircles: image value1:value1 value2:value2 value3:value3 value4:_type];
-//    [_imageView setCircles:arr];
-    
+    NSInteger distance = _rightValue - _leftValue;
+    NSInteger threshold = ceil(_stepper.value);
+
+    FileCache *fileCache = [FileCache sharedFileCache];
+    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
+    UIImage *image = [UIImage imageWithData:imageData];
+    NSArray *arr = [OpenCVWrapper edgeCircles:image threshold:threshold distance:distance type:_type];
+    [_imageView setCircles:arr];
     [AILoadingView dismiss];
 }
 
@@ -176,11 +176,12 @@
 
 #pragma mark - AIRangeSliderViewDelegate
 - (void)sliderValueDidChangedOfLeft:(NSInteger)left right:(NSInteger)right {
-    
+    _leftValue = left;
+    _rightValue = right;
+    [self circleEdge];
 }
 
 - (void)sliderValueChangingOfLeft:(NSInteger)left right:(NSInteger)right {
-    
 }
 
 
