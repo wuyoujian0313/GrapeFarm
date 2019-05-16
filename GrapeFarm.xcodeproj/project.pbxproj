@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF091A38228BA179008B866A /* final.png in Resources */ = {isa = PBXBuildFile; fileRef = AF091A36228BA178008B866A /* final.png */; };
+		AF091A39228BA179008B866A /* obj.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AF091A37228BA178008B866A /* obj.jpg */; };
+		AF091A3C228BD8C5008B866A /* AIRangeSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF091A3B228BD8C5008B866A /* AIRangeSliderView.m */; };
 		AF095575225F717500744977 /* CommitBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF095574225F717500744977 /* CommitBean.m */; };
 		AF09747B2249F54900989F11 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF09747D2249F54900989F11 /* Localizable.strings */; };
 		AF0974812249FBC100989F11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF09747F2249FBC100989F11 /* InfoPlist.strings */; };
@@ -16,7 +19,6 @@
 		AF097491224A234900989F11 /* LoginBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097490224A234900989F11 /* LoginBean.m */; };
 		AF097494224A237B00989F11 /* RegisterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097493224A237B00989F11 /* RegisterBean.m */; };
 		AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097496224A23A600989F11 /* ForgotPasswordBean.m */; };
-		AF09A30C2277F3AB003CF411 /* obj.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AF09A30B2277F3AB003CF411 /* obj.jpg */; };
 		AF42FEA322647EF000792A3B /* GLKD3ModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */; };
 		AF894594224DE8140023D514 /* ColorSegmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF894593224DE8140023D514 /* ColorSegmentVC.m */; };
 		AF97524B226EAE9000EF0302 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */; };
@@ -110,6 +112,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AF091A36228BA178008B866A /* final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = final.png; sourceTree = "<group>"; };
+		AF091A37228BA178008B866A /* obj.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = obj.jpg; sourceTree = "<group>"; };
+		AF091A3A228BD8C5008B866A /* AIRangeSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AIRangeSliderView.h; sourceTree = "<group>"; };
+		AF091A3B228BD8C5008B866A /* AIRangeSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AIRangeSliderView.m; sourceTree = "<group>"; };
 		AF095573225F717500744977 /* CommitBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommitBean.h; sourceTree = "<group>"; };
 		AF095574225F717500744977 /* CommitBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommitBean.m; sourceTree = "<group>"; };
 		AF0974782249D37800989F11 /* GrapeFarm-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GrapeFarm-Prefix.pch"; sourceTree = "<group>"; };
@@ -128,7 +134,6 @@
 		AF097493224A237B00989F11 /* RegisterBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterBean.m; sourceTree = "<group>"; };
 		AF097495224A23A600989F11 /* ForgotPasswordBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordBean.h; sourceTree = "<group>"; };
 		AF097496224A23A600989F11 /* ForgotPasswordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordBean.m; sourceTree = "<group>"; };
-		AF09A30B2277F3AB003CF411 /* obj.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = obj.jpg; path = ../../../obj.jpg; sourceTree = "<group>"; };
 		AF42FEA122647EF000792A3B /* GLKD3ModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKD3ModelVC.h; sourceTree = "<group>"; };
 		AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLKD3ModelVC.m; sourceTree = "<group>"; };
 		AF894592224DE8140023D514 /* ColorSegmentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorSegmentVC.h; sourceTree = "<group>"; };
@@ -366,6 +371,8 @@
 				AFBF90C922486676007F2ED8 /* Info.plist */,
 				AFBF90CA22486676007F2ED8 /* main.m */,
 				AF0974782249D37800989F11 /* GrapeFarm-Prefix.pch */,
+				AF091A36228BA178008B866A /* final.png */,
+				AF091A37228BA178008B866A /* obj.jpg */,
 				AF09747F2249FBC100989F11 /* InfoPlist.strings */,
 				AF09747D2249F54900989F11 /* Localizable.strings */,
 			);
@@ -470,7 +477,6 @@
 		AFBF918922487649007F2ED8 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				AF09A30B2277F3AB003CF411 /* obj.jpg */,
 				AFBF918A22487674007F2ED8 /* LoginVC.h */,
 				AFBF918B22487674007F2ED8 /* LoginVC.m */,
 				AF097486224A191200989F11 /* RegisterVC.h */,
@@ -556,6 +562,8 @@
 				AFCD4C4922534E9700A5040B /* FileCache.m */,
 				AFAF467522545EC2008EF9CD /* SaveSimpleDataManager.h */,
 				AFAF467622545EC2008EF9CD /* SaveSimpleDataManager.m */,
+				AF091A3A228BD8C5008B866A /* AIRangeSliderView.h */,
+				AF091A3B228BD8C5008B866A /* AIRangeSliderView.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -765,10 +773,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF091A38228BA179008B866A /* final.png in Resources */,
 				AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */,
 				AF09748A224A1A2100989F11 /* Images.xcassets in Resources */,
 				AF0974812249FBC100989F11 /* InfoPlist.strings in Resources */,
-				AF09A30C2277F3AB003CF411 /* obj.jpg in Resources */,
+				AF091A39228BA179008B866A /* obj.jpg in Resources */,
 				AFF9A56C226058A300CB3537 /* MJRefresh.bundle in Resources */,
 				AF09747B2249F54900989F11 /* Localizable.strings in Resources */,
 			);
@@ -834,6 +843,7 @@
 				AFF9A578226058A300CB3537 /* MJRefreshGifHeader.m in Sources */,
 				AFBF915A22486ECE007F2ED8 /* NSString+Utility.m in Sources */,
 				AFAF4673225440BA008EF9CD /* SetBrushColorVC.m in Sources */,
+				AF091A3C228BD8C5008B866A /* AIRangeSliderView.m in Sources */,
 				AFAF467722545EC2008EF9CD /* SaveSimpleDataManager.m in Sources */,
 				AFF9A57A226058A300CB3537 /* MJRefreshHeader.m in Sources */,
 				AFBF90CB22486676007F2ED8 /* main.m in Sources */,

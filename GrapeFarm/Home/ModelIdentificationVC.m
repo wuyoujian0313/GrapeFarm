@@ -14,13 +14,14 @@
 #import "OpenCVWrapper.h"
 #import "EdgeImageView.h"
 #import "AILoadingView.h"
+#import "AIRangeSliderView.h"
+#import "SaveSimpleDataManager.h"
 
-@interface ModelIdentificationVC ()
+@interface ModelIdentificationVC ()<AIRangeSliderViewDelegate>
 @property(nonatomic,strong)UIButton *nextBtn;
 @property(nonatomic,strong)UIView *paramView;
+@property(nonatomic,strong)AIRangeSliderView *rangeSlider;
 @property(nonatomic,strong)UIStepper *stepper1;
-@property(nonatomic,strong)UIStepper *stepper2;
-@property(nonatomic,strong)UIStepper *stepper3;
 @property(nonatomic,strong)EdgeImageView *imageView;
 
 @end
@@ -38,11 +39,13 @@
     FileCache *fileCache = [FileCache sharedFileCache];
     NSData *imageData = [fileCache dataFromCacheForKey:kColorSegImageFileKey];
     UIImage *image = [UIImage imageWithData:imageData];
+    [_rangeSlider setMinValue:0];
+    [_rangeSlider setMaxValue:ceil(image.size.width)];
+    [_rangeSlider setLeftValue:ceil(image.size.width/2)];
+    [_rangeSlider setRightValue:ceil(image.size.width/2)];
     
-//    image = [OpenCVWrapper Rededge:image value1:27 value2:55 value3:105];
-
     [self reLayoutImageView:image];
-    [self circleEdge];
+    //[self circleEdge];
 }
 
 - (void)layoutColorImageView {
@@ -56,10 +59,9 @@
 
 - (void)reLayoutImageView:(UIImage *)image {
     NSInteger imageViewSize = self.view.width - 20;
-    NSInteger areaHeight = _paramView.top - [DeviceInfo navigationBarHeight] - 10;
+    NSInteger areaHeight = _paramView.top - 60 - [DeviceInfo navigationBarHeight] - 10;
     // 需要调用中南大学的核心库计算分离之后的image
     [_imageView setImage:image];
-    
     if (image.size.width >= imageViewSize) {
         // 以宽度为准
         CGFloat h = image.size.height/image.size.width * imageViewSize;
@@ -71,7 +73,7 @@
             [_imageView setWidth:w];
         } else {
             [_imageView setHeight:h];
-            [_imageView setTop:(areaHeight-h)/2.0 + 10 + [DeviceInfo navigationBarHeight]];
+//            [_imageView setTop:(areaHeight-h)/2.0 + 10 + [DeviceInfo navigationBarHeight]];
         }
     } else {
         // 以高度为准
@@ -82,7 +84,7 @@
             [_imageView setHeight:areaHeight];
         } else {
             // 以实际为准,
-            [_imageView setTop:(areaHeight-image.size.height)/2.0 + 10 + [DeviceInfo navigationBarHeight]];
+//            [_imageView setTop:(areaHeight-image.size.height)/2.0 + 10 + [DeviceInfo navigationBarHeight]];
             [_imageView setLeft:(imageViewSize-image.size.width)/2.0 + 10];
             [_imageView setWidth:image.size.width];
             [_imageView setHeight:image.size.height];
@@ -91,10 +93,15 @@
 }
 
 - (void)layoutParamView {
-    NSInteger footer = 10;
+    
+    self.rangeSlider = [[AIRangeSliderView alloc] initWithFrame:CGRectMake(11, _imageView.top, self.view.width - 22, _nextBtn.top - _imageView.top - 80) delegate:self];
+    SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+    NSNumber *color = [manager objectForKey:kBrushColorUserdefaultKey];
+    [_rangeSlider setVernierLineColor:[UIColor colorWithHex:[color integerValue]]];
+    [self.view addSubview:_rangeSlider];
+    
     NSInteger space = 10;
-    NSInteger paramHeight = 120 + 3*space;
-    UIView *paramView = [[UIView alloc] initWithFrame:CGRectMake(11, _nextBtn.top - paramHeight- footer, self.view.width - 22,paramHeight)];
+    UIView *paramView = [[UIView alloc] initWithFrame:CGRectMake(11, _rangeSlider.bottom + space,  self.view.width - 22,60)];
     _paramView = paramView;
     [self.view addSubview:paramView];
     
@@ -115,56 +122,20 @@
     [stepper setStepValue:1];
     [paramView addSubview:stepper];
     [stepper setTop:stepper.top + (40-stepper.height)/2.0];
-    
-    
-    label = [[UILabel alloc] initWithFrame:CGRectMake(0, space + label.bottom, 220, 40)];
-    [label setText:NSLocalizedString(@"MinRadius", nil)];
-    [label setFont:[UIFont boldSystemFontOfSize:18.0]];
-    [label setTextColor:[UIColor blackColor]];
-    [paramView addSubview:label];
-    
-    stepper = [[UIStepper alloc] initWithFrame:CGRectMake(paramView.width - 80 - 11 , label.top, 80, 0)];
-    _stepper2 = stepper;
-    [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [stepper setTintColor:[UIColor blackColor]];
-    [stepper setMinimumValue:50];
-    [stepper setValue:0];
-    [stepper setMaximumValue:60];
-    [stepper setStepValue:1];
-    [paramView addSubview:stepper];
-    [stepper setTop:stepper.top + (40-stepper.height)/2.0];
-    
-    
-    label = [[UILabel alloc] initWithFrame:CGRectMake(0, space + label.bottom, 220, 40)];
-    [label setText:NSLocalizedString(@"MaxRadius", nil)];
-    [label setFont:[UIFont boldSystemFontOfSize:18.0]];
-    [label setTextColor:[UIColor blackColor]];
-    [paramView addSubview:label];
-    
-    stepper = [[UIStepper alloc] initWithFrame:CGRectMake(paramView.width - 80 - 11 , label.top, 80, 0)];
-    _stepper3 = stepper;
-    [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [stepper setTintColor:[UIColor blackColor]];
-    [stepper setMinimumValue:100];
-    [stepper setValue:0];
-    [stepper setMaximumValue:110];
-    [stepper setStepValue:1];
-    [paramView addSubview:stepper];
-    [stepper setTop:stepper.top + (40-stepper.height)/2.0];
 }
 
 - (void)circleEdge {
     //identifying
     [AILoadingView show:NSLocalizedString(@"Identifying", nil)];
-    NSInteger value1 = ceil(_stepper1.value);
-    NSInteger value2 = ceil(_stepper2.value);
-    NSInteger value3 = ceil(_stepper3.value);
-    
-    FileCache *fileCache = [FileCache sharedFileCache];
-    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
-    UIImage *image = [UIImage imageWithData:imageData];
-    NSArray *arr = [OpenCVWrapper edgeCircles: image value1:value1 value2:value2 value3:value3 value4:_type];
-    [_imageView setCircles:arr];
+//    NSInteger value1 = ceil(_stepper1.value);
+////    NSInteger value2 = ceil(_stepper2.value);
+////    NSInteger value3 = ceil(_stepper3.value);
+//
+//    FileCache *fileCache = [FileCache sharedFileCache];
+//    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
+//    UIImage *image = [UIImage imageWithData:imageData];
+//    NSArray *arr = [OpenCVWrapper edgeCircles: image value1:value1 value2:value2 value3:value3 value4:_type];
+//    [_imageView setCircles:arr];
     
     [AILoadingView dismiss];
 }
@@ -200,6 +171,16 @@
 - (void)nextAction:(UIButton *)sender {
     GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+#pragma mark - AIRangeSliderViewDelegate
+- (void)sliderValueDidChangedOfLeft:(NSInteger)left right:(NSInteger)right {
+    
+}
+
+- (void)sliderValueChangingOfLeft:(NSInteger)left right:(NSInteger)right {
+    
 }
 
 

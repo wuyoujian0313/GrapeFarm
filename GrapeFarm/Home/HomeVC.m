@@ -145,7 +145,7 @@
         //确定
         FileCache *fileCache = [FileCache sharedFileCache];
         UIImage *croppedImage = [_croppingView croppingOfImage:_imageView.image];
-        [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];        
+        [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
         NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
         [self saveImage:croppedImage toFile:path];
         NSLog(@"cropped image path: %@",path);
@@ -276,7 +276,7 @@
                     CGFloat w = image.size.width/image.size.height * imageViewSize;
                     [_imageView setHeight:imageViewSize];
                     [_imageView setWidth:w];
-                    [_imageView setLeft:(imageViewSize - w)/2.0];
+                    [_imageView setLeft:(self.view.width - w)/2.0];
                     
                 } else {
                     // 以宽度为准
