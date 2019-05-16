@@ -116,7 +116,7 @@
     _stepper1 = stepper;
     [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
     [stepper setTintColor:[UIColor blackColor]];
-    [stepper setMinimumValue:25];
+    [stepper setMinimumValue:10];
     [stepper setValue:0];
     [stepper setMaximumValue:30];
     [stepper setStepValue:1];
