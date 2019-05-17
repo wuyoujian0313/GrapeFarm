@@ -182,7 +182,6 @@
     _leftValue = left;
     _rightValue = right;
     
-    
     NSLog(@"left:%d,right:%d",_leftValue,_rightValue);
     [self circleEdge];
 }

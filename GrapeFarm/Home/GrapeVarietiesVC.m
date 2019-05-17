@@ -8,8 +8,12 @@
 
 #import "GrapeVarietiesVC.h"
 #import "LineView.h"
+#import "NetworkTask.h"
+#import "AILoadingView.h"
+#import "FadePromptView.h"
+#import "BreedListBase.h"
 
-@interface GrapeVarietiesVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
+@interface GrapeVarietiesVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,NetworkTaskDelegate>
 @property (nonatomic, strong) UITableView           *varietiesTableView;
 @property (nonatomic, strong) NSMutableArray               *varieties;
 @property (nonatomic, copy) NSString                *variety;
@@ -30,12 +34,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setNavTitle:NSLocalizedString(@"Varieties",nil)];
-    [self configVarieties];
     [self layoutVarietiesTableView];
+    [self requestVarietyList];
+}
+
+- (void)requestVarietyList {
+    [[NetworkTask sharedNetworkTask] startGETTaskApi:kAPIFarm
+                                            forParam:nil
+                                            delegate:self
+                                           resultObj:[[BreedListBase alloc] init]
+                                          customInfo:@"breed"];
 }
 
 - (void)configVarieties {
-    _varieties = [[NSMutableArray alloc] initWithArray:@[@"varietiy1",@"variety2",@"variety3",@"variety4",]] ;
     _selIndex = -1;
     if (_variety != nil && [_variety length] > 0) {
         for (NSInteger i = 0; i < [_varieties count]; i++) {
@@ -56,6 +67,8 @@
             [_delegate didSelectedGrapeVariety:_varieties[_selIndex]];
         }
     }
+    
+    [_varietiesTableView reloadData];
 }
 
 - (void)layoutVarietiesTableView {
@@ -143,4 +156,31 @@
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 45;
 }
+
+#pragma mark - NetworkTaskDelegate
+-(void)netResultSuccessBack:(NetResultBase *)result forInfo:(id)customInfo {
+    [AILoadingView dismiss];
+    if ([customInfo isEqualToString:@"breed"]) {
+        if (self.varieties == nil) {
+            self.varieties = [[NSMutableArray alloc] initWithCapacity:0];
+        }
+        
+        BreedListBase *bean = (BreedListBase *)result;
+        NSArray *list = [bean getBreedList];
+        if (list && [list count] > 0) {
+            [_varieties addObjectsFromArray:list];
+        }
+        
+        [self configVarieties];
+    }
+}
+
+
+-(void)netResultFailBack:(NSString *)errorDesc errorCode:(NSInteger)errorCode forInfo:(id)customInfo {
+    [AILoadingView dismiss];
+    [FadePromptView showPromptStatus:errorDesc duration:2.0 finishBlock:^{
+        //
+    }];
+}
+
 @end

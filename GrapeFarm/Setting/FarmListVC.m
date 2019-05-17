@@ -9,8 +9,12 @@
 #import "FarmListVC.h"
 #import "LineView.h"
 #import "SaveSimpleDataManager.h"
+#import "NetworkTask.h"
+#import "AILoadingView.h"
+#import "FadePromptView.h"
+#import "FarmListBean.h"
 
-@interface FarmListVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
+@interface FarmListVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,NetworkTaskDelegate>
 @property (nonatomic, strong) UITableView           *farmTableView;
 @property (nonatomic, strong) NSMutableArray        *farms;
 @property (nonatomic, copy) NSString                *farmName;
@@ -33,13 +37,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setNavTitle:NSLocalizedString(@"Farm",nil)];
-    [self configFarms];
     [self layoutFarmTableView];
+    [self requestFarmList];
+}
+
+- (void)requestFarmList {
+    [[NetworkTask sharedNetworkTask] startGETTaskApi:kAPIFarm
+                                            forParam:nil
+                                            delegate:self
+                                           resultObj:[[FarmListBean alloc] init]
+                                          customInfo:@"farm"];
 }
 
 - (void)configFarms {
-    _farms = [[NSMutableArray alloc] initWithArray:@[@"Farm1",@"Farm2",@"Farm3",@"Farm4"]];
-    
     _selIndex = -1;
     if (_farmName != nil && [_farmName length] > 0) {
         for (NSInteger i = 0; i < [_farms count]; i++) {
@@ -58,6 +68,8 @@
         _selIndex = 0;
         [self saveToConfig];
     }
+    
+    [_farmTableView reloadData];
 }
 
 - (void)layoutFarmTableView {
@@ -83,7 +95,7 @@
     [_farmTableView setTableHeaderView:view];
 }
 
--(void)setTableViewFooterView:(NSInteger)height {
+- (void)setTableViewFooterView:(NSInteger)height {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _farmTableView.frame.size.width, height)];
     view.backgroundColor = [UIColor clearColor];
     [_farmTableView setTableFooterView:view];
@@ -154,6 +166,32 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 45;
+}
+
+#pragma mark - NetworkTaskDelegate
+-(void)netResultSuccessBack:(NetResultBase *)result forInfo:(id)customInfo {
+    [AILoadingView dismiss];
+    if ([customInfo isEqualToString:@"farm"]) {
+        if (self.farms == nil) {
+            self.farms = [[NSMutableArray alloc] initWithCapacity:0];
+        }
+        
+        FarmListBean *bean = (FarmListBean *)result;
+        NSArray *list = [bean getFarmList];
+        if (list && [list count] > 0) {
+            [_farms addObjectsFromArray:list];
+        }
+        
+        [self configFarms];
+    }
+}
+
+
+-(void)netResultFailBack:(NSString *)errorDesc errorCode:(NSInteger)errorCode forInfo:(id)customInfo {
+    [AILoadingView dismiss];
+    [FadePromptView showPromptStatus:errorDesc duration:2.0 finishBlock:^{
+        //
+    }];
 }
 
 @end

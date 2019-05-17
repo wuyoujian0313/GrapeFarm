@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF0353D3228E499300250B41 /* FarmListBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353D2228E499300250B41 /* FarmListBean.m */; };
+		AF0353D6228E4AF200250B41 /* FarmBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353D5228E4AF200250B41 /* FarmBean.m */; };
+		AF0353D9228E504700250B41 /* GrapeBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353D8228E504700250B41 /* GrapeBean.m */; };
+		AF0353DC228E516800250B41 /* BreedListBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353DB228E516800250B41 /* BreedListBase.m */; };
 		AF091A38228BA179008B866A /* final.png in Resources */ = {isa = PBXBuildFile; fileRef = AF091A36228BA178008B866A /* final.png */; };
 		AF091A39228BA179008B866A /* obj.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AF091A37228BA178008B866A /* obj.jpg */; };
 		AF091A3C228BD8C5008B866A /* AIRangeSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF091A3B228BD8C5008B866A /* AIRangeSliderView.m */; };
@@ -112,6 +116,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AF0353D1228E499300250B41 /* FarmListBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FarmListBean.h; sourceTree = "<group>"; };
+		AF0353D2228E499300250B41 /* FarmListBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FarmListBean.m; sourceTree = "<group>"; };
+		AF0353D4228E4AF200250B41 /* FarmBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FarmBean.h; sourceTree = "<group>"; };
+		AF0353D5228E4AF200250B41 /* FarmBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FarmBean.m; sourceTree = "<group>"; };
+		AF0353D7228E504700250B41 /* GrapeBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GrapeBean.h; sourceTree = "<group>"; };
+		AF0353D8228E504700250B41 /* GrapeBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrapeBean.m; sourceTree = "<group>"; };
+		AF0353DA228E516800250B41 /* BreedListBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BreedListBase.h; sourceTree = "<group>"; };
+		AF0353DB228E516800250B41 /* BreedListBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreedListBase.m; sourceTree = "<group>"; };
 		AF091A36228BA178008B866A /* final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = final.png; sourceTree = "<group>"; };
 		AF091A37228BA178008B866A /* obj.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = obj.jpg; sourceTree = "<group>"; };
 		AF091A3A228BD8C5008B866A /* AIRangeSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AIRangeSliderView.h; sourceTree = "<group>"; };
@@ -328,6 +340,14 @@
 				AFCF2E8B225F292100D149B0 /* RecordListBean.m */,
 				AF095573225F717500744977 /* CommitBean.h */,
 				AF095574225F717500744977 /* CommitBean.m */,
+				AF0353D1228E499300250B41 /* FarmListBean.h */,
+				AF0353D2228E499300250B41 /* FarmListBean.m */,
+				AF0353D4228E4AF200250B41 /* FarmBean.h */,
+				AF0353D5228E4AF200250B41 /* FarmBean.m */,
+				AF0353D7228E504700250B41 /* GrapeBean.h */,
+				AF0353D8228E504700250B41 /* GrapeBean.m */,
+				AF0353DA228E516800250B41 /* BreedListBase.h */,
+				AF0353DB228E516800250B41 /* BreedListBase.m */,
 			);
 			path = Beans;
 			sourceTree = "<group>";
@@ -809,6 +829,7 @@
 				AFF9A56E226058A300CB3537 /* NSBundle+MJRefresh.m in Sources */,
 				AFD97ABF224B6E630048367E /* BaseVC.m in Sources */,
 				AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */,
+				AF0353D3228E499300250B41 /* FarmListBean.m in Sources */,
 				AFBF915722486ECE007F2ED8 /* NetResultBase.m in Sources */,
 				AFCF2E8C225F292100D149B0 /* RecordListBean.m in Sources */,
 				AFEDA3D4224CBDEB004D063A /* GetVerificationCodeBean.m in Sources */,
@@ -816,6 +837,7 @@
 				AFBF915E22486ECE007F2ED8 /* NSData+Crypto.m in Sources */,
 				AFBF918622487018007F2ED8 /* MainControllerManager.m in Sources */,
 				AFD97ABB224B6E630048367E /* AILoadingView.m in Sources */,
+				AF0353D6228E4AF200250B41 /* FarmBean.m in Sources */,
 				AF97524B226EAE9000EF0302 /* OpenCVWrapper.mm in Sources */,
 				AFD97ABD224B6E630048367E /* AIListenNetWorkingStatus.m in Sources */,
 				AFF9A575226058A300CB3537 /* MJRefreshAutoNormalFooter.m in Sources */,
@@ -848,11 +870,13 @@
 				AFF9A57A226058A300CB3537 /* MJRefreshHeader.m in Sources */,
 				AFBF90CB22486676007F2ED8 /* main.m in Sources */,
 				AFD97A95224B50970048367E /* RecordVC.m in Sources */,
+				AF0353DC228E516800250B41 /* BreedListBase.m in Sources */,
 				AFCD4C4722534B6700A5040B /* ModelIdentificationVC.m in Sources */,
 				AFBF918022486ECE007F2ED8 /* AFURLSessionManager.m in Sources */,
 				AFBF918C22487674007F2ED8 /* LoginVC.m in Sources */,
 				AFD97A9F224B6A190048367E /* RecordDetailVC.m in Sources */,
 				AF09748E224A1CBE00989F11 /* ForgotPasswordVC.m in Sources */,
+				AF0353D9228E504700250B41 /* GrapeBean.m in Sources */,
 				AFF9A579226058A300CB3537 /* MJRefreshFooter.m in Sources */,
 				AFD97AC9224B70390048367E /* AICroppableView.m in Sources */,
 				AFF9A56A226058A300CB3537 /* UIScrollView+MJRefresh.m in Sources */,

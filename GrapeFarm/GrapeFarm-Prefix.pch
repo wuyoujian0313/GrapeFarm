@@ -70,7 +70,8 @@
 #define kAPILogin               @"auth/login"
 #define kAPICommit              @"record"
 #define kAPIRecord              @"record"
-
+#define kAPIFarm                @"farm"
+#define kAPIBreed               @"breed"
 
 // 颜色定义
 #define kBoundaryColor          0xE6DFDF
