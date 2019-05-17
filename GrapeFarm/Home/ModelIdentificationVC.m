@@ -16,6 +16,7 @@
 #import "AILoadingView.h"
 #import "AIRangeSliderView.h"
 #import "SaveSimpleDataManager.h"
+#import "SCN3DModelVC.h"
 
 @interface ModelIdentificationVC ()<AIRangeSliderViewDelegate>
 @property(nonatomic,strong)UIButton *nextBtn;
@@ -172,7 +173,8 @@
 }
 
 - (void)nextAction:(UIButton *)sender {
-    GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
+//    GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
+    SCN3DModelVC *vc = [[SCN3DModelVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

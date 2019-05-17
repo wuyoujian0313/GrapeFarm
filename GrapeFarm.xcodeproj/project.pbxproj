@@ -11,7 +11,6 @@
 		AF0353D6228E4AF200250B41 /* FarmBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353D5228E4AF200250B41 /* FarmBean.m */; };
 		AF0353D9228E504700250B41 /* GrapeBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353D8228E504700250B41 /* GrapeBean.m */; };
 		AF0353DC228E516800250B41 /* BreedListBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353DB228E516800250B41 /* BreedListBase.m */; };
-		AF0353DF228E5A7700250B41 /* SCN3DModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353DE228E5A7700250B41 /* SCN3DModelVC.m */; };
 		AF091A38228BA179008B866A /* final.png in Resources */ = {isa = PBXBuildFile; fileRef = AF091A36228BA178008B866A /* final.png */; };
 		AF091A39228BA179008B866A /* obj.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AF091A37228BA178008B866A /* obj.jpg */; };
 		AF091A3C228BD8C5008B866A /* AIRangeSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF091A3B228BD8C5008B866A /* AIRangeSliderView.m */; };
@@ -25,6 +24,8 @@
 		AF097494224A237B00989F11 /* RegisterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097493224A237B00989F11 /* RegisterBean.m */; };
 		AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097496224A23A600989F11 /* ForgotPasswordBean.m */; };
 		AF42FEA322647EF000792A3B /* GLKD3ModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */; };
+		AF50D99A228E8745009100AE /* SCN3DModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF50D999228E8745009100AE /* SCN3DModelVC.m */; };
+		AF50D99C228EA15A009100AE /* earth.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AF50D99B228EA159009100AE /* earth.jpg */; };
 		AF894594224DE8140023D514 /* ColorSegmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF894593224DE8140023D514 /* ColorSegmentVC.m */; };
 		AF97524B226EAE9000EF0302 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */; };
 		AFAF4673225440BA008EF9CD /* SetBrushColorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */; };
@@ -125,8 +126,6 @@
 		AF0353D8228E504700250B41 /* GrapeBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrapeBean.m; sourceTree = "<group>"; };
 		AF0353DA228E516800250B41 /* BreedListBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BreedListBase.h; sourceTree = "<group>"; };
 		AF0353DB228E516800250B41 /* BreedListBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreedListBase.m; sourceTree = "<group>"; };
-		AF0353DD228E5A7700250B41 /* SCN3DModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCN3DModelVC.h; sourceTree = "<group>"; };
-		AF0353DE228E5A7700250B41 /* SCN3DModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCN3DModelVC.m; sourceTree = "<group>"; };
 		AF091A36228BA178008B866A /* final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = final.png; sourceTree = "<group>"; };
 		AF091A37228BA178008B866A /* obj.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = obj.jpg; sourceTree = "<group>"; };
 		AF091A3A228BD8C5008B866A /* AIRangeSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AIRangeSliderView.h; sourceTree = "<group>"; };
@@ -151,6 +150,9 @@
 		AF097496224A23A600989F11 /* ForgotPasswordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordBean.m; sourceTree = "<group>"; };
 		AF42FEA122647EF000792A3B /* GLKD3ModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKD3ModelVC.h; sourceTree = "<group>"; };
 		AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLKD3ModelVC.m; sourceTree = "<group>"; };
+		AF50D998228E8745009100AE /* SCN3DModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCN3DModelVC.h; sourceTree = "<group>"; };
+		AF50D999228E8745009100AE /* SCN3DModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCN3DModelVC.m; sourceTree = "<group>"; };
+		AF50D99B228EA159009100AE /* earth.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earth.jpg; sourceTree = "<group>"; };
 		AF894592224DE8140023D514 /* ColorSegmentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorSegmentVC.h; sourceTree = "<group>"; };
 		AF894593224DE8140023D514 /* ColorSegmentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorSegmentVC.m; sourceTree = "<group>"; };
 		AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
@@ -527,8 +529,9 @@
 				AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */,
 				AFFB9A2D2276EA790006EA60 /* EdgeImageView.h */,
 				AFFB9A2E2276EA790006EA60 /* EdgeImageView.m */,
-				AF0353DD228E5A7700250B41 /* SCN3DModelVC.h */,
-				AF0353DE228E5A7700250B41 /* SCN3DModelVC.m */,
+				AF50D998228E8745009100AE /* SCN3DModelVC.h */,
+				AF50D999228E8745009100AE /* SCN3DModelVC.m */,
+				AF50D99B228EA159009100AE /* earth.jpg */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -802,6 +805,7 @@
 				AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */,
 				AF09748A224A1A2100989F11 /* Images.xcassets in Resources */,
 				AF0974812249FBC100989F11 /* InfoPlist.strings in Resources */,
+				AF50D99C228EA15A009100AE /* earth.jpg in Resources */,
 				AF091A39228BA179008B866A /* obj.jpg in Resources */,
 				AFF9A56C226058A300CB3537 /* MJRefresh.bundle in Resources */,
 				AF09747B2249F54900989F11 /* Localizable.strings in Resources */,
@@ -843,7 +847,7 @@
 				AFBF918622487018007F2ED8 /* MainControllerManager.m in Sources */,
 				AFD97ABB224B6E630048367E /* AILoadingView.m in Sources */,
 				AF0353D6228E4AF200250B41 /* FarmBean.m in Sources */,
-				AF0353DF228E5A7700250B41 /* SCN3DModelVC.m in Sources */,
+				AF50D99A228E8745009100AE /* SCN3DModelVC.m in Sources */,
 				AF97524B226EAE9000EF0302 /* OpenCVWrapper.mm in Sources */,
 				AFD97ABD224B6E630048367E /* AIListenNetWorkingStatus.m in Sources */,
 				AFF9A575226058A300CB3537 /* MJRefreshAutoNormalFooter.m in Sources */,
@@ -1088,6 +1092,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Wu YouJian (EK2QWBZ82K)";
 				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 7DUX67X748;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1106,7 +1111,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.grapefarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = GrapeFarm_devProfile;
-				SWIFT_OBJC_BRIDGING_HEADER = "GrapeFarm/Model/GrapeFarm-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1123,6 +1128,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing WeiMeiTianCheng Technology Co., Ltd.";
 				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 7DUX67X748;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1140,7 +1146,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.grapefarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = GrapeFarm_disProfile;
-				SWIFT_OBJC_BRIDGING_HEADER = "GrapeFarm/Model/GrapeFarm-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
