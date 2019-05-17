@@ -22,40 +22,49 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:NSLocalizedString(@"3DModel", nil)];
-    
+    [self drawSpheres];
+    [self layoutNextView];
+}
+
+- (void)drawSpheres {
     self.scnView = [[SCNView alloc] initWithFrame:self.view.bounds];
     [_scnView setBackgroundColor:[UIColor blackColor]];
     [_scnView setAutoenablesDefaultLighting:YES];
     [self.view addSubview:_scnView];
-
+    //创建场景
     SCNScene *scene = [[SCNScene alloc] init];
     _scnView.scene = scene;
-
+    
+    //创建camera，camera也是作为一个节点在场景中
     SCNCamera *camera = [SCNCamera camera];
-    camera.zFar = 200;
     SCNNode *cameraNode = [SCNNode node];
     cameraNode.camera = camera;
-    cameraNode.position = SCNVector3Make(0, 0, 30);
-
+    cameraNode.position = SCNVector3Make(0, 0, 40);
     [_scnView.scene.rootNode addChildNode:cameraNode];
     
-    SCNGeometry *geometer = [SCNGeometry geometry];
-    geometer = [SCNSphere sphereWithRadius:2];
+    //把所有的圆作为一组
+    SCNNode *groupNode = [SCNNode node];
+    groupNode.position = SCNVector3Make(0, 0, 0);
+    
+    //组节点围绕y轴转动
+    SCNAction *rotaeAction = [SCNAction rotateByAngle:-1 aroundAxis:SCNVector3Make(0, 1, 0) duration:1];
+    SCNAction *reRotateAction = [SCNAction repeatActionForever:rotaeAction];
+    [groupNode runAction:reRotateAction];
     
     UIImage *image = [UIImage imageNamed:@"earth.jpg"];
-    UIColor *purpleColor = [UIColor purpleColor];
-    geometer.firstMaterial.diffuse.contents = image;
-    geometer.firstMaterial.multiply.contents = image;
-    geometer.firstMaterial.multiply.intensity = 0.5;
-    
-    SCNNode *geometerNode = [SCNNode nodeWithGeometry:geometer];
-    geometerNode.position = SCNVector3Make(0, 0, 0);
-    SCNAction *rotaeAction = [SCNAction rotateByAngle:1 aroundAxis:SCNVector3Make(0, 1, 0) duration:1];
-    SCNAction *reRotateAction = [SCNAction repeatActionForever:rotaeAction];
-    [geometerNode runAction:reRotateAction];
-    [scene.rootNode addChildNode:geometerNode];
-    
-    [self layoutNextView];
+    for (NSInteger i = 0; i < 4; i++) {
+        SCNGeometry *geometer = [SCNGeometry geometry];
+        geometer = [SCNSphere sphereWithRadius:2];
+        geometer.firstMaterial.diffuse.contents = image;
+        geometer.firstMaterial.multiply.contents = image;
+        geometer.firstMaterial.multiply.intensity = 0.5;
+        
+        SCNNode *geometerNode = [SCNNode nodeWithGeometry:geometer];
+        geometerNode.position = SCNVector3Make(-4*i, 0, 0);
+        [groupNode addChildNode:geometerNode];
+    }
+
+    [_scnView.scene.rootNode addChildNode:groupNode];
 }
 
 - (void)layoutNextView {
