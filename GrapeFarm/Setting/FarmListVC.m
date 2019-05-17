@@ -51,22 +51,24 @@
 
 - (void)configFarms {
     _selIndex = -1;
-    if (_farmName != nil && [_farmName length] > 0) {
-        for (NSInteger i = 0; i < [_farms count]; i++) {
-            NSString *name = _farms[i];
-            if ([name isEqualToString:_farmName]) {
-                _selIndex = i;
-                break;
-            }
+    for (NSInteger i = 0; i < [_farms count]; i++) {
+        NSString *name = _farms[i];
+        if ([name isEqualToString:_farmName]) {
+            _selIndex = i;
+            break;
         }
-        
-        if (_selIndex == -1) {
+    }
+    
+    if (_selIndex == -1) {
+        if (_farmName && [_farmName length] > 0) {
             [_farms addObject:_farmName];
             _selIndex = [_farms count] - 1;
+        } else {
+            if (_farms && [_farms count] > 0) {
+                _selIndex = 0;
+                [self saveToConfig];
+            }
         }
-    } else {
-        _selIndex = 0;
-        [self saveToConfig];
     }
     
     [_farmTableView reloadData];
@@ -102,13 +104,15 @@
 }
 
 -(void)saveToConfig {
-    if (_isSave) {
-        SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
-        [manager setObject:_farms[_selIndex] forKey:kMyfarmUserdefaultKey];
-    }
-    
-    if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectedFarmName:)]) {
-        [_delegate didSelectedFarmName:_farms[_selIndex]];
+    if (_farms && [_farms count] > 0) {
+        if (_isSave) {
+            SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+            [manager setObject:_farms[_selIndex] forKey:kMyfarmUserdefaultKey];
+        }
+        
+        if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectedFarmName:)]) {
+            [_delegate didSelectedFarmName:_farms[_selIndex]];
+        }
     }
 }
 
@@ -179,7 +183,8 @@
         FarmListBean *bean = (FarmListBean *)result;
         NSArray *list = [bean getFarmList];
         if (list && [list count] > 0) {
-            [_farms addObjectsFromArray:list];
+            NSArray *filterdArray = [list valueForKey:@"farmName"];
+            [_farms addObjectsFromArray:filterdArray];
         }
         
         [self configFarms];

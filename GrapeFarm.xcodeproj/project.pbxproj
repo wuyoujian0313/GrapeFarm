@@ -11,6 +11,7 @@
 		AF0353D6228E4AF200250B41 /* FarmBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353D5228E4AF200250B41 /* FarmBean.m */; };
 		AF0353D9228E504700250B41 /* GrapeBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353D8228E504700250B41 /* GrapeBean.m */; };
 		AF0353DC228E516800250B41 /* BreedListBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353DB228E516800250B41 /* BreedListBase.m */; };
+		AF0353DF228E5A7700250B41 /* SCN3DModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353DE228E5A7700250B41 /* SCN3DModelVC.m */; };
 		AF091A38228BA179008B866A /* final.png in Resources */ = {isa = PBXBuildFile; fileRef = AF091A36228BA178008B866A /* final.png */; };
 		AF091A39228BA179008B866A /* obj.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AF091A37228BA178008B866A /* obj.jpg */; };
 		AF091A3C228BD8C5008B866A /* AIRangeSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF091A3B228BD8C5008B866A /* AIRangeSliderView.m */; };
@@ -124,6 +125,8 @@
 		AF0353D8228E504700250B41 /* GrapeBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrapeBean.m; sourceTree = "<group>"; };
 		AF0353DA228E516800250B41 /* BreedListBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BreedListBase.h; sourceTree = "<group>"; };
 		AF0353DB228E516800250B41 /* BreedListBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreedListBase.m; sourceTree = "<group>"; };
+		AF0353DD228E5A7700250B41 /* SCN3DModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCN3DModelVC.h; sourceTree = "<group>"; };
+		AF0353DE228E5A7700250B41 /* SCN3DModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCN3DModelVC.m; sourceTree = "<group>"; };
 		AF091A36228BA178008B866A /* final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = final.png; sourceTree = "<group>"; };
 		AF091A37228BA178008B866A /* obj.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = obj.jpg; sourceTree = "<group>"; };
 		AF091A3A228BD8C5008B866A /* AIRangeSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AIRangeSliderView.h; sourceTree = "<group>"; };
@@ -524,6 +527,8 @@
 				AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */,
 				AFFB9A2D2276EA790006EA60 /* EdgeImageView.h */,
 				AFFB9A2E2276EA790006EA60 /* EdgeImageView.m */,
+				AF0353DD228E5A7700250B41 /* SCN3DModelVC.h */,
+				AF0353DE228E5A7700250B41 /* SCN3DModelVC.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -838,6 +843,7 @@
 				AFBF918622487018007F2ED8 /* MainControllerManager.m in Sources */,
 				AFD97ABB224B6E630048367E /* AILoadingView.m in Sources */,
 				AF0353D6228E4AF200250B41 /* FarmBean.m in Sources */,
+				AF0353DF228E5A7700250B41 /* SCN3DModelVC.m in Sources */,
 				AF97524B226EAE9000EF0302 /* OpenCVWrapper.mm in Sources */,
 				AFD97ABD224B6E630048367E /* AIListenNetWorkingStatus.m in Sources */,
 				AFF9A575226058A300CB3537 /* MJRefreshAutoNormalFooter.m in Sources */,

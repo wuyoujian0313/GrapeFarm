@@ -48,7 +48,7 @@
     
     SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
     NSString *farmName = [manager objectForKey:kMyfarmUserdefaultKey];
-    if (farmName != nil && [farmName length] > 0) {
+    if (farmName != nil && [farmName isKindOfClass:[NSString class]] && [farmName length] > 0) {
         _myFarmName = farmName;
     }
     

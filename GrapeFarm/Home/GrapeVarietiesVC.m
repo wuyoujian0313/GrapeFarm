@@ -15,7 +15,7 @@
 
 @interface GrapeVarietiesVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,NetworkTaskDelegate>
 @property (nonatomic, strong) UITableView           *varietiesTableView;
-@property (nonatomic, strong) NSMutableArray               *varieties;
+@property (nonatomic, strong) NSMutableArray        *varieties;
 @property (nonatomic, copy) NSString                *variety;
 @property (nonatomic, assign) NSInteger             selIndex;
 @end
@@ -39,7 +39,7 @@
 }
 
 - (void)requestVarietyList {
-    [[NetworkTask sharedNetworkTask] startGETTaskApi:kAPIFarm
+    [[NetworkTask sharedNetworkTask] startGETTaskApi:kAPIBreed
                                             forParam:nil
                                             delegate:self
                                            resultObj:[[BreedListBase alloc] init]
@@ -64,7 +64,9 @@
     } else {
         _selIndex = 0;
         if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectedGrapeVariety:)]) {
-            [_delegate didSelectedGrapeVariety:_varieties[_selIndex]];
+            if (_varieties && [_varieties count] > 0) {
+                [_delegate didSelectedGrapeVariety:_varieties[_selIndex]];
+            }
         }
     }
     
@@ -168,7 +170,8 @@
         BreedListBase *bean = (BreedListBase *)result;
         NSArray *list = [bean getBreedList];
         if (list && [list count] > 0) {
-            [_varieties addObjectsFromArray:list];
+            NSArray *filterdArray = [list valueForKey:@"breedName"];
+            [_varieties addObjectsFromArray:filterdArray];
         }
         
         [self configVarieties];
