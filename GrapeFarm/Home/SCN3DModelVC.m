@@ -158,6 +158,12 @@
 
 - (void)nextAction:(UIButton *)sender {
     Commit3DDataVC *vc = [[Commit3DDataVC alloc] init];
+    NSString *modelString = @"";
+    for (AICircle *circle in _circles) {
+        modelString = [modelString stringByAppendingFormat:@"%.2f,%.2f,%.2f\n",[circle.x floatValue],[circle.y floatValue],[circle.r floatValue]];
+    }
+
+    vc.modelString = modelString;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Commit3DDataVC : BaseVC
-
+@property(nonatomic,copy)NSString *modelString;
 @end
 
 NS_ASSUME_NONNULL_END

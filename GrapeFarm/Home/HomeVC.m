@@ -147,9 +147,9 @@
         FileCache *fileCache = [FileCache sharedFileCache];
         UIImage *croppedImage = [_croppingView croppingOfImage:_imageView.image];
         [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
-        NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
-        [self saveImage:croppedImage toFile:path];
-        NSLog(@"cropped image path: %@",path);
+//        NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
+//        [self saveImage:croppedImage toFile:path];
+//        NSLog(@"cropped image path: %@",path);
         
         ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
