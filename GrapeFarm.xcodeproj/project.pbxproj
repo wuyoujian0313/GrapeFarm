@@ -23,6 +23,7 @@
 		AF097491224A234900989F11 /* LoginBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097490224A234900989F11 /* LoginBean.m */; };
 		AF097494224A237B00989F11 /* RegisterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097493224A237B00989F11 /* RegisterBean.m */; };
 		AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097496224A23A600989F11 /* ForgotPasswordBean.m */; };
+		AF42445C22928E370056511F /* AICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42445B22928E370056511F /* AICircle.m */; };
 		AF42FEA322647EF000792A3B /* GLKD3ModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */; };
 		AF50D99A228E8745009100AE /* SCN3DModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF50D999228E8745009100AE /* SCN3DModelVC.m */; };
 		AF50D99C228EA15A009100AE /* earth.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AF50D99B228EA159009100AE /* earth.jpg */; };
@@ -148,6 +149,8 @@
 		AF097493224A237B00989F11 /* RegisterBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterBean.m; sourceTree = "<group>"; };
 		AF097495224A23A600989F11 /* ForgotPasswordBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordBean.h; sourceTree = "<group>"; };
 		AF097496224A23A600989F11 /* ForgotPasswordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordBean.m; sourceTree = "<group>"; };
+		AF42445A22928E370056511F /* AICircle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AICircle.h; sourceTree = "<group>"; };
+		AF42445B22928E370056511F /* AICircle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AICircle.m; sourceTree = "<group>"; };
 		AF42FEA122647EF000792A3B /* GLKD3ModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKD3ModelVC.h; sourceTree = "<group>"; };
 		AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLKD3ModelVC.m; sourceTree = "<group>"; };
 		AF50D998228E8745009100AE /* SCN3DModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCN3DModelVC.h; sourceTree = "<group>"; };
@@ -495,6 +498,8 @@
 			children = (
 				AF97524A226EAE9000EF0302 /* OpenCVWrapper.h */,
 				AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */,
+				AF42445A22928E370056511F /* AICircle.h */,
+				AF42445B22928E370056511F /* AICircle.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -851,6 +856,7 @@
 				AF97524B226EAE9000EF0302 /* OpenCVWrapper.mm in Sources */,
 				AFD97ABD224B6E630048367E /* AIListenNetWorkingStatus.m in Sources */,
 				AFF9A575226058A300CB3537 /* MJRefreshAutoNormalFooter.m in Sources */,
+				AF42445C22928E370056511F /* AICircle.m in Sources */,
 				AFD97AC0224B6E630048367E /* FadePromptView.m in Sources */,
 				AF894594224DE8140023D514 /* ColorSegmentVC.m in Sources */,
 				AFF9A57C226058A300CB3537 /* MJRefreshAutoFooter.m in Sources */,

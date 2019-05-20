@@ -7,7 +7,8 @@
 //
 
 #import "EdgeImageView.h"
-#import "OpenCVWrapper.h"
+#import "AICircle.h"
+
 
 @interface EdgeView : UIView
 @property(nonatomic,strong)NSArray *circles;
@@ -49,7 +50,7 @@
     }
     
     for (int i = 0; i < [_circles count]; i++) {
-        Circle *circle = _circles[i];
+        AICircle *circle = _circles[i];
         CGRect rect = CGRectMake([circle.x floatValue] - [circle.r floatValue], [circle.y floatValue] - [circle.r floatValue], 2*[circle.r floatValue], 2*[circle.r floatValue]);
         // 2.画圆
         CGContextAddEllipseInRect(ctx, rect);
@@ -75,7 +76,7 @@
     CGFloat w1 = self.frame.size.width;
     CGFloat scale = w1/w;
     for (int i = 0; i < [circles count]; i ++) {
-        Circle *c = circles[i];
+        AICircle *c = circles[i];
         c.x = [NSNumber numberWithFloat:[c.x floatValue] * scale];
         c.y = [NSNumber numberWithFloat:[c.y floatValue] * scale];
         c.r = [NSNumber numberWithFloat:[c.r floatValue] * scale];

@@ -17,6 +17,7 @@
 #import "AIRangeSliderView.h"
 #import "SaveSimpleDataManager.h"
 #import "SCN3DModelVC.h"
+#import "AICircle.h"
 
 @interface ModelIdentificationVC ()<AIRangeSliderViewDelegate>
 @property(nonatomic,strong)UIButton *nextBtn;
@@ -27,6 +28,7 @@
 
 @property(nonatomic,assign)NSInteger leftValue;
 @property(nonatomic,assign)NSInteger rightValue;
+@property(nonatomic,strong)NSMutableArray *imageCircles;
 @end
 
 @implementation ModelIdentificationVC
@@ -39,6 +41,7 @@
     [self layoutColorImageView];
     [self layoutParamView];
     [self reLayoutImageView];
+    self.imageCircles = [[NSMutableArray alloc] initWithCapacity:0];
 }
 
 - (void)layoutColorImageView {
@@ -140,6 +143,15 @@
     NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
     UIImage *image = [UIImage imageWithData:imageData];
     NSArray *arr = [OpenCVWrapper edgeCircles:image threshold:threshold distance:distance type:_type];
+    [_imageCircles removeAllObjects];
+    for (AICircle *c in arr) {
+        AICircle *cc = [[AICircle alloc] init];
+        cc.x =  [NSNumber numberWithFloat:[c.x floatValue]];
+        cc.y =  [NSNumber numberWithFloat:[c.y floatValue]];
+        cc.r =  [NSNumber numberWithFloat:[c.r floatValue]];
+        [_imageCircles addObject:cc];
+    }
+
     [_imageView setCircles:arr];
     [AILoadingView dismiss];
 }
@@ -175,6 +187,7 @@
 - (void)nextAction:(UIButton *)sender {
 //    GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
     SCN3DModelVC *vc = [[SCN3DModelVC alloc] init];
+    [vc setCircleEdges:_imageCircles];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

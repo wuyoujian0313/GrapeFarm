@@ -12,6 +12,7 @@
 
 #import <opencv2/opencv.hpp>
 #import "OpenCVWrapper.h"
+#import "AICircle.h"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 
@@ -23,8 +24,6 @@ using namespace cv;
 
 #pragma mark - Private Declarations
 
-@implementation Circle
-@end
 
 @interface OpenCVWrapper ()
 
@@ -155,7 +154,7 @@ using namespace cv;
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     for( size_t i = 0; i < circles.size(); i++ ) {
         Vec3i c = circles[i];
-        Circle *circle = [[Circle alloc] init];
+        AICircle *circle = [[AICircle alloc] init];
         circle.x = [NSNumber numberWithFloat:c[0]];
         circle.y = [NSNumber numberWithFloat:c[1]];
         circle.r = [NSNumber numberWithFloat:c[2]];

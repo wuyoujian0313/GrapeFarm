@@ -8,13 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Circle : NSObject
-@property(nonatomic,strong)NSNumber *x;
-@property(nonatomic,strong)NSNumber *y;
-@property(nonatomic,strong)NSNumber *r;
-@end
-
-
 @interface OpenCVWrapper : NSObject
 
 + (UIImage *)toBlue:(UIImage *)source;

@@ -10,36 +10,97 @@
 #import <SceneKit/SceneKit.h>
 #import "DeviceInfo.h"
 #import "Commit3DDataVC.h"
+#import "UIView+SizeUtility.h"
+#import "AICircle.h"
+#import "FileCache.h"
+
 
 @interface SCN3DModelVC ()<SCNSceneRendererDelegate>
 @property (nonatomic, strong) SCNScene *scene;
 @property (nonatomic, strong) SCNView  *scnView;
-@property(nonatomic,strong)UIButton *nextBtn;
+@property (nonatomic, strong) UIButton *nextBtn;
+@property(nonatomic,strong)NSArray<AICircle*> *circles;
 @end
 
 @implementation SCN3DModelVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
     [self setNavTitle:NSLocalizedString(@"3DModel", nil)];
-    [self drawSpheres];
     [self layoutNextView];
+    [self drawSpheres];
+}
+
+- (void)setCircleEdges:(NSArray *)circles{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    
+    FileCache *fileCache = [FileCache sharedFileCache];
+    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
+    UIImage *image = [UIImage imageWithData:imageData];
+    for (AICircle *circle in circles) {
+        CGFloat x = [circle.x floatValue] - image.size.width/2.0;
+        CGFloat y = image.size.height/2.0 - [circle.y floatValue] ;
+        
+        AICircle *c = [[AICircle alloc] init];
+        c.x = [NSNumber numberWithFloat:x];
+        c.y = [NSNumber numberWithFloat:y];
+        c.r = [NSNumber numberWithFloat:[circle.r floatValue]];
+        
+        [arr addObject:c];
+    }
+    
+    self.circles = arr;
 }
 
 - (void)drawSpheres {
-    self.scnView = [[SCNView alloc] initWithFrame:self.view.bounds];
+    self.scnView = [[SCNView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], self.view.frame.size.width, _nextBtn.top - 10 - [DeviceInfo navigationBarHeight])];
     [_scnView setBackgroundColor:[UIColor blackColor]];
+    // 允许相机控制
+//    [_scnView setAllowsCameraControl:YES];
     [_scnView setAutoenablesDefaultLighting:YES];
     [self.view addSubview:_scnView];
     //创建场景
     SCNScene *scene = [[SCNScene alloc] init];
     _scnView.scene = scene;
     
+    CGFloat max_x = _scnView.width/2.0;
+    CGFloat max_y = _scnView.height/2.0;
+    CGFloat scale = _scnView.height/_scnView.width;
+    CGFloat max_r = MAX(max_x*scale, max_y);
+    
+    // 获取最大的x和y坐标值
+    for (AICircle *circle in _circles) {
+        if ([circle.x floatValue] > max_x) {
+            max_x = [circle.x floatValue];
+        }
+        
+        if ([circle.y floatValue] > max_y) {
+            max_y = [circle.y floatValue];
+        }
+        
+        if ([circle.r floatValue] > max_r) {
+            max_r = [circle.r floatValue];
+        }
+    }
+
     //创建camera，camera也是作为一个节点在场景中
     SCNCamera *camera = [SCNCamera camera];
+    camera.automaticallyAdjustsZRange = YES;
+    if (@available(iOS 11.0, *)) {
+        camera.focusDistance = 90;
+    } else {
+        // Fallback on earlier versions
+        camera.xFov = 90;
+        camera.yFov = 90;
+
+    }
+
     SCNNode *cameraNode = [SCNNode node];
     cameraNode.camera = camera;
-    cameraNode.position = SCNVector3Make(0, 0, 40);
+    CGFloat max = MAX(max_x*scale, max_y);
+    CGFloat camera_d = scale*(2*max_r + 2*max);
+    cameraNode.position = SCNVector3Make(0,0, camera_d);
     [_scnView.scene.rootNode addChildNode:cameraNode];
     
     //把所有的圆作为一组
@@ -52,16 +113,19 @@
     [groupNode runAction:reRotateAction];
     
     UIImage *image = [UIImage imageNamed:@"earth.jpg"];
-    for (NSInteger i = 0; i < 4; i++) {
+    for (NSInteger i = 0; i < [_circles count]; i++) {
+        CGFloat x = [_circles[i].x floatValue];
+        CGFloat y = [_circles[i].y floatValue];
+        CGFloat r = [_circles[i].r floatValue];
         SCNGeometry *geometer = [SCNGeometry geometry];
-        geometer = [SCNSphere sphereWithRadius:2];
+        geometer = [SCNSphere sphereWithRadius:r];
         geometer.firstMaterial.diffuse.contents = image;
         geometer.firstMaterial.multiply.contents = image;
-        geometer.firstMaterial.multiply.intensity = 0.5;
         
         SCNNode *geometerNode = [SCNNode nodeWithGeometry:geometer];
-        geometerNode.position = SCNVector3Make(-4*i, 0, 0);
+        geometerNode.position = SCNVector3Make(x, y, 0);
         [groupNode addChildNode:geometerNode];
+        
     }
 
     [_scnView.scene.rootNode addChildNode:groupNode];
