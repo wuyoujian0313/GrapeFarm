@@ -23,7 +23,7 @@
 
 
 
-@interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 @property (nonatomic,strong)UIImageView *imageView;
 @property (nonatomic,strong)AICroppableView *croppingView;
 @property (nonatomic,strong)UIView *toolView;
@@ -143,16 +143,17 @@
         //重置
         [_croppingView cleaningBrush];
     } else if (type == 3) {
-        //确定
-        FileCache *fileCache = [FileCache sharedFileCache];
-        UIImage *croppedImage = [_croppingView croppingOfImage:_imageView.image];
-        [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
-//        NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
-//        [self saveImage:croppedImage toFile:path];
-//        NSLog(@"cropped image path: %@",path);
-        
-        ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+        if ([_croppingView canCropping]) {
+            //确定
+            UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"setBackgroudColor", nil)
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:NSLocalizedString(@"black_bg", nil),NSLocalizedString(@"white_bg", nil),nil];
+            [sheet showInView:self.view];
+        } else {
+            [self toColorSegmentWithBackgroundColor:nil];
+        }
     }
 }
 
@@ -315,6 +316,30 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [picker dismissViewControllerAnimated:YES completion:^{
     }];
+}
+
+- (void)toColorSegmentWithBackgroundColor:(UIColor *)color {
+    FileCache *fileCache = [FileCache sharedFileCache];
+    UIImage *croppedImage = [_croppingView croppingOfImage:_imageView.image backgroudColor:color];
+    [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
+    ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
+    [self saveImage:croppedImage toFile:path];
+    NSLog(@"cropped image path: %@",path);
+}
+
+#pragma mark - UIActionSheetDelegate
+-(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != actionSheet.cancelButtonIndex) {
+        UIColor *color  = [UIColor blackColor];
+        if (buttonIndex == 1) {
+            color = [UIColor whiteColor];
+        }
+        
+        [self toColorSegmentWithBackgroundColor:color];
+    }
 }
 
 

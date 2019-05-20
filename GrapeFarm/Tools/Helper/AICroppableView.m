@@ -46,7 +46,16 @@
     [_croppingPath strokeWithBlendMode:kCGBlendModeNormal alpha:1.0f];
 }
 
-- (UIImage *)croppingOfImage:(UIImage*)image{
+- (BOOL)canCropping {
+    if ([_croppingPath points] ==nil || [[_croppingPath points] count] == 0) {
+        // 未剪切
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (UIImage *)croppingOfImage:(UIImage*)image backgroudColor:(UIColor *)color {
     if ([_croppingPath points] ==nil || [[_croppingPath points] count] == 0) {
         // 未剪切
         return image;
@@ -90,16 +99,16 @@
     UIImage *maskedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-//    //1.开启上下文
-//    UIGraphicsBeginImageContextWithOptions(maskedImage.size, NO, 0);
-//    //2.绘制背景图片
-//    UIImage *bgImage = [UIImage imageFromColor:[UIColor whiteColor]];
-//    [bgImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
-//    [maskedImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
-//    //3.从上下文中获取新图片
-//    maskedImage = UIGraphicsGetImageFromCurrentImageContext();
-//    //4.关闭图形上下文
-//    UIGraphicsEndImageContext();
+    //1.开启上下文
+    UIGraphicsBeginImageContextWithOptions(maskedImage.size, NO, 0);
+    //2.绘制背景图片
+    UIImage *bgImage = [UIImage imageFromColor:color];
+    [bgImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
+    [maskedImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
+    //3.从上下文中获取新图片
+    maskedImage = UIGraphicsGetImageFromCurrentImageContext();
+    //4.关闭图形上下文
+    UIGraphicsEndImageContext();
 
     
 //    // 放大图片

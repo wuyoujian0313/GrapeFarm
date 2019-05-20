@@ -61,6 +61,9 @@
 "MinRadius"                 ="最小半径";
 "MaxRadius"                 ="最大半径";
 "Identifying"               ="识别中...";
+"setBackgroudColor"         ="设置背景颜色";
+"black_bg"                  ="设置图片黑色背景";
+"white_bg"                  ="设置图片白色背景";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "此邮箱已注册";

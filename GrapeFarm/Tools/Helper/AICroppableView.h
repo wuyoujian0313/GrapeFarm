@@ -15,10 +15,11 @@
 
 // frame是UIImageView的frame,必须要图片的比例一致；
 - (instancetype)initWithFrame:(CGRect)frame;
+- (BOOL)canCropping;
 // 清除所有的画笔
 - (void)cleaningBrush;
 // UIImageView的UIImage
-- (UIImage *)croppingOfImage:(UIImage*)image;
+- (UIImage *)croppingOfImage:(UIImage*)image backgroudColor:(UIColor *)color;
 //
 - (void)appendPath:(UIBezierPath *)path;
 @end

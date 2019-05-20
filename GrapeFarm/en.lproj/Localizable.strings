@@ -61,6 +61,10 @@
 "MinRadius"                 ="The value of minRadius";
 "MaxRadius"                 ="The value of maxRadius";
 "Identifying"               ="identifying...";
+"setBackgroudColor"         ="Set the background color";
+"black_bg"                  ="Set it to a black background";
+"white_bg"                  ="Set it to a white background";
+
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";

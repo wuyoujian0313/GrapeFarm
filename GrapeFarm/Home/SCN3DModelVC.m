@@ -93,14 +93,12 @@
         // Fallback on earlier versions
         camera.xFov = 90;
         camera.yFov = 90;
-
     }
 
     SCNNode *cameraNode = [SCNNode node];
     cameraNode.camera = camera;
     CGFloat max = MAX(max_x*scale, max_y);
     CGFloat camera_d = scale*(2*max_r + 2*max);
-//    camera_d *=0.5;
     cameraNode.position = SCNVector3Make(0,0, camera_d);
     [_scnView.scene.rootNode addChildNode:cameraNode];
     
@@ -126,7 +124,6 @@
         SCNNode *geometerNode = [SCNNode nodeWithGeometry:geometer];
         geometerNode.position = SCNVector3Make(x, y, 0);
         [groupNode addChildNode:geometerNode];
-        
     }
 
     [_scnView.scene.rootNode addChildNode:groupNode];
