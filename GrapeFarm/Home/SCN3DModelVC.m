@@ -57,7 +57,7 @@
     self.scnView = [[SCNView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], self.view.frame.size.width, _nextBtn.top - 10 - [DeviceInfo navigationBarHeight])];
     [_scnView setBackgroundColor:[UIColor blackColor]];
     // 允许相机控制
-//    [_scnView setAllowsCameraControl:YES];
+    [_scnView setAllowsCameraControl:YES];
     [_scnView setAutoenablesDefaultLighting:YES];
     [self.view addSubview:_scnView];
     //创建场景
@@ -66,7 +66,7 @@
     
     CGFloat max_x = _scnView.width/2.0;
     CGFloat max_y = _scnView.height/2.0;
-    CGFloat scale = _scnView.height/_scnView.width;
+    CGFloat scale =  _scnView.height/_scnView.width;
     CGFloat max_r = MAX(max_x*scale, max_y);
     
     // 获取最大的x和y坐标值
@@ -100,6 +100,7 @@
     cameraNode.camera = camera;
     CGFloat max = MAX(max_x*scale, max_y);
     CGFloat camera_d = scale*(2*max_r + 2*max);
+//    camera_d *=0.5;
     cameraNode.position = SCNVector3Make(0,0, camera_d);
     [_scnView.scene.rootNode addChildNode:cameraNode];
     
