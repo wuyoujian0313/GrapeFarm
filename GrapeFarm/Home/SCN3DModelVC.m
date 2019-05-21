@@ -67,7 +67,7 @@
     CGFloat max_x = _scnView.width/2.0;
     CGFloat max_y = _scnView.height/2.0;
     CGFloat scale = _scnView.height/_scnView.width;
-    CGFloat max_r = MAX(max_x*scale, max_y);
+    CGFloat max_r = 0;
     
     // 获取最大的x和y坐标值
     for (AICircle *circle in _circles) {
@@ -104,7 +104,7 @@
     
     SCNLight *light = [SCNLight light]; // 创建灯光
     light.type = SCNLightTypeOmni; // 设置灯光类型
-    light.color = [UIColor colorWithHex:0x70519b]; // 设置灯光颜色
+    light.color = [UIColor colorWithHex:0x52348a]; // 设置灯光颜色
     
     SCNNode *lightNode = [SCNNode node];
     lightNode.light  = light;
@@ -129,7 +129,7 @@
         geometer.firstMaterial.diffuse.contents = color;
         geometer.firstMaterial.multiply.contents = color;
         geometer.firstMaterial.specular.contents = [UIColor whiteColor];
-        geometer.firstMaterial.shininess = 0.2;
+        geometer.firstMaterial.shininess = 0.5;
         geometer.firstMaterial.lightingModelName = SCNLightingModelBlinn;
         
         SCNNode *geometerNode = [SCNNode nodeWithGeometry:geometer];
