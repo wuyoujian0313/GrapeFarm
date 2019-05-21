@@ -98,7 +98,7 @@
     }
     UIImage *maskedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
+
     //1.开启上下文
     UIGraphicsBeginImageContextWithOptions(maskedImage.size, NO, 0);
     //2.绘制背景图片

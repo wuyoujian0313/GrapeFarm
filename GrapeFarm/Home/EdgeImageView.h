@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface EdgeImageView : UIImageView
 - (void)setPenColor:(UIColor *)color;
 - (void)setCircles:(NSArray *)circles;
+- (void)clear;
 @end
 
 NS_ASSUME_NONNULL_END

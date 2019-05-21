@@ -62,6 +62,10 @@
     CGContextStrokePath(ctx);
 }
 
+- (void)clear {
+    [self setCircles:nil];
+}
+
 @end
 
 @interface EdgeImageView ()
@@ -102,6 +106,10 @@
         [self addSubview:_edgeView];
     }
     return self;
+}
+
+- (void)clear {
+    [_edgeView clear];
 }
 
 

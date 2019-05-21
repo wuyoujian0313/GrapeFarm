@@ -10,7 +10,6 @@
 #import "DeviceInfo.h"
 #import "UIView+SizeUtility.h"
 #import "FileCache.h"
-#import "GLKD3ModelVC.h"
 #import "OpenCVWrapper.h"
 #import "EdgeImageView.h"
 #import "AILoadingView.h"
@@ -196,9 +195,12 @@
 - (void)sliderValueDidChangedOfLeft:(NSInteger)left right:(NSInteger)right {
     _leftValue = left;
     _rightValue = right;
-    
     NSLog(@"left:%d,right:%d",_leftValue,_rightValue);
-    [self circleEdge];
+    if (_rightValue - _leftValue > 0) {
+        [self circleEdge];
+    } else {
+        [_imageView clear];
+    }
 }
 
 - (void)sliderValueChangingOfLeft:(NSInteger)left right:(NSInteger)right {

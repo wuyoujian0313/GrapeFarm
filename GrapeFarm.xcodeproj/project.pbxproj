@@ -11,7 +11,6 @@
 		AF0353D6228E4AF200250B41 /* FarmBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353D5228E4AF200250B41 /* FarmBean.m */; };
 		AF0353D9228E504700250B41 /* GrapeBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353D8228E504700250B41 /* GrapeBean.m */; };
 		AF0353DC228E516800250B41 /* BreedListBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0353DB228E516800250B41 /* BreedListBase.m */; };
-		AF091A38228BA179008B866A /* final.png in Resources */ = {isa = PBXBuildFile; fileRef = AF091A36228BA178008B866A /* final.png */; };
 		AF091A39228BA179008B866A /* obj.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AF091A37228BA178008B866A /* obj.jpg */; };
 		AF091A3C228BD8C5008B866A /* AIRangeSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF091A3B228BD8C5008B866A /* AIRangeSliderView.m */; };
 		AF095575225F717500744977 /* CommitBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF095574225F717500744977 /* CommitBean.m */; };
@@ -24,9 +23,7 @@
 		AF097494224A237B00989F11 /* RegisterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097493224A237B00989F11 /* RegisterBean.m */; };
 		AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097496224A23A600989F11 /* ForgotPasswordBean.m */; };
 		AF42445C22928E370056511F /* AICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42445B22928E370056511F /* AICircle.m */; };
-		AF42FEA322647EF000792A3B /* GLKD3ModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */; };
 		AF50D99A228E8745009100AE /* SCN3DModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF50D999228E8745009100AE /* SCN3DModelVC.m */; };
-		AF50D99C228EA15A009100AE /* earth.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AF50D99B228EA159009100AE /* earth.jpg */; };
 		AF894594224DE8140023D514 /* ColorSegmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF894593224DE8140023D514 /* ColorSegmentVC.m */; };
 		AF97524B226EAE9000EF0302 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */; };
 		AFAF4673225440BA008EF9CD /* SetBrushColorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */; };
@@ -127,7 +124,6 @@
 		AF0353D8228E504700250B41 /* GrapeBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrapeBean.m; sourceTree = "<group>"; };
 		AF0353DA228E516800250B41 /* BreedListBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BreedListBase.h; sourceTree = "<group>"; };
 		AF0353DB228E516800250B41 /* BreedListBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreedListBase.m; sourceTree = "<group>"; };
-		AF091A36228BA178008B866A /* final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = final.png; sourceTree = "<group>"; };
 		AF091A37228BA178008B866A /* obj.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = obj.jpg; sourceTree = "<group>"; };
 		AF091A3A228BD8C5008B866A /* AIRangeSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AIRangeSliderView.h; sourceTree = "<group>"; };
 		AF091A3B228BD8C5008B866A /* AIRangeSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AIRangeSliderView.m; sourceTree = "<group>"; };
@@ -151,11 +147,8 @@
 		AF097496224A23A600989F11 /* ForgotPasswordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordBean.m; sourceTree = "<group>"; };
 		AF42445A22928E370056511F /* AICircle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AICircle.h; sourceTree = "<group>"; };
 		AF42445B22928E370056511F /* AICircle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AICircle.m; sourceTree = "<group>"; };
-		AF42FEA122647EF000792A3B /* GLKD3ModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKD3ModelVC.h; sourceTree = "<group>"; };
-		AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLKD3ModelVC.m; sourceTree = "<group>"; };
 		AF50D998228E8745009100AE /* SCN3DModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCN3DModelVC.h; sourceTree = "<group>"; };
 		AF50D999228E8745009100AE /* SCN3DModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCN3DModelVC.m; sourceTree = "<group>"; };
-		AF50D99B228EA159009100AE /* earth.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earth.jpg; sourceTree = "<group>"; };
 		AF894592224DE8140023D514 /* ColorSegmentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorSegmentVC.h; sourceTree = "<group>"; };
 		AF894593224DE8140023D514 /* ColorSegmentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorSegmentVC.m; sourceTree = "<group>"; };
 		AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
@@ -399,7 +392,6 @@
 				AFBF90C922486676007F2ED8 /* Info.plist */,
 				AFBF90CA22486676007F2ED8 /* main.m */,
 				AF0974782249D37800989F11 /* GrapeFarm-Prefix.pch */,
-				AF091A36228BA178008B866A /* final.png */,
 				AF091A37228BA178008B866A /* obj.jpg */,
 				AF09747F2249FBC100989F11 /* InfoPlist.strings */,
 				AF09747D2249F54900989F11 /* Localizable.strings */,
@@ -530,13 +522,10 @@
 				AFEDA3CD224CAC86004D063A /* Commit3DDataVC.m */,
 				AFD97A9A224B68000048367E /* GrapeVarietiesVC.h */,
 				AFD97A9B224B68000048367E /* GrapeVarietiesVC.m */,
-				AF42FEA122647EF000792A3B /* GLKD3ModelVC.h */,
-				AF42FEA222647EF000792A3B /* GLKD3ModelVC.m */,
 				AFFB9A2D2276EA790006EA60 /* EdgeImageView.h */,
 				AFFB9A2E2276EA790006EA60 /* EdgeImageView.m */,
 				AF50D998228E8745009100AE /* SCN3DModelVC.h */,
 				AF50D999228E8745009100AE /* SCN3DModelVC.m */,
-				AF50D99B228EA159009100AE /* earth.jpg */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -806,11 +795,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF091A38228BA179008B866A /* final.png in Resources */,
 				AFBF90C522486676007F2ED8 /* Assets.xcassets in Resources */,
 				AF09748A224A1A2100989F11 /* Images.xcassets in Resources */,
 				AF0974812249FBC100989F11 /* InfoPlist.strings in Resources */,
-				AF50D99C228EA15A009100AE /* earth.jpg in Resources */,
 				AF091A39228BA179008B866A /* obj.jpg in Resources */,
 				AFF9A56C226058A300CB3537 /* MJRefresh.bundle in Resources */,
 				AF09747B2249F54900989F11 /* Localizable.strings in Resources */,
@@ -870,7 +857,6 @@
 				AFF9A572226058A300CB3537 /* MJRefreshBackNormalFooter.m in Sources */,
 				AFBF915D22486ECE007F2ED8 /* UIColor+Utility.m in Sources */,
 				AF095575225F717500744977 /* CommitBean.m in Sources */,
-				AF42FEA322647EF000792A3B /* GLKD3ModelVC.m in Sources */,
 				AFF9A570226058A300CB3537 /* MJRefreshBackGifFooter.m in Sources */,
 				AFD97AC6224B6EFC0048367E /* UIBezierPath+Points.m in Sources */,
 				AFF9A56B226058A300CB3537 /* MJRefreshConst.m in Sources */,

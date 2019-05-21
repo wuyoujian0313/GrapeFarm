@@ -66,7 +66,7 @@
     
     CGFloat max_x = _scnView.width/2.0;
     CGFloat max_y = _scnView.height/2.0;
-    CGFloat scale =  _scnView.height/_scnView.width;
+    CGFloat scale = _scnView.height/_scnView.width;
     CGFloat max_r = MAX(max_x*scale, max_y);
     
     // 获取最大的x和y坐标值
@@ -98,10 +98,18 @@
     SCNNode *cameraNode = [SCNNode node];
     cameraNode.camera = camera;
     CGFloat max = MAX(max_x*scale, max_y);
-    CGFloat camera_d = scale*(2*max_r + 2*max);
+    CGFloat camera_d = scale*(max_r + 2*max);
     cameraNode.position = SCNVector3Make(0,0, camera_d);
     [_scnView.scene.rootNode addChildNode:cameraNode];
     
+    SCNLight *light = [SCNLight light]; // 创建灯光
+    light.type = SCNLightTypeOmni; // 设置灯光类型
+    light.color = [UIColor colorWithHex:0x70519b]; // 设置灯光颜色
+    
+    SCNNode *lightNode = [SCNNode node];
+    lightNode.light  = light;
+    lightNode.position = SCNVector3Make(0,0, camera_d);
+    [_scnView.scene.rootNode addChildNode:lightNode];
     //把所有的圆作为一组
     SCNNode *groupNode = [SCNNode node];
     groupNode.position = SCNVector3Make(0, 0, 0);
@@ -111,15 +119,18 @@
     SCNAction *reRotateAction = [SCNAction repeatActionForever:rotaeAction];
     [groupNode runAction:reRotateAction];
     
-    UIImage *image = [UIImage imageNamed:@"earth.jpg"];
+    UIColor *color = [UIColor whiteColor];
     for (NSInteger i = 0; i < [_circles count]; i++) {
         CGFloat x = [_circles[i].x floatValue];
         CGFloat y = [_circles[i].y floatValue];
         CGFloat r = [_circles[i].r floatValue];
         SCNGeometry *geometer = [SCNGeometry geometry];
         geometer = [SCNSphere sphereWithRadius:r];
-        geometer.firstMaterial.diffuse.contents = image;
-        geometer.firstMaterial.multiply.contents = image;
+        geometer.firstMaterial.diffuse.contents = color;
+        geometer.firstMaterial.multiply.contents = color;
+        geometer.firstMaterial.specular.contents = [UIColor whiteColor];
+        geometer.firstMaterial.shininess = 0.2;
+        geometer.firstMaterial.lightingModelName = SCNLightingModelBlinn;
         
         SCNNode *geometerNode = [SCNNode nodeWithGeometry:geometer];
         geometerNode.position = SCNVector3Make(x, y, 0);

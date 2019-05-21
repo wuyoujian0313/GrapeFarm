@@ -18,8 +18,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "SaveSimpleDataManager.h"
 #import "FileCache.h"
-#import "GLKD3ModelVC.h"
-#import "SCN3DModelVC.h"
 
 
 
@@ -178,8 +176,7 @@
 }
 
 - (void)toSettingPage {
-//    SettingsVC *vc = [[SettingsVC alloc] init];
-    SCN3DModelVC *vc = [[SCN3DModelVC alloc] init];
+    SettingsVC *vc = [[SettingsVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
