@@ -148,17 +148,34 @@ using namespace cv;
     Mat edges;
     Canny(gaussianBlur, edges, MaxThreshold/5, MaxThreshold/3);
     vector<Vec3f> circles;
-    HoughCircles(edges, circles, HOUGH_GRADIENT, 1, 50,
-                 1, threshold, (int)distance*0.2, (int)distance*1.8 ); //image:8位，单通道图像。如果使用彩色图像，需要先转换为灰度图像。method：定义检测图像中圆的方法。目前唯一实现的方法是cv2.HOUGH_GRADIENT。dp：累加器分辨率与图像分辨率的反比。dp获取越大，累加器数组越小。minDist：检测到的圆的中心，（x,y）坐标之间的最小距离。如果minDist太小，则可能导致检测到多个相邻的圆。如果minDist太大，则可能导致很多圆检测不到。param1：用于处理边缘检测的梯度值方法。param2：cv2.HOUGH_GRADIENT方法的累加器阈值。阈值越小，检测到的圈子越多。minRadius：半径的最小大小（以像素为单位）。maxRadius：半径的最大大小（以像素为单位）。
-    
     NSMutableArray *arr = [[NSMutableArray alloc] init];
-    for( size_t i = 0; i < circles.size(); i++ ) {
-        Vec3i c = circles[i];
-        AICircle *circle = [[AICircle alloc] init];
-        circle.x = [NSNumber numberWithFloat:c[0]];
-        circle.y = [NSNumber numberWithFloat:c[1]];
-        circle.r = [NSNumber numberWithFloat:c[2]];
+    if ((int)distance < imageChannel.cols/5){
+        HoughCircles(edges, circles, HOUGH_GRADIENT, 1, 50,
+                     1, threshold, ((int)distance/2)*0.5, ((int)distance/2)*1.5 ); //image:8位，单通道图像。如果使用彩色图像，需要先转换为灰度图像。method：定义检测图像中圆的方法。目前唯一实现的方法是cv2.HOUGH_GRADIENT。dp：累加器分辨率与图像分辨率的反比。dp获取越大，累加器数组越小。minDist：检测到的圆的中心，（x,y）坐标之间的最小距离。如果minDist太小，则可能导致检测到多个相邻的圆。如果minDist太大，则可能导致很多圆检测不到。param1：用于处理边缘检测的梯度值方法。param2：cv2.HOUGH_GRADIENT方法的累加器阈值。阈值越小，检测到的圈子越多。minRadius：半径的最小大小（以像素为单位）。maxRadius：半径的最大大小（以像素为单位）。
         
+        if (circles.size() < 120){
+            for( size_t i = 0; i < circles.size(); i++ ) {
+                
+                Vec3i c = circles[i];
+                AICircle *circle = [[AICircle alloc] init];
+                circle.x = [NSNumber numberWithFloat:c[0]];
+                circle.y = [NSNumber numberWithFloat:c[1]];
+                circle.r = [NSNumber numberWithFloat:c[2]];
+                [arr addObject:circle];
+            }
+        }else{
+            AICircle *circle = [[AICircle alloc] init];
+            circle.x = [NSNumber numberWithFloat:0];
+            circle.y = [NSNumber numberWithFloat:0];
+            circle.r = [NSNumber numberWithFloat:0];
+            [arr addObject:circle];
+        }
+    }
+    else{
+        AICircle *circle = [[AICircle alloc] init];
+        circle.x = [NSNumber numberWithFloat:0];
+        circle.y = [NSNumber numberWithFloat:0];
+        circle.r = [NSNumber numberWithFloat:0];
         [arr addObject:circle];
     }
     return arr;
