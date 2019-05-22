@@ -88,7 +88,7 @@
     SCNCamera *camera = [SCNCamera camera];
     camera.automaticallyAdjustsZRange = YES;
     if (@available(iOS 11.0, *)) {
-        camera.focusDistance = 90;
+        camera.fieldOfView = 90;
     } else {
         // Fallback on earlier versions
         camera.xFov = 90;
@@ -97,14 +97,14 @@
 
     SCNNode *cameraNode = [SCNNode node];
     cameraNode.camera = camera;
-    CGFloat max = MAX(max_x*scale, max_y);
-    CGFloat camera_d = scale*(max_r + 2*max);
+    CGFloat max = MAX(max_x, max_y);
+    CGFloat camera_d = 1.2*(max_r+max); //scale*(max_r + 2*max);
     cameraNode.position = SCNVector3Make(0,0, camera_d);
     [_scnView.scene.rootNode addChildNode:cameraNode];
     
     SCNLight *light = [SCNLight light]; // 创建灯光
     light.type = SCNLightTypeOmni; // 设置灯光类型
-    light.color = [UIColor colorWithHex:0x52348a]; // 设置灯光颜色
+    light.color = [UIColor colorWithHex:0x5a3b94]; // 设置灯光颜色
     
     SCNNode *lightNode = [SCNNode node];
     lightNode.light  = light;
@@ -129,7 +129,7 @@
         geometer.firstMaterial.diffuse.contents = color;
         geometer.firstMaterial.multiply.contents = color;
         geometer.firstMaterial.specular.contents = [UIColor whiteColor];
-        geometer.firstMaterial.shininess = 0.5;
+        geometer.firstMaterial.shininess = .8;
         geometer.firstMaterial.lightingModelName = SCNLightingModelBlinn;
         
         SCNNode *geometerNode = [SCNNode nodeWithGeometry:geometer];
