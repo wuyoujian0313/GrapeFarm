@@ -64,6 +64,7 @@
 "setBackgroudColor"         ="设置背景颜色";
 "black_bg"                  ="设置图片黑色背景";
 "white_bg"                  ="设置图片白色背景";
+"cropping"                  ="剪切中....";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "此邮箱已注册";

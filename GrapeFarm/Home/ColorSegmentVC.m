@@ -12,6 +12,7 @@
 #import "FileCache.h"
 #import "UIView+SizeUtility.h"
 #import "OpenCVWrapper.h"
+#import "AILoadingView.h"
 
 
 typedef NS_ENUM(NSInteger ,ColorType) {

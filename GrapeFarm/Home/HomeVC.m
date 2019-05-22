@@ -18,6 +18,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "SaveSimpleDataManager.h"
 #import "FileCache.h"
+#import "AILoadingView.h"
 
 
 
@@ -316,15 +317,28 @@
 }
 
 - (void)toColorSegmentWithBackgroundColor:(UIColor *)color {
-    FileCache *fileCache = [FileCache sharedFileCache];
-    UIImage *croppedImage = [_croppingView croppingOfImage:_imageView.image backgroudColor:color];
-    [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
-    ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
     
-    NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
-    [self saveImage:croppedImage toFile:path];
-    NSLog(@"cropped image path: %@",path);
+    [AILoadingView show:NSLocalizedString(@"cropping", nil)];
+    // 获取全局并发队列
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    __weak typeof(self ) wSelf = self;
+    dispatch_async(queue, ^{
+        typeof(self) sSelf = wSelf;
+        FileCache *fileCache = [FileCache sharedFileCache];
+        UIImage *croppedImage = [sSelf.croppingView croppingOfImage:sSelf.imageView.image backgroudColor:color];
+        [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
+        
+        NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
+        [self saveImage:croppedImage toFile:path];
+        NSLog(@"cropped image path: %@",path);
+        // 回到主线程
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 追加在主线程中执行的任务
+            [AILoadingView dismiss];
+            ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
+            [sSelf.navigationController pushViewController:vc animated:YES];
+        });
+    });
 }
 
 #pragma mark - UIActionSheetDelegate
