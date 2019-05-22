@@ -131,28 +131,37 @@
 }
 
 - (void)circleEdge {
-    //identifying
+    
     [AILoadingView show:NSLocalizedString(@"Identifying", nil)];
     NSInteger distance = _rightValue - _leftValue;
     NSInteger scale = _imageView.image.size.width/_imageView.width;
     distance *=scale;
     NSInteger threshold = ceil(_stepper.value);
-
-    FileCache *fileCache = [FileCache sharedFileCache];
-    NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
-    UIImage *image = [UIImage imageWithData:imageData];
-    NSArray *arr = [OpenCVWrapper edgeCircles:image threshold:threshold distance:distance type:_type];
-    [_imageCircles removeAllObjects];
-    for (AICircle *c in arr) {
-        AICircle *cc = [[AICircle alloc] init];
-        cc.x =  [NSNumber numberWithFloat:[c.x floatValue]];
-        cc.y =  [NSNumber numberWithFloat:[c.y floatValue]];
-        cc.r =  [NSNumber numberWithFloat:[c.r floatValue]];
-        [_imageCircles addObject:cc];
-    }
-
-    [_imageView setCircles:arr];
-    [AILoadingView dismiss];
+    
+    // 获取全局并发队列
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    __weak typeof(self ) wSelf = self;
+    dispatch_async(queue, ^{
+        typeof(self) sSelf = wSelf;
+        FileCache *fileCache = [FileCache sharedFileCache];
+        NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
+        UIImage *image = [UIImage imageWithData:imageData];
+        NSArray *arr = [OpenCVWrapper edgeCircles:image threshold:threshold distance:distance type:sSelf.type];
+        [sSelf.imageCircles removeAllObjects];
+        for (AICircle *c in arr) {
+            AICircle *cc = [[AICircle alloc] init];
+            cc.x =  [NSNumber numberWithFloat:[c.x floatValue]];
+            cc.y =  [NSNumber numberWithFloat:[c.y floatValue]];
+            cc.r =  [NSNumber numberWithFloat:[c.r floatValue]];
+            [sSelf.imageCircles addObject:cc];
+        }
+        // 回到主线程
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 追加在主线程中执行的任务
+            [sSelf.imageView setCircles:arr];
+            [AILoadingView dismiss];
+        });
+    });
 }
 
 - (void)stepperValueChanged:(UIStepper *)sender {
