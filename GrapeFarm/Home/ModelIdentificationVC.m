@@ -204,7 +204,7 @@
 - (void)sliderValueDidChangedOfLeft:(NSInteger)left right:(NSInteger)right {
     _leftValue = left;
     _rightValue = right;
-    NSLog(@"left:%d,right:%d",_leftValue,_rightValue);
+    NSLog(@"left:%ld,right:%ld",(long)_leftValue,(long)_rightValue);
     if (_rightValue - _leftValue > 0) {
         [self circleEdge];
     } else {

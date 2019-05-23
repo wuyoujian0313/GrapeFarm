@@ -60,11 +60,11 @@
 "Threshold"                 ="The value of threshold";
 "MinRadius"                 ="The value of minRadius";
 "MaxRadius"                 ="The value of maxRadius";
-"Identifying"               ="identifying...";
+"Identifying"               ="Identifying...";
 "setBackgroudColor"         ="Set the background color";
 "black_bg"                  ="Set it to a black background";
 "white_bg"                  ="Set it to a white background";
-"cropping"                  ="cutting....";
+"processing"                ="Processing...";
 
 
 //状态码的翻译

@@ -317,8 +317,7 @@
 }
 
 - (void)toColorSegmentWithBackgroundColor:(UIColor *)color {
-    
-    [AILoadingView show:NSLocalizedString(@"cropping", nil)];
+    [AILoadingView show:NSLocalizedString(@"processing", nil)];
     // 获取全局并发队列
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     __weak typeof(self ) wSelf = self;

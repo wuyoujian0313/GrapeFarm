@@ -64,9 +64,9 @@
     SCNScene *scene = [[SCNScene alloc] init];
     _scnView.scene = scene;
     
-    CGFloat max_x = _scnView.width/2.0;
-    CGFloat max_y = _scnView.height/2.0;
-    CGFloat scale = _scnView.height/_scnView.width;
+    CGFloat max_x = 0;//_scnView.width/2.0;
+    CGFloat max_y = 0;//_scnView.height/2.0;
+//    CGFloat scale = _scnView.height/_scnView.width;
     CGFloat max_r = 0;
     
     // 获取最大的x和y坐标值
@@ -98,7 +98,7 @@
     SCNNode *cameraNode = [SCNNode node];
     cameraNode.camera = camera;
     CGFloat max = MAX(max_x, max_y);
-    CGFloat camera_d = 1.2*(max_r+max); //scale*(max_r + 2*max);
+    CGFloat camera_d = 1.5*(max_r+max); //scale*(max_r + 2*max);
     cameraNode.position = SCNVector3Make(0,0, camera_d);
     [_scnView.scene.rootNode addChildNode:cameraNode];
     
