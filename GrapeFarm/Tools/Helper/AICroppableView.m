@@ -11,6 +11,7 @@
 
 @interface AICroppableView ()
 @property(nonatomic, strong) UIBezierPath *croppingPath;
+@property(nonatomic, assign) CGSize size;
 @end
 
 @implementation AICroppableView
@@ -21,6 +22,7 @@
         // 默认画笔参数
         _lineWidth = 5.0f;
         _lineColor = [UIColor whiteColor];
+        _size = frame.size;
         
         [self setBackgroundColor:[UIColor clearColor]];
         [self setClipsToBounds:YES];
@@ -55,7 +57,7 @@
     return YES;
 }
 
-- (UIImage *)croppingOfImage:(UIImage*)image backgroudColor:(UIColor *)color {
+- (UIImage *)croppingOfImage:(UIImage*)image {
     if ([_croppingPath points] ==nil || [[_croppingPath points] count] == 0) {
         // 未剪切
         return image;
@@ -76,11 +78,11 @@
         
         aPath = [UIBezierPath bezierPath];
         
-        CGPoint p1 = [self convertCGPoint:[[points objectAtIndex:0] CGPointValue] fromViewRect:self.frame.size toImageRect:image.size];
+        CGPoint p1 = [self convertCGPoint:[[points objectAtIndex:0] CGPointValue] fromViewRect:self.bounds.size toImageRect:image.size];
         [aPath moveToPoint:CGPointMake(p1.x, p1.y)];
         
         for (uint i = 1; i<points.count; i++) {
-            CGPoint p = [self convertCGPoint:[[points objectAtIndex:i] CGPointValue] fromViewRect:self.frame.size toImageRect:image.size];
+            CGPoint p = [self convertCGPoint:[[points objectAtIndex:i] CGPointValue] fromViewRect:self.bounds.size toImageRect:image.size];
             [aPath addLineToPoint:CGPointMake(p.x, p.y)];
         }
         [aPath closePath];

@@ -377,30 +377,18 @@
 //}
 
 - (void)toColorSegmentWithBackgroundColor:(UIColor *)color {
-    [AILoadingView show:NSLocalizedString(@"processing", nil)];
-    // 获取全局并发队列
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    __weak typeof(self ) wSelf = self;
+//    [AILoadingView show:NSLocalizedString(@"processing", nil)];
+    FileCache *fileCache = [FileCache sharedFileCache];
+    UIImage *image = self.imageView.image;
+    UIImage *croppedImage = [self.croppingView croppingOfImage:image];
+    [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
+//    [AILoadingView dismiss];
+    ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
     
-    __weak UIImage *image = self.imageView.image;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        typeof(self) sSelf = wSelf;
-        FileCache *fileCache = [FileCache sharedFileCache];
-        UIImage *croppedImage = [sSelf.croppingView croppingOfImage:image backgroudColor:color];
-    
-        // 回到主线程
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // 追加在主线程中执行的任务
-            [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
-            [AILoadingView dismiss];
-            ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
-            [sSelf.navigationController pushViewController:vc animated:YES];
-            
-//            NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
-//            [sSelf saveImage:croppedImage toFile:path];
-//            NSLog(@"cropped image path: %@",path);
-        });
-    });
+    NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
+    [self saveImage:croppedImage toFile:path];
+    NSLog(@"cropped image path: %@",path);
 }
 
 #pragma mark - UIActionSheetDelegate
