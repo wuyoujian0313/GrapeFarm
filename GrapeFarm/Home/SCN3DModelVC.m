@@ -71,16 +71,16 @@
     
     // 获取最大的x和y坐标值
     for (AICircle *circle in _circles) {
-        if ([circle.x floatValue] > max_x) {
-            max_x = [circle.x floatValue];
+        if (fabsf([circle.x floatValue] )> max_x) {
+            max_x = fabsf([circle.x floatValue]);
         }
         
-        if ([circle.y floatValue] > max_y) {
-            max_y = [circle.y floatValue];
+        if (fabsf([circle.y floatValue]) > max_y) {
+            max_y = fabsf([circle.y floatValue]);
         }
         
-        if ([circle.r floatValue] > max_r) {
-            max_r = [circle.r floatValue];
+        if (fabsf([circle.r floatValue] )> max_r) {
+            max_r = fabsf([circle.r floatValue]);
         }
     }
 
@@ -98,7 +98,7 @@
     SCNNode *cameraNode = [SCNNode node];
     cameraNode.camera = camera;
     CGFloat max = MAX(max_x, max_y);
-    CGFloat camera_d = 1.5*(max_r+max); //scale*(max_r + 2*max);
+    CGFloat camera_d = 1.2*(max_r+max); //scale*(max_r + 2*max);
     cameraNode.position = SCNVector3Make(0,0, camera_d);
     [_scnView.scene.rootNode addChildNode:cameraNode];
     
