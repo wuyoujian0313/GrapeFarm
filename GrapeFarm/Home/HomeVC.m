@@ -142,17 +142,18 @@
         //重置
         [_croppingView cleaningBrush];
     } else if (type == 3) {
-        if ([_croppingView canCropping]) {
-            //确定
-            UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"setBackgroudColor", nil)
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:NSLocalizedString(@"black_bg", nil),NSLocalizedString(@"white_bg", nil),nil];
-            [sheet showInView:self.view];
-        } else {
-            [self toColorSegmentWithBackgroundColor:nil];
-        }
+        [self toColorSegmentWithBackgroundColor:nil];
+//        if ([_croppingView canCropping]) {
+//            //确定
+//            UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"setBackgroudColor", nil)
+//                                                             delegate:self
+//                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+//                                               destructiveButtonTitle:nil
+//                                                    otherButtonTitles:NSLocalizedString(@"black_bg", nil),NSLocalizedString(@"white_bg", nil),nil];
+//            [sheet showInView:self.view];
+//        } else {
+//            [self toColorSegmentWithBackgroundColor:nil];
+//        }
     }
 }
 
@@ -316,29 +317,117 @@
     }];
 }
 
+//- (UIImage *)resetPxOfOriginalImage:(UIImage *)originalImage maskImage:(UIImage*)maskImage {
+//    CGImageRef cgimage_o = [originalImage CGImage];
+//    size_t width_o = CGImageGetWidth(cgimage_o); // 图片宽度
+//    size_t height_o = CGImageGetHeight(cgimage_o); // 图片高度
+//
+//    unsigned char *data_o = calloc(width_o * height_o * 4, sizeof(unsigned char)); // 取图片首地址
+//    size_t bitsPerComponent_o = 8; // r g b a 每个component bits数目
+//    size_t bytesPerRow_o = width_o * 4; // 一张图片每行字节数目 (每个像素点包含r g b a 四个字节)
+//    CGColorSpaceRef space_o = CGColorSpaceCreateDeviceRGB(); // 创建rgb颜色空间
+//    CGContextRef context_o = CGBitmapContextCreate(data_o, width_o, height_o, bitsPerComponent_o, bytesPerRow_o, space_o, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+//    CGContextDrawImage(context_o, CGRectMake(0, 0, width_o, height_o), cgimage_o);
+//
+//
+//    CGImageRef cgimage_m = [maskImage CGImage];
+//    size_t width_m = CGImageGetWidth(cgimage_m); // 图片宽度
+//    size_t height_m = CGImageGetHeight(cgimage_m); // 图片高度
+//
+//    unsigned char *data_m = calloc(width_m * height_m * 4, sizeof(unsigned char)); // 取图片首地址
+//    size_t bitsPerComponent_m = 8; // r g b a 每个component bits数目
+//    size_t bytesPerRow_m = width_m * 4; // 一张图片每行字节数目 (每个像素点包含r g b a 四个字节)
+//    CGColorSpaceRef space_m = CGColorSpaceCreateDeviceRGB(); // 创建rgb颜色空间
+//    CGContextRef context_m = CGBitmapContextCreate(data_m, width_m, height_m, bitsPerComponent_m, bytesPerRow_m, space_m, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+//    CGContextDrawImage(context_m, CGRectMake(0, 0, width_m, height_m), cgimage_m);
+//
+//    if (width_o <= width_m && height_o <= height_m) {
+//        //像素数一致才处理
+//        for (size_t i = 0; i < height_o; i++) {
+//            for (size_t j = 0; j < width_o; j++) {
+//                size_t pixelIndex = i * width_o * 4 + j * 4;
+//                unsigned char red_o = data_o[pixelIndex];
+//                unsigned char green_o = data_o[pixelIndex + 1];
+//                unsigned char blue_o = data_o[pixelIndex + 2];
+//
+//                unsigned char red_m = data_m[pixelIndex];
+//                unsigned char green_m = data_m[pixelIndex + 1];
+//                unsigned char blue_m = data_m[pixelIndex + 2];
+//
+//                if (red_m != 255 && red_m != 0) {
+//                    data_m[pixelIndex] = red_o;
+//                }
+//
+//                if (green_m != 255 && green_m != 0) {
+//                    data_m[pixelIndex+1] = green_o;
+//                }
+//
+//                if (blue_m != 255 && blue_m != 0) {
+//                    data_m[pixelIndex+2] = blue_o;
+//
+//                }
+//            }
+//        }
+//
+//        cgimage_m = CGBitmapContextCreateImage(context_m);
+//        return  [UIImage imageWithCGImage:cgimage_m];
+//    }
+//
+//    return maskImage;
+//}
+
 - (void)toColorSegmentWithBackgroundColor:(UIColor *)color {
     [AILoadingView show:NSLocalizedString(@"processing", nil)];
     // 获取全局并发队列
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     __weak typeof(self ) wSelf = self;
+    
+    __weak UIImage *image = self.imageView.image;
     dispatch_async(queue, ^{
         typeof(self) sSelf = wSelf;
         FileCache *fileCache = [FileCache sharedFileCache];
-        UIImage *croppedImage = [sSelf.croppingView croppingOfImage:sSelf.imageView.image backgroudColor:color];
+        UIImage *croppedImage = [sSelf.croppingView croppingOfImage:image backgroudColor:color];
         [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
         
-        NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
-        [self saveImage:croppedImage toFile:path];
-        NSLog(@"cropped image path: %@",path);
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
             // 追加在主线程中执行的任务
             [AILoadingView dismiss];
             ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
             [sSelf.navigationController pushViewController:vc animated:YES];
+            
+//            NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
+//            [sSelf saveImage:croppedImage toFile:path];
+//            NSLog(@"cropped image path: %@",path);
         });
     });
 }
+
+//- (void)getImageRGB:(UIImage*)image {
+//    CGImageRef cgimage = [image CGImage];
+//    size_t width = CGImageGetWidth(cgimage); // 图片宽度
+//    size_t height = CGImageGetHeight(cgimage); // 图片高度
+//    unsigned char *data = calloc(width * height * 4, sizeof(unsigned char)); // 取图片首地址
+//    size_t bitsPerComponent = 8; // r g b a 每个component bits数目
+//    size_t bytesPerRow = width * 4; // 一张图片每行字节数目 (每个像素点包含r g b a 四个字节)
+//    CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB(); // 创建rgb颜色空间
+//    CGContextRef context = CGBitmapContextCreate(data, width, height, bitsPerComponent, bytesPerRow, space, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+//    CGContextDrawImage(context, CGRectMake(0, 0, width, height), cgimage);
+//
+//    size_t pixelIndex = 10 * width * 4 + (width/2) * 4;
+//    unsigned char red = data[pixelIndex];
+//    unsigned char green = data[pixelIndex + 1];
+//    unsigned char blue = data[pixelIndex + 2];
+//
+//    NSLog(@"R:%d,G:%d,B:%d",red,green,blue);
+//    NSLog(@"=============");
+//    pixelIndex = 20 * width * 4 + (width/2) * 4;
+//    red = data[pixelIndex];
+//    green = data[pixelIndex + 1];
+//    blue = data[pixelIndex + 2];
+//
+//    NSLog(@"R:%d,G:%d,B:%d",red,green,blue);
+//}
 
 #pragma mark - UIActionSheetDelegate
 -(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {

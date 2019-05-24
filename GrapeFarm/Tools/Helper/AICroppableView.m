@@ -67,7 +67,7 @@
     UIBezierPath *aPath;
     
     // 画一个蒙版
-    UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0);
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, 1.0);
     {
         // 背景颜色
         [[UIColor blackColor] setFill];
@@ -91,7 +91,7 @@
     UIGraphicsEndImageContext();
     
     // 以蒙版图片进行剪切图片
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 1.0);
     {
         CGContextClipToMask(UIGraphicsGetCurrentContext(), rect, mask.CGImage);
         [image drawAtPoint:CGPointZero];
@@ -99,19 +99,17 @@
     UIImage *maskedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
-    //1.开启上下文
-    UIGraphicsBeginImageContextWithOptions(maskedImage.size, NO, 0);
-    //2.绘制背景图片
-    UIImage *bgImage = [UIImage imageFromColor:color];
-    [bgImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
-    [maskedImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
-    //3.从上下文中获取新图片
-    maskedImage = UIGraphicsGetImageFromCurrentImageContext();
-    //4.关闭图形上下文
-    UIGraphicsEndImageContext();
+//    //1.开启上下文
+//    UIGraphicsBeginImageContextWithOptions(maskedImage.size, NO, 1.0);
+//    //2.绘制背景图片
+//    UIImage *bgImage = [UIImage imageFromColor:color];
+//    [bgImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
+//    [maskedImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
+//    //3.从上下文中获取新图片
+//    maskedImage = UIGraphicsGetImageFromCurrentImageContext();
+//    //4.关闭图形上下文
+//    UIGraphicsEndImageContext();
 
-    
-//    // 放大图片
 //    CGRect croppedRect = aPath.bounds;
 ////    // 注意图片坐标是笛卡尔坐标系,y轴是向上的
 //    croppedRect.origin.y = rect.size.height - CGRectGetMaxY(aPath.bounds);

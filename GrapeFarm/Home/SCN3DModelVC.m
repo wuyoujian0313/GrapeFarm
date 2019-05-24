@@ -104,7 +104,7 @@
     
     SCNLight *light = [SCNLight light]; // 创建灯光
     light.type = SCNLightTypeOmni; // 设置灯光类型
-    light.color = [UIColor colorWithHex:0x5a3b94]; // 设置灯光颜色
+    light.color = [UIColor colorWithHex:0x350a6d]; // 设置灯光颜色
     
     SCNNode *lightNode = [SCNNode node];
     lightNode.light  = light;
