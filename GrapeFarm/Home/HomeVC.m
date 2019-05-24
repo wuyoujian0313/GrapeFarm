@@ -387,11 +387,11 @@
         typeof(self) sSelf = wSelf;
         FileCache *fileCache = [FileCache sharedFileCache];
         UIImage *croppedImage = [sSelf.croppingView croppingOfImage:image backgroudColor:color];
-        [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
-        
+    
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
             // 追加在主线程中执行的任务
+            [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
             [AILoadingView dismiss];
             ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
             [sSelf.navigationController pushViewController:vc animated:YES];
@@ -402,32 +402,6 @@
         });
     });
 }
-
-//- (void)getImageRGB:(UIImage*)image {
-//    CGImageRef cgimage = [image CGImage];
-//    size_t width = CGImageGetWidth(cgimage); // 图片宽度
-//    size_t height = CGImageGetHeight(cgimage); // 图片高度
-//    unsigned char *data = calloc(width * height * 4, sizeof(unsigned char)); // 取图片首地址
-//    size_t bitsPerComponent = 8; // r g b a 每个component bits数目
-//    size_t bytesPerRow = width * 4; // 一张图片每行字节数目 (每个像素点包含r g b a 四个字节)
-//    CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB(); // 创建rgb颜色空间
-//    CGContextRef context = CGBitmapContextCreate(data, width, height, bitsPerComponent, bytesPerRow, space, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-//    CGContextDrawImage(context, CGRectMake(0, 0, width, height), cgimage);
-//
-//    size_t pixelIndex = 10 * width * 4 + (width/2) * 4;
-//    unsigned char red = data[pixelIndex];
-//    unsigned char green = data[pixelIndex + 1];
-//    unsigned char blue = data[pixelIndex + 2];
-//
-//    NSLog(@"R:%d,G:%d,B:%d",red,green,blue);
-//    NSLog(@"=============");
-//    pixelIndex = 20 * width * 4 + (width/2) * 4;
-//    red = data[pixelIndex];
-//    green = data[pixelIndex + 1];
-//    blue = data[pixelIndex + 2];
-//
-//    NSLog(@"R:%d,G:%d,B:%d",red,green,blue);
-//}
 
 #pragma mark - UIActionSheetDelegate
 -(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
