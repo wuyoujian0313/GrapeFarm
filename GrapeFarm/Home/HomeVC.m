@@ -383,7 +383,7 @@
     __weak typeof(self ) wSelf = self;
     
     __weak UIImage *image = self.imageView.image;
-    dispatch_async(queue, ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         typeof(self) sSelf = wSelf;
         FileCache *fileCache = [FileCache sharedFileCache];
         UIImage *croppedImage = [sSelf.croppingView croppingOfImage:image backgroudColor:color];

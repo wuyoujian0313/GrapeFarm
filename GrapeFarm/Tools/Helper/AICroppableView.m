@@ -91,7 +91,7 @@
     UIGraphicsEndImageContext();
     
     // 以蒙版图片进行剪切图片
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 1.0);
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, 1.0);
     {
         CGContextClipToMask(UIGraphicsGetCurrentContext(), rect, mask.CGImage);
         [image drawAtPoint:CGPointZero];
