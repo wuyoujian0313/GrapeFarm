@@ -124,7 +124,7 @@
     [stepper setTintColor:[UIColor blackColor]];
     [stepper setMinimumValue:25];
     [stepper setValue:25];
-    [stepper setMaximumValue:30];
+    [stepper setMaximumValue:40];
     [stepper setStepValue:1];
     [paramView addSubview:stepper];
     [stepper setTop:stepper.top + (40-stepper.height)/2.0];

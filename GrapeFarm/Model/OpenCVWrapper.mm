@@ -147,13 +147,42 @@ using namespace cv;
     MaxThreshold = max_index;
     Mat edges;
     Canny(gaussianBlur, edges, MaxThreshold/5, MaxThreshold/3);
+    //找最大轮廓
+    vector<vector<cv::Point>> contours;
+    vector<Vec4i> hierarchy;
+    findContours(edges , contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+    double maxarea = 0;
+    int maxAreaIdx = 0;
+    for(int index = contours.size()-1;index >=0;index--)
+    {
+        double tmparea = fabs(contourArea(contours[index]));
+        if (tmparea>maxarea)
+        {
+            maxarea=tmparea;
+            maxAreaIdx=index;
+        }
+    }
+    cv::Rect ret1 = boundingRect(Mat(contours[maxAreaIdx]));
+    int thres = ret1.width / ret1.height * ret1.height + ret1.y;
+    int nrow = edges.rows;
+    int parts[nrow][1];
+    int i,j;
+    float bunch_ratio = 5/6;
+    for (i=0; i<nrow; i++) {
+        for (j=0; j<1; j++) {
+            parts[i][j]=1;
+        }
+    }
+    for (int th=1; th<thres; th++) {
+        parts[th][0] = 0;
+    }
     vector<Vec3f> circles;
     NSMutableArray *arr = [[NSMutableArray alloc] init];
-    if ((int)distance < imageChannel.cols/5){
+    if ((int)distance < imageChannel.cols/3){
         HoughCircles(edges, circles, HOUGH_GRADIENT, 1, 50,
-                     1, threshold, ((int)distance/2)*0.5, ((int)distance/2)*1.5 ); //image:8位，单通道图像。如果使用彩色图像，需要先转换为灰度图像。method：定义检测图像中圆的方法。目前唯一实现的方法是cv2.HOUGH_GRADIENT。dp：累加器分辨率与图像分辨率的反比。dp获取越大，累加器数组越小。minDist：检测到的圆的中心，（x,y）坐标之间的最小距离。如果minDist太小，则可能导致检测到多个相邻的圆。如果minDist太大，则可能导致很多圆检测不到。param1：用于处理边缘检测的梯度值方法。param2：cv2.HOUGH_GRADIENT方法的累加器阈值。阈值越小，检测到的圈子越多。minRadius：半径的最小大小（以像素为单位）。maxRadius：半径的最大大小（以像素为单位）。
+                     1, threshold, ((int)distance/2)*0.6, ((int)distance/2)*1.2 ); //image:8位，单通道图像。如果使用彩色图像，需要先转换为灰度图像。method：定义检测图像中圆的方法。目前唯一实现的方法是cv2.HOUGH_GRADIENT。dp：累加器分辨率与图像分辨率的反比。dp获取越大，累加器数组越小。minDist：检测到的圆的中心，（x,y）坐标之间的最小距离。如果minDist太小，则可能导致检测到多个相邻的圆。如果minDist太大，则可能导致很多圆检测不到。param1：用于处理边缘检测的梯度值方法。param2：cv2.HOUGH_GRADIENT方法的累加器阈值。阈值越小，检测到的圈子越多。minRadius：半径的最小大小（以像素为单位）。maxRadius：半径的最大大小（以像素为单位）。
         
-        if (circles.size() < 120){
+        if (circles.size() < 200){
             for( size_t i = 0; i < circles.size(); i++ ) {
                 
                 Vec3i c = circles[i];
@@ -161,6 +190,29 @@ using namespace cv;
                 circle.x = [NSNumber numberWithFloat:c[0]];
                 circle.y = [NSNumber numberWithFloat:c[1]];
                 circle.r = [NSNumber numberWithFloat:c[2]];
+                vector<int>v_y = edges.row(c[1]).clone();
+                vector<int>::iterator idx = find(v_y.begin(), v_y.end(),255);
+                long index_min = &*idx-&v_y[0];
+                long index_max;
+                while (idx != v_y.end()) {
+                    idx++;
+                    idx = find(idx, v_y.end(),255);
+                    if (idx != v_y.end()) {
+                        index_max = &*idx-&v_y[0];
+                    }
+                }
+                float majorAxis = (index_max - index_min + 1)/2;
+                float track = majorAxis + index_min;
+                float minorAxis;
+                int z;
+                if (parts[c[1]][0]==0) {
+                    minorAxis = bunch_ratio*majorAxis;
+                    z = sqrt(abs((1-pow((c[0]-track), 2)/pow((majorAxis-c[2]), 2))*pow((minorAxis-c[2]), 2)));
+                }
+                else{
+                    float tr = majorAxis - c[2];
+                    z = sqrt(abs(pow(tr, 2)-pow((c[0]-track), 2)));  }
+                NSLog(@"(%d,%d,%d)",c[0],c[1],z);
                 [arr addObject:circle];
             }
         }else{
