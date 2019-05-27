@@ -46,7 +46,7 @@
         c.x = [NSNumber numberWithFloat:x];
         c.y = [NSNumber numberWithFloat:y];
         c.r = [NSNumber numberWithFloat:[circle.r floatValue]];
-        
+        c.z = [NSNumber numberWithFloat:[circle.z floatValue]];
         [arr addObject:c];
     }
     
@@ -124,6 +124,7 @@
         CGFloat x = [_circles[i].x floatValue];
         CGFloat y = [_circles[i].y floatValue];
         CGFloat r = [_circles[i].r floatValue];
+        CGFloat z = [_circles[i].z floatValue];
         SCNGeometry *geometer = [SCNGeometry geometry];
         geometer = [SCNSphere sphereWithRadius:r];
         geometer.firstMaterial.diffuse.contents = color;
@@ -133,7 +134,7 @@
         geometer.firstMaterial.lightingModelName = SCNLightingModelBlinn;
         
         SCNNode *geometerNode = [SCNNode nodeWithGeometry:geometer];
-        geometerNode.position = SCNVector3Make(x, y, 0);
+        geometerNode.position = SCNVector3Make(x, y, z);
         [groupNode addChildNode:geometerNode];
     }
 

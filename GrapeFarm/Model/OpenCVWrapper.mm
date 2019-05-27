@@ -213,6 +213,7 @@ using namespace cv;
                     float tr = majorAxis - c[2];
                     z = sqrt(abs(pow(tr, 2)-pow((c[0]-track), 2)));  }
                 NSLog(@"(%d,%d,%d)",c[0],c[1],z);
+                circle.z = [NSNumber numberWithFloat:z];
                 [arr addObject:circle];
             }
         }else{
@@ -220,6 +221,7 @@ using namespace cv;
             circle.x = [NSNumber numberWithFloat:0];
             circle.y = [NSNumber numberWithFloat:0];
             circle.r = [NSNumber numberWithFloat:0];
+            circle.z = [NSNumber numberWithFloat:0];
             [arr addObject:circle];
         }
     }
@@ -228,6 +230,7 @@ using namespace cv;
         circle.x = [NSNumber numberWithFloat:0];
         circle.y = [NSNumber numberWithFloat:0];
         circle.r = [NSNumber numberWithFloat:0];
+        circle.z = [NSNumber numberWithFloat:0];
         [arr addObject:circle];
     }
     return arr;

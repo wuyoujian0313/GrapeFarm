@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AICircle : NSObject
 @property(nonatomic,strong)NSNumber *x;
 @property(nonatomic,strong)NSNumber *y;
+@property(nonatomic,strong)NSNumber *z;
 @property(nonatomic,strong)NSNumber *r;
 @end
 
