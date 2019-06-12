@@ -15,13 +15,12 @@
 #import "AICircle.h"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
-
+#include <math.h>
 #pragma clang pop
 #endif
 
 using namespace std;
 using namespace cv;
-
 #pragma mark - Private Declarations
 
 
@@ -84,6 +83,11 @@ using namespace cv;
     Mat imageChannel;
     split(source, channels);
     imageChannel = channels.at(type);
+    Mat gray;
+    cvtColor(source, gray, CV_BGR2GRAY);
+    Mat dst1;
+    cv::threshold(gray,dst1,0,255,THRESH_OTSU);
+    Mat dst2 = 255-dst1;
     Mat gaussianBlur;
     GaussianBlur(imageChannel, gaussianBlur, cv::Size(5,5), 2,2);
     //计算最大熵
@@ -95,6 +99,7 @@ using namespace cv;
     calcHist(&gaussianBlur, 1, hannels, Mat(), hist, 1, histSize, ranges);
     float maxentropy = 0;
     int max_index = 0;
+    float pi = 3.1415926;
     Mat result;
     for (int l = 0; l < 256; l++)
     {
@@ -150,7 +155,9 @@ using namespace cv;
     //找最大轮廓
     vector<vector<cv::Point>> contours;
     vector<Vec4i> hierarchy;
-    findContours(edges , contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+    //cout<<dst1<<endl;
+    findContours(dst2, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+    //NSLog(@"%lu",contours.size());
     double maxarea = 0;
     int maxAreaIdx = 0;
     for(int index = contours.size()-1;index >=0;index--)
@@ -162,35 +169,270 @@ using namespace cv;
             maxAreaIdx=index;
         }
     }
+    //NSLog(@"%f",maxarea);
+    Mat edges1= Mat::zeros(edges.rows,edges.cols,CV_8UC1);
+    Scalar color(255,255,255);
+    drawContours(edges1, contours, maxAreaIdx, color, FILLED);
+    //NSLog(@"%i,%i",edges1.cols,edges1.rows);
     cv::Rect ret1 = boundingRect(Mat(contours[maxAreaIdx]));
-    int thres = ret1.width / ret1.height * ret1.height + ret1.y;
+    NSLog(@"%d,%d,%d,%d",ret1.x,ret1.y,ret1.width,ret1.height);
+    int thres = ret1.width + ret1.x;
     int nrow = edges.rows;
     int parts[nrow][1];
     int i,j;
+    vector<int> currentGroups;
+    vector<Vec4i> newBerries_atEdge;
+    vector<Vec4i>group_berries;
+    vector<Vec4i> visibleBerries;
+    vector<Vec4i> visibleBerries1;
+    vector<Vec4i> existing_Berries;
+    vector<Vec3f> circles_t;
+    Vec4i cf;
+    Vec4i ci;
+    Vec4i ct;
+    Vec4i tmp_fill_berry;
     float bunch_ratio = 5/6;
     for (i=0; i<nrow; i++) {
         for (j=0; j<1; j++) {
             parts[i][j]=1;
         }
     }
-    for (int th=1; th<thres; th++) {
+    //NSLog(@"%d",thres);
+    for (int th=0; th<thres; th++) {
         parts[th][0] = 0;
     }
+    float track_radius;
     vector<Vec3f> circles;
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     if ((int)distance < imageChannel.cols/3){
-        HoughCircles(edges, circles, HOUGH_GRADIENT, 1, 50,
-                     1, threshold, ((int)distance/2)*0.6, ((int)distance/2)*1.2 ); //image:8位，单通道图像。如果使用彩色图像，需要先转换为灰度图像。method：定义检测图像中圆的方法。目前唯一实现的方法是cv2.HOUGH_GRADIENT。dp：累加器分辨率与图像分辨率的反比。dp获取越大，累加器数组越小。minDist：检测到的圆的中心，（x,y）坐标之间的最小距离。如果minDist太小，则可能导致检测到多个相邻的圆。如果minDist太大，则可能导致很多圆检测不到。param1：用于处理边缘检测的梯度值方法。param2：cv2.HOUGH_GRADIENT方法的累加器阈值。阈值越小，检测到的圈子越多。minRadius：半径的最小大小（以像素为单位）。maxRadius：半径的最大大小（以像素为单位）。
-        
+        HoughCircles(edges, circles, HOUGH_GRADIENT, 1, ((int)distance/2),
+                     0.2*255, threshold, ((int)distance/2), ((int)distance/2)+10 ); //image:8位，单通道图像。如果使用彩色图像，需要先转换为灰度图像。method：定义检测图像中圆的方法。目前唯一实现的方法是cv2.HOUGH_GRADIENT。dp：累加器分辨率与图像分辨率的反比。dp获取越大，累加器数组越小。minDist：检测到的圆的中心，（x,y）坐标之间的最小距离。如果minDist太小，则可能导致检测到多个相邻的圆。如果minDist太大，则可能导致很多圆检测不到。param1：用于处理边缘检测的梯度值方法。param2：cv2.HOUGH_GRADIENT方法的累加器阈值。阈值越小，检测到的圈子越多。minRadius：半径的最小大小（以像素为单位）。maxRadius：半径的最大大小（以像素为单位）。
         if (circles.size() < 200){
-            for( size_t i = 0; i < circles.size(); i++ ) {
+            //所有的r,x,y
+            vector<int> array_r(circles.size());
+            for (int i =0; i<circles.size(); i++) {
+                array_r[i]=circles[i][2];
+                //NSLog(@"%d",array_r[i]);
+            }
+            vector<int> array_x(circles.size());
+            for (int i = 0; i < circles.size(); i++) {
+                array_x[i]=circles[i][0];
+            }
+            vector<int> array_y(circles.size());
+            for (int i = 0; i < circles.size(); i++) {
+                array_y[i]=circles[i][1];
+            }
+            //r的四分位点
+            float MaxValue = 0.0;
+            float MinValue = 0.0;
+            if (array_r.size()!=0) {
+                typedef vector<int>::size_type vec_sz;
+                sort(array_r.begin(), array_r.end());
+                vec_sz mid, mid1, mid3;
+                double median, median1, median3;
+                mid = array_r.size()/2;
+                median = array_r.size() % 2 ==0? (array_r[mid]+array_r[mid-1])/2.0 : array_r[mid];
+                mid1 = array_r.size()%2==0? (mid-1)/2 : mid/2;
+                mid3 = mid+mid+1;
+                if (array_r.size()%2 !=0) {
+                    median1 = mid%2==0? (array_r[mid1]+array_r[mid1-1])/2.0 : array_r[mid1];
+                    median3 = mid%2==0? (array_r[mid3]+array_r[mid3-1])/2.0 : array_r[mid3];
+                }
+                else
+                {
+                    median1 = (mid-1)%2==0? (array_r[mid1]+array_r[mid1-1])/2.0 : array_r[mid1];
+                    median3 = (mid-1)%2==0? (array_r[mid3]+array_r[mid3-1])/2.0 : array_r[mid3];}
+                float Spread = 1.5*(median3-median1);
+                MaxValue = median3 + Spread;
+                MinValue = median1 - Spread;}
+            //筛选circles
+            
+            for(int i = 0;i < circles.size();i++){
+                if ((array_r[i]<MaxValue)&&(array_r[i]>MinValue)) {
+                    circles_t.push_back(circles[i]);
+                }
+            }
+            //cout<<circles_t.size();
+            vector<int> a(circles_t.size());
+            for (int i =0; i<circles_t.size(); i++) {
+                a[i]=circles_t[i][0];
+            }
+            vector<int> b(circles_t.size());
+            for (int i =0; i<circles_t.size(); i++) {
+                b[i]=circles_t[i][1];
+            }
+            vector<int> r(circles_t.size());
+            for (int i =0; i<circles_t.size(); i++) {
+                r[i]=circles_t[i][2];
+            }
+            int group[r.size()][1];
+            for (i=0; i<r.size(); i++) {
+                for (j=0; j<1; j++) {
+                    group[i][j]=0;
+                }
+            }
+            int tolerance = 9;
+            float step_move = 0.5;
+            float step_radii = 0.01;
+            int groupNo = 1;
+            bool mark = false;
+            for (int i = 0; i < r.size(); i++) {
+                float distance[r.size()][1];
+                int index[r.size()][1];
+                if (group[i][0]==0&&mark) {
+                    int i,j;
+                    groupNo = group[0][0];
+                    for (i=0; i<r.size(); i++) {
+                        for (j=0; j<1; j++) {
+                            if (group[i][j]>groupNo) {
+                                groupNo=group[i][j];
+                            }
+                        }
+                    }
+                    groupNo = groupNo+1;
+                }else if (group[i][0]>0){
+                    groupNo = group[i][0];};
+                mark = false;
+                for (int j = 0; j<r.size(); j++) {
+                    distance[j][0]=sqrt(pow((a[i]-a[j]), 2)+pow((b[i]-b[j]), 2)+pow((r[i]-r[j]), 2));
+                    if ((distance[j][0]>0)&&(distance[j][0]<(r[i]+r[j]-tolerance))) {
+                        index[j][0]=1;
+                    }else{index[j][0]=0;}
+                }
+                int sum_index = 0;
+                int sum_group = 0;
+                for (int j=0; j<r.size(); j++) {
+                    sum_index = sum_index+index[j][0];
+                }
+                if (sum_index>0) {
+                    
+                    for (int j =0; j<r.size(); j++) {
+                        if (index[j][0]!=0) {
+                            currentGroups.push_back(group[j][0]);
+                            sum_group = sum_group + group[j][0];
+                            if (sum_group>0) {
+                                currentGroups.push_back(groupNo);
+                                vector<int>::iterator myMin = min_element(currentGroups.begin(), currentGroups.end());
+                                groupNo = *myMin;
+                            }
+                            group[i][0] = groupNo;
+                            for (int j = 0; j<r.size(); j++) {
+                                if (index[j][0]!=0) {
+                                    group[j][0] = groupNo;
+                                }
+                            }
+                            for (int j = 0; j<currentGroups.size(); j++) {
+                                for (int sj = 0; sj<r.size(); sj++) {
+                                    if (group[sj][0]==currentGroups[j]) {
+                                        group[sj][0] = groupNo;
+                                    }
+                                }
+                            }
+                        }
+                        mark = true;
+                    }
+                }
+            }
+            //adjust berries at egde
+            
+            
+            int max_group = group[0][0];
+            for (int i =0; i<r.size(); i++) {
+                for (int j =0 ; j<1; j++) {
+                    if (group[i][j]>max_group) {
+                        max_group = group[i][j];
+                    }
+                }
+            }
+            vector<int>tmp_x;
+            vector<int>tmp_y;
+            vector<int>tmp_r;
+            int middle_berry_idx;
+            for (int j = 0; j<max_group; j++) {
+                if (group[j][0]==j) {
+                    tmp_x.push_back(circles_t[j][0]);
+                    tmp_y.push_back(circles_t[j][1]);
+                    tmp_r.push_back(circles_t[j][2]);
+                }
+            }
+            
+            middle_berry_idx = tmp_r.size()/2;
+            
+            for (int j = 0; j<tmp_r.size(); j++) {
                 
-                Vec3i c = circles[i];
-                AICircle *circle = [[AICircle alloc] init];
-                circle.x = [NSNumber numberWithFloat:c[0]];
-                circle.y = [NSNumber numberWithFloat:c[1]];
-                circle.r = [NSNumber numberWithFloat:c[2]];
-                vector<int>v_y = edges.row(c[1]).clone();
+                ct[0] = tmp_x[j];
+                ct[1] = tmp_y[j];
+                ct[2] = 0;
+                ct[3] = tmp_r[j];
+                group_berries.push_back(ct);
+            }
+            int candidates[tmp_r.size()][1];
+            for (int i = 0; i<tmp_r.size(); i++) {
+                for (int j = 0; j<1; j++) {
+                    candidates[i][j]=0;
+                }
+            }
+            candidates[middle_berry_idx][0]=1;
+            for (int j = 0; j<tmp_r.size(); j++) {
+                if (j!=middle_berry_idx) {
+                    while (1) {
+                        float distance = sqrt(pow((group_berries[j][0]-group_berries[middle_berry_idx][0]), 2)+pow((group_berries[j][1]-group_berries[middle_berry_idx][1]), 2)+pow((group_berries[j][2]-group_berries[middle_berry_idx][2]), 2));
+                        if (distance<=0) {
+                            candidates[j][0]=1;
+                            break;
+                        }
+                    }
+                }
+            }
+            newBerries_atEdge.insert(newBerries_atEdge.end(),group_berries.begin(),group_berries.end());
+            for (int j = 0; j < r.size(); j++) {
+                if (group[j][0]==0) {
+                    
+                    ci[0] = a[j];
+                    ci[1] = b[j];
+                    ci[2] = 0;
+                    ci[3] = r[j];
+                    newBerries_atEdge.push_back(ci);
+                }
+            }
+            //cout<<newBerries_atEdge.size();
+            vector<Vec3f> circles2;
+            HoughCircles(edges, circles2, HOUGH_GRADIENT, 1, ((int)distance/2),
+                         0.1*255, 15, ((int)distance/2), ((int)distance/2)+10 );
+            
+            for (int i = 0; i < circles2.size(); i++) {
+                cf[0] = circles2[i][0];
+                cf[1] = circles2[i][1];
+                cf[2] = 0;
+                cf[3] = circles2[i][2];
+                visibleBerries.push_back(cf);
+            }
+            int candidates1[visibleBerries.size()][1];
+            for (int i = 0; i<visibleBerries.size(); i++) {
+                for (int j = 0; j<1; j++) {
+                    candidates1[i][j]=1;
+                }
+            }
+            for (int i = 0; i < visibleBerries.size(); i++) {
+                float distance;
+                for (int j = 0; j < r.size(); j++) {
+                    distance = sqrt(pow(visibleBerries[i][0]-a[j], 2)+pow(visibleBerries[i][1]-b[j], 2));
+                    if (distance < 0 || distance > visibleBerries[i][3]) {
+                        vector<Vec4i>::iterator it = visibleBerries.begin()+i;
+                        visibleBerries.erase(it);
+                        
+                    }
+                }
+            }
+            
+            
+            existing_Berries = newBerries_atEdge;
+            //cout<<visibleBerries.size();
+            //cout<<0<<endl;
+            for (int i = 0; i < visibleBerries.size(); i++) {
+                int center_x = visibleBerries[i][0];
+                int center_y = visibleBerries[i][1];
+                vector<int>v_y = edges.row(center_y).clone();
                 vector<int>::iterator idx = find(v_y.begin(), v_y.end(),255);
                 long index_min = &*idx-&v_y[0];
                 long index_max;
@@ -204,15 +446,202 @@ using namespace cv;
                 float majorAxis = (index_max - index_min + 1)/2;
                 float track = majorAxis + index_min;
                 float minorAxis;
-                int z;
-                if (parts[c[1]][0]==0) {
+                if (parts[center_y][0]==0) {
                     minorAxis = bunch_ratio*majorAxis;
-                    z = sqrt(abs((1-pow((c[0]-track), 2)/pow((majorAxis-c[2]), 2))*pow((minorAxis-c[2]), 2)));
+                    visibleBerries[i][2] = sqrt(abs((1-pow((center_x-track), 2)/pow((majorAxis-visibleBerries[i][3]), 2))*pow((minorAxis-visibleBerries[i][3]), 2)));
                 }
                 else{
-                    float tr = majorAxis - c[2];
-                    z = sqrt(abs(pow(tr, 2)-pow((c[0]-track), 2)));  }
-                NSLog(@"(%d,%d,%d)",c[0],c[1],z);
+                    track_radius = majorAxis - visibleBerries[i][3];
+                    visibleBerries[i][2] = sqrt(abs(pow(track_radius, 2)-pow((center_x-track), 2)));  }
+                float distance;
+                for (int j = 0; j < existing_Berries.size(); j++) {
+                    distance = sqrt(pow(visibleBerries[i][0]-existing_Berries[j][0], 2)+pow(visibleBerries[i][1]-existing_Berries[j][1], 2)+pow(visibleBerries[i][2]-existing_Berries[j][2], 2));
+                    while ((distance > 0) && (distance < visibleBerries[i][3]+existing_Berries[j][3]-tolerance)) {
+                        visibleBerries[i][2] = visibleBerries[i][2] - step_move;
+                    }
+                }
+            }
+            existing_Berries.insert(existing_Berries.end(), visibleBerries.begin(),visibleBerries.end());
+            float ar[existing_Berries.size()];
+            for (int i = 0; i < existing_Berries.size(); i++) {
+                ar[i] = existing_Berries[i][3];
+            }
+            float sum_r = 0;
+            for (int i = 0; i < existing_Berries.size(); i++) {
+                sum_r = sum_r + ar[i];
+            }
+            float muHat = sum_r/existing_Berries.size();
+            float sum_s = 0;
+            for (int i = 0; i < existing_Berries.size(); i++) {
+                sum_s = sum_s + pow(ar[i]-muHat, 2);
+            }
+            float theta[358];
+            for (int i = 1; i < 180; i++) {
+                theta[i-1] = i;
+            }
+            for (int i = 181; i<360; i++) {
+                theta[i-2]=i;
+            }
+            float theta2[30];
+            float ac = 1;
+            for (int i = 0; i < 30; i++) {
+                theta2[i] = ac;
+                ac = ac+12;
+            }
+            float vs = sqrt(sum_s/existing_Berries.size());
+            float muci1 = muHat + 1.960*(vs/sqrt(existing_Berries.size()));
+            float muci2 = muHat - 1.960*(vs/sqrt(existing_Berries.size()));
+            cout<<existing_Berries.size()<<endl;
+            cout<<0<<endl;
+            for (int i = ret1.x + 5; i < ret1.x + ret1.height - 5; i = i + 2) {
+                vector<int>v_y = edges1.row(i).clone();
+                //cout<<v_y.size()<<endl;
+                vector<int>::iterator idx = find(v_y.begin(), v_y.end(),255);
+                long index_min = &*idx-&v_y[0];
+                long index_max;
+                while (idx != v_y.end()) {
+                    idx++;
+                    idx = find(idx, v_y.end(),255);
+                    if (idx != v_y.end()) {
+                        index_max = &*idx-&v_y[0];
+                    }
+                }
+                float majorAxis = (index_max - index_min + 1)/2;
+                //NSLog(@"%f",parts[i][0]);
+                float track = majorAxis + index_min;
+                float minorAxis;
+                float tmp_radius;
+                srand(time(NULL));
+                //NSLog(@"%i",parts[i][0]);
+                if (parts[i][0]==0) {
+                    minorAxis = 0.8333*majorAxis;
+                    for (int ai = 0; ai < 358; ai++) {
+                        if (muci1 != INFINITY && muci2 != INFINITY) {
+                            tmp_radius = (rand()%100/(float)100)*(muci1-muci2) + muHat;
+                        }else{tmp_radius = muHat;}
+                        //cout<<minorAxis - tmp_radius<<endl;
+                        float tmp_fill_berry0, tmp_fill_berry1, tmp_fill_berry2, tmp_fill_berry3;
+                        tmp_fill_berry0 = track + (majorAxis - tmp_radius)*cos(theta[ai]/180*pi);
+                        tmp_fill_berry1 = i;
+                        
+                        tmp_fill_berry2 = (minorAxis - tmp_radius)*sin(theta[ai]/180*pi);
+                        //NSLog(@"%f",(theta[i]/180)*pi);
+                        tmp_fill_berry3 = tmp_radius;
+                        tmp_fill_berry[0] = tmp_fill_berry0;
+                        tmp_fill_berry[1] = tmp_fill_berry1;
+                        tmp_fill_berry[2] = tmp_fill_berry2;
+                        tmp_fill_berry[3] = tmp_fill_berry3;
+                        //NSLog(@"(%i,%i,%d,%i)",tmp_fill_berry[0],tmp_fill_berry[1],tmp_fill_berry[2],tmp_fill_berry[3]);
+                        float tmpX = tmp_fill_berry1;
+                        float tmpY = tmp_fill_berry0;
+                        float distance;
+                        float tmp_radius1;
+                        tmp_radius1 = tmp_radius*0.8;
+                        float xx[30];
+                        float yy[30];
+                        int ind2 = 0;
+                        bool index2;
+                        for (int j = 0; j<30; j++) {
+                            xx[j] = tmpX + tmp_radius1*cos(theta2[j]/180*pi);
+                            yy[j] = tmpY + tmp_radius1*sin(theta2[j]/180*pi);
+                            //NSLog(@"%i,%i",edges1.cols,edges1.rows);
+                            if ((xx[j]*yy[j] > 0)&&(xx[j] < edges1.rows)&&(yy[j] < edges1.cols)) {
+                                int ind1 = edges1.at<uchar>(xx[j],yy[j]);
+                                //NSLog(@"%i",ind1);
+                                if (ind1 == 255) {
+                                    ind2 = ind2 +1;
+                                }
+                            }else{index2 = false;}
+                        }
+                        if (ind2 == 30 ) {
+                            index2 = true;
+                        }
+                        int index1 = 0;
+                        for (int j = 0 ; j < existing_Berries.size(); j++) {
+                            distance = sqrt(pow(tmp_fill_berry0-existing_Berries[j][0], 2)+pow(tmp_fill_berry1-existing_Berries[j][1], 2)+pow(tmp_fill_berry2-existing_Berries[j][2], 2));
+                            if ((distance>0)&&(distance<tmp_fill_berry3+existing_Berries[j][3]+tolerance)) {
+                                
+                                index1 = index1+1;
+                            }
+                        }
+                        if ((index1==0)&&index2) {
+                            NSLog(@"(%d,%d,%d,%d)",tmp_fill_berry[0],tmp_fill_berry[1],tmp_fill_berry[2],tmp_fill_berry[3]);
+                            cout<<1<<endl;
+                            existing_Berries.push_back(tmp_fill_berry);
+                        }
+                    }
+                }else{
+                    track_radius = majorAxis;
+                    minorAxis = 0.8333*majorAxis;
+                    for (int ai = 0; ai < 358; ai++) {
+                        if (muci1 != INFINITY && muci2 != INFINITY) {
+                            tmp_radius = (rand()%100/(double)101)*(muci1-muci2) + muHat;
+                        }else{tmp_radius = muHat;}
+                        
+                        float tmp_fill_berry0, tmp_fill_berry1, tmp_fill_berry2, tmp_fill_berry3;
+                        tmp_fill_berry0 = track + (track_radius - tmp_radius)*cos(theta[ai]/180*pi);
+                        tmp_fill_berry1 = i;
+                        
+                        tmp_fill_berry2 = (track_radius - tmp_radius)*sin(theta[ai]/180*pi);
+                        //NSLog(@"%f",track_radius - tmp_radius);
+                        tmp_fill_berry3 = tmp_radius;
+                        tmp_fill_berry[0] = tmp_fill_berry0;
+                        tmp_fill_berry[1] = tmp_fill_berry1;
+                        tmp_fill_berry[2] = tmp_fill_berry2;
+                        tmp_fill_berry[3] = tmp_fill_berry3;
+                        //NSLog(@"(%i,%i,%d,%i)",tmp_fill_berry[0],tmp_fill_berry[1],tmp_fill_berry[2],tmp_fill_berry[3]);
+                        float tmpX = tmp_fill_berry1;
+                        float tmpY = tmp_fill_berry0;
+                        float distance;
+                        float tmp_radius1;
+                        tmp_radius1 = tmp_radius*0.8;
+                        float xx[30];
+                        float yy[30];
+                        int ind2 = 0;
+                        bool index2;
+                        for (int j = 0; j<30; j++) {
+                            xx[j] = tmpX + tmp_radius1*cos(theta2[j]/180*pi);
+                            yy[j] = tmpY + tmp_radius1*sin(theta2[j]/180*pi);
+                            if ((xx[j]*yy[j] > 0)&&(xx[j] < edges1.rows)&&(yy[j] < edges1.cols)) {
+                                int ind1 = edges1.at<uchar>(xx[j],yy[j]);
+                                if (ind1 == 255) {
+                                    ind2 = ind2 +1;
+                                }
+                            }else{index2 = false;}
+                        }
+                        if (ind2 == 30 ) {
+                            index2 = true;
+                        }
+                        int index1 = 0;
+                        for (int j = 0 ; j < existing_Berries.size(); j++) {
+                            distance = sqrt(pow(tmp_fill_berry0-existing_Berries[j][0], 2)+pow(tmp_fill_berry1-existing_Berries[j][1], 2)+pow(tmp_fill_berry2-existing_Berries[j][2], 2));
+                            if ((distance>0)&&(distance<tmp_fill_berry3+existing_Berries[j][3]+tolerance)) {
+                                index1 = index1+1;
+                            }
+                        }
+                        if ((index1==0)&&index2) {
+                            NSLog(@"(%d,%d,%f,%d)",tmp_fill_berry[0],tmp_fill_berry[1],minorAxis,tmp_fill_berry[3]);
+                            cout<<2<<endl;
+                            existing_Berries.push_back(tmp_fill_berry);
+                        }
+                    }
+                    
+                }
+            }
+            cout<<existing_Berries.size();
+            //cout<<0<<endl;
+            for( size_t i = 0; i < existing_Berries.size(); i++ ) {
+                Vec3i c;
+                int z;
+                c[0] = existing_Berries[i][0];
+                c[1] = existing_Berries[i][1];
+                c[2] = existing_Berries[i][3];
+                z = existing_Berries[i][2];
+                AICircle *circle = [[AICircle alloc] init];
+                circle.x = [NSNumber numberWithFloat:c[0]];
+                circle.y = [NSNumber numberWithFloat:c[1]];
+                circle.r = [NSNumber numberWithFloat:c[2]];
+                NSLog(@"(%d,%d,%d,%d)",c[0],c[1],z,c[2]);
                 circle.z = [NSNumber numberWithFloat:z];
                 [arr addObject:circle];
             }
@@ -273,13 +702,13 @@ using namespace cv;
     vector<Vec3f> circles;
     HoughCircles(edges, circles, HOUGH_GRADIENT, 1, 10,
                  1, 79, 150, 250 ); //image:8位，单通道图像。如果使用彩色图像，需要先转换为灰度图像。method：定义检测图像中圆的方法。目前唯一实现的方法是cv2.HOUGH_GRADIENT。dp：累加器分辨率与图像分辨率的反比。dp获取越大，累加器数组越小。minDist：检测到的圆的中心，（x,y）坐标之间的最小距离。如果minDist太小，则可能导致检测到多个相邻的圆。如果minDist太大，则可能导致很多圆检测不到。param1：用于处理边缘检测的梯度值方法。param2：cv2.HOUGH_GRADIENT方法的累加器阈值。阈值越小，检测到的圈子越多。minRadius：半径的最小大小（以像素为单位）。maxRadius：半径的最大大小（以像素为单位）。
-
+    
     for( size_t i = 0; i < circles.size(); i++ )
     {
         Vec3i c = circles[i];
         circle( source, Point2i(c[0], c[1]), c[2], Scalar(0,255,0), 10);
         circle( source, Point2i(c[0], c[1]), 2, Scalar(0,255,0), 10);
-
+        
     }
     return source;
     
@@ -291,13 +720,13 @@ using namespace cv;
     
     std::vector<Mat> channels;
     Mat imageBlueChannel;
-
+    
     //把一个三通道图像转化为三个单通道图像
     split(source, channels);
     imageBlueChannel = channels.at(0);
-
+    
     //显示分离的单通道图像
-
+    
     return imageBlueChannel;
     
 }
