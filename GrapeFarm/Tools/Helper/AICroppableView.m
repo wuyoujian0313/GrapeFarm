@@ -62,10 +62,23 @@
     return YES;
 }
 
+- (UIImage *)orientationCorrectedImage:(UIImage *)image {
+    UIImage * resultImage = nil;
+    resultImage = image;
+    UIImageOrientation imageOrientation = image.imageOrientation;
+    if(imageOrientation != UIImageOrientationUp){
+        UIGraphicsBeginImageContextWithOptions(image.size, YES, image.scale);
+        [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+        resultImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    return resultImage;
+}
+
 - (UIImage *)croppingOfImage:(UIImage*)image {
     if ([_croppingPath points] ==nil || [[_croppingPath points] count] == 0) {
         // 未剪切
-        return image;
+        return [self orientationCorrectedImage:image];
     }
     NSArray *points = [_croppingPath points];
     CGRect rect = CGRectZero;
