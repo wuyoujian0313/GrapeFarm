@@ -11,7 +11,7 @@
 
 @interface AICroppableView ()
 @property(nonatomic, strong) UIBezierPath *croppingPath;
-@property(nonatomic, assign) CGSize size;
+@property(assign) CGSize size;
 @end
 
 @implementation AICroppableView
@@ -31,6 +31,11 @@
         
     }
     return self;
+}
+
+-(void)setFrame:(CGRect)frame{
+    [super setFrame:frame];
+    _size = frame.size;
 }
 
 - (void)appendPath:(UIBezierPath *)path {
@@ -78,11 +83,11 @@
         
         aPath = [UIBezierPath bezierPath];
         
-        CGPoint p1 = [self convertCGPoint:[[points objectAtIndex:0] CGPointValue] fromViewRect:self.bounds.size toImageRect:image.size];
+        CGPoint p1 = [self convertCGPoint:[[points objectAtIndex:0] CGPointValue] fromViewRect:_size toImageRect:image.size];
         [aPath moveToPoint:CGPointMake(p1.x, p1.y)];
         
         for (uint i = 1; i<points.count; i++) {
-            CGPoint p = [self convertCGPoint:[[points objectAtIndex:i] CGPointValue] fromViewRect:self.bounds.size toImageRect:image.size];
+            CGPoint p = [self convertCGPoint:[[points objectAtIndex:i] CGPointValue] fromViewRect:_size toImageRect:image.size];
             [aPath addLineToPoint:CGPointMake(p.x, p.y)];
         }
         [aPath closePath];
