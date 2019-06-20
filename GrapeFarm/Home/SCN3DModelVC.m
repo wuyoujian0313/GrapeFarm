@@ -19,7 +19,9 @@
 @property (nonatomic, strong) SCNScene *scene;
 @property (nonatomic, strong) SCNView  *scnView;
 @property (nonatomic, strong) UIButton *nextBtn;
-@property(nonatomic,strong)NSArray<AICircle*> *circles;
+@property (nonatomic, strong) NSArray<AICircle*> *circles;
+@property (nonatomic, assign) CGFloat max_r;
+@property (nonatomic, assign) CGFloat mix_r;
 @end
 
 @implementation SCN3DModelVC
@@ -32,9 +34,10 @@
     [self drawSpheres];
 }
 
+
 - (void)setCircleEdges:(NSArray *)circles{
     NSMutableArray *arr = [[NSMutableArray alloc] init];
-    
+  
     FileCache *fileCache = [FileCache sharedFileCache];
     NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
     UIImage *image = [UIImage imageWithData:imageData];
@@ -68,6 +71,7 @@
     CGFloat max_y = 0;//_scnView.height/2.0;
 //    CGFloat scale = _scnView.height/_scnView.width;
     CGFloat max_r = 0;
+    CGFloat mix_r = 0;
     
     // 获取最大的x和y坐标值
     for (AICircle *circle in _circles) {
@@ -79,10 +83,17 @@
             max_y = fabsf([circle.y floatValue]);
         }
         
-        if (fabsf([circle.r floatValue] )> max_r) {
-            max_r = fabsf([circle.r floatValue]);
+        if ([circle.r floatValue]> max_r) {
+            max_r = [circle.r floatValue];
+        }
+        
+        if ([circle.r floatValue] < mix_r) {
+            mix_r = [circle.r floatValue];
         }
     }
+    
+    _max_r = max_r;
+    _mix_r = mix_r;
 
     //创建camera，camera也是作为一个节点在场景中
     SCNCamera *camera = [SCNCamera camera];
@@ -172,7 +183,10 @@
         modelString = [modelString stringByAppendingFormat:@"%.2f,%.2f,%.2f\n",[circle.x floatValue],[circle.y floatValue],[circle.r floatValue]];
     }
 
+    vc.circles = _circles;
     vc.modelString = modelString;
+    vc.mix_r = _mix_r;
+    vc.max_r = _max_r;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

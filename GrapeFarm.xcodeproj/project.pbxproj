@@ -24,6 +24,10 @@
 		AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097496224A23A600989F11 /* ForgotPasswordBean.m */; };
 		AF42445C22928E370056511F /* AICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42445B22928E370056511F /* AICircle.m */; };
 		AF50D99A228E8745009100AE /* SCN3DModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF50D999228E8745009100AE /* SCN3DModelVC.m */; };
+		AF7FCB8322BBAF5000EEC1CF /* JHColumnChart.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7FCB7C22BBAF5000EEC1CF /* JHColumnChart.m */; };
+		AF7FCB8422BBAF5000EEC1CF /* JHChart.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7FCB7E22BBAF5000EEC1CF /* JHChart.m */; };
+		AF7FCB8522BBAF5000EEC1CF /* JHIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7FCB7F22BBAF5000EEC1CF /* JHIndexPath.m */; };
+		AF7FCB8622BBAF5000EEC1CF /* JHColumnItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7FCB8022BBAF5000EEC1CF /* JHColumnItem.m */; };
 		AF894594224DE8140023D514 /* ColorSegmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF894593224DE8140023D514 /* ColorSegmentVC.m */; };
 		AF97524B226EAE9000EF0302 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */; };
 		AFAF4673225440BA008EF9CD /* SetBrushColorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */; };
@@ -149,6 +153,14 @@
 		AF42445B22928E370056511F /* AICircle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AICircle.m; sourceTree = "<group>"; };
 		AF50D998228E8745009100AE /* SCN3DModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCN3DModelVC.h; sourceTree = "<group>"; };
 		AF50D999228E8745009100AE /* SCN3DModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCN3DModelVC.m; sourceTree = "<group>"; };
+		AF7FCB7B22BBAF5000EEC1CF /* JHIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHIndexPath.h; sourceTree = "<group>"; };
+		AF7FCB7C22BBAF5000EEC1CF /* JHColumnChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHColumnChart.m; sourceTree = "<group>"; };
+		AF7FCB7D22BBAF5000EEC1CF /* JHColumnItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHColumnItem.h; sourceTree = "<group>"; };
+		AF7FCB7E22BBAF5000EEC1CF /* JHChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHChart.m; sourceTree = "<group>"; };
+		AF7FCB7F22BBAF5000EEC1CF /* JHIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHIndexPath.m; sourceTree = "<group>"; };
+		AF7FCB8022BBAF5000EEC1CF /* JHColumnItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHColumnItem.m; sourceTree = "<group>"; };
+		AF7FCB8122BBAF5000EEC1CF /* JHColumnChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHColumnChart.h; sourceTree = "<group>"; };
+		AF7FCB8222BBAF5000EEC1CF /* JHChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHChart.h; sourceTree = "<group>"; };
 		AF894592224DE8140023D514 /* ColorSegmentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorSegmentVC.h; sourceTree = "<group>"; };
 		AF894593224DE8140023D514 /* ColorSegmentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorSegmentVC.m; sourceTree = "<group>"; };
 		AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
@@ -353,6 +365,21 @@
 			path = Beans;
 			sourceTree = "<group>";
 		};
+		AF7FCB7A22BBAF5000EEC1CF /* JHChart */ = {
+			isa = PBXGroup;
+			children = (
+				AF7FCB7B22BBAF5000EEC1CF /* JHIndexPath.h */,
+				AF7FCB7C22BBAF5000EEC1CF /* JHColumnChart.m */,
+				AF7FCB7D22BBAF5000EEC1CF /* JHColumnItem.h */,
+				AF7FCB7E22BBAF5000EEC1CF /* JHChart.m */,
+				AF7FCB7F22BBAF5000EEC1CF /* JHIndexPath.m */,
+				AF7FCB8022BBAF5000EEC1CF /* JHColumnItem.m */,
+				AF7FCB8122BBAF5000EEC1CF /* JHColumnChart.h */,
+				AF7FCB8222BBAF5000EEC1CF /* JHChart.h */,
+			);
+			path = JHChart;
+			sourceTree = "<group>";
+		};
 		AFBF90AF22486674007F2ED8 = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +447,7 @@
 		AFBF90ED22486ECE007F2ED8 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				AF7FCB7A22BBAF5000EEC1CF /* JHChart */,
 				AFF9A53B226058A300CB3537 /* MJRefresh */,
 				AFD97AA0224B6E630048367E /* Helper */,
 				AFBF90EE22486ECE007F2ED8 /* NetworkTask */,
@@ -825,6 +853,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF7FCB8622BBAF5000EEC1CF /* JHColumnItem.m in Sources */,
 				AFBF918322486ECE007F2ED8 /* AFSecurityPolicy.m in Sources */,
 				AFF9A574226058A300CB3537 /* MJRefreshAutoGifFooter.m in Sources */,
 				AFF9A56E226058A300CB3537 /* NSBundle+MJRefresh.m in Sources */,
@@ -857,6 +886,7 @@
 				AFF9A572226058A300CB3537 /* MJRefreshBackNormalFooter.m in Sources */,
 				AFBF915D22486ECE007F2ED8 /* UIColor+Utility.m in Sources */,
 				AF095575225F717500744977 /* CommitBean.m in Sources */,
+				AF7FCB8322BBAF5000EEC1CF /* JHColumnChart.m in Sources */,
 				AFF9A570226058A300CB3537 /* MJRefreshBackGifFooter.m in Sources */,
 				AFD97AC6224B6EFC0048367E /* UIBezierPath+Points.m in Sources */,
 				AFF9A56B226058A300CB3537 /* MJRefreshConst.m in Sources */,
@@ -871,6 +901,7 @@
 				AFAF467722545EC2008EF9CD /* SaveSimpleDataManager.m in Sources */,
 				AFF9A57A226058A300CB3537 /* MJRefreshHeader.m in Sources */,
 				AFBF90CB22486676007F2ED8 /* main.m in Sources */,
+				AF7FCB8522BBAF5000EEC1CF /* JHIndexPath.m in Sources */,
 				AFD97A95224B50970048367E /* RecordVC.m in Sources */,
 				AF0353DC228E516800250B41 /* BreedListBase.m in Sources */,
 				AFCD4C4722534B6700A5040B /* ModelIdentificationVC.m in Sources */,
@@ -900,6 +931,7 @@
 				AFBF917E22486ECE007F2ED8 /* AFURLResponseSerialization.m in Sources */,
 				AFCD4C4A22534E9700A5040B /* FileCache.m in Sources */,
 				AFD97ABC224B6E630048367E /* CaptchaControl.m in Sources */,
+				AF7FCB8422BBAF5000EEC1CF /* JHChart.m in Sources */,
 				AFBF915822486ECE007F2ED8 /* UIImage+ResizeMagick.m in Sources */,
 				AFF9A571226058A300CB3537 /* MJRefreshBackStateFooter.m in Sources */,
 				AFBF9190224876DA007F2ED8 /* HomeVC.m in Sources */,

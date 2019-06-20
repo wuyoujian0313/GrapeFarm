@@ -65,7 +65,8 @@
 "black_bg"                  ="Set it to a black background";
 "white_bg"                  ="Set it to a white background";
 "processing"                ="Processing...";
-
+"green"                     ="Green";
+"purple"                    ="Purple";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";
