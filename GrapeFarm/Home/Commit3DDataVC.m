@@ -136,13 +136,10 @@
     [_contentTableView setTableHeaderView:view];
 }
 
-
-
 - (void)setTableViewFooterView:(NSInteger)height {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 10, _contentTableView.frame.size.width - 20, height)];
-    JHColumnChart *column = [[JHColumnChart alloc] initWithFrame:CGRectMake(0, 0, view.width, view.height - 10)];
     
-    NSInteger step = 6;
+    NSInteger step = 5;
     NSInteger range = _max_r / step;
     NSMutableArray *valueArr = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *textArr = [[NSMutableArray alloc] initWithCapacity:0];
@@ -153,9 +150,31 @@
     for (NSUInteger i = 0; i < [_circles count]; i++) {
         AICircle *circle = _circles[i];
         NSInteger index = [circle.r integerValue] / range == 0?0:[circle.r integerValue] / range-1;
-        valueArr[index] = [NSArray arrayWithObject:[NSNumber numberWithInteger:[valueArr[index][0] integerValue] +1]] ;
+        if (index < [valueArr count]) {
+            valueArr[index] = [NSArray arrayWithObject:[NSNumber numberWithInteger:[valueArr[index][0] integerValue] +1]];
+        }
     }
+
+    UILabel *chartLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, view.width, 25)];
+    [chartLabel setFont:[UIFont systemFontOfSize:13]];
+    [chartLabel setTextAlignment:NSTextAlignmentRight];
+    NSString *desc =[NSString stringWithFormat:NSLocalizedString(@"chartDesc", nil),_max_r,[_circles count]];
     
+    NSString *noteString1= [NSString stringWithFormat:@"%.f",_max_r];
+    NSString *noteString2= [NSString stringWithFormat:@"%lu",(unsigned long)[_circles count]];;
+    NSRange range1 = [desc rangeOfString:noteString1];
+    NSRange range2 = [desc rangeOfString:noteString2];
+    NSDictionary *attributes1 = @{ NSFontAttributeName:[UIFont systemFontOfSize:13], NSForegroundColorAttributeName:[UIColor colorWithHex:kTextGrayColor]};
+    NSDictionary *attributes2 = @{ NSFontAttributeName:[UIFont boldSystemFontOfSize:13], NSForegroundColorAttributeName:[UIColor colorWithHex:0xF3704B]};
+    
+    NSMutableAttributedString *attrStr1 = [[NSMutableAttributedString alloc] initWithString:desc];
+    [attrStr1 addAttributes:attributes1 range:NSMakeRange(0, desc.length)];
+    [attrStr1 addAttributes:attributes2 range:range1];
+    [attrStr1 addAttributes:attributes2 range:range2];
+    [chartLabel setAttributedText:attrStr1];
+    [view addSubview:chartLabel];
+    
+    JHColumnChart *column = [[JHColumnChart alloc] initWithFrame:CGRectMake(0, chartLabel.bottom, view.width, view.height - 10-chartLabel.bottom)];
     column.valueArr = valueArr;
     column.xShowInfoText = textArr;
     

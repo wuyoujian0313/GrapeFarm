@@ -67,6 +67,7 @@
 "processing"                ="Processing...";
 "green"                     ="Green";
 "purple"                    ="Purple";
+"chartDesc"                 ="Maximum grape radius:%.f Total:%lu";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";

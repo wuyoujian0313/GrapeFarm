@@ -22,6 +22,8 @@
 @property (nonatomic, strong) NSArray<AICircle*> *circles;
 @property (nonatomic, assign) CGFloat max_r;
 @property (nonatomic, assign) CGFloat mix_r;
+@property (nonatomic, strong) SCNNode *groupNode;
+@property (nonatomic, assign) NSInteger XAngle;
 @end
 
 @implementation SCN3DModelVC
@@ -56,13 +58,102 @@
     self.circles = arr;
 }
 
+
+
+// 缩放手势
+- (void)pinch:(UIPinchGestureRecognizer *)pinchGesture{
+    if([pinchGesture numberOfTouches] < 2) {
+        return;
+    }
+    SCNAction *scaleAction = [SCNAction scaleBy:pinchGesture.scale duration:0];
+    [_groupNode runAction:scaleAction];
+    pinchGesture.scale = 1.0;
+}
+
+- (void)rotation:(UIRotationGestureRecognizer *)rotationGesture {
+    // 旋转角度
+    float rotate = rotationGesture.rotation;
+    // 模型平面垂直向量
+    SCNVector3 v = SCNVector3Make(0, cos(_XAngle*M_PI/180), sin(_XAngle*M_PI/180));
+    // Action
+    SCNAction *rotateAction = [SCNAction rotateByAngle:-rotate*0.75 aroundAxis:v duration:0];
+    [_groupNode runAction:rotateAction];
+    
+    rotationGesture.rotation = 0;
+}
+
+- (void)panned:(UIPanGestureRecognizer *)panGesture{
+    NSInteger TX = 0,TY = 0;
+    CGPoint transPoint = [panGesture translationInView:_scnView];
+    // 单指
+    if ([panGesture numberOfTouches] == 1) {
+        TX = transPoint.x * 4 ;
+        TY = -transPoint.y * 4 ;
+        
+        SCNAction *pan = [SCNAction moveByX:TX y:TY z:0 duration:0];
+        [_groupNode runAction:pan];
+    }
+//    // 双指
+//    else if ([panGesture numberOfTouches] == 2) {
+//        // 偏转角度
+//        CGFloat angle = transPoint.y / self.view.width *100;
+//        // x轴累计偏转角
+//        _XAngle += angle;
+//        // 40°~90°阈值
+//        if (_XAngle > 90) {
+//            _XAngle = 90;
+//            angle = 0;
+//        } else if (_XAngle < 40) {
+//            _XAngle = 40;
+//            angle = 0;
+//        }
+//
+//        SCNAction *action = [SCNAction rotateByAngle:(angle*M_PI/180) aroundAxis:SCNVector3Make(1, 0, 0) duration:0];
+//        [_groupNode runAction:action];
+//    }
+    [panGesture setTranslation:CGPointMake(0, 0) inView:_scnView];
+}
+
+//// 单击手势
+//- (void)tap:(UITapGestureRecognizer *)tapGesture
+//{
+//    CGPoint tapPoint = [tapGesture locationInView:_scnView];
+//    NSArray *arr = [_scnView hitTest:tapPoint options:nil];
+//    if (arr.count > 0) {
+//        SCNHitTestResult *result = arr[0];
+//        NSLog(@"%@", result.node.name);
+//    }
+//}
+
 - (void)drawSpheres {
     self.scnView = [[SCNView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], self.view.frame.size.width, _nextBtn.top - 10 - [DeviceInfo navigationBarHeight])];
+    [_scnView setDelegate:self];
     [_scnView setBackgroundColor:[UIColor blackColor]];
     // 允许相机控制
-    [_scnView setAllowsCameraControl:YES];
+//    [_scnView setAllowsCameraControl:YES];
     [_scnView setAutoenablesDefaultLighting:YES];
     [self.view addSubview:_scnView];
+    
+    // 旋转手势
+    UIRotationGestureRecognizer *rotationGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotation:)];
+//    rotationGesture.delegate = self;
+    [_scnView addGestureRecognizer:rotationGesture];
+    
+    // 缩放手势
+    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
+//    pinchGesture.delegate = self;
+    [_scnView addGestureRecognizer:pinchGesture];
+    
+    // 平移手势
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
+//    panGesture.delegate = self;
+    [_scnView addGestureRecognizer:panGesture];
+    
+    // 点击手势
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+////    tapGesture.delegate = self;
+//    [_scnView addGestureRecognizer:tapGesture];
+    
     //创建场景
     SCNScene *scene = [[SCNScene alloc] init];
     _scnView.scene = scene;
@@ -123,12 +214,13 @@
     [_scnView.scene.rootNode addChildNode:lightNode];
     //把所有的圆作为一组
     SCNNode *groupNode = [SCNNode node];
+    self.groupNode = groupNode;
     groupNode.position = SCNVector3Make(0, 0, 0);
     
     //组节点围绕y轴转动
-    SCNAction *rotaeAction = [SCNAction rotateByAngle:-1 aroundAxis:SCNVector3Make(0, 1, 0) duration:1];
-    SCNAction *reRotateAction = [SCNAction repeatActionForever:rotaeAction];
-    [groupNode runAction:reRotateAction];
+//    SCNAction *rotaeAction = [SCNAction rotateByAngle:-1 aroundAxis:SCNVector3Make(0, 1, 0) duration:1];
+//    SCNAction *reRotateAction = [SCNAction repeatActionForever:rotaeAction];
+//    [groupNode runAction:reRotateAction];
     
     UIColor *color = [UIColor whiteColor];
     for (NSInteger i = 0; i < [_circles count]; i++) {
