@@ -5,7 +5,7 @@
   Created by Wu YouJian on 2019/3/26.
   Copyright © 2019 Wu YouJian. All rights reserved.
 */
-"AppName"                   ="Grape Farm";
+"AppName"                   ="Vineyard";
 "PleaseRegister_1"          ="There is no account?";
 "PleaseRegister_2"          =" Please register";
 "InputAccount"              ="Please enter your account";
@@ -67,7 +67,8 @@
 "processing"                ="Processing...";
 "green"                     ="Green";
 "purple"                    ="Purple";
-"chartDesc"                 ="Maximum grape radius:%.f Total:%lu";
+"chartDesc"                 ="Maximum grape radius:%lu Total:%lu";
+"about"                     ="About the vineyard";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";

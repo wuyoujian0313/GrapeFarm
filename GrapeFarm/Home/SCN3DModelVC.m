@@ -20,8 +20,8 @@
 @property (nonatomic, strong) SCNView  *scnView;
 @property (nonatomic, strong) UIButton *nextBtn;
 @property (nonatomic, strong) NSArray<AICircle*> *circles;
-@property (nonatomic, assign) CGFloat max_r;
-@property (nonatomic, assign) CGFloat mix_r;
+@property (nonatomic, assign) NSInteger max_r;
+@property (nonatomic, assign) NSInteger mix_r;
 @property (nonatomic, strong) SCNNode *groupNode;
 @property (nonatomic, assign) NSInteger XAngle;
 @end
@@ -51,7 +51,7 @@
         c.x = [NSNumber numberWithFloat:x];
         c.y = [NSNumber numberWithFloat:y];
         c.r = [NSNumber numberWithFloat:[circle.r floatValue]];
-        c.z = [NSNumber numberWithFloat:[circle.z floatValue]];
+        c.z = [NSNumber numberWithInteger:[circle.z integerValue]];
         [arr addObject:c];
     }
     
@@ -161,8 +161,8 @@
     CGFloat max_x = 0;//_scnView.width/2.0;
     CGFloat max_y = 0;//_scnView.height/2.0;
 //    CGFloat scale = _scnView.height/_scnView.width;
-    CGFloat max_r = 0;
-    CGFloat mix_r = 0;
+    NSInteger max_r = 0;
+    NSInteger mix_r = 0;
     
     // 获取最大的x和y坐标值
     for (AICircle *circle in _circles) {
@@ -178,8 +178,8 @@
             max_r = [circle.r floatValue];
         }
         
-        if ([circle.r floatValue] < mix_r) {
-            mix_r = [circle.r floatValue];
+        if ([circle.r integerValue] < mix_r) {
+            mix_r = [circle.r integerValue];
         }
     }
     
@@ -272,7 +272,7 @@
     Commit3DDataVC *vc = [[Commit3DDataVC alloc] init];
     NSString *modelString = @"";
     for (AICircle *circle in _circles) {
-        modelString = [modelString stringByAppendingFormat:@"%.2f,%.2f,%.2f\n",[circle.x floatValue],[circle.y floatValue],[circle.r floatValue]];
+        modelString = [modelString stringByAppendingFormat:@"%.2f,%.2f,%.lu\n",[circle.x floatValue],[circle.y floatValue],[circle.r integerValue]];
     }
 
     vc.circles = _circles;

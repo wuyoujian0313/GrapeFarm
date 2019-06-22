@@ -143,15 +143,21 @@
     NSInteger range = _max_r / step;
     NSMutableArray *valueArr = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *textArr = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *rangeArr = [[NSMutableArray alloc] initWithCapacity:0];
+    NSInteger temp = _max_r;
     for (NSUInteger i = 0; i < step; i++) {
+        temp -= range;
         [valueArr addObject:[NSArray arrayWithObject:[NSNumber numberWithInteger:0]]];
-        [textArr addObject:[NSString stringWithFormat:@"%lu",range*(i+1)]];
+        [textArr insertObject:[NSString stringWithFormat:@"%lu",temp] atIndex:0];
+        [rangeArr insertObject:[NSNumber numberWithInteger:temp] atIndex:0];
     }
     for (NSUInteger i = 0; i < [_circles count]; i++) {
         AICircle *circle = _circles[i];
-        NSInteger index = [circle.r integerValue] / range == 0?0:[circle.r integerValue] / range-1;
-        if (index < [valueArr count]) {
-            valueArr[index] = [NSArray arrayWithObject:[NSNumber numberWithInteger:[valueArr[index][0] integerValue] +1]];
+        NSInteger r = [circle.r integerValue];
+        for (NSUInteger j = 0; j< [rangeArr count]; j++) {
+            if (r>=[rangeArr[j] integerValue] && r<= [rangeArr[j] integerValue]+range) {
+                valueArr[j] = [NSArray arrayWithObject:[NSNumber numberWithInteger:[valueArr[j][0] integerValue] +1]];
+            }
         }
     }
 
@@ -160,7 +166,7 @@
     [chartLabel setTextAlignment:NSTextAlignmentRight];
     NSString *desc =[NSString stringWithFormat:NSLocalizedString(@"chartDesc", nil),_max_r,[_circles count]];
     
-    NSString *noteString1= [NSString stringWithFormat:@"%.f",_max_r];
+    NSString *noteString1= [NSString stringWithFormat:@"%lu",(unsigned long)_max_r];
     NSString *noteString2= [NSString stringWithFormat:@"%lu",(unsigned long)[_circles count]];;
     NSRange range1 = [desc rangeOfString:noteString1];
     NSRange range2 = [desc rangeOfString:noteString2];

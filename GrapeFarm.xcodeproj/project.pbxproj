@@ -79,6 +79,7 @@
 		AFD97AC9224B70390048367E /* AICroppableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD97AC8224B70390048367E /* AICroppableView.m */; };
 		AFEDA3CE224CAC86004D063A /* Commit3DDataVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFEDA3CD224CAC86004D063A /* Commit3DDataVC.m */; };
 		AFEDA3D4224CBDEB004D063A /* GetVerificationCodeBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AFEDA3D3224CBDEB004D063A /* GetVerificationCodeBean.m */; };
+		AFF2D5E222BE532500305111 /* AboutVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF2D5E122BE532500305111 /* AboutVC.m */; };
 		AFF9A56A226058A300CB3537 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF9A53C226058A300CB3537 /* UIScrollView+MJRefresh.m */; };
 		AFF9A56B226058A300CB3537 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF9A53D226058A300CB3537 /* MJRefreshConst.m */; };
 		AFF9A56C226058A300CB3537 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AFF9A541226058A300CB3537 /* MJRefresh.bundle */; };
@@ -266,6 +267,8 @@
 		AFEDA3CD224CAC86004D063A /* Commit3DDataVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Commit3DDataVC.m; sourceTree = "<group>"; };
 		AFEDA3D2224CBDEB004D063A /* GetVerificationCodeBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetVerificationCodeBean.h; sourceTree = "<group>"; };
 		AFEDA3D3224CBDEB004D063A /* GetVerificationCodeBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetVerificationCodeBean.m; sourceTree = "<group>"; };
+		AFF2D5E022BE532500305111 /* AboutVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutVC.h; sourceTree = "<group>"; };
+		AFF2D5E122BE532500305111 /* AboutVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutVC.m; sourceTree = "<group>"; };
 		AFF9A53C226058A300CB3537 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		AFF9A53D226058A300CB3537 /* MJRefreshConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshConst.m; sourceTree = "<group>"; };
 		AFF9A53E226058A300CB3537 /* UIScrollView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+MJExtension.h"; sourceTree = "<group>"; };
@@ -580,6 +583,8 @@
 				AFD97A97224B512A0048367E /* FarmListVC.m */,
 				AFAF4671225440BA008EF9CD /* SetBrushColorVC.h */,
 				AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */,
+				AFF2D5E022BE532500305111 /* AboutVC.h */,
+				AFF2D5E122BE532500305111 /* AboutVC.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -864,6 +869,7 @@
 				AFCF2E8C225F292100D149B0 /* RecordListBean.m in Sources */,
 				AFEDA3D4224CBDEB004D063A /* GetVerificationCodeBean.m in Sources */,
 				AFEDA3CE224CAC86004D063A /* Commit3DDataVC.m in Sources */,
+				AFF2D5E222BE532500305111 /* AboutVC.m in Sources */,
 				AFBF915E22486ECE007F2ED8 /* NSData+Crypto.m in Sources */,
 				AFBF918622487018007F2ED8 /* MainControllerManager.m in Sources */,
 				AFD97ABB224B6E630048367E /* AILoadingView.m in Sources */,

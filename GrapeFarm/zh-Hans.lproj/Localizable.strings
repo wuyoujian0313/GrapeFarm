@@ -67,7 +67,8 @@
 "processing"                ="处理中....";
 "green"                     ="绿色";
 "purple"                    ="紫色";
-"chartDesc"                 ="最大葡萄半径:%.f 总数:%lu";
+"chartDesc"                 ="最大葡萄半径:%lu 总数:%lu";
+"about"                     ="关于葡萄农庄";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "此邮箱已注册";
