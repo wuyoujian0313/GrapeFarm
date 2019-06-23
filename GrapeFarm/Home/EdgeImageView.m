@@ -63,7 +63,9 @@
 }
 
 - (void)clear {
-    [self setCircles:nil];
+    if (_circles != nil && [_circles count] > 0) {
+        [self setCircles:nil];
+    }
 }
 
 @end

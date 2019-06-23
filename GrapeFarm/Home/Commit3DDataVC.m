@@ -139,23 +139,24 @@
 - (void)setTableViewFooterView:(NSInteger)height {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 10, _contentTableView.frame.size.width - 20, height)];
     
-    NSInteger step = 5;
-    NSInteger range = _max_r / step;
+    NSInteger columCount = 5;
+    NSInteger step = (_max_r - _mix_r)%columCount == 0?(_max_r - _mix_r)/columCount:(_max_r - _mix_r)/columCount+1;
     NSMutableArray *valueArr = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *textArr = [[NSMutableArray alloc] initWithCapacity:0];
-    NSMutableArray *rangeArr = [[NSMutableArray alloc] initWithCapacity:0];
-    NSInteger temp = _max_r;
-    for (NSUInteger i = 0; i < step; i++) {
-        temp -= range;
+    NSMutableArray *stepArr = [[NSMutableArray alloc] initWithCapacity:0];
+    NSInteger temp = _mix_r;
+    for (NSUInteger i = 0; i < columCount; i++) {
+        
         [valueArr addObject:[NSArray arrayWithObject:[NSNumber numberWithInteger:0]]];
-        [textArr insertObject:[NSString stringWithFormat:@"%lu",temp] atIndex:0];
-        [rangeArr insertObject:[NSNumber numberWithInteger:temp] atIndex:0];
+        [textArr addObject:[NSString stringWithFormat:@"%lu",temp]];
+        [stepArr addObject:[NSNumber numberWithInteger:temp]];
+        temp += step;
     }
     for (NSUInteger i = 0; i < [_circles count]; i++) {
         AICircle *circle = _circles[i];
         NSInteger r = [circle.r integerValue];
-        for (NSUInteger j = 0; j< [rangeArr count]; j++) {
-            if (r>=[rangeArr[j] integerValue] && r<= [rangeArr[j] integerValue]+range) {
+        for (NSUInteger j = 0; j< [stepArr count]; j++) {
+            if (r>=[stepArr[j] integerValue] && r < [stepArr[j] integerValue]+step) {
                 valueArr[j] = [NSArray arrayWithObject:[NSNumber numberWithInteger:[valueArr[j][0] integerValue] +1]];
             }
         }

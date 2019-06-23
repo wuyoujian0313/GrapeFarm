@@ -162,7 +162,7 @@
     CGFloat max_y = 0;//_scnView.height/2.0;
 //    CGFloat scale = _scnView.height/_scnView.width;
     NSInteger max_r = 0;
-    NSInteger mix_r = 0;
+    NSInteger mix_r = INT_MAX;
     
     // 获取最大的x和y坐标值
     for (AICircle *circle in _circles) {

@@ -214,6 +214,7 @@
 }
 
 - (void)sliderValueChangingOfLeft:(NSInteger)left right:(NSInteger)right {
+    [_imageView clear];
 }
 
 
