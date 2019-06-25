@@ -395,18 +395,19 @@
             }
             [self.BGScrollView addSubview:itemsView];
 
+            __weak JHColumnChart *wSelf = self;
             [UIView animateWithDuration:1 animations:^{
-                
-                 itemsView.frame = CGRectMake((i * arr.count + j)*_columnWidth + i*_typeSpace+_originSize.x + _typeSpace + _drawFromOriginX, CGRectGetHeight(self.frame) - height - _originSize.y -1, _columnWidth, height);
+                 JHColumnChart *sSelf = wSelf;
+                 itemsView.frame = CGRectMake((i * arr.count + j)*sSelf.columnWidth + i*sSelf.typeSpace+sSelf.originSize.x + sSelf.typeSpace + sSelf.drawFromOriginX, CGRectGetHeight(sSelf.frame) - height - sSelf.originSize.y -1, sSelf.columnWidth, height);
                 
             } completion:^(BOOL finished) {
                 /*        动画结束后添加提示文字         */
                 if (finished) {
-                    
+                    JHColumnChart *sSelf = wSelf;
                     CATextLayer *textLayer = [CATextLayer layer];
                     
-                    [self.layerArr addObject:textLayer];
-                    NSString *str = [NSString stringWithFormat:@"%0.2f",height / _perHeight];
+                    [sSelf.layerArr addObject:textLayer];
+                    NSString *str = [NSString stringWithFormat:@"%0.2f",height / self.perHeight];
                     
                     CGSize size = [str boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:9]} context:nil].size;
                     
@@ -422,22 +423,22 @@
                     textLayer.contentsScale = [UIScreen mainScreen].scale;
                     textLayer.foregroundColor = itemsView.backgroundColor.CGColor;
                     
-                    [_BGScrollView.layer addSublayer:textLayer];
+                    [sSelf.BGScrollView.layer addSublayer:textLayer];
                  
                     
                     //添加折线图
-                    if (i==_valueArr.count - 1&&j == arr.count-1 && _isShowLineChart) {
+                    if (i==sSelf.valueArr.count - 1&&j == arr.count-1 && sSelf.isShowLineChart) {
                         
                         UIBezierPath *path = [UIBezierPath bezierPath];
                         
-                        for (int32_t m=0;m<_lineValueArray.count;m++) {
-                            NSLog(@"%@",_drawLineValue[m]);
+                        for (int32_t m=0;m<sSelf.lineValueArray.count;m++) {
+                            NSLog(@"%@",sSelf.drawLineValue[m]);
                             if (m==0) {
-                                [path moveToPoint:[_drawLineValue[m] CGPointValue]];
+                                [path moveToPoint:[sSelf.drawLineValue[m] CGPointValue]];
                                 
                             }else{
-                                [path addLineToPoint:[_drawLineValue[m] CGPointValue]];
-                                [path moveToPoint:[_drawLineValue[m] CGPointValue]];
+                                [path addLineToPoint:[sSelf.drawLineValue[m] CGPointValue]];
+                                [path moveToPoint:[sSelf.drawLineValue[m] CGPointValue]];
                             }
                             
                         }
@@ -446,18 +447,18 @@
                         shaper.path = path.CGPath;
                         shaper.frame = self.bounds;
                         shaper.lineWidth = 2.5;
-                        shaper.strokeColor = _lineChartPathColor.CGColor;
+                        shaper.strokeColor = sSelf.lineChartPathColor.CGColor;
                         
-                        [self.layerArr addObject:shaper];
+                        [sSelf.layerArr addObject:shaper];
                         
                         CABasicAnimation *basic = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
 
                         basic.fromValue = @0;
                         basic.toValue = @1;
                         basic.duration = 1;
-                        basic.delegate = self;
+                        basic.delegate = sSelf;
                         [shaper addAnimation:basic forKey:@"stokentoend"];
-                        [self.BGScrollView.layer addSublayer:shaper];
+                        [sSelf.BGScrollView.layer addSublayer:shaper];
                     }
                     
                     

@@ -30,6 +30,7 @@
 		AF7FCB8622BBAF5000EEC1CF /* JHColumnItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7FCB8022BBAF5000EEC1CF /* JHColumnItem.m */; };
 		AF894594224DE8140023D514 /* ColorSegmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF894593224DE8140023D514 /* ColorSegmentVC.m */; };
 		AF97524B226EAE9000EF0302 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */; };
+		AFA4DFA422C2652900C72292 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA4DFA322C2652900C72292 /* opencv2.framework */; };
 		AFAF4673225440BA008EF9CD /* SetBrushColorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */; };
 		AFAF467722545EC2008EF9CD /* SaveSimpleDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF467622545EC2008EF9CD /* SaveSimpleDataManager.m */; };
 		AFBF90BD22486674007F2ED8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90BC22486674007F2ED8 /* AppDelegate.m */; };
@@ -58,7 +59,6 @@
 		AFBF9190224876DA007F2ED8 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF918F224876DA007F2ED8 /* HomeVC.m */; };
 		AFCD4C4722534B6700A5040B /* ModelIdentificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCD4C4622534B6700A5040B /* ModelIdentificationVC.m */; };
 		AFCD4C4A22534E9700A5040B /* FileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCD4C4922534E9700A5040B /* FileCache.m */; };
-		AFCEA974226EE55B00A1A745 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCEA973226EE55B00A1A745 /* opencv2.framework */; };
 		AFCF2E89225F26E500D149B0 /* RecordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCF2E88225F26E500D149B0 /* RecordBean.m */; };
 		AFCF2E8C225F292100D149B0 /* RecordListBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCF2E8B225F292100D149B0 /* RecordListBean.m */; };
 		AFD97A91224B3D780048367E /* SettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD97A90224B3D780048367E /* SettingsVC.m */; };
@@ -120,6 +120,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		AF3EE0F522C2602D001CA7E1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		AF0353D1228E499300250B41 /* FarmListBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FarmListBean.h; sourceTree = "<group>"; };
 		AF0353D2228E499300250B41 /* FarmListBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FarmListBean.m; sourceTree = "<group>"; };
@@ -166,6 +179,7 @@
 		AF894593224DE8140023D514 /* ColorSegmentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorSegmentVC.m; sourceTree = "<group>"; };
 		AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		AF97524A226EAE9000EF0302 /* OpenCVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
+		AFA4DFA322C2652900C72292 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		AFAF4671225440BA008EF9CD /* SetBrushColorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetBrushColorVC.h; sourceTree = "<group>"; };
 		AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetBrushColorVC.m; sourceTree = "<group>"; };
 		AFAF467522545EC2008EF9CD /* SaveSimpleDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveSimpleDataManager.h; sourceTree = "<group>"; };
@@ -225,7 +239,6 @@
 		AFCD4C4622534B6700A5040B /* ModelIdentificationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModelIdentificationVC.m; sourceTree = "<group>"; };
 		AFCD4C4822534E9700A5040B /* FileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCache.h; sourceTree = "<group>"; };
 		AFCD4C4922534E9700A5040B /* FileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileCache.m; sourceTree = "<group>"; };
-		AFCEA973226EE55B00A1A745 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		AFCF2E87225F26E500D149B0 /* RecordBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordBean.h; sourceTree = "<group>"; };
 		AFCF2E88225F26E500D149B0 /* RecordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordBean.m; sourceTree = "<group>"; };
 		AFCF2E8A225F292100D149B0 /* RecordListBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordListBean.h; sourceTree = "<group>"; };
@@ -318,7 +331,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFCEA974226EE55B00A1A745 /* opencv2.framework in Frameworks */,
+				AFA4DFA422C2652900C72292 /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,10 +396,17 @@
 			path = JHChart;
 			sourceTree = "<group>";
 		};
+		AFA4DFA222C2652900C72292 /* ThirdLibs */ = {
+			isa = PBXGroup;
+			children = (
+				AFA4DFA322C2652900C72292 /* opencv2.framework */,
+			);
+			path = ThirdLibs;
+			sourceTree = "<group>";
+		};
 		AFBF90AF22486674007F2ED8 = {
 			isa = PBXGroup;
 			children = (
-				AFCEA972226EE55B00A1A745 /* ThirdLibs */,
 				AFBF90BA22486674007F2ED8 /* GrapeFarm */,
 				AFBF90D322486676007F2ED8 /* GrapeFarmTests */,
 				AFBF90DE22486676007F2ED8 /* GrapeFarmUITests */,
@@ -407,6 +427,7 @@
 		AFBF90BA22486674007F2ED8 /* GrapeFarm */ = {
 			isa = PBXGroup;
 			children = (
+				AFA4DFA222C2652900C72292 /* ThirdLibs */,
 				AFBF90ED22486ECE007F2ED8 /* Tools */,
 				AFBF918822487649007F2ED8 /* Model */,
 				AF0974772249B46A00989F11 /* Beans */,
@@ -559,15 +580,6 @@
 				AF50D999228E8745009100AE /* SCN3DModelVC.m */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		AFCEA972226EE55B00A1A745 /* ThirdLibs */ = {
-			isa = PBXGroup;
-			children = (
-				AFCEA973226EE55B00A1A745 /* opencv2.framework */,
-			);
-			name = ThirdLibs;
-			path = GrapeFarm/ThirdLibs;
 			sourceTree = "<group>";
 		};
 		AFD97A8E224B3D1B0048367E /* Setting */ = {
@@ -728,6 +740,7 @@
 				AFBF90B422486674007F2ED8 /* Sources */,
 				AFBF90B522486674007F2ED8 /* Frameworks */,
 				AFBF90B622486674007F2ED8 /* Resources */,
+				AF3EE0F522C2602D001CA7E1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1117,6 +1130,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -1127,10 +1141,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/GrapeFarm/ThirdLibs/",
 					"$(PROJECT_DIR)/GrapeFarm/ThirdLibs",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GrapeFarm/GrapeFarm-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = GrapeFarm/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1153,6 +1169,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -1163,10 +1180,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/GrapeFarm/ThirdLibs/",
 					"$(PROJECT_DIR)/GrapeFarm/ThirdLibs",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GrapeFarm/GrapeFarm-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = GrapeFarm/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (

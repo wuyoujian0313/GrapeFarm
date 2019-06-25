@@ -48,11 +48,11 @@ AISINGLETON_DEF(NetworkTask, sharedNetworkTask)
               customInfo:(id _Nonnull)customInfo;
 
 // GET
-- (void)startGETTaskApi:(NSString*)api
-               forParam:(NSDictionary *)param
-               delegate:(id <NetworkTaskDelegate>)delegate
-              resultObj:(NetResultBase*)resultObj
-             customInfo:(id)customInfo;
+- (void)startGETTaskApi:(NSString* _Nonnull)api
+               forParam:(NSDictionary * _Nullable)param
+               delegate:(id <NetworkTaskDelegate>_Nonnull)delegate
+              resultObj:(NetResultBase* _Nonnull)resultObj
+             customInfo:(id _Nonnull)customInfo;
 
 
 @end
