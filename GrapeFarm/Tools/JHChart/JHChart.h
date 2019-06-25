@@ -74,10 +74,6 @@
 
 /**
  *  Draw a line according to the conditions
- *  @param start：Draw Starting Point
- *  @param end：Draw Ending Point
- *  @param isDotted：Is the dotted line
- *  @param color：Line color
  */
 - (void)drawLineWithContext:(CGContextRef )context
                andStarPoint:(CGPoint )start
@@ -88,9 +84,6 @@
 
 /**
  *  Draw a piece of text at a point
- *  @param point：Draw position
- *  @param color：TextColor
- *  @param fontSize：Text font size
  */
 - (void)drawText:(NSString *)text
       andContext:(CGContextRef )context
@@ -131,8 +124,6 @@
 
 /**
  *  Draw a circle at a point
- *  @param redius：Circle redius
- *  @param p:Draw position
  *
  */
 - (void)drawPointWithRedius:(CGFloat)redius
@@ -143,9 +134,6 @@
 
 /**
  *  According to the relevant conditions to determine the width of the text
- *  @param maxSize：Maximum range of text
- *  @param textFont：Text font
- *  @param aimString:Text that needs to be measured
  */
 - (CGSize)sizeOfStringWithMaxSize:(CGSize)maxSize
                          textFont:(CGFloat)fontSize
