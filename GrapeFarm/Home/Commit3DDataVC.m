@@ -18,6 +18,10 @@
 #import "CommitBean.h"
 #import "NetworkTask.h"
 #import "AILoadingView.h"
+#import "SaveSimpleDataManager.h"
+#import "JHColumnChart.h"
+#import "AICircle.h"
+
 
 @interface Commit3DDataVC ()<CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,FarmSelectIndexDelegate,GrapeVarietiesSelectIndexDelegate,NetworkTaskDelegate>
 @property (nonatomic,strong)CLLocationManager  *locationManager;//定位服务
@@ -27,7 +31,7 @@
 @property (nonatomic,strong)UITextField        *varietyTextField;
 @property (nonatomic,strong)UITextField        *locationTextField;
 @property (nonatomic,strong)UIButton           *nextBtn;
-@property (nonatomic,strong)UITextView         *textView;
+@property (nonatomic,strong)JHColumnChart      *chartView;
 @end
 
 @implementation Commit3DDataVC
@@ -36,17 +40,24 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setNavTitle:NSLocalizedString(@"ModelData", nil)];
-    [self initLocation];
-    //
-    __weak typeof(self) wSelf = self;
-    dispatch_queue_t queue =  dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(queue, ^{
-        typeof(self) sSelf = wSelf;
-        [sSelf getLocation];
-    });
+//    [self initLocation];
+//    //
+//    __weak typeof(self) wSelf = self;
+//    dispatch_queue_t queue =  dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_async(queue, ^{
+//        typeof(self) sSelf = wSelf;
+//        [sSelf getLocation];
+//    });
     
     [self layoutNextView];
     [self layoutContentTableView];
+    
+    SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+    NSDictionary *GPSDic = [manager objectForKey:kPhotoLocationUserdefaultKey];
+    if (GPSDic !=nil && [GPSDic count] > 0) {
+        NSString *param = [NSString stringWithFormat:@"Lng:%@, Lat:%@",GPSDic[@"Longitude"],GPSDic[@"Latitude"]];
+        _locationTextField.text = param;
+    }
 }
 
 - (void)layoutNextView {
@@ -92,7 +103,7 @@
                             @"grapeName":_varietyTextField.text,
                             @"latitude": [NSNumber numberWithFloat:coordinate.latitude],
                             @"longitude":[NSNumber numberWithFloat:coordinate.longitude],
-                            @"modelData":_textView.text,
+                            @"modelData":_modelString,
                             };
     
     [AILoadingView show:NSLocalizedString(@"Loading", nil)];
@@ -117,7 +128,7 @@
     [self setTableViewFooterView:tableView.height - 10 - 3*45];
 }
 
--(void)setTableViewHeaderView:(NSInteger)height {
+- (void)setTableViewHeaderView:(NSInteger)height {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _contentTableView.frame.size.width, height)];
     view.backgroundColor = [UIColor clearColor];
     LineView *line1 = [[LineView alloc] initWithFrame:CGRectMake(0, height - kLineHeight1px, view.frame.size.width, kLineHeight1px)];
@@ -126,22 +137,67 @@
 }
 
 - (void)setTableViewFooterView:(NSInteger)height {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _contentTableView.frame.size.width, height)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(11, 0, view.width-22, 30)];
-    [label setText:NSLocalizedString(@"ModelData", nil)];
-    [label setTextColor:[UIColor blackColor]];
-    [label setFont:[UIFont systemFontOfSize:14.0]];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [view addSubview:label];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 10, _contentTableView.frame.size.width - 20, height)];
     
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(11, label.bottom, view.width - 22, view.height - label.height - 10)];
-    [_textView setFont:[UIFont systemFontOfSize:14.0]];
-    [_textView setBackgroundColor:[UIColor whiteColor]];
-    [_textView setEditable:NO];
-    [_textView setSelectable:NO];
-    [_textView setText:_modelString];
-    [view addSubview:_textView];
+    NSInteger columCount = 5;
+    NSInteger step = (_max_r - _mix_r)%columCount == 0?(_max_r - _mix_r)/columCount:(_max_r - _mix_r)/columCount+1;
+    NSMutableArray *valueArr = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *textArr = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *stepArr = [[NSMutableArray alloc] initWithCapacity:0];
+    NSInteger temp = _mix_r;
+    for (NSUInteger i = 0; i < columCount; i++) {
+        
+        [valueArr addObject:[NSArray arrayWithObject:[NSNumber numberWithInteger:0]]];
+        [textArr addObject:[NSString stringWithFormat:@"%lu",temp]];
+        [stepArr addObject:[NSNumber numberWithInteger:temp]];
+        temp += step;
+    }
+    for (NSUInteger i = 0; i < [_circles count]; i++) {
+        AICircle *circle = _circles[i];
+        NSInteger r = [circle.r integerValue];
+        for (NSUInteger j = 0; j< [stepArr count]; j++) {
+            if (r>=[stepArr[j] integerValue] && r < [stepArr[j] integerValue]+step) {
+                valueArr[j] = [NSArray arrayWithObject:[NSNumber numberWithInteger:[valueArr[j][0] integerValue] +1]];
+            }
+        }
+    }
+
+    UILabel *chartLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, view.width, 25)];
+    [chartLabel setFont:[UIFont systemFontOfSize:13]];
+    [chartLabel setTextAlignment:NSTextAlignmentRight];
+    NSString *desc =[NSString stringWithFormat:NSLocalizedString(@"chartDesc", nil),_max_r,[_circles count]];
     
+    NSString *noteString1= [NSString stringWithFormat:@"%lu",(unsigned long)_max_r];
+    NSString *noteString2= [NSString stringWithFormat:@"%lu",(unsigned long)[_circles count]];;
+    NSRange range1 = [desc rangeOfString:noteString1];
+    NSRange range2 = [desc rangeOfString:noteString2];
+    NSDictionary *attributes1 = @{ NSFontAttributeName:[UIFont systemFontOfSize:13], NSForegroundColorAttributeName:[UIColor colorWithHex:kTextGrayColor]};
+    NSDictionary *attributes2 = @{ NSFontAttributeName:[UIFont boldSystemFontOfSize:13], NSForegroundColorAttributeName:[UIColor colorWithHex:0xF3704B]};
+    
+    NSMutableAttributedString *attrStr1 = [[NSMutableAttributedString alloc] initWithString:desc];
+    [attrStr1 addAttributes:attributes1 range:NSMakeRange(0, desc.length)];
+    [attrStr1 addAttributes:attributes2 range:range1];
+    [attrStr1 addAttributes:attributes2 range:range2];
+    [chartLabel setAttributedText:attrStr1];
+    [view addSubview:chartLabel];
+    
+    JHColumnChart *column = [[JHColumnChart alloc] initWithFrame:CGRectMake(0, chartLabel.bottom, view.width, view.height - 10-chartLabel.bottom)];
+    column.valueArr = valueArr;
+    column.xShowInfoText = textArr;
+    
+    column.originSize = CGPointMake(20, 20);
+    column.drawFromOriginX = 0;
+    column.columnWidth = 30;
+    column.typeSpace = (column.width - column.columnWidth *(column.valueArr.count) - column.originSize.x - column.drawFromOriginX)/(column.valueArr.count+1);
+    column.isShowYLine = YES;
+    column.contentInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    column.bgVewBackgoundColor = [UIColor clearColor];
+    column.drawTextColorForX_Y = [UIColor darkGrayColor];
+    column.colorForXYLine = [UIColor darkGrayColor];
+    column.columnBGcolorsArr = @[@[[UIColor darkGrayColor]]];
+    
+    [column showAnimation];
+    [view addSubview:column];
     [_contentTableView setTableFooterView:view];
 }
 

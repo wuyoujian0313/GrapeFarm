@@ -142,18 +142,13 @@
         //重置
         [_croppingView cleaningBrush];
     } else if (type == 3) {
-        [self toColorSegmentWithBackgroundColor:nil];
-//        if ([_croppingView canCropping]) {
-//            //确定
-//            UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"setBackgroudColor", nil)
-//                                                             delegate:self
-//                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-//                                               destructiveButtonTitle:nil
-//                                                    otherButtonTitles:NSLocalizedString(@"black_bg", nil),NSLocalizedString(@"white_bg", nil),nil];
-//            [sheet showInView:self.view];
-//        } else {
-//            [self toColorSegmentWithBackgroundColor:nil];
-//        }
+//        [self toColorSegmentWithBackgroundColor:nil];
+        UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:nil
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                           destructiveButtonTitle:nil
+                                                otherButtonTitles:NSLocalizedString(@"purple", nil),NSLocalizedString(@"green", nil),nil];
+        [sheet showInView:self.view];
     }
 }
 
@@ -255,6 +250,24 @@
             image = [info objectForKey:UIImagePickerControllerOriginalImage];
         }
     }
+    
+    NSURL *assetURL = [info objectForKey:UIImagePickerControllerReferenceURL];
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library assetForURL:assetURL resultBlock:^(ALAsset *asset)  {
+        NSMutableDictionary *infoDic = [[NSMutableDictionary alloc] initWithDictionary:asset.defaultRepresentation.metadata];
+        //控制台输出查看照片的元数据
+        NSLog(@"%@",infoDic);
+        
+        SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+        NSDictionary *GPSDict= [infoDic  objectForKey:(NSString*)kCGImagePropertyGPSDictionary];
+        if(GPSDict != nil && [GPSDict count] > 0) {
+            [manager setObject:GPSDict forKey:kPhotoLocationUserdefaultKey];
+        } else {
+            [manager setObject:[NSDictionary dictionary] forKey:kPhotoLocationUserdefaultKey];
+        }
+    } failureBlock:^(NSError *error) {
+        
+    }];
     
     [self relayoutImageView:image];
     __weak typeof(self) wSelf = self;
@@ -405,12 +418,14 @@
 #pragma mark - UIActionSheetDelegate
 -(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex != actionSheet.cancelButtonIndex) {
-        UIColor *color  = [UIColor blackColor];
+        NSNumber *colorIndex  = [NSNumber numberWithInt:0];
         if (buttonIndex == 1) {
-            color = [UIColor whiteColor];
+            colorIndex = [NSNumber numberWithInt:1];
         }
         
-        [self toColorSegmentWithBackgroundColor:color];
+        SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+        [manager setObject:colorIndex forKey:kGrapeColorIndexUserdefaultKey];
+        [self toColorSegmentWithBackgroundColor:nil];
     }
 }
 

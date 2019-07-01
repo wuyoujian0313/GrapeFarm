@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setObject:(id)value forKey:(NSString *)key;
 - (id)objectForKey:(NSString *)key;
 
+
 @end
 
 NS_ASSUME_NONNULL_END

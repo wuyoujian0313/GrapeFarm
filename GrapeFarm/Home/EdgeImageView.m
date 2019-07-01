@@ -51,7 +51,7 @@
     
     for (int i = 0; i < [_circles count]; i++) {
         AICircle *circle = _circles[i];
-        CGRect rect = CGRectMake([circle.x floatValue] - [circle.r floatValue], [circle.y floatValue] - [circle.r floatValue], 2*[circle.r floatValue], 2*[circle.r floatValue]);
+        CGRect rect = CGRectMake([circle.x floatValue] - [circle.r floatValue], [circle.y floatValue] - [circle.r integerValue], 2*[circle.r integerValue], 2*[circle.r integerValue]);
         // 2.画圆
         CGContextAddEllipseInRect(ctx, rect);
     }
@@ -63,7 +63,9 @@
 }
 
 - (void)clear {
-    [self setCircles:nil];
+    if (_circles != nil && [_circles count] > 0) {
+        [self setCircles:nil];
+    }
 }
 
 @end
@@ -83,7 +85,7 @@
         AICircle *c = circles[i];
         c.x = [NSNumber numberWithFloat:[c.x floatValue] * scale];
         c.y = [NSNumber numberWithFloat:[c.y floatValue] * scale];
-        c.r = [NSNumber numberWithFloat:[c.r floatValue] * scale];
+        c.r = [NSNumber numberWithFloat:[c.r integerValue] * scale];
     }
     [_edgeView setFrame:self.bounds];
     [_edgeView setCircles:circles];

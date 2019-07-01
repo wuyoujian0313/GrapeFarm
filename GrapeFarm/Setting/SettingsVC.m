@@ -16,6 +16,7 @@
 #import "SetBrushColorVC.h"
 #import "SaveSimpleDataManager.h"
 #import "RecordDetailVC.h"
+#import "AboutVC.h"
 
 @interface SettingsVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,FarmSelectIndexDelegate,ColorSelectIndexDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
@@ -44,7 +45,8 @@
                       @{@"name":NSLocalizedString(@"MyFarm",nil),@"icon":@"home"},
                       @{@"name":NSLocalizedString(@"ModifyPassword",nil),@"icon":@"edit"},
                       @{@"name":NSLocalizedString(@"BrushColor",nil),@"icon":@"palette"},
-                      @{@"name":NSLocalizedString(@"Quit",nil),@"icon":@"exit"}];
+                      @{@"name":NSLocalizedString(@"Quit",nil),@"icon":@"exit"},
+                      @{@"name":NSLocalizedString(@"about", nil),@"icon":@"grape"}];
     
     SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
     NSString *farmName = [manager objectForKey:kMyfarmUserdefaultKey];
@@ -150,6 +152,9 @@
                                            destructiveButtonTitle:NSLocalizedString(@"Quit", nil)
                                                 otherButtonTitles:nil];
         [sheet showInView:self.view];
+    } else if (row == 5) {
+        AboutVC *vc = [[AboutVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

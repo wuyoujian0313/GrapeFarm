@@ -153,7 +153,7 @@
             cc.x =  [NSNumber numberWithFloat:[c.x floatValue]];
             cc.y =  [NSNumber numberWithFloat:[c.y floatValue]];
             cc.r =  [NSNumber numberWithFloat:[c.r floatValue]];
-            cc.z =  [NSNumber numberWithFloat:[c.z floatValue]];
+            cc.z =  [NSNumber numberWithFloat:[c.z integerValue]];
             [sSelf.imageCircles addObject:cc];
         }
         // 回到主线程
@@ -214,6 +214,7 @@
 }
 
 - (void)sliderValueChangingOfLeft:(NSInteger)left right:(NSInteger)right {
+    [_imageView clear];
 }
 
 

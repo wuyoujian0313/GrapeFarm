@@ -683,7 +683,7 @@ using namespace cv;
                 circle.y = [NSNumber numberWithFloat:c[1]];
                 circle.r = [NSNumber numberWithFloat:c[2]];
                 NSLog(@"(%d,%d,%d,%d)",c[0],c[1],z,c[2]);
-                circle.z = [NSNumber numberWithFloat:z];
+                circle.z = [NSNumber numberWithInteger:z];
                 [arr addObject:circle];
             }
         }else{
@@ -691,7 +691,7 @@ using namespace cv;
             circle.x = [NSNumber numberWithFloat:0];
             circle.y = [NSNumber numberWithFloat:0];
             circle.r = [NSNumber numberWithFloat:0];
-            circle.z = [NSNumber numberWithFloat:0];
+            circle.z = [NSNumber numberWithInteger:0];
             [arr addObject:circle];
         }
     }
@@ -700,7 +700,7 @@ using namespace cv;
         circle.x = [NSNumber numberWithFloat:0];
         circle.y = [NSNumber numberWithFloat:0];
         circle.r = [NSNumber numberWithFloat:0];
-        circle.z = [NSNumber numberWithFloat:0];
+        circle.z = [NSNumber numberWithInteger:0];
         [arr addObject:circle];
     }
     return arr;
