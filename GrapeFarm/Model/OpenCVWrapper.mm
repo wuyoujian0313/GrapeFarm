@@ -210,9 +210,9 @@ using namespace cv;
     float track_radius;
     vector<Vec3f> circles;
     NSMutableArray *arr = [[NSMutableArray alloc] init];
-    if ((int)distance < imageChannel.cols/3){
-        HoughCircles(edges2, circles, HOUGH_GRADIENT, 1, (int)distance*0.5,
-                     0.2*255, threshold, (int)distance*0.6, 0.6*(int)distance+10); //image:8位，单通道图像。如果使用彩色图像，需要先转换为灰度图像。method：定义检测图像中圆的方法。目前唯一实现的方法是cv2.HOUGH_GRADIENT。dp：累加器分辨率与图像分辨率的反比。dp获取越大，累加器数组越小。minDist：检测到的圆的中心，（x,y）坐标之间的最小距离。如果minDist太小，则可能导致检测到多个相邻的圆。如果minDist太大，则可能导致很多圆检测不到。param1：用于处理边缘检测的梯度值方法。param2：cv2.HOUGH_GRADIENT方法的累加器阈值。阈值越小，检测到的圈子越多。minRadius：半径的最小大小（以像素为单位）。maxRadius：半径的最大大小（以像素为单位）。
+    if (distance < imageChannel.cols/3){
+        HoughCircles(edges2, circles, HOUGH_GRADIENT, 1, distance*0.5,
+                     0.2*255, threshold, distance*0.65, 0.65*distance+10); //image:8位，单通道图像。如果使用彩色图像，需要先转换为灰度图像。method：定义检测图像中圆的方法。目前唯一实现的方法是cv2.HOUGH_GRADIENT。dp：累加器分辨率与图像分辨率的反比。dp获取越大，累加器数组越小。minDist：检测到的圆的中心，（x,y）坐标之间的最小距离。如果minDist太小，则可能导致检测到多个相邻的圆。如果minDist太大，则可能导致很多圆检测不到。param1：用于处理边缘检测的梯度值方法。param2：cv2.HOUGH_GRADIENT方法的累加器阈值。阈值越小，检测到的圈子越多。minRadius：半径的最小大小（以像素为单位）。maxRadius：半径的最大大小（以像素为单位）。
         if (circles.size() < 200){
             //所有的r,x,y
             vector<int> array_r(circles.size());
@@ -436,8 +436,8 @@ using namespace cv;
             }
             //cout<<newBerries_atEdge.size();
             vector<Vec3f> circles2;
-            HoughCircles(edges2, circles2, HOUGH_GRADIENT, 1, 0.5*(int)distance,
-                         0.1*255, 15, 0.6*(int)distance, 0.6*(int)distance+10 );
+            HoughCircles(edges2, circles2, HOUGH_GRADIENT, 1, 0.5*distance,
+                         0.1*255, 15, 0.65*distance, 0.65*distance+10 );
             
             for (int i = 0; i < circles2.size(); i++) {
                 cf[0] = circles2[i][0];
@@ -580,16 +580,16 @@ using namespace cv;
                         float yy[30];
                         int ind2 = 0;
                         int ind1 = 0;
-                        bool index2;
+                        bool index2 = false;
                         for (int j = 0; j<30; j++) {
                             xx[j] = tmpX + tmp_radius1*cos(theta2[j]/180*pi);
                             yy[j] = tmpY + tmp_radius1*sin(theta2[j]/180*pi);
                             //NSLog(@"%i,%i",edges1.cols,edges2.cols);
-                            if ((xx[j]*yy[j] > 0)&&(round(xx[j]) < edges1.rows)&&(round(yy[j]) < edges1.cols)&&(round(xx[j]) > 0)&&(round(yy[j]) > 0)) {
+                            if ((xx[j]*yy[j] > 0)&&(round(xx[j]) < edges1.rows)&&(round(yy[j]) < edges1.cols)) {
                                 ind1 = edges1.at<uchar>(round(xx[j]),round(yy[j]));
                                 //NSLog(@"%i",ind1);
                                 if (ind1 == 255) {
-                                    ind2 = ind2 +1;
+                                    ind2++;
                                 }
                             }else{index2 = false;}
                         }
@@ -639,14 +639,14 @@ using namespace cv;
                         float yy[30];
                         int ind2 = 0;
                         int ind1 = 0;
-                        bool index2;
+                        bool index2 = false;
                         for (int j = 0; j<30; j++) {
                             xx[j] = tmpX + tmp_radius1*cos(theta2[j]/180*pi);
                             yy[j] = tmpY + tmp_radius1*sin(theta2[j]/180*pi);
-                            if ((xx[j]*yy[j] > 0)&&(round(xx[j]) < edges1.rows)&&(round(yy[j]) < edges1.cols)&&(round(xx[j]) > 0)&&(round(yy[j]) > 0)) {
+                            if ((xx[j]*yy[j] > 0)&&(round(xx[j]) < edges1.rows)&&(round(yy[j]) < edges1.cols)) {
                                 ind1 = edges1.at<uchar>(round(xx[j]),round(yy[j]));
                                 if (ind1 == 255) {
-                                    ind2 = ind2 +1;
+                                    ind2++;
                                 }
                             }else{index2 = false;}
                         }
@@ -768,7 +768,6 @@ using namespace cv;
     Mat dst1;
     cv::threshold(imageBlueChannel,dst1,0,255,THRESH_OTSU);
     Mat dst2 = 255-dst1;    //显示分离的单通道图像
-    ;
     return imageBlueChannel;
     
 }
