@@ -399,12 +399,14 @@
     __weak typeof(self ) wSelf = self;
     dispatch_async(queue, ^{
         typeof(self ) sSelf = wSelf;
-        UIImage *croppedImage = [sSelf.croppingView croppingOfImage:image];
+        UIImage *croppedImage = [sSelf.croppingView croppingOfImage:image backgroudColor:color];
         [fileCache writeData:UIImagePNGRepresentation(croppedImage) forKey:kCroppedImageFileKey];
-        
+   
+#if DEBUG
         NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/final.png"];
         [sSelf saveImage:croppedImage toFile:path];
         NSLog(@"cropped image path: %@",path);
+#endif
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
             // 追加在主线程中执行的任务

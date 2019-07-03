@@ -257,7 +257,7 @@
             CATextLayer *textLayer = [CATextLayer layer];
             
             textLayer.contentsScale = [UIScreen mainScreen].scale;
-            NSString *text =[NSString stringWithFormat:@"%ld",(i + 1) * pace];
+            NSString *text =[NSString stringWithFormat:@"%ld",(long)(i + 1) * pace];
             CGFloat be = [self sizeOfStringWithMaxSize:XORYLINEMAXSIZE textFont:self.yDescTextFontSize aimString:text].width;
             textLayer.frame = CGRectMake(self.originSize.x - be - 3, CGRectGetHeight(self.frame) - _originSize.y -height - 5, be, 15);
             

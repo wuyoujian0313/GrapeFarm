@@ -19,7 +19,7 @@
 // 清除所有的画笔
 - (void)cleaningBrush;
 // UIImageView的UIImage
-- (UIImage *)croppingOfImage:(UIImage*)image;
+- (UIImage *)croppingOfImage:(UIImage*)image backgroudColor:(UIColor *)color;
 //
 - (void)appendPath:(UIBezierPath *)path;
 @end

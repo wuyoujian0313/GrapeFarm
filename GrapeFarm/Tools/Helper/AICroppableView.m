@@ -75,7 +75,7 @@
     return resultImage;
 }
 
-- (UIImage *)croppingOfImage:(UIImage*)image {
+- (UIImage *)croppingOfImage:(UIImage*)image backgroudColor:(UIColor *)color {
     if ([_croppingPath points] ==nil || [[_croppingPath points] count] == 0) {
         // 未剪切
         return [self orientationCorrectedImage:image];
@@ -118,17 +118,19 @@
     }
     UIImage *maskedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-
-//    //1.开启上下文
-//    UIGraphicsBeginImageContextWithOptions(maskedImage.size, NO, 1.0);
-//    //2.绘制背景图片
-//    UIImage *bgImage = [UIImage imageFromColor:color];
-//    [bgImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
-//    [maskedImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
-//    //3.从上下文中获取新图片
-//    maskedImage = UIGraphicsGetImageFromCurrentImageContext();
-//    //4.关闭图形上下文
-//    UIGraphicsEndImageContext();
+    
+    if (color != nil) {
+        //1.开启上下文
+        UIGraphicsBeginImageContextWithOptions(maskedImage.size, NO, 1.0);
+        //2.绘制背景图片
+        UIImage *bgImage = [UIImage imageFromColor:color];
+        [bgImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
+        [maskedImage drawInRect:CGRectMake(0, 0, maskedImage.size.width, maskedImage.size.height)];
+        //3.从上下文中获取新图片
+        maskedImage = UIGraphicsGetImageFromCurrentImageContext();
+        //4.关闭图形上下文
+        UIGraphicsEndImageContext();
+    }
 
 //    CGRect croppedRect = aPath.bounds;
 ////    // 注意图片坐标是笛卡尔坐标系,y轴是向上的

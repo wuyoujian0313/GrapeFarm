@@ -148,7 +148,7 @@
     for (NSUInteger i = 0; i < columCount; i++) {
         
         [valueArr addObject:[NSArray arrayWithObject:[NSNumber numberWithInteger:0]]];
-        [textArr addObject:[NSString stringWithFormat:@"%lu",temp]];
+        [textArr addObject:[NSString stringWithFormat:@"%ld",(long)temp]];
         [stepArr addObject:[NSNumber numberWithInteger:temp]];
         temp += step;
     }

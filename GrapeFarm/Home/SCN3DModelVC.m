@@ -272,7 +272,7 @@
     Commit3DDataVC *vc = [[Commit3DDataVC alloc] init];
     NSString *modelString = @"";
     for (AICircle *circle in _circles) {
-        modelString = [modelString stringByAppendingFormat:@"%.2f,%.2f,%.lu\n",[circle.x floatValue],[circle.y floatValue],[circle.r integerValue]];
+        modelString = [modelString stringByAppendingFormat:@"%.2f,%.2f,%ld\n",[circle.x floatValue],[circle.y floatValue],(long)[circle.r integerValue]];
     }
 
     vc.circles = _circles;
