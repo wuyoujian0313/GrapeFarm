@@ -86,8 +86,9 @@ using namespace cv;
     Mat gray;
     cvtColor(source, gray, CV_BGR2GRAY);
     Mat dst1;
-    cv::threshold(gray,dst1,0,255,THRESH_OTSU);
+    cv::threshold(imageChannel,dst1,0,255,THRESH_OTSU);
     Mat dst2 = 255-dst1;
+    //cout<<dst2;
     Mat gaussianBlur;
     GaussianBlur(imageChannel, gaussianBlur, cv::Size(5,5), 2,2);
     //计算最大熵
@@ -171,8 +172,10 @@ using namespace cv;
     }
     //NSLog(@"%f",maxarea);
     Mat edges1= Mat::zeros(edges.rows,edges.cols,CV_8UC1);
+    Mat edges2= Mat::zeros(edges.rows, edges.cols, CV_8UC1);
     Scalar color(255,255,255);
     drawContours(edges1, contours, maxAreaIdx, color, FILLED);
+    drawContours(edges2, contours, maxAreaIdx, color, 1);
     //NSLog(@"%i,%i",edges1.cols,edges1.rows);
     cv::Rect ret1 = boundingRect(Mat(contours[maxAreaIdx]));
     NSLog(@"%d,%d,%d,%d",ret1.x,ret1.y,ret1.width,ret1.height);
@@ -198,15 +201,18 @@ using namespace cv;
         }
     }
     //NSLog(@"%d",thres);
-    for (int th=0; th<thres; th++) {
-        parts[th][0] = 0;
+    if (thres < nrow) {
+        for (int th=0; th<thres; th++) {
+            parts[th][0] = 0;
+        }
     }
+    
     float track_radius;
     vector<Vec3f> circles;
     NSMutableArray *arr = [[NSMutableArray alloc] init];
-    if ((int)distance < imageChannel.cols/3){
-        HoughCircles(edges, circles, HOUGH_GRADIENT, 1, ((int)distance/2),
-                     0.2*255, threshold, ((int)distance/2), ((int)distance/2)+10 ); //image:8位，单通道图像。如果使用彩色图像，需要先转换为灰度图像。method：定义检测图像中圆的方法。目前唯一实现的方法是cv2.HOUGH_GRADIENT。dp：累加器分辨率与图像分辨率的反比。dp获取越大，累加器数组越小。minDist：检测到的圆的中心，（x,y）坐标之间的最小距离。如果minDist太小，则可能导致检测到多个相邻的圆。如果minDist太大，则可能导致很多圆检测不到。param1：用于处理边缘检测的梯度值方法。param2：cv2.HOUGH_GRADIENT方法的累加器阈值。阈值越小，检测到的圈子越多。minRadius：半径的最小大小（以像素为单位）。maxRadius：半径的最大大小（以像素为单位）。
+    if (distance < imageChannel.cols/3){
+        HoughCircles(edges2, circles, HOUGH_GRADIENT, 1, distance*0.5,
+                     0.2*255, threshold, distance*0.65, 0.65*distance+10); //image:8位，单通道图像。如果使用彩色图像，需要先转换为灰度图像。method：定义检测图像中圆的方法。目前唯一实现的方法是cv2.HOUGH_GRADIENT。dp：累加器分辨率与图像分辨率的反比。dp获取越大，累加器数组越小。minDist：检测到的圆的中心，（x,y）坐标之间的最小距离。如果minDist太小，则可能导致检测到多个相邻的圆。如果minDist太大，则可能导致很多圆检测不到。param1：用于处理边缘检测的梯度值方法。param2：cv2.HOUGH_GRADIENT方法的累加器阈值。阈值越小，检测到的圈子越多。minRadius：半径的最小大小（以像素为单位）。maxRadius：半径的最大大小（以像素为单位）。
         if (circles.size() < 200){
             //所有的r,x,y
             vector<int> array_r(circles.size());
@@ -223,28 +229,59 @@ using namespace cv;
                 array_y[i]=circles[i][1];
             }
             //r的四分位点
+            
             float MaxValue = 0.0;
             float MinValue = 0.0;
             if (array_r.size()!=0) {
                 typedef vector<int>::size_type vec_sz;
                 sort(array_r.begin(), array_r.end());
-                vec_sz mid, mid1, mid3;
-                double median, median1, median3;
-                mid = array_r.size()/2;
-                median = array_r.size() % 2 ==0? (array_r[mid]+array_r[mid-1])/2.0 : array_r[mid];
-                mid1 = array_r.size()%2==0? (mid-1)/2 : mid/2;
-                mid3 = mid+mid+1;
-                if (array_r.size()%2 !=0) {
-                    median1 = mid%2==0? (array_r[mid1]+array_r[mid1-1])/2.0 : array_r[mid1];
-                    median3 = mid%2==0? (array_r[mid3]+array_r[mid3-1])/2.0 : array_r[mid3];
+                int ivalsCount = array_r.size();
+                float index_Q1 = (ivalsCount + (float)1) / (float)4;
+                float iMedianIndex = (ivalsCount+1) / (float)2;
+                int iFirst = round(iMedianIndex - 0.5)-1;
+                if (iFirst < 0) {
+                    iFirst = 0;
                 }
-                else
-                {
-                    median1 = (mid-1)%2==0? (array_r[mid1]+array_r[mid1-1])/2.0 : array_r[mid1];
-                    median3 = (mid-1)%2==0? (array_r[mid3]+array_r[mid3-1])/2.0 : array_r[mid3];}
-                float Spread = 1.5*(median3-median1);
-                MaxValue = median3 + Spread;
-                MinValue = median1 - Spread;}
+                int iNext = round(iMedianIndex + 0.4)-1;
+                if (iNext > ivalsCount -1) {
+                    iNext = ivalsCount - 1;
+                }
+                iFirst = round(index_Q1 - 0.5) -1;
+                if (iFirst < 0) {
+                    iFirst = 0;
+                }
+                iNext = round(index_Q1 + 0.4)-1;
+                if (iNext > ivalsCount - 1) {
+                    iNext = ivalsCount -1;
+                }
+                float value_Q1 = iFirst == iNext? array_r[iNext]: (index_Q1 -1-(float)iFirst)*array_r[iNext]+((float)iNext - index_Q1+1)*array_r[iFirst];
+                float index_Q3 = (float)3* (ivalsCount + (float)1) / (float)4;
+                iFirst = round(index_Q3 - 0.5)-1;
+                if (iFirst < 0) {
+                    iFirst = 0;
+                }
+                iNext = round(index_Q3 - 0.5)-1;
+                if (iNext > ivalsCount -1) {
+                    iNext = ivalsCount -1;
+                }
+                float value_Q3 = iFirst == iNext ? array_r[iNext] : (index_Q3-1-(float)iFirst)*array_r[iNext] + ((float)iNext - index_Q3+1)*array_r[iFirst];
+                //vec_sz mid, mid1, mid3;
+                //double median, median1, median3;
+                //mid = array_r.size()/2;
+                //median = array_r.size() % 2 ==0? (array_r[mid]+array_r[mid-1])/2.0 : array_r[mid];
+                //mid1 = array_r.size()%2==0? (mid-1)/2 : mid/2;
+                //mid3 = mid+mid+1;
+                //if (array_r.size()%2 !=0) {
+                //median1 = mid%2==0? (array_r[mid1]+array_r[mid1-1])/2.0 : array_r[mid1];
+                //median3 = mid%2==0? (array_r[mid3]+array_r[mid3-1])/2.0 : array_r[mid3];
+                //}
+                //else
+                //{
+                //median1 = (mid-1)%2==0? (array_r[mid1]+array_r[mid1-1])/2.0 : array_r[mid1];
+                //median3 = (mid-1)%2==0? (array_r[mid3]+array_r[mid3-1])/2.0 : array_r[mid3];}
+                float Spread = 1.5*(value_Q3-value_Q1);
+                MaxValue = value_Q3 + Spread;
+                MinValue = value_Q1 - Spread;}
             //筛选circles
             
             for(int i = 0;i < circles.size();i++){
@@ -336,7 +373,7 @@ using namespace cv;
             //adjust berries at egde
             
             
-            int max_group = group[0][0];
+            int max_group = 0;
             for (int i =0; i<r.size(); i++) {
                 for (int j =0 ; j<1; j++) {
                     if (group[i][j]>max_group) {
@@ -372,7 +409,9 @@ using namespace cv;
                     candidates[i][j]=0;
                 }
             }
-            candidates[middle_berry_idx][0]=1;
+            if (tmp_r.size() > 2) {
+                candidates[middle_berry_idx-1][0]=1;
+            }
             for (int j = 0; j<tmp_r.size(); j++) {
                 if (j!=middle_berry_idx) {
                     while (1) {
@@ -397,8 +436,8 @@ using namespace cv;
             }
             //cout<<newBerries_atEdge.size();
             vector<Vec3f> circles2;
-            HoughCircles(edges, circles2, HOUGH_GRADIENT, 1, ((int)distance/2),
-                         0.1*255, 15, ((int)distance/2), ((int)distance/2)+10 );
+            HoughCircles(edges2, circles2, HOUGH_GRADIENT, 1, 0.5*distance,
+                         0.1*255, 15, 0.65*distance, 0.65*distance+10 );
             
             for (int i = 0; i < circles2.size(); i++) {
                 cf[0] = circles2[i][0];
@@ -493,7 +532,7 @@ using namespace cv;
             float muci2 = muHat - 1.960*(vs/sqrt(existing_Berries.size()));
             cout<<existing_Berries.size()<<endl;
             cout<<0<<endl;
-            for (int i = ret1.x + 5; i < ret1.x + ret1.height - 5; i = i + 2) {
+            for (int i = ret1.y + 5; i < ret1.y + ret1.height - 5; i = i + 2) {
                 vector<int>v_y = edges1.row(i).clone();
                 //cout<<v_y.size()<<endl;
                 vector<int>::iterator idx = find(v_y.begin(), v_y.end(),255);
@@ -519,7 +558,7 @@ using namespace cv;
                         if (muci1 != INFINITY && muci2 != INFINITY) {
                             tmp_radius = (rand()%100/(float)100)*(muci1-muci2) + muHat;
                         }else{tmp_radius = muHat;}
-                        //cout<<minorAxis - tmp_radius<<endl;
+                        //cout<<tmp_radius<<endl;
                         float tmp_fill_berry0, tmp_fill_berry1, tmp_fill_berry2, tmp_fill_berry3;
                         tmp_fill_berry0 = track + (majorAxis - tmp_radius)*cos(theta[ai]/180*pi);
                         tmp_fill_berry1 = i;
@@ -540,16 +579,17 @@ using namespace cv;
                         float xx[30];
                         float yy[30];
                         int ind2 = 0;
-                        bool index2;
+                        int ind1 = 0;
+                        bool index2 = false;
                         for (int j = 0; j<30; j++) {
                             xx[j] = tmpX + tmp_radius1*cos(theta2[j]/180*pi);
                             yy[j] = tmpY + tmp_radius1*sin(theta2[j]/180*pi);
-                            //NSLog(@"%i,%i",edges1.cols,edges1.rows);
-                            if ((xx[j]*yy[j] > 0)&&(xx[j] < edges1.rows)&&(yy[j] < edges1.cols)) {
-                                int ind1 = edges1.at<uchar>(xx[j],yy[j]);
+                            //NSLog(@"%i,%i",edges1.cols,edges2.cols);
+                            if ((xx[j]*yy[j] > 0)&&(round(xx[j]) < edges1.rows)&&(round(yy[j]) < edges1.cols)) {
+                                ind1 = edges1.at<uchar>(round(xx[j]),round(yy[j]));
                                 //NSLog(@"%i",ind1);
                                 if (ind1 == 255) {
-                                    ind2 = ind2 +1;
+                                    ind2++;
                                 }
                             }else{index2 = false;}
                         }
@@ -559,7 +599,7 @@ using namespace cv;
                         int index1 = 0;
                         for (int j = 0 ; j < existing_Berries.size(); j++) {
                             distance = sqrt(pow(tmp_fill_berry0-existing_Berries[j][0], 2)+pow(tmp_fill_berry1-existing_Berries[j][1], 2)+pow(tmp_fill_berry2-existing_Berries[j][2], 2));
-                            if ((distance>0)&&(distance<tmp_fill_berry3+existing_Berries[j][3]+tolerance)) {
+                            if ((distance>0)&&(distance<tmp_fill_berry3+existing_Berries[j][3]-tolerance)) {
                                 
                                 index1 = index1+1;
                             }
@@ -598,14 +638,15 @@ using namespace cv;
                         float xx[30];
                         float yy[30];
                         int ind2 = 0;
-                        bool index2;
+                        int ind1 = 0;
+                        bool index2 = false;
                         for (int j = 0; j<30; j++) {
                             xx[j] = tmpX + tmp_radius1*cos(theta2[j]/180*pi);
                             yy[j] = tmpY + tmp_radius1*sin(theta2[j]/180*pi);
-                            if ((xx[j]*yy[j] > 0)&&(xx[j] < edges1.rows)&&(yy[j] < edges1.cols)) {
-                                int ind1 = edges1.at<uchar>(xx[j],yy[j]);
+                            if ((xx[j]*yy[j] > 0)&&(round(xx[j]) < edges1.rows)&&(round(yy[j]) < edges1.cols)) {
+                                ind1 = edges1.at<uchar>(round(xx[j]),round(yy[j]));
                                 if (ind1 == 255) {
-                                    ind2 = ind2 +1;
+                                    ind2++;
                                 }
                             }else{index2 = false;}
                         }
@@ -615,7 +656,7 @@ using namespace cv;
                         int index1 = 0;
                         for (int j = 0 ; j < existing_Berries.size(); j++) {
                             distance = sqrt(pow(tmp_fill_berry0-existing_Berries[j][0], 2)+pow(tmp_fill_berry1-existing_Berries[j][1], 2)+pow(tmp_fill_berry2-existing_Berries[j][2], 2));
-                            if ((distance>0)&&(distance<tmp_fill_berry3+existing_Berries[j][3]+tolerance)) {
+                            if ((distance>0)&&(distance<tmp_fill_berry3+existing_Berries[j][3]-tolerance)) {
                                 index1 = index1+1;
                             }
                         }
@@ -724,9 +765,9 @@ using namespace cv;
     //把一个三通道图像转化为三个单通道图像
     split(source, channels);
     imageBlueChannel = channels.at(0);
-    
-    //显示分离的单通道图像
-    
+    Mat dst1;
+    cv::threshold(imageBlueChannel,dst1,0,255,THRESH_OTSU);
+    Mat dst2 = 255-dst1;    //显示分离的单通道图像
     return imageBlueChannel;
     
 }
