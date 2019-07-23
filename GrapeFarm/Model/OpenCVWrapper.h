@@ -13,9 +13,12 @@
 + (UIImage *)toBlue:(UIImage *)source;
 + (UIImage *)toGreen:(UIImage *)source;
 + (UIImage *)toRed:(UIImage *)source;
++ (UIImage *)toL:(UIImage *)source;
++ (UIImage *)toA:(UIImage *)source;
++ (UIImage *)toB:(UIImage *)source;
 + (UIImage *)Rededge:(UIImage *)source;
 + (UIImage *)Rededge:(UIImage *)source value1:(NSInteger)value1 value2:(NSInteger)value2 value3:(NSInteger)value3;
 
 //threshold，distance，type
-+ (NSArray *)edgeCircles:(UIImage *)source threshold:(NSInteger)threshold distance:(NSInteger)distance type:(NSInteger)type;
++ (NSArray *)edgeCircles:(UIImage *)source threshold:(NSInteger)threshold distance:(NSInteger)distance color_selection:(NSInteger)color_selection type:(NSInteger)type gtype:(NSInteger)gtype;
 @end

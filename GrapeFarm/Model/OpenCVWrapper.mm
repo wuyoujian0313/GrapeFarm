@@ -31,6 +31,9 @@ using namespace cv;
 + (Mat)_blueFrom:(Mat)source;
 + (Mat)_greenFrom:(Mat)source;
 + (Mat)_redFrom:(Mat)source;
++ (Mat)_lFrom:(Mat)source;
++ (Mat)_aFrom:(Mat)source;
++ (Mat)_bFrom:(Mat)source;
 + (Mat)_matFrom:(UIImage *)source;
 + (UIImage *)_imageFrom:(Mat)source;
 
@@ -59,6 +62,21 @@ using namespace cv;
     return [OpenCVWrapper _imageFrom:[OpenCVWrapper _redFrom:[OpenCVWrapper _matFrom:source]]];
 }
 
++ (UIImage *)toL:(UIImage *)source {
+    cout << "OpenCV: ";
+    return [OpenCVWrapper _imageFrom:[OpenCVWrapper _lFrom:[OpenCVWrapper _matFrom:source]]];
+}
+
++ (UIImage *)toA:(UIImage *)source {
+    cout << "OpenCV: ";
+    return [OpenCVWrapper _imageFrom:[OpenCVWrapper _aFrom:[OpenCVWrapper _matFrom:source]]];
+}
+
++ (UIImage *)toB:(UIImage *)source {
+    cout << "OpenCV: ";
+    return [OpenCVWrapper _imageFrom:[OpenCVWrapper _bFrom:[OpenCVWrapper _matFrom:source]]];
+}
+
 + (UIImage *)Rededge:(UIImage *)source{
     cout << "OpenCV: ";
     return [OpenCVWrapper _imageFrom:[OpenCVWrapper _rededgeFrom:[OpenCVWrapper _matFrom:source]]];
@@ -70,19 +88,27 @@ using namespace cv;
 }
 
 
-+ (NSArray *)edgeCircles:(UIImage *)source threshold:(NSInteger)threshold distance:(NSInteger)distance type:(NSInteger)type {
-    return [OpenCVWrapper _edgeCircles:[OpenCVWrapper _matFrom:source] threshold:threshold distance:distance type:type];
++ (NSArray *)edgeCircles:(UIImage *)source threshold:(NSInteger)threshold distance:(NSInteger)distance color_selection:(NSInteger)color_selection type:(NSInteger)type gtype:(NSInteger)gtype{
+    return [OpenCVWrapper _edgeCircles:[OpenCVWrapper _matFrom:source] threshold:threshold distance:distance color_selection:color_selection type:type gtype:gtype];
 }
 
 #pragma mark Private
 
 //　Hough圆检测
-+ (NSArray *)_edgeCircles:(Mat)source threshold:(NSInteger)threshold distance:(NSInteger)distance type:(NSInteger)type  {
++ (NSArray *)_edgeCircles:(Mat)source threshold:(NSInteger)threshold distance:(NSInteger)distance color_selection:(NSInteger)color_selection type:(NSInteger)type gtype:(NSInteger)gtype {
     cout << "-> rededgeFrom ->";
-    std::vector<Mat> channels;
     Mat imageChannel;
-    split(source, channels);
-    imageChannel = channels.at(type);
+    if (color_selection == 0) {
+        std::vector<Mat> channels;
+        split(source, channels);
+        imageChannel = channels.at(type);
+    }else if (color_selection == 1){
+        Mat lab;
+        cvtColor(source, lab, COLOR_BGR2Lab);
+        vector<Mat> labPlane;
+        split(lab, labPlane);
+        imageChannel = labPlane.at(gtype);
+    }
     Mat gray;
     cvtColor(source, gray, CV_BGR2GRAY);
     Mat dst1;
@@ -802,6 +828,46 @@ using namespace cv;
     
     return imageRedChannel;
     
+}
+
+//LAB色彩分离
++ (Mat)_lFrom:(cv::Mat)source{
+    cout << "-> lFrom ->";
+    
+    Mat lab;
+    cvtColor(source, lab, COLOR_BGR2Lab);//转LAB色彩空间
+    vector<Mat> labPlane;
+    Mat imageLChannel;
+    split(lab, labPlane);//LAB色彩分离
+    imageLChannel = labPlane.at(0);
+    
+    return imageLChannel;
+}
+
++ (Mat)_aFrom:(cv::Mat)source{
+    cout << "-> aFrom ->";
+    
+    Mat lab;
+    cvtColor(source, lab, COLOR_BGR2Lab);
+    vector<Mat> labPlane;
+    Mat imageAChannel;
+    split(lab, labPlane);
+    imageAChannel = labPlane.at(1);
+    
+    return imageAChannel;
+}
+
++ (Mat)_bFrom:(cv::Mat)source{
+    cout << "-> bFrom ->";
+    
+    Mat lab;
+    cvtColor(source, lab, COLOR_BGR2Lab);
+    vector<Mat> labPlane;
+    Mat imageBChannel;
+    split(lab, labPlane);
+    imageBChannel = labPlane.at(2);
+    
+    return imageBChannel;
 }
 
 + (Mat)_matFrom:(UIImage *)source {
