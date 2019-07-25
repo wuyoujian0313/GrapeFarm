@@ -427,7 +427,11 @@
         
         SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
         [manager setObject:colorIndex forKey:kGrapeColorIndexUserdefaultKey];
-        [self toColorSegmentWithBackgroundColor:nil];
+        if ([colorIndex integerValue] == 0) {
+            [self toColorSegmentWithBackgroundColor:[UIColor whiteColor]];
+        } else if ([colorIndex integerValue] == 1) {
+            [self toColorSegmentWithBackgroundColor:[UIColor blackColor]];
+        }
     }
 }
 

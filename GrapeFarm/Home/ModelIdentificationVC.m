@@ -28,6 +28,7 @@
 @property(nonatomic,assign)NSInteger leftValue;
 @property(nonatomic,assign)NSInteger rightValue;
 @property(nonatomic,strong)NSMutableArray *imageCircles;
+@property(nonatomic,strong)NSNumber *colorIndex;
 @end
 
 @implementation ModelIdentificationVC
@@ -41,6 +42,9 @@
     [self layoutParamView];
     [self reLayoutImageView];
     self.imageCircles = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+    self.colorIndex = [manager objectForKey:kGrapeColorIndexUserdefaultKey];
 }
 
 - (void)layoutColorImageView {
@@ -146,7 +150,7 @@
         FileCache *fileCache = [FileCache sharedFileCache];
         NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
         UIImage *image = [UIImage imageWithData:imageData];
-        NSArray *arr = [OpenCVWrapper edgeCircles:image threshold:threshold distance:distance type:sSelf.type];
+        NSArray *arr = [OpenCVWrapper edgeCircles:image threshold:threshold distance:distance type:sSelf.type gtype:[_colorIndex integerValue]];
         [sSelf.imageCircles removeAllObjects];
         for (AICircle *c in arr) {
             AICircle *cc = [[AICircle alloc] init];

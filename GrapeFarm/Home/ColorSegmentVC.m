@@ -13,6 +13,7 @@
 #import "UIView+SizeUtility.h"
 #import "OpenCVWrapper.h"
 #import "AILoadingView.h"
+#import "SaveSimpleDataManager.h"
 
 
 typedef NS_ENUM(NSInteger ,ColorType) {
@@ -27,6 +28,7 @@ typedef NS_ENUM(NSInteger ,ColorType) {
 @property(nonatomic,strong)UIImageView *imageView;
 @property(nonatomic,strong)UIButton *nextBtn;
 @property(nonatomic,assign)ColorType colorType;
+@property(nonatomic,strong)NSNumber *colorIndex;
 @end
 
 @implementation ColorSegmentVC
@@ -44,27 +46,52 @@ typedef NS_ENUM(NSInteger ,ColorType) {
     FileCache *fileCache = [FileCache sharedFileCache];
     NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
     UIImage *image = [UIImage imageWithData:imageData];
-    switch (type) {
-        case ColorType_toRed:
-            image = [OpenCVWrapper toRed:image];
-            break;
-        case ColorType_toBlue:
-            image = [OpenCVWrapper toBlue:image];
-            break;
-        case ColorType_toGreen:
-            image = [OpenCVWrapper toGreen:image];
-            break;
-
-        default:
-            break;
+    
+    if ([self.colorIndex integerValue] == 0) {
+        switch (type) {
+            case ColorType_toRed:
+                image = [OpenCVWrapper toL:image];
+                break;
+            case ColorType_toBlue:
+                image = [OpenCVWrapper toA:image];
+                break;
+            case ColorType_toGreen:
+                image = [OpenCVWrapper toB:image];
+                break;
+                
+            default:
+                break;
+        }
+    } else if ([self.colorIndex integerValue] == 1) {
+        switch (type) {
+            case ColorType_toRed:
+                image = [OpenCVWrapper toRed:image];
+                break;
+            case ColorType_toBlue:
+                image = [OpenCVWrapper toBlue:image];
+                break;
+            case ColorType_toGreen:
+                image = [OpenCVWrapper toGreen:image];
+                break;
+                
+            default:
+                break;
+        }
     }
+    
     
     _colorType = type;
     [self reLayoutImageView:image];
 }
 
 - (void)layoutSegmentControl {
+    SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+    self.colorIndex = [manager objectForKey:kGrapeColorIndexUserdefaultKey];
     NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"ToBlue",@"ToGreen",@"ToRed",nil];
+    if ([self.colorIndex integerValue] == 1) {
+        segmentedArray = [[NSArray alloc]initWithObjects:@"L*",@"A*",@"B*",nil];
+    }
+    
     _segmentCtl = [[UISegmentedControl alloc]initWithItems:segmentedArray];
     _segmentCtl.frame = CGRectMake(11,15 + [DeviceInfo navigationBarHeight],self.view.frame.size.width - 22,30);
     _segmentCtl.selectedSegmentIndex = 0;
