@@ -50,13 +50,13 @@ typedef NS_ENUM(NSInteger ,ColorType) {
     if ([self.colorIndex integerValue] == 0) {
         switch (type) {
             case ColorType_toRed:
-                image = [OpenCVWrapper toL:image];
+                image = [OpenCVWrapper toRed:image];
                 break;
             case ColorType_toBlue:
-                image = [OpenCVWrapper toA:image];
+                image = [OpenCVWrapper toBlue:image];
                 break;
             case ColorType_toGreen:
-                image = [OpenCVWrapper toB:image];
+                image = [OpenCVWrapper toGreen:image];
                 break;
                 
             default:
@@ -65,13 +65,13 @@ typedef NS_ENUM(NSInteger ,ColorType) {
     } else if ([self.colorIndex integerValue] == 1) {
         switch (type) {
             case ColorType_toRed:
-                image = [OpenCVWrapper toRed:image];
+                image = [OpenCVWrapper toB:image];
                 break;
             case ColorType_toBlue:
-                image = [OpenCVWrapper toBlue:image];
+                image = [OpenCVWrapper toL:image];
                 break;
             case ColorType_toGreen:
-                image = [OpenCVWrapper toGreen:image];
+                image = [OpenCVWrapper toA:image];
                 break;
                 
             default:

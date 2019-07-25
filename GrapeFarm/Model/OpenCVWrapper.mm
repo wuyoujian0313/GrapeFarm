@@ -88,26 +88,26 @@ using namespace cv;
 }
 
 
-+ (NSArray *)edgeCircles:(UIImage *)source threshold:(NSInteger)threshold distance:(NSInteger)distance color_selection:(NSInteger)color_selection type:(NSInteger)type gtype:(NSInteger)gtype{
-    return [OpenCVWrapper _edgeCircles:[OpenCVWrapper _matFrom:source] threshold:threshold distance:distance color_selection:color_selection type:type gtype:gtype];
++ (NSArray *)edgeCircles:(UIImage *)source threshold:(NSInteger)threshold distance:(NSInteger)distance type:(NSInteger)type gtype:(NSInteger)gtype{
+    return [OpenCVWrapper _edgeCircles:[OpenCVWrapper _matFrom:source] threshold:threshold distance:distance type:type gtype:gtype];
 }
 
 #pragma mark Private
 
 //　Hough圆检测
-+ (NSArray *)_edgeCircles:(Mat)source threshold:(NSInteger)threshold distance:(NSInteger)distance color_selection:(NSInteger)color_selection type:(NSInteger)type gtype:(NSInteger)gtype {
++ (NSArray *)_edgeCircles:(Mat)source threshold:(NSInteger)threshold distance:(NSInteger)distance type:(NSInteger)type gtype:(NSInteger)gtype {
     cout << "-> rededgeFrom ->";
     Mat imageChannel;
-    if (color_selection == 0) {
+    if (gtype == 0) {
         std::vector<Mat> channels;
         split(source, channels);
         imageChannel = channels.at(type);
-    }else if (color_selection == 1){
+    }else if (gtype == 1){
         Mat lab;
         cvtColor(source, lab, COLOR_BGR2Lab);
         vector<Mat> labPlane;
         split(lab, labPlane);
-        imageChannel = labPlane.at(gtype);
+        imageChannel = labPlane.at(type);
     }
     Mat gray;
     cvtColor(source, gray, CV_BGR2GRAY);
