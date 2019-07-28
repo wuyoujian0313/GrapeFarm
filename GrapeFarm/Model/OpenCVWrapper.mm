@@ -98,87 +98,48 @@ using namespace cv;
 + (NSArray *)_edgeCircles:(Mat)source threshold:(NSInteger)threshold distance:(NSInteger)distance type:(NSInteger)type gtype:(NSInteger)gtype {
     cout << "-> rededgeFrom ->";
     Mat imageChannel;
+    Mat dst2;
+    float pi = 3.1415926;
     if (gtype == 0) {
         std::vector<Mat> channels;
         split(source, channels);
         imageChannel = channels.at(type);
+        Mat dst1;
+        cv::threshold(imageChannel,dst1,0,255,THRESH_OTSU);
+        dst2 = 255-dst1;
     }else if (gtype == 1){
         Mat lab;
         cvtColor(source, lab, COLOR_BGR2Lab);
         vector<Mat> labPlane;
         split(lab, labPlane);
         imageChannel = labPlane.at(type);
-    }
-    Mat gray;
-    cvtColor(source, gray, CV_BGR2GRAY);
-    Mat dst1;
-    cv::threshold(imageChannel,dst1,0,255,THRESH_OTSU);
-    Mat dst2 = 255-dst1;
-    //cout<<dst2;
-    Mat gaussianBlur;
-    GaussianBlur(imageChannel, gaussianBlur, cv::Size(5,5), 2,2);
-    //计算最大熵
-    const int hannels[1] = { 0 };
-    const int histSize[1] = { 256 };
-    float pranges[2] = { 0,256 };
-    const float* ranges[1] = { pranges };
-    MatND hist;
-    calcHist(&gaussianBlur, 1, hannels, Mat(), hist, 1, histSize, ranges);
-    float maxentropy = 0;
-    int max_index = 0;
-    float pi = 3.1415926;
-    Mat result;
-    for (int l = 0; l < 256; l++)
-    {
-        //
-        float BackgroundSum = 0, targetSum = 0;
-        const float* pDataHist = (float*)hist.ptr<float>(0);
-        for (int i = 0; i < 256; i++)
-        {
-            //累计背景值
-            if (i < l)
-            {
-                BackgroundSum += pDataHist[i];
-            }
-            //累计目标值
-            else
-            {
-                targetSum += pDataHist[i];
-            }
-        }
+        Mat dst1;
+        Mat dst3;
+        int thre;
+        cv::threshold(imageChannel, dst3, 125, 255, THRESH_BINARY);
+        //dst3 = dst3.mul(dst4);
+        Mat closed;
+        Mat element(5,5,CV_8U,cv::Scalar(255,255,255));
+        Mat dstimage;
+        morphologyEx(dst3, closed, MORPH_CLOSE, element);
         
-        float BackgroundEntropy = 0, targetEntropy = 0;
-        for (int i = 0; i < 256; i++)
-        {
-            //计算背景熵
-            if (i < l)
-            {
-                if (pDataHist[i] == 0)
-                    continue;
-                float ratio1 = pDataHist[i] / BackgroundSum;//p[i]
-                //计算当前能量熵
-                BackgroundEntropy += -ratio1 * logf(ratio1);
-            }
-            else  //计算目标熵
-            {
-                if (pDataHist[i] == 0)
-                    continue;
-                float ratio2 = pDataHist[i] / targetSum;
-                targetEntropy += -ratio2 * logf(ratio2);
+        dilate(dst3, dstimage, element);
+        dst3 = 255 - dstimage;
+        Mat edges3;
+        int gheight = imageChannel.rows;
+        int gwidth = imageChannel.cols;
+        blur(dst3, edges3, cv::Size(20,20));
+        for (int i = 0; i < gheight; i++) {
+            uchar* p = edges3.ptr<uchar>(i);
+            for (int j = 0; j < gwidth; j++) {
+                if (p[j] < 125) {
+                    p[j] = 0;
+                }else p[j] = 255;
             }
         }
-        //
-        float cur_entropy = (targetEntropy + BackgroundEntropy);
-        if (cur_entropy > maxentropy)
-        {
-            maxentropy = cur_entropy;
-            max_index = l;
-        }
+        dst2 = edges3;
     }
-    int MaxThreshold;
-    MaxThreshold = max_index;
-    Mat edges;
-    Canny(gaussianBlur, edges, MaxThreshold/5, MaxThreshold/3);
+    
     //找最大轮廓
     vector<vector<cv::Point>> contours;
     vector<Vec4i> hierarchy;
@@ -197,8 +158,8 @@ using namespace cv;
         }
     }
     //NSLog(@"%f",maxarea);
-    Mat edges1= Mat::zeros(edges.rows,edges.cols,CV_8UC1);
-    Mat edges2= Mat::zeros(edges.rows, edges.cols, CV_8UC1);
+    Mat edges1= Mat::zeros(imageChannel.rows,imageChannel.cols,CV_8UC1);
+    Mat edges2= Mat::zeros(imageChannel.rows, imageChannel.cols, CV_8UC1);
     Scalar color(255,255,255);
     drawContours(edges1, contours, maxAreaIdx, color, FILLED);
     drawContours(edges2, contours, maxAreaIdx, color, 1);
@@ -206,7 +167,7 @@ using namespace cv;
     cv::Rect ret1 = boundingRect(Mat(contours[maxAreaIdx]));
     NSLog(@"%d,%d,%d,%d",ret1.x,ret1.y,ret1.width,ret1.height);
     int thres = ret1.width + ret1.x;
-    int nrow = edges.rows;
+    int nrow = imageChannel.rows;
     int parts[nrow][1];
     int i,j;
     vector<int> currentGroups;
@@ -497,7 +458,7 @@ using namespace cv;
             for (int i = 0; i < visibleBerries.size(); i++) {
                 int center_x = visibleBerries[i][0];
                 int center_y = visibleBerries[i][1];
-                vector<int>v_y = edges.row(center_y).clone();
+                vector<int>v_y = edges2.row(center_y).clone();
                 vector<int>::iterator idx = find(v_y.begin(), v_y.end(),255);
                 long index_min = &*idx-&v_y[0];
                 long index_max;
@@ -794,7 +755,29 @@ using namespace cv;
     Mat dst1;
     cv::threshold(imageBlueChannel,dst1,0,255,THRESH_OTSU);
     Mat dst2 = 255-dst1;    //显示分离的单通道图像
-    return imageBlueChannel;
+    vector<vector<cv::Point>> contours;
+    vector<Vec4i> hierarchy;
+    //cout<<dst1<<endl;
+    findContours(dst2, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+    //NSLog(@"%lu",contours.size());
+    double maxarea = 0;
+    int maxAreaIdx = 0;
+    for(int index = contours.size()-1;index >=0;index--)
+    {
+        double tmparea = fabs(contourArea(contours[index]));
+        if (tmparea>maxarea)
+        {
+            maxarea=tmparea;
+            maxAreaIdx=index;
+        }
+    }
+    //NSLog(@"%f",maxarea);
+    Mat edges1= Mat::zeros(imageBlueChannel.rows,imageBlueChannel.cols,CV_8UC1);
+    Mat edges2= Mat::zeros(imageBlueChannel.rows, imageBlueChannel.cols, CV_8UC1);
+    Scalar color(255,255,255);
+    drawContours(edges1, contours, maxAreaIdx, color, FILLED);
+    drawContours(edges2, contours, maxAreaIdx, color, 1);
+    return edges2;
     
 }
 
@@ -838,8 +821,116 @@ using namespace cv;
     cvtColor(source, lab, COLOR_BGR2Lab);//转LAB色彩空间
     vector<Mat> labPlane;
     Mat imageLChannel;
+    Mat imageB;
     split(lab, labPlane);//LAB色彩分离
     imageLChannel = labPlane.at(0);
+    /*cvtColor(source, lab, COLOR_BGR2Lab);
+     split(lab, labPlane);
+     imageB = labPlane.at(2);
+     Mat gaussianBlur;
+     GaussianBlur(imageLChannel, gaussianBlur, cv::Size(5,5), 2,2);
+     //计算最大熵
+     const int hannels[1] = { 0 };
+     const int histSize[1] = { 256 };
+     float pranges[2] = { 0,256 };
+     const float* ranges[1] = { pranges };
+     MatND hist;
+     calcHist(&gaussianBlur, 1, hannels, Mat(), hist, 1, histSize, ranges);
+     float maxentropy = 0;
+     int max_index = 0;
+     float pi = 3.1415926;
+     Mat result;
+     for (int l = 0; l < 256; l++)
+     {
+     //
+     float BackgroundSum = 0, targetSum = 0;
+     const float* pDataHist = (float*)hist.ptr<float>(0);
+     for (int i = 0; i < 256; i++)
+     {
+     //累计背景值
+     if (i < l)
+     {
+     BackgroundSum += pDataHist[i];
+     }
+     //累计目标值
+     else
+     {
+     targetSum += pDataHist[i];
+     }
+     }
+     
+     float BackgroundEntropy = 0, targetEntropy = 0;
+     for (int i = 0; i < 256; i++)
+     {
+     //计算背景熵
+     if (i < l)
+     {
+     if (pDataHist[i] == 0)
+     continue;
+     float ratio1 = pDataHist[i] / BackgroundSum;//p[i]
+     //计算当前能量熵
+     BackgroundEntropy += -ratio1 * logf(ratio1);
+     }
+     else  //计算目标熵
+     {
+     if (pDataHist[i] == 0)
+     continue;
+     float ratio2 = pDataHist[i] / targetSum;
+     targetEntropy += -ratio2 * logf(ratio2);
+     }
+     }
+     //
+     float cur_entropy = (targetEntropy + BackgroundEntropy);
+     if (cur_entropy > maxentropy)
+     {
+     maxentropy = cur_entropy;
+     max_index = l;
+     }
+     }
+     int MaxThreshold;
+     MaxThreshold = max_index;
+     Mat edges;
+     Canny(gaussianBlur, edges, 0, MaxThreshold/3);
+     cvtColor(source, lab, COLOR_BGR2Lab);
+     split(lab, labPlane);
+     imageB = labPlane.at(2);
+     Mat dst1;
+     Mat dst3;
+     Mat dst4;
+     int thre;
+     int thre1;
+     thre = cv::threshold(imageB,dst1,0,255,THRESH_OTSU);
+     cv::threshold(imageB,dst3,thre-40,255,THRESH_BINARY);
+     thre1 = cv::threshold(imageLChannel, dst1, 0, 255, THRESH_OTSU);
+     cv::threshold(imageLChannel, dst4, thre1+10, 255, THRESH_BINARY);
+     dst3 = dst3.mul(dst4);
+     Mat closed;
+     Mat dstimage;
+     Mat element(15,15,CV_8U,cv::Scalar(255,255,255));
+     morphologyEx(edges, closed, MORPH_CLOSE, element);
+     dilate(edges, dstimage, element);
+     vector<vector<cv::Point>> contours;
+     vector<Vec4i> hierarchy;
+     //cout<<dst1<<endl;
+     findContours(dstimage, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+     //NSLog(@"%lu",contours.size());
+     double maxarea = 0;
+     int maxAreaIdx = 0;
+     for(int index = contours.size()-1;index >=0;index--)
+     {
+     double tmparea = fabs(contourArea(contours[index]));
+     if (tmparea>maxarea)
+     {
+     maxarea=tmparea;
+     maxAreaIdx=index;
+     }
+     }
+     //NSLog(@"%f",maxarea);
+     Mat edges1= Mat::zeros(imageLChannel.rows,imageLChannel.cols,CV_8UC1);
+     Mat edges2= Mat::zeros(imageLChannel.rows, imageLChannel.cols, CV_8UC1);
+     Scalar color(255,255,255);
+     drawContours(edges1, contours, maxAreaIdx, color, FILLED);
+     drawContours(edges2, contours, maxAreaIdx, color, 1);*/
     
     return imageLChannel;
 }
@@ -853,6 +944,54 @@ using namespace cv;
     Mat imageAChannel;
     split(lab, labPlane);
     imageAChannel = labPlane.at(1);
+    
+    /*int thre;
+     Mat dst1;
+     Mat dst3;
+     thre = cv::threshold(imageAChannel, dst1, 0, 255, THRESH_OTSU);
+     cout<<thre<<endl;
+     cv::threshold(imageAChannel, dst3, 125, 255, THRESH_BINARY);
+     Mat closed;
+     Mat dstimage;
+     Mat element(5,5,CV_8U,cv::Scalar(255,255,255));
+     morphologyEx(dst3, closed, MORPH_CLOSE, element);
+     dilate(dst3, dstimage, element);
+     dst3 = 255 - dstimage;
+     Mat edges3;
+     int gheight = imageAChannel.rows;
+     int gwidth = imageAChannel.cols;
+     blur(dst3, edges3, cv::Size(20,20));
+     for (int i = 0; i < gheight; i++) {
+     uchar* p = edges3.ptr<uchar>(i);
+     for (int j = 0; j < gwidth; j++) {
+     if (p[j] < 125) {
+     p[j] = 0;
+     }else p[j] = 255;
+     }
+     }
+     
+     vector<vector<cv::Point>> contours;
+     vector<Vec4i> hierarchy;
+     //cout<<dst1<<endl;
+     findContours(edges3, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+     //NSLog(@"%lu",contours.size());
+     double maxarea = 0;
+     int maxAreaIdx = 0;
+     for(int index = contours.size()-1;index >=0;index--)
+     {
+     double tmparea = fabs(contourArea(contours[index]));
+     if (tmparea>maxarea)
+     {
+     maxarea=tmparea;
+     maxAreaIdx=index;
+     }
+     }
+     //NSLog(@"%f",maxarea);
+     Mat edges1= Mat::zeros(imageAChannel.rows,imageAChannel.cols,CV_8UC1);
+     Mat edges2= Mat::zeros(imageAChannel.rows, imageAChannel.cols, CV_8UC1);
+     Scalar color(255,255,255);
+     drawContours(edges1, contours, maxAreaIdx, color, FILLED);
+     drawContours(edges2, contours, maxAreaIdx, color, 1);*/
     
     return imageAChannel;
 }
