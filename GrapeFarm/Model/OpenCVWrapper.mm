@@ -752,7 +752,7 @@ using namespace cv;
     //把一个三通道图像转化为三个单通道图像
     split(source, channels);
     imageBlueChannel = channels.at(0);
-    Mat dst1;
+    /*Mat dst1;
     cv::threshold(imageBlueChannel,dst1,0,255,THRESH_OTSU);
     Mat dst2 = 255-dst1;    //显示分离的单通道图像
     vector<vector<cv::Point>> contours;
@@ -776,8 +776,8 @@ using namespace cv;
     Mat edges2= Mat::zeros(imageBlueChannel.rows, imageBlueChannel.cols, CV_8UC1);
     Scalar color(255,255,255);
     drawContours(edges1, contours, maxAreaIdx, color, FILLED);
-    drawContours(edges2, contours, maxAreaIdx, color, 1);
-    return edges2;
+    drawContours(edges2, contours, maxAreaIdx, color, 1);*/
+    return imageBlueChannel;
     
 }
 
