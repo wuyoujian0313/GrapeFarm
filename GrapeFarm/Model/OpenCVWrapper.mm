@@ -105,7 +105,7 @@ using namespace cv;
         split(source, channels);
         imageChannel = channels.at(type);
         Mat dst1;
-        cv::threshold(imageChannel,dst1,0,255,THRESH_OTSU);
+        cv::threshold(imageChannel,dst1,95,255,THRESH_BINARY);
         dst2 = 255-dst1;
     }else if (gtype == 1){
         Mat lab;
@@ -752,8 +752,8 @@ using namespace cv;
     //把一个三通道图像转化为三个单通道图像
     split(source, channels);
     imageBlueChannel = channels.at(0);
-    /*Mat dst1;
-    cv::threshold(imageBlueChannel,dst1,0,255,THRESH_OTSU);
+    Mat dst1;
+    cv::threshold(imageBlueChannel,dst1,95,255,THRESH_BINARY);
     Mat dst2 = 255-dst1;    //显示分离的单通道图像
     vector<vector<cv::Point>> contours;
     vector<Vec4i> hierarchy;
@@ -776,7 +776,7 @@ using namespace cv;
     Mat edges2= Mat::zeros(imageBlueChannel.rows, imageBlueChannel.cols, CV_8UC1);
     Scalar color(255,255,255);
     drawContours(edges1, contours, maxAreaIdx, color, FILLED);
-    drawContours(edges2, contours, maxAreaIdx, color, 1);*/
+    drawContours(edges2, contours, maxAreaIdx, color, 1);
     return imageBlueChannel;
     
 }
