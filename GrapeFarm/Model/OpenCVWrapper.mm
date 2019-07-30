@@ -116,7 +116,7 @@ using namespace cv;
         Mat dst1;
         Mat dst3;
         int thre;
-        cv::threshold(imageChannel, dst3, 125, 255, THRESH_BINARY);
+        cv::threshold(imageChannel, dst3, 120, 255, THRESH_BINARY);
         //dst3 = dst3.mul(dst4);
         Mat closed;
         Mat element(5,5,CV_8U,cv::Scalar(255,255,255));
