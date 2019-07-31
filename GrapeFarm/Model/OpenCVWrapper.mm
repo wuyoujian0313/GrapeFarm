@@ -93,7 +93,6 @@ using namespace cv;
 }
 
 #pragma mark Private
-
 //　Hough圆检测
 + (NSArray *)_edgeCircles:(Mat)source threshold:(NSInteger)threshold distance:(NSInteger)distance type:(NSInteger)type gtype:(NSInteger)gtype {
     cout << "-> rededgeFrom ->";
@@ -176,6 +175,7 @@ using namespace cv;
     vector<Vec4i> visibleBerries;
     vector<Vec4i> visibleBerries1;
     vector<Vec4i> existing_Berries;
+    vector<Vec4i> existing_Berries1;
     vector<Vec3f> circles_t;
     Vec4i cf;
     Vec4i ci;
@@ -658,13 +658,23 @@ using namespace cv;
             }
             cout<<existing_Berries.size();
             //cout<<0<<endl;
-            for( size_t i = 0; i < existing_Berries.size(); i++ ) {
+            if (existing_Berries.size() > 1) {
+                for (int j = 1; j < existing_Berries.size(); j++) {
+                    float distance1;
+                    distance1 = sqrt(pow(existing_Berries[j][0]-existing_Berries[j-1][0], 2)+pow(existing_Berries[j][1]-existing_Berries[j-1][1], 2));
+                    if (distance1 > existing_Berries[j][3]/3) {
+                        existing_Berries1.push_back(existing_Berries[j]);
+                    }
+                }
+            }
+            cout<<existing_Berries1.size();
+            for( size_t i = 0; i < existing_Berries1.size(); i++ ) {
                 Vec3i c;
                 int z;
-                c[0] = existing_Berries[i][0];
-                c[1] = existing_Berries[i][1];
-                c[2] = existing_Berries[i][3];
-                z = existing_Berries[i][2];
+                c[0] = existing_Berries1[i][0];
+                c[1] = existing_Berries1[i][1];
+                c[2] = existing_Berries1[i][3];
+                z = existing_Berries1[i][2];
                 AICircle *circle = [[AICircle alloc] init];
                 circle.x = [NSNumber numberWithFloat:c[0]];
                 circle.y = [NSNumber numberWithFloat:c[1]];
@@ -950,7 +960,7 @@ using namespace cv;
      Mat dst3;
      thre = cv::threshold(imageAChannel, dst1, 0, 255, THRESH_OTSU);
      cout<<thre<<endl;
-     cv::threshold(imageAChannel, dst3, 125, 255, THRESH_BINARY);
+     cv::threshold(imageAChannel, dst3, 120, 255, THRESH_BINARY);
      Mat closed;
      Mat dstimage;
      Mat element(5,5,CV_8U,cv::Scalar(255,255,255));
