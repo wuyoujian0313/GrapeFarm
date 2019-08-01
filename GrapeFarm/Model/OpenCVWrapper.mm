@@ -662,7 +662,7 @@ using namespace cv;
                 for (int j = 1; j < existing_Berries.size(); j++) {
                     float distance1;
                     distance1 = sqrt(pow(existing_Berries[j][0]-existing_Berries[j-1][0], 2)+pow(existing_Berries[j][1]-existing_Berries[j-1][1], 2));
-                    if (distance1 > existing_Berries[j][3]/3) {
+                    if (distance1 > existing_Berries[j][3]) {
                         existing_Berries1.push_back(existing_Berries[j]);
                     }
                 }
@@ -1053,6 +1053,16 @@ using namespace cv;
     CGImageRef image = CGImageCreate(source.cols, source.rows, bitsPerComponent, bitsPerComponent * source.elemSize(), bytesPerRow, colorSpace, bitmapFlags, provider, NULL, false, kCGRenderingIntentDefault);
     UIImage *result = [UIImage imageWithCGImage:image];
     
+    CGImageRelease(image);
+    CGDataProviderRelease(provider);
+    CGColorSpaceRelease(colorSpace);
+    
+    return result;
+}
+
+
+@end
+
     CGImageRelease(image);
     CGDataProviderRelease(provider);
     CGColorSpaceRelease(colorSpace);
