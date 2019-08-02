@@ -141,6 +141,10 @@
     
     NSInteger columCount = 5;
     NSInteger step = (_max_r - _mix_r)%columCount == 0?(_max_r - _mix_r)/columCount:(_max_r - _mix_r)/columCount+1;
+    if (_max_r - _mix_r <= columCount) {
+        columCount = (_max_r - _mix_r) + 1;
+        step = 1;
+    }
     NSMutableArray *valueArr = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *textArr = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *stepArr = [[NSMutableArray alloc] initWithCapacity:0];

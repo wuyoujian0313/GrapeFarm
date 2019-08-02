@@ -53,7 +53,7 @@
 "3DModel"                   ="3D model";
 "SelectFarm"                ="Please select or enter a farm name";
 "SelectVariey"              ="Please select or enter grape varieties";
-"GetLocation"               ="Locate your location";
+"GetLocation"               ="Location of image";
 "Commit"                    ="Commit";
 "CommitSuccess"             ="Congratulations, your submission is successful!";
 "CommitFailed"              ="Sorry, the submission failed, please try again";
