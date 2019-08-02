@@ -13,6 +13,7 @@
 #import "UIView+SizeUtility.h"
 #import "AICircle.h"
 #import "FileCache.h"
+#import "SaveSimpleDataManager.h"
 
 
 @interface SCN3DModelVC ()<SCNSceneRendererDelegate>
@@ -206,7 +207,16 @@
     
     SCNLight *light = [SCNLight light]; // 创建灯光
     light.type = SCNLightTypeOmni; // 设置灯光类型
-    light.color = [UIColor colorWithHex:0x350a6d]; // 设置灯光颜色
+    
+    SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+    NSNumber  *colorIndex = [manager objectForKey:kGrapeColorIndexUserdefaultKey];
+    if ([colorIndex integerValue] == 0) {
+        light.color = [UIColor colorWithHex:0x350a6d]; // 设置灯光颜色,紫色
+    } else {
+        light.color = [UIColor colorWithHex:0x66ff00]; // 设置灯光颜色，绿色
+    }
+    
+    
     
     SCNNode *lightNode = [SCNNode node];
     lightNode.light  = light;

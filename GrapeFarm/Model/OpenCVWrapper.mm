@@ -1062,13 +1062,3 @@ using namespace cv;
 
 
 @end
-
-    CGImageRelease(image);
-    CGDataProviderRelease(provider);
-    CGColorSpaceRelease(colorSpace);
-    
-    return result;
-}
-
-
-@end
