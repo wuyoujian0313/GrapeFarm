@@ -5,9 +5,9 @@
   Created by Wu YouJian on 2019/3/26.
   Copyright © 2019 Wu YouJian. All rights reserved.
 */
-"AppName"                   ="Vineyard";
-"PleaseRegister_1"          ="There is no account?";
-"PleaseRegister_2"          =" Please register";
+"AppName"                   ="3DBunch";
+"PleaseRegister_1"          ="Need an account?";
+"PleaseRegister_2"          ="Please register";
 "InputAccount"              ="Please enter your account";
 "InputPassword"             ="Please enter your password";
 "PasswordLengthError"       ="Enter a password of less than 6 digits";
@@ -22,7 +22,7 @@
 "Cancel"                    ="Cancel";
 "Next"                      ="Next";
 "Reset"                     ="Reset";
-"InputEmail"                ="Please enter your email";
+"InputEmail"                ="Please enter your email address";
 "InputV-code"               ="Please enter verification code";
 "Character"                 ="(6-8 Characters)";
 "Settings"                  ="Settings";
@@ -41,14 +41,14 @@
 "InvalidEMail"              ="Please enter a valid email address";
 "Loading"                   ="Loading...";
 "ColorSegment"              ="Color segmentation";
-"CheckEmailCode"            ="Email verification code has been sent to your mailbox, please check";
+"CheckEmailCode"            ="Email verification code has been sent to your mailbox, please check it";
 "registerSuccess"           ="Congratulations on your successful registration";
 "resetPassworkSuccess"      ="Congratulations on your successful password reset";
 "Successful"                ="Successful";
-"SelectImageArea"           ="Select the grape area with your fingers";
+"SelectImageArea"           ="Select the bunch area with your fingers";
 "ModelIdentification"       ="Model identification";
 "BrushColor"                ="Brush color";
-"UnCamera"                  ="Sorry,unable to use camera";
+"UnCamera"                  ="Sorry,unable to use the camera";
 "AllowCamera"               ="Please allow access to the camera in Settings - privacy - camera on the iPhone";
 "3DModel"                   ="3D model";
 "SelectFarm"                ="Please select or enter a farm name";
@@ -68,7 +68,8 @@
 "green"                     ="Green";
 "purple"                    ="Purple";
 "chartDesc"                 ="Maximum grape radius:%lu Total:%lu";
-"about"                     ="About the vineyard";
+"about"                     ="About the APP";
+"aboutText"                 ="This app is partly sponsored by SRV team from UNSW SYDNEY, AUSTRALIA. All copy right is reserved by HUOYAN Ltd., Changs China, 2019. ";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";
@@ -77,3 +78,4 @@
 "NetStatusCodeEmailCodeError"       = "Sorry, this email verification code is not correct";
 "NetStatusCodePasswordError"        = "Sorry, the password or user name is not correct";
 "NetStatusCodeUnknown"              = "Sorry, unknown error";
+

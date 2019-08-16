@@ -61,15 +61,15 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _aboutTableView.frame.size.width, height)];
     [view setBackgroundColor:[UIColor clearColor]];
     
-    UILabel *copyrightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, view.bottom - 30,view.width,30)];
-    [copyrightLabel setText:@"Copyright © 2019 湖南火炎科技.All Rights Reserved."];
-    [copyrightLabel setTextColor:[UIColor colorWithHex:kTextGrayColor]];
-    [copyrightLabel setTextAlignment:NSTextAlignmentCenter];
-    [copyrightLabel setFont:[UIFont boldSystemFontOfSize:12]];
-    [view addSubview:copyrightLabel];
+//    UILabel *copyrightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, view.bottom - 30,view.width,30)];
+//    [copyrightLabel setText:@"All copy right is reserved by HUOYAN Ltd., Changs China, 2019."];
+//    [copyrightLabel setTextColor:[UIColor colorWithHex:kTextGrayColor]];
+//    [copyrightLabel setTextAlignment:NSTextAlignmentCenter];
+//    [copyrightLabel setFont:[UIFont boldSystemFontOfSize:12]];
+//    [view addSubview:copyrightLabel];
     
-    UITextView *appNameText = [[UITextView alloc] initWithFrame:CGRectMake(10, 0, view.width - 20, height - copyrightLabel.height)];
-    NSString *desc = @"This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text ";
+    UITextView *appNameText = [[UITextView alloc] initWithFrame:CGRectMake(10, 0, view.width - 20, height)];
+    NSString *desc = NSLocalizedString(@"aboutText", nil);
     
     //段落样式
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
@@ -80,7 +80,7 @@
     //首行文本缩进
     paraStyle.firstLineHeadIndent = 20.0;
     
-    NSDictionary *attributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:12], NSForegroundColorAttributeName:[UIColor colorWithHex:kTextGrayColor],NSParagraphStyleAttributeName:paraStyle};
+    NSDictionary *attributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:14], NSForegroundColorAttributeName:[UIColor colorWithHex:kTextGrayColor],NSParagraphStyleAttributeName:paraStyle};
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:desc];
     [attrStr addAttributes:attributes range:NSMakeRange(0, desc.length)];

@@ -150,7 +150,7 @@
         FileCache *fileCache = [FileCache sharedFileCache];
         NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
         UIImage *image = [UIImage imageWithData:imageData];
-        NSArray *arr = [OpenCVWrapper edgeCircles:image threshold:threshold distance:distance type:sSelf.type gtype:[_colorIndex integerValue]];
+        NSArray *arr = [OpenCVWrapper edgeCircles:image threshold:threshold distance:distance type:sSelf.type gtype:[sSelf.colorIndex integerValue]];
         [sSelf.imageCircles removeAllObjects];
         for (AICircle *c in arr) {
             AICircle *cc = [[AICircle alloc] init];

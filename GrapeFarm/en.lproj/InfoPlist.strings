@@ -6,13 +6,13 @@
   Copyright © 2016年 wuyoujian. All rights reserved.
 */
 
-"CFBundleDisplayName"                           ="Vineyard";
-"NSCameraUsageDescription"                      ="The grape farm needs to use your camera";
-"NSPhotoLibraryAddUsageDescription"             ="The grape farm needs to use your photo album";
-"NSPhotoLibraryUsageDescription"                ="The grape farm needs to use your photo album";
-"NSLocationAlwaysAndWhenInUseUsageDescription"  ="The grape farm needs to use your location";
-"NSLocationAlwaysUsageDescription"              ="The grape farm needs to use your location";
-"NSLocationWhenInUseUsageDescription"           ="The grape farm needs to use your location";
-"NSLocationUsageDescription"                    ="The grape farm needs to use your location";
+"CFBundleDisplayName"                           ="3D Bunch";
+"NSCameraUsageDescription"                      ="The 3D Bunch needs to use your camera";
+"NSPhotoLibraryAddUsageDescription"             ="The 3D Bunch needs to use your photo album";
+"NSPhotoLibraryUsageDescription"                ="The 3D Bunch needs to use your photo album";
+"NSLocationAlwaysAndWhenInUseUsageDescription"  ="The 3D Bunch needs to use your location";
+"NSLocationAlwaysUsageDescription"              ="The 3D Bunch needs to use your location";
+"NSLocationWhenInUseUsageDescription"           ="The 3D Bunch needs to use your location";
+"NSLocationUsageDescription"                    ="The 3D Bunch needs to use your location";
 
 
