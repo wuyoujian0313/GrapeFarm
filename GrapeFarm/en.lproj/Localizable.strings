@@ -5,8 +5,8 @@
   Created by Wu YouJian on 2019/3/26.
   Copyright © 2019 Wu YouJian. All rights reserved.
 */
-"AppName"                   ="Vineyard";
-"PleaseRegister_1"          ="There is no account?";
+"AppName"                   ="3DBunch";
+"PleaseRegister_1"          ="Need an account?";
 "PleaseRegister_2"          =" Please register";
 "InputAccount"              ="Please enter your account";
 "InputPassword"             ="Please enter your password";
@@ -22,8 +22,8 @@
 "Cancel"                    ="Cancel";
 "Next"                      ="Next";
 "Reset"                     ="Reset";
-"InputEmail"                ="Please enter your email";
-"InputV-code"               ="Please enter verification code";
+"InputEmail"                ="Please enter your email address";
+"InputV-code"               ="Please enter the verification code";
 "Character"                 ="(6-8 Characters)";
 "Settings"                  ="Settings";
 "Records"                   ="History records";
@@ -53,23 +53,23 @@
 "3DModel"                   ="3D model";
 "SelectFarm"                ="Please select or enter a farm name";
 "SelectVariey"              ="Please select or enter grape varieties";
-"GetLocation"               ="Locate your location";
+"GetLocation"               ="Locate of location";
 "Commit"                    ="Commit";
 "CommitSuccess"             ="Congratulations, your submission is successful!";
 "CommitFailed"              ="Sorry, the submission failed, please try again";
-"Threshold"                 ="The value of threshold";
+"Threshold"                 ="The value of the threshold";
 "MinRadius"                 ="The value of minRadius";
 "MaxRadius"                 ="The value of maxRadius";
 "Identifying"               ="Identifying...";
 "setBackgroudColor"         ="Set the background color";
-"black_bg"                  ="Set it to a black background";
-"white_bg"                  ="Set it to a white background";
+"black_bg"                  ="Change it to a black background";
+"white_bg"                  ="Change it to a white background";
 "processing"                ="Processing...";
 "green"                     ="Green";
 "purple"                    ="Purple";
 "chartDesc"                 ="Maximum grape radius:%lu Total:%lu";
-"about"                     ="About the vineyard";
-
+"about"                     ="About the App";
+"aboutText"                 ="This app is partly sponsored by SRV team from UNSW SYDNEY, AUSTRALIA. All copyright is reserved by HUOYAN Ltd., Changsha, China, 2019.";
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";
 "NetStatusCodeEmailCodeUnExist"     = "Sorry, this email verification code does not exist";
