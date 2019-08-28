@@ -69,7 +69,7 @@
     [view addSubview:copyrightLabel];
     
     UITextView *appNameText = [[UITextView alloc] initWithFrame:CGRectMake(10, 0, view.width - 20, height - copyrightLabel.height)];
-    NSString *desc = @"This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text This is text ";
+    NSString *desc = @"This app is partly sponsored by SRV team from UNSW SYDNEY, AUSTRALIA. All copyright is reserved by HUOYAN Ltd., Changsha, China, 2019. ";
     
     //段落样式
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
