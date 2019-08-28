@@ -1135,10 +1135,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Wu YouJian (EK2QWBZ82K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: scarlett.liu644@gmail.com (BE7Y5ZP333)";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 7DUX67X748;
+				DEVELOPMENT_TEAM = E33776NNUU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
@@ -1156,9 +1156,9 @@
 					"@executable_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.grapefarm;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srv.3dbunch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GrapeFarm_devProfile;
+				PROVISIONING_PROFILE_SPECIFIER = 3dbunch_dev_profile;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1176,10 +1176,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing WeiMeiTianCheng Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Sisi Liu (E33776NNUU)";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 7DUX67X748;
+				DEVELOPMENT_TEAM = E33776NNUU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
@@ -1196,9 +1196,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.grapefarm;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srv.3dbunch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GrapeFarm_disProfile;
+				PROVISIONING_PROFILE_SPECIFIER = 3dbunch_dis_profile;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
