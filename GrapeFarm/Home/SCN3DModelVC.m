@@ -19,12 +19,15 @@
 @interface SCN3DModelVC ()<SCNSceneRendererDelegate>
 @property (nonatomic, strong) SCNScene *scene;
 @property (nonatomic, strong) SCNView  *scnView;
+@property (nonatomic, strong) SCNCamera *camera;
 @property (nonatomic, strong) UIButton *nextBtn;
 @property (nonatomic, strong) NSArray<AICircle*> *circles;
 @property (nonatomic, assign) NSInteger max_r;
 @property (nonatomic, assign) NSInteger mix_r;
 @property (nonatomic, strong) SCNNode *groupNode;
 @property (nonatomic, assign) NSInteger XAngle;
+@property (nonatomic, assign) CGFloat lastWidthRatio;
+@property (nonatomic, assign) CGFloat lastHeightRatio;
 @end
 
 @implementation SCN3DModelVC
@@ -84,34 +87,18 @@
 }
 
 - (void)panned:(UIPanGestureRecognizer *)panGesture{
-    NSInteger TX = 0,TY = 0;
     CGPoint transPoint = [panGesture translationInView:_scnView];
-    // 单指
-    if ([panGesture numberOfTouches] == 1) {
-        TX = transPoint.x * 4 ;
-        TY = -transPoint.y * 4 ;
-        
-        SCNAction *pan = [SCNAction moveByX:TX y:TY z:0 duration:0];
-        [_groupNode runAction:pan];
+    float rotate = -transPoint.x / _scnView.frame.size.width + _lastWidthRatio;
+    rotate = rotate *M_PI;
+    
+    // 模型平面垂直向量
+    SCNVector3 v = SCNVector3Make(0, cos(_XAngle*M_PI/180), sin(_XAngle*M_PI/180));
+    // Action
+    SCNAction *rotateAction = [SCNAction rotateByAngle:-rotate*0.75 aroundAxis:v duration:0];
+    [_groupNode runAction:rotateAction];
+    if (panGesture.state == UIGestureRecognizerStateEnded) {
+        _lastWidthRatio = rotate;
     }
-//    // 双指
-//    else if ([panGesture numberOfTouches] == 2) {
-//        // 偏转角度
-//        CGFloat angle = transPoint.y / self.view.width *100;
-//        // x轴累计偏转角
-//        _XAngle += angle;
-//        // 40°~90°阈值
-//        if (_XAngle > 90) {
-//            _XAngle = 90;
-//            angle = 0;
-//        } else if (_XAngle < 40) {
-//            _XAngle = 40;
-//            angle = 0;
-//        }
-//
-//        SCNAction *action = [SCNAction rotateByAngle:(angle*M_PI/180) aroundAxis:SCNVector3Make(1, 0, 0) duration:0];
-//        [_groupNode runAction:action];
-//    }
     [panGesture setTranslation:CGPointMake(0, 0) inView:_scnView];
 }
 
@@ -136,9 +123,9 @@
     [self.view addSubview:_scnView];
     
     // 旋转手势
-    UIRotationGestureRecognizer *rotationGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotation:)];
-//    rotationGesture.delegate = self;
-    [_scnView addGestureRecognizer:rotationGesture];
+//    UIRotationGestureRecognizer *rotationGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotation:)];
+////    rotationGesture.delegate = self;
+//    [_scnView addGestureRecognizer:rotationGesture];
     
     // 缩放手势
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
