@@ -88,16 +88,29 @@
 
 - (void)panned:(UIPanGestureRecognizer *)panGesture{
     CGPoint transPoint = [panGesture translationInView:_scnView];
-    float rotate = -transPoint.x / _scnView.frame.size.width + _lastWidthRatio;
-    rotate = rotate *M_PI;
+    float rotateX = -transPoint.x / _scnView.frame.size.width + _lastWidthRatio;
+    rotateX = rotateX *M_PI;
     
     // 模型平面垂直向量
     SCNVector3 v = SCNVector3Make(0, cos(_XAngle*M_PI/180), sin(_XAngle*M_PI/180));
     // Action
-    SCNAction *rotateAction = [SCNAction rotateByAngle:-rotate*0.75 aroundAxis:v duration:0];
-    [_groupNode runAction:rotateAction];
+    SCNAction *rotateActionX = [SCNAction rotateByAngle:-rotateX*0.75 aroundAxis:v duration:0];
+    [_groupNode runAction:rotateActionX];
+    
+    //rotateActionX
+    float rotateY = -transPoint.y / _scnView.frame.size.height + _lastHeightRatio;
+    rotateY = rotateY *M_PI;
+    
+    // 模型平面垂直向量
+    SCNVector3 vY = SCNVector3Make(1,0, 0);
+    // Action
+    SCNAction *rotateActionY = [SCNAction rotateByAngle:-rotateY*0.55 aroundAxis:vY duration:0];
+    [_groupNode runAction:rotateActionY];
+    
+
     if (panGesture.state == UIGestureRecognizerStateEnded) {
-        _lastWidthRatio = rotate;
+        _lastWidthRatio = rotateX;
+        _lastHeightRatio = rotateY;
     }
     [panGesture setTranslation:CGPointMake(0, 0) inView:_scnView];
 }

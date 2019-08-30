@@ -22,7 +22,7 @@
 
 
 
-@interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
+@interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic,strong)UIImageView *imageView;
 @property (nonatomic,strong)AICroppableView *croppingView;
 @property (nonatomic,strong)UIView *toolView;
@@ -142,13 +142,36 @@
         //重置
         [_croppingView cleaningBrush];
     } else if (type == 3) {
-//        [self toColorSegmentWithBackgroundColor:nil];
-        UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:nil
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                           destructiveButtonTitle:nil
-                                                otherButtonTitles:NSLocalizedString(@"purple", nil),NSLocalizedString(@"green", nil),nil];
-        [sheet showInView:self.view];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        __weak typeof(self) wSelf = self;
+        UIAlertAction *purpleAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"purple", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+            //
+            typeof(self) sSelf = wSelf;
+            [sSelf toColorIndex:@0];
+        }];
+        UIAlertAction *greenAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"green", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+            //
+            typeof(self) sSelf = wSelf;
+            [sSelf toColorIndex:@1];
+            
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil];
+        
+        [alertController addAction:purpleAction];
+        [alertController addAction:greenAction];
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
+- (void)toColorIndex:(NSNumber *)colorIndex  {
+    SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+    [manager setObject:colorIndex forKey:kGrapeColorIndexUserdefaultKey];
+    if ([colorIndex integerValue] == 0) {
+        [self toColorSegmentWithBackgroundColor:[UIColor whiteColor]];
+    } else if ([colorIndex integerValue] == 1) {
+        [self toColorSegmentWithBackgroundColor:[UIColor blackColor]];
     }
 }
 
@@ -191,8 +214,7 @@
                           [UIColor blackColor],NSForegroundColorAttributeName,
                           [UIFont systemFontOfSize:18],NSFontAttributeName,nil];
     imagePicker.navigationBar.titleTextAttributes = dict;
-    [self presentViewController:imagePicker animated:YES completion:^{
-    }];
+    [self presentViewController:imagePicker animated:YES completion:^{}];
 }
 
 // 拍照
@@ -416,24 +438,4 @@
         });
     });
 }
-
-#pragma mark - UIActionSheetDelegate
--(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != actionSheet.cancelButtonIndex) {
-        NSNumber *colorIndex  = [NSNumber numberWithInt:0];
-        if (buttonIndex == 1) {
-            colorIndex = [NSNumber numberWithInt:1];
-        }
-        
-        SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
-        [manager setObject:colorIndex forKey:kGrapeColorIndexUserdefaultKey];
-        if ([colorIndex integerValue] == 0) {
-            [self toColorSegmentWithBackgroundColor:[UIColor whiteColor]];
-        } else if ([colorIndex integerValue] == 1) {
-            [self toColorSegmentWithBackgroundColor:[UIColor blackColor]];
-        }
-    }
-}
-
-
 @end
