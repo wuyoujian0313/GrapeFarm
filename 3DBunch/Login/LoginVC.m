@@ -301,7 +301,7 @@
             //
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11, 0, tableView.frame.size.width - 22, 45)];
             self.nameTextField = textField;
-            textField.text = @"wuyoujian0313@qq.com";
+//            textField.text = @"wuyoujian0313@qq.com";
             [textField setDelegate:self];
             [textField setTextColor:[UIColor blackColor]];
             [textField setFont:[UIFont systemFontOfSize:14]];
@@ -333,7 +333,7 @@
             //
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11,0, tableView.frame.size.width - 22, 45)];
             self.pwdTextField = textField;
-            textField.text = @"123456";
+//            textField.text = @"123456";
             [textField setDelegate:self];
             [textField setSecureTextEntry:YES];
             [textField setTextColor:[UIColor blackColor]];
