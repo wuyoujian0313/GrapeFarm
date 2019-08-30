@@ -19,13 +19,11 @@
 @interface SCN3DModelVC ()<SCNSceneRendererDelegate>
 @property (nonatomic, strong) SCNScene *scene;
 @property (nonatomic, strong) SCNView  *scnView;
-@property (nonatomic, strong) SCNCamera *camera;
 @property (nonatomic, strong) UIButton *nextBtn;
 @property (nonatomic, strong) NSArray<AICircle*> *circles;
 @property (nonatomic, assign) NSInteger max_r;
 @property (nonatomic, assign) NSInteger mix_r;
 @property (nonatomic, strong) SCNNode *groupNode;
-@property (nonatomic, assign) NSInteger XAngle;
 @property (nonatomic, assign) CGFloat lastWidthRatio;
 @property (nonatomic, assign) CGFloat lastHeightRatio;
 @end
@@ -78,7 +76,7 @@
     // 旋转角度
     float rotate = rotationGesture.rotation;
     // 模型平面垂直向量
-    SCNVector3 v = SCNVector3Make(0, cos(_XAngle*M_PI/180), sin(_XAngle*M_PI/180));
+    SCNVector3 v = SCNVector3Make(0, 1, 0);
     // Action
     SCNAction *rotateAction = [SCNAction rotateByAngle:-rotate*0.75 aroundAxis:v duration:0];
     [_groupNode runAction:rotateAction];
@@ -92,7 +90,7 @@
     rotateX = rotateX *M_PI;
     
     // 模型平面垂直向量
-    SCNVector3 v = SCNVector3Make(0, cos(_XAngle*M_PI/180), sin(_XAngle*M_PI/180));
+    SCNVector3 v = SCNVector3Make(0, 1, 0);
     // Action
     SCNAction *rotateActionX = [SCNAction rotateByAngle:-rotateX*0.75 aroundAxis:v duration:0];
     [_groupNode runAction:rotateActionX];
@@ -107,7 +105,6 @@
     SCNAction *rotateActionY = [SCNAction rotateByAngle:-rotateY*0.55 aroundAxis:vY duration:0];
     [_groupNode runAction:rotateActionY];
     
-
     if (panGesture.state == UIGestureRecognizerStateEnded) {
         _lastWidthRatio = rotateX;
         _lastHeightRatio = rotateY;
