@@ -10,7 +10,7 @@
 "NSCameraUsageDescription"                      ="葡萄农庄需要使用您的相机";
 "NSPhotoLibraryAddUsageDescription"             ="葡萄农庄需要使用您的相册";
 "NSPhotoLibraryUsageDescription"                ="葡萄农庄需要使用您的相册";
-"NSLocationAlwaysAndWhenInUseUsageDescription"  ="葡萄农庄需要使用您的位置";
-"NSLocationAlwaysUsageDescription"              ="葡萄农庄需要使用您的位置";
-"NSLocationWhenInUseUsageDescription"           ="葡萄农庄需要使用您的位置";
-"NSLocationUsageDescription"                    ="葡萄农庄需要使用您的位置";
+//"NSLocationAlwaysAndWhenInUseUsageDescription"  ="葡萄农庄需要使用您的位置";
+//"NSLocationAlwaysUsageDescription"              ="葡萄农庄需要使用您的位置";
+//"NSLocationWhenInUseUsageDescription"           ="葡萄农庄需要使用您的位置";
+//"NSLocationUsageDescription"                    ="葡萄农庄需要使用您的位置";

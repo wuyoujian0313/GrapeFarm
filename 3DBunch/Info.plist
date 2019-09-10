@@ -17,7 +17,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -25,10 +25,12 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>location</string>
-	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>The 3DBunch needs to use your camera</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>The 3DBunch needs to use your photo album</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The 3DBunch needs to use your photo album</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

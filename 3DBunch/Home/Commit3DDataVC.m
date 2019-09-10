@@ -7,8 +7,8 @@
 //
 
 #import "Commit3DDataVC.h"
-#import <MapKit/MapKit.h>
-#import <CoreLocation/CoreLocation.h>
+//#import <MapKit/MapKit.h>
+//#import <CoreLocation/CoreLocation.h>
 #import "FadePromptView.h"
 #import "LineView.h"
 #import "FarmListVC.h"
@@ -23,15 +23,18 @@
 #import "AICircle.h"
 
 
-@interface Commit3DDataVC ()<CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,FarmSelectIndexDelegate,GrapeVarietiesSelectIndexDelegate,NetworkTaskDelegate>
-@property (nonatomic,strong)CLLocationManager  *locationManager;//定位服务
-@property (nonatomic,strong)CLLocation         *currentLocation;
+@interface Commit3DDataVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,FarmSelectIndexDelegate,GrapeVarietiesSelectIndexDelegate,NetworkTaskDelegate>
+//@property (nonatomic,strong)CLLocationManager  *locationManager;//定位服务
+//@property (nonatomic,strong)CLLocation         *currentLocation;
 @property (nonatomic,strong)UITableView        *contentTableView;
 @property (nonatomic,strong)UITextField        *farmTextField;
 @property (nonatomic,strong)UITextField        *varietyTextField;
 @property (nonatomic,strong)UITextField        *locationTextField;
 @property (nonatomic,strong)UIButton           *nextBtn;
 @property (nonatomic,strong)JHColumnChart      *chartView;
+@property (nonatomic,strong)NSNumber           *locLat;
+@property (nonatomic,strong)NSNumber           *locLng;
+
 @end
 
 @implementation Commit3DDataVC
@@ -56,6 +59,10 @@
     NSDictionary *GPSDic = [manager objectForKey:kPhotoLocationUserdefaultKey];
     if (GPSDic !=nil && [GPSDic count] > 0) {
         NSString *param = [NSString stringWithFormat:@"Lng:%@, Lat:%@",GPSDic[@"Longitude"],GPSDic[@"Latitude"]];
+        NSString *lng = GPSDic[@"Longitude"];
+        NSString *lat = GPSDic[@"Latitude"];
+        self.locLat = [NSNumber numberWithFloat:[lat floatValue]];
+        self.locLng = [NSNumber numberWithFloat:[lng floatValue]];
         _locationTextField.text = param;
     }
 }
@@ -98,11 +105,12 @@
         return;
     }
     
-    CLLocationCoordinate2D coordinate = _currentLocation.coordinate;
+    
+//    CLLocationCoordinate2D coordinate = _currentLocation.coordinate;
     NSDictionary *params = @{@"farmName":_farmTextField.text,
                             @"grapeName":_varietyTextField.text,
-                            @"latitude": [NSNumber numberWithFloat:coordinate.latitude],
-                            @"longitude":[NSNumber numberWithFloat:coordinate.longitude],
+                            @"latitude": _locLat,
+                            @"longitude":_locLng,
                             @"modelData":_modelString,
                             };
     
@@ -205,72 +213,72 @@
     [_contentTableView setTableFooterView:view];
 }
 
-- (void)initLocation {
-    if ([CLLocationManager locationServicesEnabled]) {
-        _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.delegate = self;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-        _locationManager.distanceFilter = 100.0f;
-        
-        if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 8.0){
-            [_locationManager requestWhenInUseAuthorization];
-            if (@available(iOS 9.0, *)) {
-                _locationManager.allowsBackgroundLocationUpdates = YES;
-            } else {
-                // Fallback on earlier versions
-            }
-        }
-    } else {
-        [FadePromptView showPromptStatus:NSLocalizedString(@"noGPS", nil) duration:1.5 finishBlock:nil];
-    }
-}
+//- (void)initLocation {
+//    if ([CLLocationManager locationServicesEnabled]) {
+//        _locationManager = [[CLLocationManager alloc] init];
+//        _locationManager.delegate = self;
+//        _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+//        _locationManager.distanceFilter = 100.0f;
+//
+//        if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 8.0){
+//            [_locationManager requestWhenInUseAuthorization];
+//            if (@available(iOS 9.0, *)) {
+//                _locationManager.allowsBackgroundLocationUpdates = YES;
+//            } else {
+//                // Fallback on earlier versions
+//            }
+//        }
+//    } else {
+//        [FadePromptView showPromptStatus:NSLocalizedString(@"noGPS", nil) duration:1.5 finishBlock:nil];
+//    }
+//}
 
-- (void)getLocation {
-    [self.locationManager startUpdatingLocation];
-}
+//- (void)getLocation {
+//    [self.locationManager startUpdatingLocation];
+//}
 
 
-#pragma mark - CLLocationManagerDelegate
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    
-    switch (status) {
-        case kCLAuthorizationStatusNotDetermined:
-            if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-                [self.locationManager requestWhenInUseAuthorization];
-            }
-            break;
-        case kCLAuthorizationStatusDenied: {
-            [FadePromptView showPromptStatus:NSLocalizedString(@"RequestLocation", nil) duration:1.5 finishBlock:nil];
-            break;
-        }
-            
-        default:
-            break;
-    }
-}
+//#pragma mark - CLLocationManagerDelegate
+//- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+//
+//    switch (status) {
+//        case kCLAuthorizationStatusNotDetermined:
+//            if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+//                [self.locationManager requestWhenInUseAuthorization];
+//            }
+//            break;
+//        case kCLAuthorizationStatusDenied: {
+//            [FadePromptView showPromptStatus:NSLocalizedString(@"RequestLocation", nil) duration:1.5 finishBlock:nil];
+//            break;
+//        }
+//
+//        default:
+//            break;
+//    }
+//}
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    
-    CLLocation *newLocation = locations.lastObject;
-    NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
-    if (locationAge > 2.0) return;
-    if (newLocation.horizontalAccuracy < 0) return;
-    
-    _currentLocation = newLocation;
-    
-    //当前的经纬度
-    CLLocationCoordinate2D coordinate = _currentLocation.coordinate;
-    NSLog(@"当前的经纬度 %f,%f",coordinate.latitude,coordinate.longitude);
-    
-    __weak typeof(self ) wSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *param = [NSString stringWithFormat:@"Lng:%f, Lat:%f",coordinate.longitude,coordinate.latitude];
-        typeof(self) sSelf = wSelf;
-        sSelf.locationTextField.text = param;
-    });
-    
-    [manager stopUpdatingLocation];
-}
+//- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+//
+//    CLLocation *newLocation = locations.lastObject;
+//    NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+//    if (locationAge > 2.0) return;
+//    if (newLocation.horizontalAccuracy < 0) return;
+//
+//    _currentLocation = newLocation;
+//
+//    //当前的经纬度
+//    CLLocationCoordinate2D coordinate = _currentLocation.coordinate;
+//    NSLog(@"当前的经纬度 %f,%f",coordinate.latitude,coordinate.longitude);
+//
+//    __weak typeof(self ) wSelf = self;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        NSString *param = [NSString stringWithFormat:@"Lng:%f, Lat:%f",coordinate.longitude,coordinate.latitude];
+//        typeof(self) sSelf = wSelf;
+//        sSelf.locationTextField.text = param;
+//    });
+//
+//    [manager stopUpdatingLocation];
+//}
 
 #pragma mark - FarmSelectIndexDelegate
 - (void)didSelectedFarmName:(NSString *)farmName {

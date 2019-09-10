@@ -6,13 +6,13 @@
   Copyright © 2016年 wuyoujian. All rights reserved.
 */
 
-"CFBundleDisplayName"                           ="3D Bunch";
-"NSCameraUsageDescription"                      ="The 3D Bunch needs to use your camera";
-"NSPhotoLibraryAddUsageDescription"             ="The 3D Bunch needs to use your photo album";
-"NSPhotoLibraryUsageDescription"                ="The 3D Bunch needs to use your photo album";
-"NSLocationAlwaysAndWhenInUseUsageDescription"  ="The 3D Bunch needs to use your location";
-"NSLocationAlwaysUsageDescription"              ="The 3D Bunch needs to use your location";
-"NSLocationWhenInUseUsageDescription"           ="The 3D Bunch needs to use your location";
-"NSLocationUsageDescription"                    ="The 3D Bunch needs to use your location";
+"CFBundleDisplayName"                           ="3DBunch";
+"NSCameraUsageDescription"                      ="The 3DBunch needs to use your camera";
+"NSPhotoLibraryAddUsageDescription"             ="The 3DBunch needs to use your photo album";
+"NSPhotoLibraryUsageDescription"                ="The 3DBunch needs to use your photo album";
+//"NSLocationAlwaysAndWhenInUseUsageDescription"  ="The 3D Bunch needs to use your location";
+//"NSLocationAlwaysUsageDescription"              ="The 3D Bunch needs to use your location";
+//"NSLocationWhenInUseUsageDescription"           ="The 3D Bunch needs to use your location";
+//"NSLocationUsageDescription"                    ="The 3D Bunch needs to use your location";
 
 
