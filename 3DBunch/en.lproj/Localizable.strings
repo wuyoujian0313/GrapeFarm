@@ -70,6 +70,8 @@
 "chartDesc"                 ="Maximum grape radius:%lu Total:%lu";
 "about"                     ="About the App";
 "aboutText"                 ="This app is partly sponsored by SRV team from UNSW SYDNEY, AUSTRALIA. All copyright is reserved by HUOYAN Ltd., Changsha, China, 2019.";
+"no_identifying"            ="Grape data not identified, please try again";
+"RadiusLess"                ="The radius cannot be zero";
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "Sorry, this email has been registered";
 "NetStatusCodeEmailCodeUnExist"     = "Sorry, this email verification code does not exist";

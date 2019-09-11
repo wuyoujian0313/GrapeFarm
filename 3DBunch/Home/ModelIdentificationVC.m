@@ -17,6 +17,7 @@
 #import "SaveSimpleDataManager.h"
 #import "SCN3DModelVC.h"
 #import "AICircle.h"
+#import "FadePromptView.h"
 
 @interface ModelIdentificationVC ()<AIRangeSliderViewDelegate>
 @property(nonatomic,strong)UIButton *nextBtn;
@@ -29,6 +30,7 @@
 @property(nonatomic,assign)NSInteger rightValue;
 @property(nonatomic,strong)NSMutableArray *imageCircles;
 @property(nonatomic,strong)NSNumber *colorIndex;
+@property(nonatomic,assign)NSInteger threshold;
 @end
 
 @implementation ModelIdentificationVC
@@ -135,12 +137,19 @@
 }
 
 - (void)circleEdge {
+    NSInteger distance = _rightValue - _leftValue;
+    if (distance <= 0) {
+        [FadePromptView showPromptStatus:NSLocalizedString(@"RadiusLess", nil) duration:1.5 finishBlock:^{
+            //
+        }];
+        [_stepper setValue:_threshold];
+        return;
+    }
     
     [AILoadingView show:NSLocalizedString(@"Identifying", nil)];
-    NSInteger distance = _rightValue - _leftValue;
     NSInteger scale = _imageView.image.size.width/_imageView.width;
     distance *=scale;
-    NSInteger threshold = ceil(_stepper.value);
+    _threshold = ceil(_stepper.value);
     
     // 获取全局并发队列
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -150,7 +159,7 @@
         FileCache *fileCache = [FileCache sharedFileCache];
         NSData *imageData = [fileCache dataFromCacheForKey:kCroppedImageFileKey];
         UIImage *image = [UIImage imageWithData:imageData];
-        NSArray *arr = [OpenCVWrapper edgeCircles:image threshold:threshold distance:distance type:sSelf.type gtype:[sSelf.colorIndex integerValue]];
+        NSArray *arr = [OpenCVWrapper edgeCircles:image threshold:sSelf.threshold distance:distance type:sSelf.type gtype:[sSelf.colorIndex integerValue]];
         [sSelf.imageCircles removeAllObjects];
         for (AICircle *c in arr) {
             AICircle *cc = [[AICircle alloc] init];
@@ -199,6 +208,14 @@
 
 - (void)nextAction:(UIButton *)sender {
 //    GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
+    if(_imageCircles == nil || [_imageCircles count] == 0){
+        //no_identifying
+        [FadePromptView showPromptStatus:NSLocalizedString(@"no_identifying", nil) duration:1.5 finishBlock:^{
+            //
+        }];
+        return;
+    }
+        
     SCN3DModelVC *vc = [[SCN3DModelVC alloc] init];
     [vc setCircleEdges:_imageCircles];
     [self.navigationController pushViewController:vc animated:YES];

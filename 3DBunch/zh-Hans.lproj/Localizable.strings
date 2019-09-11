@@ -70,6 +70,9 @@
 "chartDesc"                 ="最大葡萄半径:%lu 总数:%lu";
 "about"                     ="关于葡萄农庄";
 "aboutText"                 ="这个应用程序部分由来自澳大利亚悉尼新南威尔士大学的SRV团队赞助。所有版权归中国长沙火炎有限公司所有，2019年。";
+"no_identifying"            ="未识别出葡萄数据，请重试!";
+"RadiusLess"                ="半径不能等于0";
+
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "此邮箱已注册";
 "NetStatusCodePasswordError"        = "用户名或者密码错误";
