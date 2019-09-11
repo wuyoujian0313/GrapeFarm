@@ -47,6 +47,10 @@
     
     SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
     self.colorIndex = [manager objectForKey:kGrapeColorIndexUserdefaultKey];
+    
+    [FadePromptView showPromptStatus:NSLocalizedString(@"RadiusLess", nil) duration:5.0 finishBlock:^{
+        //
+    }];
 }
 
 - (void)layoutColorImageView {
