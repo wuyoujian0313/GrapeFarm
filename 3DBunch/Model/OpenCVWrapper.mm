@@ -658,7 +658,7 @@ using namespace cv;
             }
             cout<<existing_Berries.size();
             //cout<<0<<endl;
-            if (existing_Berries.size() > 1) {
+            if (existing_Berries.size() > 1 && gtype == 1) {
                 for (int j = 1; j < existing_Berries.size(); j++) {
                     float distance1;
                     distance1 = sqrt(pow(existing_Berries[j][0]-existing_Berries[j-1][0], 2)+pow(existing_Berries[j][1]-existing_Berries[j-1][1], 2));
@@ -666,7 +666,7 @@ using namespace cv;
                         existing_Berries1.push_back(existing_Berries[j]);
                     }
                 }
-            }
+            }else{existing_Berries1 = existing_Berries;}
             cout<<existing_Berries1.size();
             for( size_t i = 0; i < existing_Berries1.size(); i++ ) {
                 Vec3i c;
@@ -826,7 +826,12 @@ using namespace cv;
 //LAB色彩分离
 + (Mat)_lFrom:(cv::Mat)source{
     cout << "-> lFrom ->";
+    std::vector<Mat> channels;
+    Mat imageBlueChannel;
     
+    //把一个三通道图像转化为三个单通道图像
+    split(source, channels);
+    imageBlueChannel = channels.at(0);
     Mat lab;
     cvtColor(source, lab, COLOR_BGR2Lab);//转LAB色彩空间
     vector<Mat> labPlane;
