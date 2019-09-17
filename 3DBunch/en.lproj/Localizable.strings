@@ -50,6 +50,8 @@
 "BrushColor"                ="Brush color";
 "UnCamera"                  ="Sorry,unable to use the camera";
 "AllowCamera"               ="Please allow access to the camera in Settings - privacy - camera on the iPhone";
+"UnPhotoAlbum"              ="Sorry,unable to use the photo album";
+"AllowPhotoAlbum"           ="Please allow access to the photo album in Settings - privacy - photos on the iPhone";
 "3DModel"                   ="3D model";
 "SelectFarm"                ="Please select or enter a farm name";
 "SelectVariey"              ="Please select or enter grape varieties";

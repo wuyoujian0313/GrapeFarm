@@ -7,12 +7,10 @@
 */
 
 "CFBundleDisplayName"                           ="3DBunch";
-"NSCameraUsageDescription"                      ="The 3DBunch needs to use your camera";
-"NSPhotoLibraryAddUsageDescription"             ="The 3DBunch needs to use your photo album";
-"NSPhotoLibraryUsageDescription"                ="The 3DBunch needs to use your photo album";
-//"NSLocationAlwaysAndWhenInUseUsageDescription"  ="The 3D Bunch needs to use your location";
-//"NSLocationAlwaysUsageDescription"              ="The 3D Bunch needs to use your location";
-//"NSLocationWhenInUseUsageDescription"           ="The 3D Bunch needs to use your location";
-//"NSLocationUsageDescription"                    ="The 3D Bunch needs to use your location";
+"NSCameraUsageDescription"                      ="Allow the 3DBunch access your local camera to capture a photo of a grape bunch?";
+"NSPhotoLibraryAddUsageDescription"             ="Allow the 3DBunch save the photo to your local photo album?";
+"NSPhotoLibraryUsageDescription"                ="Allow the 3DBunch access your local photo album for a photo with a grape bunch?";
 
-
+"NSLocationAlwaysAndWhenInUseUsageDescription"  ="Allow the 3DBunch access your GPS locations so we can associate it with the photo you are going to take?";
+"NSLocationAlwaysUsageDescription"              ="Allow the 3DBunch access your GPS locations so we can associate it with the photo you are going to take?";
+"NSLocationWhenInUseUsageDescription"           ="Allow the 3DBunch access your GPS locations so we can associate it with the photo you are going to take?";

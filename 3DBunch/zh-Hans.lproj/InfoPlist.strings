@@ -7,10 +7,9 @@
 */
 
 "CFBundleDisplayName"                           ="葡萄农庄";
-"NSCameraUsageDescription"                      ="葡萄农庄需要使用您的相机";
-"NSPhotoLibraryAddUsageDescription"             ="葡萄农庄需要使用您的相册";
-"NSPhotoLibraryUsageDescription"                ="葡萄农庄需要使用您的相册";
-//"NSLocationAlwaysAndWhenInUseUsageDescription"  ="葡萄农庄需要使用您的位置";
-//"NSLocationAlwaysUsageDescription"              ="葡萄农庄需要使用您的位置";
-//"NSLocationWhenInUseUsageDescription"           ="葡萄农庄需要使用您的位置";
-//"NSLocationUsageDescription"                    ="葡萄农庄需要使用您的位置";
+"NSCameraUsageDescription"                      ="是否允许葡萄农庄开启相机以便拍照获取葡萄照片?";
+"NSPhotoLibraryAddUsageDescription"             ="是否允许葡萄农庄保存图片到您的相册?";
+"NSPhotoLibraryUsageDescription"                ="是否允许葡萄农庄开启相册以供您选择您要处理的葡萄照片?";
+"NSLocationAlwaysAndWhenInUseUsageDescription"  ="是否允许葡萄农庄在拍照的时候开启您的位置以便您的照片中有信息?";
+"NSLocationAlwaysUsageDescription"              ="是否允许葡萄农庄在拍照的时候开启您的位置以便您的照片中有信息?";
+"NSLocationWhenInUseUsageDescription"           ="是否允许葡萄农庄在拍照的时候开启您的位置以便您的照片中有信息?";

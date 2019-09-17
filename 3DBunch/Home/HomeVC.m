@@ -19,13 +19,19 @@
 #import "SaveSimpleDataManager.h"
 #import "FileCache.h"
 #import "AILoadingView.h"
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import "FadePromptView.h"
+#import <Photos/Photos.h>
 
 
 
-@interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic,strong)UIImageView *imageView;
 @property (nonatomic,strong)AICroppableView *croppingView;
 @property (nonatomic,strong)UIView *toolView;
+@property (nonatomic,strong)CLLocationManager  *locationManager;//定位服务
+@property (nonatomic,strong)UIImage* image;//当前照片
 @end
 
 @implementation HomeVC
@@ -202,57 +208,109 @@
 
 // 照片选择
 - (void)pickerImageController {
-    //
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    imagePicker.allowsEditing = NO;
-    imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
-    imagePicker.delegate = self;
-    imagePicker.navigationBar.barTintColor = [UIColor whiteColor];
     
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [UIColor blackColor],NSForegroundColorAttributeName,
-                          [UIFont systemFontOfSize:18],NSFontAttributeName,nil];
-    imagePicker.navigationBar.titleTextAttributes = dict;
-    [self presentViewController:imagePicker animated:YES completion:^{}];
+    typeof(self) wSelf = self;
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            typeof(self) sSelf = wSelf;
+            if (status == PHAuthorizationStatusAuthorized) {
+                //允许访问
+                UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+                imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                imagePicker.allowsEditing = NO;
+                imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+                imagePicker.delegate = sSelf;
+                imagePicker.navigationBar.barTintColor = [UIColor whiteColor];
+                
+                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      [UIColor blackColor],NSForegroundColorAttributeName,
+                                      [UIFont systemFontOfSize:18],NSFontAttributeName,nil];
+                imagePicker.navigationBar.titleTextAttributes = dict;
+                [sSelf presentViewController:imagePicker animated:YES completion:^{}];
+            }
+            
+            if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
+                //不允许
+                if (@available(iOS 9.0, *)) {
+                    UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"UnPhotoAlbum",nil) message:NSLocalizedString(@"AllowPhotoAlbum",nil) preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction* confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                    }];
+                    [controller addAction:confirm];
+                    [sSelf presentViewController:controller animated:YES completion:nil];
+                } else {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"UnPhotoAlbum",nil) message:NSLocalizedString(@"AllowPhotoAlbum",nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles: nil];
+                    [alertView show];
+                }
+            }
+        });
+        
+        
+    }];
 }
 
 // 拍照
 - (void)pickerCameraController  {
-    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied ) {
-        if (@available(iOS 9.0, *)) {
-            UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"UnCamera",nil) message:NSLocalizedString(@"AllowCamera",nil) preferredStyle:UIAlertControllerStyleAlert];
+    typeof(self) wSelf = self;
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            typeof(self) sSelf = wSelf;
+            if (granted) {
+                //允许访问
+                if ([UIImagePickerController isSourceTypeAvailable:
+                     UIImagePickerControllerSourceTypeCamera]) {
+                    
+                    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+                    imagePicker.delegate = sSelf;
+                    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                    if (@available(iOS 11.0, *)) {
+                        imagePicker.imageExportPreset = UIImagePickerControllerImageURLExportPresetCurrent;
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                    
+                    imagePicker.allowsEditing = NO;
+                    imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+                    imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+                    
+                    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIColor blackColor],NSForegroundColorAttributeName,
+                                          [UIFont systemFontOfSize:18],NSFontAttributeName,nil];
+                    imagePicker.navigationBar.titleTextAttributes = dict;
+                    imagePicker.navigationBar.barTintColor = [UIColor whiteColor];
+                    [sSelf presentViewController:imagePicker animated:YES completion:^{
+                    }];
+                }
+                
+            }else{
+                //不允许访问
+                if (@available(iOS 9.0, *)) {
+                    UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"UnCamera",nil) message:NSLocalizedString(@"AllowCamera",nil) preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction* confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                    }];
+                    [controller addAction:confirm];
+                    [sSelf presentViewController:controller animated:YES completion:nil];
+                } else {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"UnCamera",nil) message:NSLocalizedString(@"AllowCamera",nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles: nil];
+                    [alertView show];
+                }
+                return;
+            }
             
-            UIAlertAction* confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
-            }];
-            [controller addAction:confirm];
-            [self presentViewController:controller animated:YES completion:nil];
-        } else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"UnCamera",nil) message:NSLocalizedString(@"AllowCamera",nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles: nil];
-            [alertView show];
-        }
-        return;
-    }
-    
-    if ([UIImagePickerController isSourceTypeAvailable:
-         UIImagePickerControllerSourceTypeCamera]) {
-        
-        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-        imagePicker.delegate = self;
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        
-        imagePicker.allowsEditing = NO;
-        imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
-        imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-        
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [UIColor blackColor],NSForegroundColorAttributeName,
-                              [UIFont systemFontOfSize:18],NSFontAttributeName,nil];
-        imagePicker.navigationBar.titleTextAttributes = dict;
-        imagePicker.navigationBar.barTintColor = [UIColor whiteColor];
-        [self presentViewController:imagePicker animated:YES completion:^{
-        }];
+        });
+    }];
+}
+
+///保存图片到本地相册
+-(void)imageTopicSave:(UIImage *)image{
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image: didFinishSavingWithError: contextInfo:), nil);
+}
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+    if (error == nil) {
+    } else{
+        ///图片未能保存到本地
     }
 }
 
@@ -264,6 +322,42 @@
     if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
         //选择照片
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        self.image = image;
+    
+        NSURL *assetURL = [info objectForKey:UIImagePickerControllerReferenceURL];
+        PHFetchResult *assets = [PHAsset fetchAssetsWithALAssetURLs:@[assetURL] options:nil];
+        PHAsset *asset = assets.firstObject;
+        CLLocation *loction = asset.location;
+        NSLog(@"loction:%@",loction);
+        
+        NSDictionary *GPSDict = @{@"Longitude":[[NSNumber numberWithDouble:loction.coordinate.longitude] stringValue],
+                                  @"Latitude":[[NSNumber numberWithDouble:loction.coordinate.latitude] stringValue]
+                                  };
+        SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+        if(GPSDict != nil && [GPSDict count] > 0) {
+            [manager setObject:GPSDict forKey:kPhotoLocationUserdefaultKey];
+        } else {
+            [manager setObject:[NSDictionary dictionary] forKey:kPhotoLocationUserdefaultKey];
+        }
+
+
+//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//        [library assetForURL:assetURL resultBlock:^(ALAsset *asset)  {
+//            NSMutableDictionary *infoDic = [[NSMutableDictionary alloc] initWithDictionary:asset.defaultRepresentation.metadata];
+//            //控制台输出查看照片的元数据
+//            NSLog(@"%@",infoDic);
+//
+//            SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
+//            NSDictionary *GPSDict= [infoDic  objectForKey:(NSString*)kCGImagePropertyGPSDictionary];
+//            if(GPSDict != nil && [GPSDict count] > 0) {
+//                [manager setObject:GPSDict forKey:kPhotoLocationUserdefaultKey];
+//            } else {
+//                [manager setObject:[NSDictionary dictionary] forKey:kPhotoLocationUserdefaultKey];
+//            }
+//        } failureBlock:^(NSError *error) {
+//
+//        }];
+        
     } else if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
         //拍照
         NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
@@ -271,32 +365,151 @@
             //
             image = [info objectForKey:UIImagePickerControllerOriginalImage];
         }
+        
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        self.image = image;
+        [self getLocation];
     }
     
-    NSURL *assetURL = [info objectForKey:UIImagePickerControllerReferenceURL];
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [library assetForURL:assetURL resultBlock:^(ALAsset *asset)  {
-        NSMutableDictionary *infoDic = [[NSMutableDictionary alloc] initWithDictionary:asset.defaultRepresentation.metadata];
-        //控制台输出查看照片的元数据
-        NSLog(@"%@",infoDic);
+    [self relayoutImageView:image];
+    __weak typeof(self) wSelf = self;
+    [self dismissViewControllerAnimated:YES completion:^{
+        typeof(self) sSelf = wSelf;
+        [sSelf.croppingView cleaningBrush];
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
+
+- (void)initLocation {
+    if ([CLLocationManager locationServicesEnabled]) {
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        _locationManager.distanceFilter = 100.0f;
+
+        if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 8.0){
+            [_locationManager requestWhenInUseAuthorization];
+            if (@available(iOS 9.0, *)) {
+                _locationManager.allowsBackgroundLocationUpdates = YES;
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+    } else {
+        [FadePromptView showPromptStatus:NSLocalizedString(@"noGPS", nil) duration:1.5 finishBlock:nil];
+    }
+}
+
+- (void)getLocation {
+    [self initLocation];
+    [self.locationManager startUpdatingLocation];
+}
+
+
+#pragma mark - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+
+    switch (status) {
+            
+        case kCLAuthorizationStatusNotDetermined:
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+                [self.locationManager requestWhenInUseAuthorization];
+            }
+            break;
+        case kCLAuthorizationStatusDenied: {
+            //[FadePromptView showPromptStatus:NSLocalizedString(@"RequestLocation", nil) duration:1.5 finishBlock:nil];
+            break;
+        }
+
+        default:
+            break;
+    }
+}
+
+//- (NSDictionary*)GPSDictionary:(CLLocation *)loction{
+//    NSTimeZone*  timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+//    NSDateFormatter *formatter  = [[NSDateFormatter alloc] init];
+//    [formatter setTimeZone:timeZone];
+//    [formatter setDateFormat:@"HH:mm:ss.SS"];
+//    CLLocation *location = loction;
+//    NSDictionary *gpsDict = [NSDictionary dictionaryWithObjectsAndKeys:
+//                               [NSNumber numberWithFloat:location.coordinate.latitude],kCGImagePropertyGPSLatitude,
+//                               ((location.coordinate.latitude >= 0) ? @"N" : @"S"), kCGImagePropertyGPSLatitudeRef,
+//                               [NSNumber numberWithFloat:location.coordinate.longitude],kCGImagePropertyGPSLongitude,
+//                               ((location.coordinate.longitude >= 0) ? @"E" : @"W"), kCGImagePropertyGPSLongitudeRef,
+//                               [formatter stringFromDate:[location timestamp]], kCGImagePropertyGPSTimeStamp,
+//                               nil];
+//    return gpsDict;
+//}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+
+    CLLocation *newLocation = locations.lastObject;
+    NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+    
+    //当前的经纬度
+    CLLocationCoordinate2D coordinate = newLocation.coordinate;
+    NSLog(@"当前的经纬度 %f,%f",coordinate.latitude,coordinate.longitude);
+    __weak typeof(self ) wSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        typeof(self) sSelf = wSelf;
+       [sSelf writeCGImage:sSelf.image location:newLocation];
         
+        NSDictionary *GPSDict = @{@"Longitude":[[NSNumber numberWithDouble:newLocation.coordinate.longitude] stringValue],
+                                  @"Latitude":[[NSNumber numberWithDouble:newLocation.coordinate.latitude] stringValue]
+                                  };
         SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
-        NSDictionary *GPSDict= [infoDic  objectForKey:(NSString*)kCGImagePropertyGPSDictionary];
         if(GPSDict != nil && [GPSDict count] > 0) {
             [manager setObject:GPSDict forKey:kPhotoLocationUserdefaultKey];
         } else {
             [manager setObject:[NSDictionary dictionary] forKey:kPhotoLocationUserdefaultKey];
         }
-    } failureBlock:^(NSError *error) {
-        
-    }];
+    });
     
-    [self relayoutImageView:image];
-    __weak typeof(self) wSelf = self;
-    [picker dismissViewControllerAnimated:YES completion:^{
-        typeof(self) sSelf = wSelf;
-        [sSelf.croppingView cleaningBrush];
-    }];
+    [manager stopUpdatingLocation];
+}
+
+/*
+ 保存图片到相册
+ */
+- (void)writeCGImage:(UIImage*)image location:(CLLocation *)location {
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusAuthorized) {
+        // 存储图片
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            PHAssetChangeRequest *newAssetRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+            newAssetRequest.location = location;
+            newAssetRequest.creationDate = [NSDate date];
+        } completionHandler:^(BOOL success, NSError *error) {
+            
+        }];
+    } else if (status == PHAuthorizationStatusRestricted){
+        //"家长控制,不允许访问"
+    } else if (status == PHAuthorizationStatusNotDetermined){
+        //"用户还没有做出选择"
+    } else if (status == PHAuthorizationStatusDenied){
+        //"用户不允许当前应用访问相册"
+    }
+
+//    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//    ALAssetsLibraryWriteImageCompletionBlock imageWriteCompletionBlock = ^(NSURL *newURL, NSError *error) {
+//        if (error) {
+//            NSLog( @"Error writing image with metadata to Photo Library: %@", error );
+//        } else {
+//            NSLog( @"Wrote image with metadata to Photo Library");
+//        }
+//    };
+//
+//    //保存相片到相册 注意:必须使用[image CGImage]不能使用强制转换: (__bridge CGImageRef)image,否则保存照片将会报错
+//    [library writeImageToSavedPhotosAlbum:[image CGImage]
+//                                 metadata:metadata
+//                          completionBlock:imageWriteCompletionBlock];
 }
 
 - (void)relayoutImageView:(UIImage *)image {
@@ -347,69 +560,6 @@
     }
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [picker dismissViewControllerAnimated:YES completion:^{
-    }];
-}
-
-//- (UIImage *)resetPxOfOriginalImage:(UIImage *)originalImage maskImage:(UIImage*)maskImage {
-//    CGImageRef cgimage_o = [originalImage CGImage];
-//    size_t width_o = CGImageGetWidth(cgimage_o); // 图片宽度
-//    size_t height_o = CGImageGetHeight(cgimage_o); // 图片高度
-//
-//    unsigned char *data_o = calloc(width_o * height_o * 4, sizeof(unsigned char)); // 取图片首地址
-//    size_t bitsPerComponent_o = 8; // r g b a 每个component bits数目
-//    size_t bytesPerRow_o = width_o * 4; // 一张图片每行字节数目 (每个像素点包含r g b a 四个字节)
-//    CGColorSpaceRef space_o = CGColorSpaceCreateDeviceRGB(); // 创建rgb颜色空间
-//    CGContextRef context_o = CGBitmapContextCreate(data_o, width_o, height_o, bitsPerComponent_o, bytesPerRow_o, space_o, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-//    CGContextDrawImage(context_o, CGRectMake(0, 0, width_o, height_o), cgimage_o);
-//
-//
-//    CGImageRef cgimage_m = [maskImage CGImage];
-//    size_t width_m = CGImageGetWidth(cgimage_m); // 图片宽度
-//    size_t height_m = CGImageGetHeight(cgimage_m); // 图片高度
-//
-//    unsigned char *data_m = calloc(width_m * height_m * 4, sizeof(unsigned char)); // 取图片首地址
-//    size_t bitsPerComponent_m = 8; // r g b a 每个component bits数目
-//    size_t bytesPerRow_m = width_m * 4; // 一张图片每行字节数目 (每个像素点包含r g b a 四个字节)
-//    CGColorSpaceRef space_m = CGColorSpaceCreateDeviceRGB(); // 创建rgb颜色空间
-//    CGContextRef context_m = CGBitmapContextCreate(data_m, width_m, height_m, bitsPerComponent_m, bytesPerRow_m, space_m, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-//    CGContextDrawImage(context_m, CGRectMake(0, 0, width_m, height_m), cgimage_m);
-//
-//    if (width_o <= width_m && height_o <= height_m) {
-//        //像素数一致才处理
-//        for (size_t i = 0; i < height_o; i++) {
-//            for (size_t j = 0; j < width_o; j++) {
-//                size_t pixelIndex = i * width_o * 4 + j * 4;
-//                unsigned char red_o = data_o[pixelIndex];
-//                unsigned char green_o = data_o[pixelIndex + 1];
-//                unsigned char blue_o = data_o[pixelIndex + 2];
-//
-//                unsigned char red_m = data_m[pixelIndex];
-//                unsigned char green_m = data_m[pixelIndex + 1];
-//                unsigned char blue_m = data_m[pixelIndex + 2];
-//
-//                if (red_m != 255 && red_m != 0) {
-//                    data_m[pixelIndex] = red_o;
-//                }
-//
-//                if (green_m != 255 && green_m != 0) {
-//                    data_m[pixelIndex+1] = green_o;
-//                }
-//
-//                if (blue_m != 255 && blue_m != 0) {
-//                    data_m[pixelIndex+2] = blue_o;
-//
-//                }
-//            }
-//        }
-//
-//        cgimage_m = CGBitmapContextCreateImage(context_m);
-//        return  [UIImage imageWithCGImage:cgimage_m];
-//    }
-//
-//    return maskImage;
-//}
 
 - (void)toColorSegmentWithBackgroundColor:(UIColor *)color {
     [AILoadingView show:NSLocalizedString(@"processing", nil)];
@@ -432,9 +582,9 @@
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
             // 追加在主线程中执行的任务
+            [AILoadingView dismiss];
             ColorSegmentVC *vc = [[ColorSegmentVC alloc] init];
             [sSelf.navigationController pushViewController:vc animated:YES];
-            [AILoadingView dismiss];
         });
     });
 }

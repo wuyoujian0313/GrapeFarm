@@ -308,7 +308,7 @@
             [textField setReturnKeyType:UIReturnKeyNext];
             [textField setClearButtonMode:UITextFieldViewModeAlways];
             [textField setTextAlignment:NSTextAlignmentCenter];
-            [textField setClearsOnBeginEditing:YES];
+//            [textField setClearsOnBeginEditing:YES];
             [textField setPlaceholder:NSLocalizedString(@"InputAccount",nil)];
             
             [cell.contentView addSubview:textField];
