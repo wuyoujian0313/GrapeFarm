@@ -107,12 +107,15 @@
     
     
 //    CLLocationCoordinate2D coordinate = _currentLocation.coordinate;
-    NSDictionary *params = @{@"farmName":_farmTextField.text,
-                            @"grapeName":_varietyTextField.text,
-                            @"latitude": _locLat,
-                            @"longitude":_locLng,
-                            @"modelData":_modelString,
-                            };
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [params setObject:_farmTextField.text forKey:@"farmName"];
+    [params setObject:_varietyTextField.text forKey:@"grapeName"];
+    if (_locLat != nil) {
+        [params setObject:_locLat forKey:@"latitude"];
+    }
+    if (_locLng != nil) {
+        [params setObject:_locLng forKey:@"longitude"];
+    }
     
     [AILoadingView show:NSLocalizedString(@"Loading", nil)];
     [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPICommit
