@@ -84,7 +84,7 @@
             [_imageView setWidth:w];
         } else {
             [_imageView setHeight:h];
-//            [_imageView setTop:(areaHeight-h)/2.0 + 10 + [DeviceInfo navigationBarHeight]];
+            //            [_imageView setTop:(areaHeight-h)/2.0 + 10 + [DeviceInfo navigationBarHeight]];
         }
     } else {
         // 以高度为准
@@ -95,7 +95,7 @@
             [_imageView setHeight:areaHeight];
         } else {
             // 以实际为准,
-//            [_imageView setTop:(areaHeight-image.size.height)/2.0 + 10 + [DeviceInfo navigationBarHeight]];
+            //            [_imageView setTop:(areaHeight-image.size.height)/2.0 + 10 + [DeviceInfo navigationBarHeight]];
             [_imageView setLeft:(imageViewSize-image.size.width)/2.0 + 10];
             [_imageView setWidth:image.size.width];
             [_imageView setHeight:image.size.height];
@@ -104,13 +104,13 @@
     
     [_rangeSlider setMinValue:0];
     [_rangeSlider setMaxValue:_imageView.width];
-    NSInteger defaultDis = ceil(_imageView.width*0.15);
+    NSInteger defaultDis = ceil(_imageView.width*0.01);
     NSInteger centerPos = (_rangeSlider.minValue + _rangeSlider.maxValue)/2;
-    _leftValue = centerPos - defaultDis/2;
-    _rightValue = centerPos + defaultDis/2;
-
-//    _leftValue = (_rangeSlider.minValue + _rangeSlider.maxValue)/2;
-//    _rightValue =_leftValue;
+    //_leftValue = centerPos - defaultDis/2;
+    //_rightValue = centerPos + defaultDis/2;
+    
+    _leftValue = (_rangeSlider.minValue + _rangeSlider.maxValue)/2;
+    _rightValue =_leftValue;
     [_rangeSlider setLeftValue:_leftValue];
     [_rangeSlider setRightValue:_rightValue];
     
@@ -150,6 +150,12 @@
 
 - (void)circleEdge {
     NSInteger distance = _rightValue - _leftValue;
+    [_rangeSlider setMaxValue:_imageView.width];
+    NSInteger defaultDis = ceil(_imageView.width*0.01);
+    if (distance <=0) {
+        distance = defaultDis;
+    }
+    
     if (distance <= 0) {
         [FadePromptView showPromptStatus:NSLocalizedString(@"RadiusLess", nil) duration:1.5 finishBlock:^{
             //
@@ -219,7 +225,7 @@
 }
 
 - (void)nextAction:(UIButton *)sender {
-//    GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
+    //    GLKD3ModelVC *vc = [[GLKD3ModelVC alloc] init];
     if(_imageCircles == nil || [_imageCircles count] == 0){
         //no_identifying
         [FadePromptView showPromptStatus:NSLocalizedString(@"no_identifying", nil) duration:1.5 finishBlock:^{
@@ -227,7 +233,7 @@
         }];
         return;
     }
-        
+    
     SCN3DModelVC *vc = [[SCN3DModelVC alloc] init];
     [vc setCircleEdges:_imageCircles];
     [self.navigationController pushViewController:vc animated:YES];
