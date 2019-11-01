@@ -187,8 +187,10 @@
     //创建camera，camera也是作为一个节点在场景中
     SCNCamera *camera = [SCNCamera camera];
     camera.automaticallyAdjustsZRange = YES;
+    CGFloat scan = 1.2;
     if (@available(iOS 11.0, *)) {
         camera.fieldOfView = 90;
+        scan = 1.5;
     } else {
         // Fallback on earlier versions
         camera.xFov = 90;
@@ -198,7 +200,8 @@
     SCNNode *cameraNode = [SCNNode node];
     cameraNode.camera = camera;
     CGFloat max = MAX(max_x, max_y);
-    CGFloat camera_d = 1.2*(max_r+max); //scale*(max_r + 2*max);
+    
+    CGFloat camera_d = scan*(max_r+max); //scale*(max_r + 2*max);
     cameraNode.position = SCNVector3Make(0,0, camera_d);
     [_scnView.scene.rootNode addChildNode:cameraNode];
     

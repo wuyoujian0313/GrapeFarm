@@ -38,11 +38,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setNavTitle:NSLocalizedString(@"ModelIdentification", nil)];
-    [self layoutNextView];
-    [self layoutColorImageView];
-    [self layoutParamView];
-    [self reLayoutImageView];
     self.imageCircles = [[NSMutableArray alloc] initWithCapacity:0];
     
     SaveSimpleDataManager *manager = [[SaveSimpleDataManager alloc] init];
@@ -51,6 +46,12 @@
     [FadePromptView showPromptStatus:NSLocalizedString(@"RadiusLess", nil) duration:5.0 finishBlock:^{
         //
     }];
+    
+    [self setNavTitle:NSLocalizedString(@"ModelIdentification", nil)];
+    [self layoutNextView];
+    [self layoutColorImageView];
+    [self layoutParamView];
+    [self reLayoutImageView];
 }
 
 - (void)layoutColorImageView {
@@ -103,10 +104,17 @@
     
     [_rangeSlider setMinValue:0];
     [_rangeSlider setMaxValue:_imageView.width];
-    _leftValue = (_rangeSlider.minValue + _rangeSlider.maxValue)/2;
-    _rightValue =_leftValue;
+    NSInteger defaultDis = ceil(_imageView.width*0.15);
+    NSInteger centerPos = (_rangeSlider.minValue + _rangeSlider.maxValue)/2;
+    _leftValue = centerPos - defaultDis/2;
+    _rightValue = centerPos + defaultDis/2;
+
+//    _leftValue = (_rangeSlider.minValue + _rangeSlider.maxValue)/2;
+//    _rightValue =_leftValue;
     [_rangeSlider setLeftValue:_leftValue];
     [_rangeSlider setRightValue:_rightValue];
+    
+    [self circleEdge];
 }
 
 - (void)layoutParamView {
