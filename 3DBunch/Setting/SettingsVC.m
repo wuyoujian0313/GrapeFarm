@@ -17,6 +17,8 @@
 #import "SaveSimpleDataManager.h"
 #import "RecordDetailVC.h"
 #import "AboutVC.h"
+#import "GoodListVC.h"
+#import "PaypalWebViewVC.h"
 
 @interface SettingsVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,FarmSelectIndexDelegate,ColorSelectIndexDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
@@ -153,7 +155,9 @@
                                                 otherButtonTitles:nil];
         [sheet showInView:self.view];
     } else if (row == 5) {
-        AboutVC *vc = [[AboutVC alloc] init];
+        PaypalWebViewVC *vc = [[PaypalWebViewVC alloc] init];
+        vc.amount = 20;
+        vc.type = 1;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

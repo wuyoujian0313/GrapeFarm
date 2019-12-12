@@ -241,6 +241,10 @@
         //
         AppDelegate *app = [AppDelegate shareMyApplication];
         [app switchToHomePage];
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:_nameTextField.text forKey:@"userName"];
+        [userDefaults synchronize];
     }
 }
 
@@ -302,6 +306,11 @@
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(11, 0, tableView.frame.size.width - 22, 45)];
             self.nameTextField = textField;
 //            textField.text = @"wuyoujian0313@qq.com";
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString *username = [userDefaults stringForKey:@"userName"];
+            if (username && username.length > 0) {
+                textField.text = username;
+            }
             [textField setDelegate:self];
             [textField setTextColor:[UIColor blackColor]];
             [textField setFont:[UIFont systemFontOfSize:14]];

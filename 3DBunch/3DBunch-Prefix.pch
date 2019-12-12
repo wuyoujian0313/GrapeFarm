@@ -52,7 +52,7 @@
 #define kBrushColorNameUserdefaultKey           @"brushColorNameUserdefaultKey"
 #define kMyfarmUserdefaultKey                   @"myfarmUserdefaultKey"
 #define kPhotoLocationUserdefaultKey            @"photoLocationUserdefaultKey"
-#define kGrapeColorIndexUserdefaultKey                    @"grapeoColorIndexUserdefaultKey"
+#define kGrapeColorIndexUserdefaultKey          @"grapeoColorIndexUserdefaultKey"
 
 // notification
 #define kBrushColorChangeNotification           @"brushColorChangeNotification"
@@ -62,10 +62,11 @@
 #define kColorSegImageFileKey                   @"301b97ddc2477f5ce868a8c7821d8fa979e64b16"
 
 // 服务器地址
-#define kNetworkAPIServer       @"http://47.244.63.39:8000"
+//#define kNetworkAPIServer       @"http://47.244.63.39:8000"
+#define kNetworkAPIServer       @"http://192.168.1.107:8000"
 
 // API定义
-// http://47.101.51.112:8000/swagger-ui.html
+// http://47.244.63.39:8000/swagger-ui.html
 #define kAPIGetRegiterCode      @"emailcode"
 #define kAPIRegiterUser         @"user"
 #define kAPIResetPassword       @"user/passwd"
@@ -74,6 +75,7 @@
 #define kAPIRecord              @"record"
 #define kAPIFarm                @"farm"
 #define kAPIBreed               @"breed"
+#define kAPIVIPGoods            @"vipgoods"
 
 // 颜色定义
 #define kBoundaryColor          0xE6DFDF
@@ -86,3 +88,5 @@
 
 
 #endif /* GrapeFarm_Prefix_pch */
+
+

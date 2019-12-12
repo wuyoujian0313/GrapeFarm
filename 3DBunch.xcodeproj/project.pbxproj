@@ -23,6 +23,10 @@
 		AF097494224A237B00989F11 /* RegisterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097493224A237B00989F11 /* RegisterBean.m */; };
 		AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097496224A23A600989F11 /* ForgotPasswordBean.m */; };
 		AF42445C22928E370056511F /* AICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42445B22928E370056511F /* AICircle.m */; };
+		AF49E72023A12B7400862089 /* GoodsBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF49E71F23A12B7400862089 /* GoodsBean.m */; };
+		AF49E72323A12BB900862089 /* GoodListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF49E72123A12BB900862089 /* GoodListVC.m */; };
+		AF49E72623A12CD900862089 /* GoodsListBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF49E72523A12CD900862089 /* GoodsListBean.m */; };
+		AF49E72923A133D500862089 /* PaypalWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF49E72823A133D500862089 /* PaypalWebViewVC.m */; };
 		AF50D99A228E8745009100AE /* SCN3DModelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF50D999228E8745009100AE /* SCN3DModelVC.m */; };
 		AF7FCB8322BBAF5000EEC1CF /* JHColumnChart.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7FCB7C22BBAF5000EEC1CF /* JHColumnChart.m */; };
 		AF7FCB8422BBAF5000EEC1CF /* JHChart.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7FCB7E22BBAF5000EEC1CF /* JHChart.m */; };
@@ -165,6 +169,14 @@
 		AF097496224A23A600989F11 /* ForgotPasswordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordBean.m; sourceTree = "<group>"; };
 		AF42445A22928E370056511F /* AICircle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AICircle.h; sourceTree = "<group>"; };
 		AF42445B22928E370056511F /* AICircle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AICircle.m; sourceTree = "<group>"; };
+		AF49E71E23A12B7400862089 /* GoodsBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsBean.h; sourceTree = "<group>"; };
+		AF49E71F23A12B7400862089 /* GoodsBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsBean.m; sourceTree = "<group>"; };
+		AF49E72123A12BB900862089 /* GoodListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodListVC.m; sourceTree = "<group>"; };
+		AF49E72223A12BB900862089 /* GoodListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodListVC.h; sourceTree = "<group>"; };
+		AF49E72423A12CD900862089 /* GoodsListBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodsListBean.h; sourceTree = "<group>"; };
+		AF49E72523A12CD900862089 /* GoodsListBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodsListBean.m; sourceTree = "<group>"; };
+		AF49E72723A133D500862089 /* PaypalWebViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaypalWebViewVC.h; sourceTree = "<group>"; };
+		AF49E72823A133D500862089 /* PaypalWebViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaypalWebViewVC.m; sourceTree = "<group>"; };
 		AF50D998228E8745009100AE /* SCN3DModelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCN3DModelVC.h; sourceTree = "<group>"; };
 		AF50D999228E8745009100AE /* SCN3DModelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCN3DModelVC.m; sourceTree = "<group>"; };
 		AF7FCB7B22BBAF5000EEC1CF /* JHIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHIndexPath.h; sourceTree = "<group>"; };
@@ -377,6 +389,10 @@
 				AF0353D8228E504700250B41 /* GrapeBean.m */,
 				AF0353DA228E516800250B41 /* BreedListBase.h */,
 				AF0353DB228E516800250B41 /* BreedListBase.m */,
+				AF49E71E23A12B7400862089 /* GoodsBean.h */,
+				AF49E71F23A12B7400862089 /* GoodsBean.m */,
+				AF49E72423A12CD900862089 /* GoodsListBean.h */,
+				AF49E72523A12CD900862089 /* GoodsListBean.m */,
 			);
 			path = Beans;
 			sourceTree = "<group>";
@@ -564,6 +580,10 @@
 		AFBF918D224876C1007F2ED8 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				AF49E72723A133D500862089 /* PaypalWebViewVC.h */,
+				AF49E72823A133D500862089 /* PaypalWebViewVC.m */,
+				AF49E72223A12BB900862089 /* GoodListVC.h */,
+				AF49E72123A12BB900862089 /* GoodListVC.m */,
 				AFBF918E224876DA007F2ED8 /* HomeVC.h */,
 				AFBF918F224876DA007F2ED8 /* HomeVC.m */,
 				AF894592224DE8140023D514 /* ColorSegmentVC.h */,
@@ -879,6 +899,7 @@
 				AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */,
 				AF0353D3228E499300250B41 /* FarmListBean.m in Sources */,
 				AFBF915722486ECE007F2ED8 /* NetResultBase.m in Sources */,
+				AF49E72623A12CD900862089 /* GoodsListBean.m in Sources */,
 				AFCF2E8C225F292100D149B0 /* RecordListBean.m in Sources */,
 				AFEDA3D4224CBDEB004D063A /* GetVerificationCodeBean.m in Sources */,
 				AFEDA3CE224CAC86004D063A /* Commit3DDataVC.m in Sources */,
@@ -897,6 +918,7 @@
 				AFF9A57C226058A300CB3537 /* MJRefreshAutoFooter.m in Sources */,
 				AFF9A576226058A300CB3537 /* MJRefreshNormalHeader.m in Sources */,
 				AFFB9A2F2276EA790006EA60 /* EdgeImageView.m in Sources */,
+				AF49E72323A12BB900862089 /* GoodListVC.m in Sources */,
 				AFBF918122486ECE007F2ED8 /* AFURLRequestSerialization.m in Sources */,
 				AFF9A56F226058A300CB3537 /* UIView+MJExtension.m in Sources */,
 				AFF9A573226058A300CB3537 /* MJRefreshAutoStateFooter.m in Sources */,
@@ -911,6 +933,7 @@
 				AFF9A56B226058A300CB3537 /* MJRefreshConst.m in Sources */,
 				AFF9A57B226058A300CB3537 /* MJRefreshBackFooter.m in Sources */,
 				AFBF915622486ECE007F2ED8 /* NetworkTask.m in Sources */,
+				AF49E72023A12B7400862089 /* GoodsBean.m in Sources */,
 				AFBF915C22486ECE007F2ED8 /* UIView+SizeUtility.m in Sources */,
 				AFF9A57D226058A300CB3537 /* MJRefreshComponent.m in Sources */,
 				AFF9A578226058A300CB3537 /* MJRefreshGifHeader.m in Sources */,
@@ -923,6 +946,7 @@
 				AF7FCB8522BBAF5000EEC1CF /* JHIndexPath.m in Sources */,
 				AFD97A95224B50970048367E /* RecordVC.m in Sources */,
 				AF0353DC228E516800250B41 /* BreedListBase.m in Sources */,
+				AF49E72923A133D500862089 /* PaypalWebViewVC.m in Sources */,
 				AFCD4C4722534B6700A5040B /* ModelIdentificationVC.m in Sources */,
 				AFBF918022486ECE007F2ED8 /* AFURLSessionManager.m in Sources */,
 				AFBF918C22487674007F2ED8 /* LoginVC.m in Sources */,
