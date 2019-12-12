@@ -74,6 +74,7 @@
 "RadiusLess"                ="请滑动滑块使两个滑块线之间的距离接近葡萄的直径";
 "VIPGoods"                  ="服务类型";
 "paypal"                    ="PayPal";
+"message"                   ="提示";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "此邮箱已注册";
