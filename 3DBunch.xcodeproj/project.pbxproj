@@ -22,6 +22,7 @@
 		AF097491224A234900989F11 /* LoginBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097490224A234900989F11 /* LoginBean.m */; };
 		AF097494224A237B00989F11 /* RegisterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097493224A237B00989F11 /* RegisterBean.m */; };
 		AF097497224A23A600989F11 /* ForgotPasswordBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF097496224A23A600989F11 /* ForgotPasswordBean.m */; };
+		AF2CE47623A33D2300CC3423 /* VIPUserBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2CE47523A33D2300CC3423 /* VIPUserBean.m */; };
 		AF42445C22928E370056511F /* AICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = AF42445B22928E370056511F /* AICircle.m */; };
 		AF49E72023A12B7400862089 /* GoodsBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AF49E71F23A12B7400862089 /* GoodsBean.m */; };
 		AF49E72323A12BB900862089 /* GoodListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF49E72123A12BB900862089 /* GoodListVC.m */; };
@@ -35,6 +36,7 @@
 		AF894594224DE8140023D514 /* ColorSegmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF894593224DE8140023D514 /* ColorSegmentVC.m */; };
 		AF97524B226EAE9000EF0302 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */; };
 		AFA4DFA422C2652900C72292 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA4DFA322C2652900C72292 /* opencv2.framework */; };
+		AFAD19AB23A4C309007EDD72 /* VIPStatusBean.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAD19AA23A4C309007EDD72 /* VIPStatusBean.m */; };
 		AFAF4673225440BA008EF9CD /* SetBrushColorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */; };
 		AFAF467722545EC2008EF9CD /* SaveSimpleDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF467622545EC2008EF9CD /* SaveSimpleDataManager.m */; };
 		AFBF90BD22486674007F2ED8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBF90BC22486674007F2ED8 /* AppDelegate.m */; };
@@ -167,6 +169,8 @@
 		AF097493224A237B00989F11 /* RegisterBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterBean.m; sourceTree = "<group>"; };
 		AF097495224A23A600989F11 /* ForgotPasswordBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordBean.h; sourceTree = "<group>"; };
 		AF097496224A23A600989F11 /* ForgotPasswordBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordBean.m; sourceTree = "<group>"; };
+		AF2CE47423A33D2300CC3423 /* VIPUserBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VIPUserBean.h; sourceTree = "<group>"; };
+		AF2CE47523A33D2300CC3423 /* VIPUserBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VIPUserBean.m; sourceTree = "<group>"; };
 		AF42445A22928E370056511F /* AICircle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AICircle.h; sourceTree = "<group>"; };
 		AF42445B22928E370056511F /* AICircle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AICircle.m; sourceTree = "<group>"; };
 		AF49E71E23A12B7400862089 /* GoodsBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsBean.h; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 		AF975249226EAE9000EF0302 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		AF97524A226EAE9000EF0302 /* OpenCVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
 		AFA4DFA322C2652900C72292 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		AFAD19A923A4C309007EDD72 /* VIPStatusBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VIPStatusBean.h; sourceTree = "<group>"; };
+		AFAD19AA23A4C309007EDD72 /* VIPStatusBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VIPStatusBean.m; sourceTree = "<group>"; };
 		AFAF4671225440BA008EF9CD /* SetBrushColorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetBrushColorVC.h; sourceTree = "<group>"; };
 		AFAF4672225440BA008EF9CD /* SetBrushColorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetBrushColorVC.m; sourceTree = "<group>"; };
 		AFAF467522545EC2008EF9CD /* SaveSimpleDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveSimpleDataManager.h; sourceTree = "<group>"; };
@@ -393,6 +399,10 @@
 				AF49E71F23A12B7400862089 /* GoodsBean.m */,
 				AF49E72423A12CD900862089 /* GoodsListBean.h */,
 				AF49E72523A12CD900862089 /* GoodsListBean.m */,
+				AF2CE47423A33D2300CC3423 /* VIPUserBean.h */,
+				AF2CE47523A33D2300CC3423 /* VIPUserBean.m */,
+				AFAD19A923A4C309007EDD72 /* VIPStatusBean.h */,
+				AFAD19AA23A4C309007EDD72 /* VIPStatusBean.m */,
 			);
 			path = Beans;
 			sourceTree = "<group>";
@@ -925,6 +935,7 @@
 				AF097488224A191200989F11 /* RegisterVC.m in Sources */,
 				AFBF915922486ECE007F2ED8 /* UIAlertController+Orientations.m in Sources */,
 				AFF9A572226058A300CB3537 /* MJRefreshBackNormalFooter.m in Sources */,
+				AF2CE47623A33D2300CC3423 /* VIPUserBean.m in Sources */,
 				AFBF915D22486ECE007F2ED8 /* UIColor+Utility.m in Sources */,
 				AF095575225F717500744977 /* CommitBean.m in Sources */,
 				AF7FCB8322BBAF5000EEC1CF /* JHColumnChart.m in Sources */,
@@ -952,6 +963,7 @@
 				AFBF918C22487674007F2ED8 /* LoginVC.m in Sources */,
 				AFD97A9F224B6A190048367E /* RecordDetailVC.m in Sources */,
 				AF09748E224A1CBE00989F11 /* ForgotPasswordVC.m in Sources */,
+				AFAD19AB23A4C309007EDD72 /* VIPStatusBean.m in Sources */,
 				AF0353D9228E504700250B41 /* GrapeBean.m in Sources */,
 				AFF9A579226058A300CB3537 /* MJRefreshFooter.m in Sources */,
 				AFD97AC9224B70390048367E /* AICroppableView.m in Sources */,

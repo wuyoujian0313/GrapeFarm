@@ -23,15 +23,18 @@
 #import <CoreLocation/CoreLocation.h>
 #import "FadePromptView.h"
 #import <Photos/Photos.h>
+#import "GoodListVC.h"
+#import "NetworkTask.h"
+#import "VIPStatusBean.h"
 
 
-
-@interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
+@interface HomeVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate,NetworkTaskDelegate>
 @property (nonatomic,strong)UIImageView *imageView;
 @property (nonatomic,strong)AICroppableView *croppingView;
 @property (nonatomic,strong)UIView *toolView;
 @property (nonatomic,strong)CLLocationManager  *locationManager;//定位服务
 @property (nonatomic,strong)UIImage* image;//当前照片
+
 @end
 
 @implementation HomeVC
@@ -54,6 +57,15 @@
 //    [self relayoutImageView:[UIImage imageNamed:@"instance"]];
     [self relayoutImageView:[UIImage imageNamed:@"obj.jpg"]];
 }
+
+- (void)requestVIPStatus {
+    [[NetworkTask sharedNetworkTask] startGETTaskApi:kAPIVIPStatus
+                                            forParam:nil
+                                            delegate:self
+                                           resultObj:[[VIPStatusBean alloc] init]
+                                          customInfo:@"vipstatus"];
+}
+
 
 - (void)layoutImageAreaView {
     NSInteger imageViewSize = self.view.width - 20;
@@ -148,27 +160,31 @@
         //重置
         [_croppingView cleaningBrush];
     } else if (type == 3) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        
-        __weak typeof(self) wSelf = self;
-        UIAlertAction *purpleAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"purple", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
-            //
-            typeof(self) sSelf = wSelf;
-            [sSelf toColorIndex:@0];
-        }];
-        UIAlertAction *greenAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"green", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
-            //
-            typeof(self) sSelf = wSelf;
-            [sSelf toColorIndex:@1];
-            
-        }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil];
-        
-        [alertController addAction:purpleAction];
-        [alertController addAction:greenAction];
-        [alertController addAction:cancelAction];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self requestVIPStatus];
     }
+}
+
+- (void)showActionSheet {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    __weak typeof(self) wSelf = self;
+    UIAlertAction *purpleAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"purple", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+        //
+        typeof(self) sSelf = wSelf;
+        [sSelf toColorIndex:@0];
+    }];
+    UIAlertAction *greenAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"green", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+        //
+        typeof(self) sSelf = wSelf;
+        [sSelf toColorIndex:@1];
+        
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil];
+    
+    [alertController addAction:purpleAction];
+    [alertController addAction:greenAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)toColorIndex:(NSNumber *)colorIndex  {
@@ -587,5 +603,46 @@
             [sSelf.navigationController pushViewController:vc animated:YES];
         });
     });
+}
+
+#pragma mark - NetworkTaskDelegate
+-(void)netResultSuccessBack:(NetResultBase *)result forInfo:(id)customInfo {
+    [AILoadingView dismiss];
+    if ([customInfo isEqualToString:@"vipstatus"]) {
+        VIPStatusBean *bean = (VIPStatusBean *)result;
+        NSString *status = bean.status;
+        /*
+         "'0' 提交次数少于10次的;" +
+         "'1' 提交次数大于10次且未购买VIP;" +
+         "'2' 提交次数大于10次且购买VIP已到期;" +
+         "'3' 提交次数大于10次且购买VIP未到期"
+         */
+        
+        if ([status isEqualToString:@"0"]) {
+            [self showActionSheet];
+        } else if([status isEqualToString:@"1"]) {
+            [FadePromptView showPromptStatus:NSLocalizedString(@"noservice", nil) duration:1.5 finishBlock:^{
+                //
+                GoodListVC *vc = [[GoodListVC alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }];
+        } else if([status isEqualToString:@"2"]) {
+            [FadePromptView showPromptStatus:NSLocalizedString(@"outofservice", nil) duration:1.5 finishBlock:^{
+                //
+                GoodListVC *vc = [[GoodListVC alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }];
+        } else if([status isEqualToString:@"3"]) {
+            [self showActionSheet];
+        }
+    }
+}
+
+
+-(void)netResultFailBack:(NSString *)errorDesc errorCode:(NSInteger)errorCode forInfo:(id)customInfo {
+    [AILoadingView dismiss];
+    [FadePromptView showPromptStatus:errorDesc duration:2.0 finishBlock:^{
+        //
+    }];
 }
 @end

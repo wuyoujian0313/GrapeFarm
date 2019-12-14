@@ -75,6 +75,8 @@
 "VIPGoods"                  ="服务类型";
 "paypal"                    ="PayPal";
 "message"                   ="提示";
+"outofservice"              ="服务已过期";
+"noservice"                 ="您未购买服务";
 
 //状态码的翻译
 "NetStatusCodeEmailExist"           = "此邮箱已注册";

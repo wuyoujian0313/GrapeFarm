@@ -63,6 +63,8 @@
 
 // 服务器地址
 //#define kNetworkAPIServer       @"http://47.244.63.39:8000"
+//#define kNetworkAPIServer       @"http://172.28.125.31:8000"
+//
 #define kNetworkAPIServer       @"http://192.168.1.107:8000"
 
 // API定义
@@ -76,6 +78,7 @@
 #define kAPIFarm                @"farm"
 #define kAPIBreed               @"breed"
 #define kAPIVIPGoods            @"vipgoods"
+#define kAPIVIPStatus           @"vipuser/vipstatus"
 
 // 颜色定义
 #define kBoundaryColor          0xE6DFDF

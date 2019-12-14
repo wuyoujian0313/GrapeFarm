@@ -12,6 +12,7 @@
 #import "FadePromptView.h"
 #import "GoodsListBean.h"
 #import "NetworkTask.h"
+#import "PaypalWebViewVC.h"
 
 
 @interface GoodListVC ()<UITableViewDataSource,UITableViewDelegate,NetworkTaskDelegate>
@@ -83,6 +84,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    GoodsBean *bean = [_goods objectAtIndex:indexPath.row];
+    PaypalWebViewVC *vc = [[PaypalWebViewVC alloc] init];
+    vc.type = [bean.type integerValue];
+    vc.amount = [bean.amount integerValue];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

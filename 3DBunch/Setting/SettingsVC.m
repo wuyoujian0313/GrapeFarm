@@ -15,10 +15,8 @@
 #import "UIView+SizeUtility.h"
 #import "SetBrushColorVC.h"
 #import "SaveSimpleDataManager.h"
-#import "RecordDetailVC.h"
 #import "AboutVC.h"
-#import "GoodListVC.h"
-#import "PaypalWebViewVC.h"
+
 
 @interface SettingsVC ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,FarmSelectIndexDelegate,ColorSelectIndexDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
@@ -122,7 +120,6 @@
     if (row == 0) {
         // 历史记录
         RecordVC *vc = [[RecordVC alloc] init];
-//        RecordDetailVC *vc = [[RecordDetailVC alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     } else if (row == 1) {
         // 我的农庄
@@ -155,9 +152,7 @@
                                                 otherButtonTitles:nil];
         [sheet showInView:self.view];
     } else if (row == 5) {
-        PaypalWebViewVC *vc = [[PaypalWebViewVC alloc] init];
-        vc.amount = 20;
-        vc.type = 1;
+        AboutVC *vc = [[AboutVC alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
