@@ -160,7 +160,8 @@
         //重置
         [_croppingView cleaningBrush];
     } else if (type == 3) {
-        [self requestVIPStatus];
+//        [self requestVIPStatus];
+        [self showActionSheet];
     }
 }
 
