@@ -68,7 +68,7 @@
 //#define kNetworkAPIServer       @"http://192.168.1.107:8000"
 
 // API定义
-// http://47.244.63.39:8000/swagger-ui.html
+// http://47.242.216.18:8000/swagger-ui.html
 #define kAPIGetRegiterCode      @"emailcode"
 #define kAPIRegiterUser         @"user"
 #define kAPIResetPassword       @"user/passwd"

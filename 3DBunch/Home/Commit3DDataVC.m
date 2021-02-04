@@ -117,6 +117,8 @@
         [params setObject:_locLng forKey:@"longitude"];
     }
     
+    [params setObject:_modelString forKey:@"modelData"];
+    
     [AILoadingView show:NSLocalizedString(@"Loading", nil)];
     [[NetworkTask sharedNetworkTask] startPOSTTaskApi:kAPICommit
                                              forParam:params
